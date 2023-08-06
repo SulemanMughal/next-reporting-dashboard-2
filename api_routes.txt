@@ -1,0 +1,71 @@
+
+
+==========
+ADMIN
+Get :   /api/admin/logs_counter ->  Get Total number of logs from attacker saved db
+Get :   /api/admin/quiz_counter ->  Get Total number of quizes
+GET :   /api/admin/logs_by_hour_counter ->Get logs  by hour counter
+GET :   /api/admin/teams_per_attack -> get logs counter for (teams per attack)
+==========
+
+
+
+
+=======
+USER
+========
+
+
+POST		:		/api/user/				->	Create a New User
+POST		:		/api/user/team/			->	Get team and quiz details by a [user-id]
+
+
+=======
+TEAM
+==========
+
+GET		:		/api/team/				->	Fetch All teams	
+POST		:		/api/team/				->	Create New team
+POST		:		/api/team/member/add/			->	Add user to a team
+GET		:		/api/team/last/10			->	Get latest 10 registered teams
+POST		:		/api/team/ip_range/add/		->	Add IP_Range to a Team
+POST		:		/api/team/attack_script/add		->	Add Attack_Script to a Team
+GET		:		/api/team/[teamId]			->	Get details of a team by [teamId]
+DELETE		:		/api/team/[teamId]			->	Delete A Team  [teamId]
+GET		:		/api/team/[teamId]/quiz		->	Get Quiz Quiz Questions (with submit answers) and quiz details by [teamId]
+
+========
+QUIZ
+=======
+
+GET     :       /api/quiz/                          ->  GET ALL Quizes (Admin Use Only)
+PUT		:		/api/quiz/update/status/[id]		->	Update status for a quiz by quiz-id [id] 
+POST	:		/api/quiz/submit/answer		->	Submit answer for a question 
+POST	:		/api/quiz/create			->	Create Quiz
+PUT		:		/api/quiz/[id]/team/[teamId]		->	Add a team to a quiz
+GET		:		/api/quiz/[id]/team/[teamId]		->	Get quiz-info, questions , answers (submitted by a team for a quiz)
+PUT		:		/api/quiz/[id]/question/create	->	Create question for a quiz
+POST    :       /api/quiz/        ->  Get Current Active Question from quiz of a team
+
+
+=================
+Attack scripts
+=================
+[x]POST	:		/api/local_scripts			->	Add a New Attacking Script to DB
+
+============
+LOGS
+===========
+[x]GET		:		/api/logs/				->	Get Logs (saved by attack-team in their DB)
+[x]GET		:		/api/logs/latest/10			->	Get latest 10 logs (saved by attack-team in their DB)
+
+[x]GET		:		/api/local_scripts			->	Get all attack_scripts (from local DB)
+[x]GET		:		/api/local_scripts/latest/10		->	Getl latest 10 attack_scripts (from local DB)
+[x]GET		:		/api/jobs				->	Get All Jobs ( from attack-team DB)
+[x]GET		:		/api/jobs/latest/10			->	Get latest 10 Jobs ( from attack-team DB)
+[x]GET		:		/api/jobs/[id]				->	Get JOb details (from attack-team DB)
+[x]POST	:		/api/ip_range				->	Create IP_Range instance at local-DB
+[x]GET		:		/api/ip_range				->	Get all IP_Ranges from local-DB
+GET		:		/api/db_logs				->	Get all logs from (attack-team DB)
+[x]GET		:		/api/attack_scripts/			->	Get All attack-scripts from (attack-team DB)
+[x]POST	:		/api/attack_logs			->	Run a attack-script (attack-team DB)

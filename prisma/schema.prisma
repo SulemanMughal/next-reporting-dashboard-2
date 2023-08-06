@@ -1,0 +1,144 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+
+
+
+model Quiz{
+  id    Int     @id @default(autoincrement())
+  title String @unique
+  startAt DateTime  @default(now())
+  endAt DateTime  @default(now())
+  status String  @default("Draft") // Draft, Publish
+  questions Question[]
+  teams Team[]
+  activeIndex Int @default(1)
+}
+
+
+model AttackLogs{
+  id    Int     @id @default(autoincrement())
+  createdAt          DateTime  @default(now()) 
+  team_no String
+  script_name String
+  job_number Int 
+}
+
+
+model Team {
+  id    Int     @id @default(autoincrement())
+  name String  @unique
+  api_key String? 
+  team_number Int? 
+  quiz Quiz? @relation(fields: [quizId], references: [id])
+  quizId Int?
+  answers Answer[]
+  users  User[]
+  // rank  String
+  // country String
+  // points Int
+  // Flags Int
+  // members User[]
+  // ranges IP_Address[]
+  // attack_script AttackScript[]
+}
+
+
+model User {
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  role  String?  @default("user")
+  password  String
+  answers Answer[]
+  team Team? @relation(fields: [teamId], references: [id])
+  teamId Int?
+  
+}
+
+
+
+// model IP_Address{
+//   id    Int     @id @default(autoincrement())
+//   ip_start String 
+//   ip_end String?
+//   ip_subnet String?
+//   ip_class String?
+//   // team Team? @relation(fields: [teamId], references: [id])
+//   // teamId Int?
+// }
+
+
+
+//  Saved attack-scritps at local db from attacker-machine
+model AttackScript{
+  id    Int     @id @default(autoincrement())
+  name String 
+  script_category String
+  desc String @default("")
+  addedAt DateTime  @default(now())
+  // team Team? @relation(fields: [teamId], references: [id])
+  // teamId Int?
+}
+
+
+// type
+// 1 -> MCQs
+
+
+model Question{
+  id    Int     @id @default(autoincrement())
+  title String @default("")
+  Description String @default("")
+  points Int @default(50)
+  option_1 String @default("")
+  option_2 String @default("")
+  option_3 String @default("")
+  option_4 String @default("")
+  option_5 String @default("")
+  option_6 String @default("")
+  original_answer String @default("")
+  question_index Int @default(1)
+  type String @default("1")
+  status String  @default("Publish")    // Draft, Publish
+  quiz Quiz? @relation(fields: [quizId], references: [id])
+  quizId Int?
+  answers Answer[]
+}
+
+
+
+model Answer{
+  id    Int     @id @default(autoincrement())
+  submitAnswer String @default("")
+  obtainedPoints Int @default(0)
+  submissionStatus Boolean @default(false)
+  submittedAt DateTime  @default(now())
+  checkStatus Boolean @default(false)
+  question Question? @relation(fields: [questionId], references: [id])
+  questionId Int?
+  team Team? @relation(fields: [teamId], references: [id])
+  teamId Int?
+  user User? @relation(fields: [userId], references: [id])
+  userId Int?
+}
+  
+
+
+// }
+
+
+// enum QUIZ_STATUS {
+//   PUBLISH
+//   DRAFT
+// }

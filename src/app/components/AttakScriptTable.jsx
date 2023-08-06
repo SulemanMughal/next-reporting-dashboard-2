@@ -1,0 +1,148 @@
+"use client"
+
+import { useRef , useState, useEffect } from "react"
+import axios from 'axios';
+import { VscTerminalBash } from "react-icons/vsc"
+import  { BsThreeDotsVertical , BsPersonFillAdd } from "react-icons/bs"
+import { AiOutlineUnorderedList } from "react-icons/ai"
+import Link from "next/link";
+import { Fragment } from 'react'
+import { Menu, Transition } from '@headlessui/react'
+import CustomToaster from "@/app/components/CustomToaster"
+import CreateScriptModal from "@/app/components/admin/scripts/CreateScriptModal"
+
+
+
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ')
+}
+
+
+
+
+function DropDownMenu() {
+
+    // const [showModal, setShowModal] = useState(null);
+    // const modelHandler = () => {
+    //     setShowModal(true)
+    // }
+    return (
+        <>
+            
+            {/* {showModal ? <CreateScriptModal setShowModal={setShowModal} updateScripts={setScripts} /> : null} */}
+            <Menu as="div" className="relative inline-block text-left">
+                <div>
+                <Menu.Button className="inline-flex w-full justify-center border-none gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50">
+                    <BsThreeDotsVertical  size={23} />
+                </Menu.Button>
+                </div>
+        
+                <Transition
+                as={Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+                >
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <div className="py-1">
+                    <Menu.Item>
+                        <Link  href={"/admin/scripts"} className={classNames( 'text-gray-700', 'block px-4 py-2 text-sm' , 'flex justify-start items-center' )}>
+                            <AiOutlineUnorderedList size={23} className="mr-3" />  <span > All Scripts </span>
+                        </Link>
+                    </Menu.Item>
+                    {/* <Menu.Item>
+                        <button   className={classNames( 'text-gray-700', 'block px-4 py-2 text-sm' , 'flex justify-start items-center' )}   onClick={modelHandler} >
+                            <VscTerminalBash size={23} className="mr-3" />  <span > Add New Script</span>
+                        </button>
+                    </Menu.Item> */}
+                    
+                    </div>
+                </Menu.Items>
+                </Transition>
+            </Menu>
+      </>
+    )
+}
+  
+
+
+
+function TableTr({ script }) {
+    return (
+      <>
+        <tr tabIndex={0} className="focus:outline-none h-16 border border-gray-100 rounded" key={script.id}>
+          <td className="text-center">
+            <p className="text-base font-medium leading-none text-gray-700 mr-2">{script.id}</p>
+          </td>
+          <td className="text-center">
+            <p className="text-base font-medium leading-none text-gray-700 mr-2">{script.name}</p>
+          </td>
+          <td className="text-center">
+            <p className="text-sm leading-none text-gray-600 ml-2">{script.script_category}</p>
+          </td>
+        </tr>
+        <tr className="h-3"></tr>
+      </>
+    )
+}
+
+
+
+function ScriptTableData({scripts , setScripts}){
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/local_scripts/latest/10`)
+        .then(response => {
+            setScripts(response.data);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }, []);
+
+
+    return  (
+        <>
+            <div >
+                <table className="w-full whitespace-nowrap">
+                <thead>
+                    <tr className="focus:outline-none h-16 border border-gray-100 rounded">
+                    <th >
+                        ID
+                    </th>
+                    <th >
+                        Name
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {scripts && scripts.map((script , index) => <TableTr script={script}  key={index} />)}
+                </tbody>
+                </table>
+            </div>
+        </>
+    )
+
+}
+
+export default function AttakScriptTable(){
+    const [scripts, setScripts] = useState(null);
+    return (
+        <>
+          <CustomToaster />
+          <div className="w-full col-span-1 relative lg:h-[80vh] h-[50vh] m-auto p-8 border rounded-lg bg-white overflow-scroll">
+            <div className="flex justify-between items-center">
+              <h1 className="text-2xl font-bold">Scripts</h1>
+              <DropDownMenu  scripts={scripts} setScripts={setScripts} />    
+            </div>
+            <hr className="mt-5 h-0.5 border-t-0 bg-black opacity-30" />
+            <ScriptTableData scripts={scripts} setScripts={setScripts}/>
+          </div> 
+        </>
+    )
+}

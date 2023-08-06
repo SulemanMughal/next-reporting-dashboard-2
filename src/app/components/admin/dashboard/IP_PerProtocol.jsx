@@ -1,0 +1,137 @@
+"use client"
+
+
+import {React, useState, useEffect} from 'react';
+import axios from 'axios';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+
+import { Bar } from 'react-chartjs-2';
+
+
+
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+export const options = {
+  plugins: {
+    title: {
+      display: false,
+      text: 'Chart.js Bar Chart - Stacked',
+    },
+  },
+  responsive: true,
+  interaction: {
+    mode: 'index' ,
+    intersect: false,
+  },
+  scales: {
+    x: {
+      stacked: true,
+    },
+    y: {
+      stacked: true,
+    },
+  },
+};
+
+
+var ColorScheme = require('color-scheme');
+
+
+// const labels = ['HTTP', 'SSH', 'FTP', "NMAP"];
+
+// export const data = {
+//   labels,
+//   datasets: [
+//     {
+//       label: 'IPs',
+//       data: [159,357,158,326,149,138,753,196,864],
+//       backgroundColor: 'rgb(255, 99, 132)',
+//       stack: 'Stack 0',
+//     },
+//     {
+//       label: 'Teams',
+//       data: [159,357,158,326,149,138,753,196,864],
+//       backgroundColor: 'rgb(75, 192, 192)',
+//       stack: 'Stack 1',
+//     }
+//   ],
+// };
+
+
+
+function getLabels(data) {
+  let labels = []
+  let ips = []
+  let teams = []
+  data.map((item) => {
+      labels.push(item[2])
+      ips.push(item[0])
+      teams.push(item[1])
+  })
+  // console.debug([labels,ips, teams])
+  return [labels,ips, teams]
+}
+
+
+
+
+export default function IP_PerProtocol() {
+
+  
+var s = new ColorScheme;
+var colors = s.scheme('tetrade')
+.distance(0.70)
+.variation('soft')
+.colors();
+
+
+  const [logs, setLogs] = useState(null);
+    useEffect(() => {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ips_per_protocol`)
+      .then(response => {
+        setLogs({
+          labels : getLabels(response.data.ips_per_protocol_logs)[0],
+          datasets: [
+            {
+              label: 'IPs',
+              data:getLabels(response.data.ips_per_protocol_logs)[1],
+              backgroundColor: colors.map(i => '#' + i.split('').sort(function(){return 0.5-Math.random()}).join('')),
+              stack: 'Stack 0',
+            },
+            {
+              label: 'Teams',
+              data: getLabels(response.data.ips_per_protocol_logs)[2],
+              backgroundColor: colors.map(i => '#' + i.split('').sort(function(){return 0.5-Math.random()}).join('')),
+              stack: 'Stack 1',
+            }
+          ],
+        })
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    }, []);
+  return (
+    <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border rounded-lg bg-white overflow-hidden">
+        <h1 className="text-2xl ">Logs Comparison</h1>
+        <hr className="mt-5 h-0.5 border-t-0 bg-black opacity-30" />
+       {logs && <Bar options={options} data={logs} height={200} width={200} /> } 
+    </div>
+  )
+}
