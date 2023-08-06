@@ -17,7 +17,7 @@ export default function TeamMembersModal({setShowModal, members}){
                 <div className="relative p-6 flex-auto">
                     <ul class="max-w-md  ">
                         {members ? members.map((member, index) => (
-                            <li class="pb-3 sm:pb-4">
+                            <li class="pb-3 sm:pb-4" key={index}>
                                 <div class="flex items-center space-x-4">
                                     <div class="flex items-center justify-center 
                                             h-14 w-14 rounded-full bg-blue-600 ">
