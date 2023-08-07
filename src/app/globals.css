@@ -514,6 +514,10 @@ main#main.contact-us-main .list-inline {
   background-color: #101230;
 }
 
+.theme-bg-color-2 { 
+  background-color: rgba(49,81,188,1);
+}
+
 .theme-btn-bg-color{
   background-color: rgba(49,81,188,1);
 }

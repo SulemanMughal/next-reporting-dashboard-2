@@ -69,9 +69,9 @@ export default function UserQuestions({  startAt , endAt , questions , activeInd
     if(start_time < current_time < end_time){
         return (
             <>
-                <div  className="w-full col-span-2 max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+                <div  className="w-full col-span-2 max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
                     <div className="flex items-center justify-between mb-4">
-                        <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">Questions</h5>
+                        <h5 className="text-xl font-bold leading-none text-gray-900 ">Questions</h5>
                     </div>
                     <div className="flex items-center justify-center my-4">
                         <Countdown360  width={300} seconds={(end_time-current_time)/1000} timeFormatter={timeFormatterDigitalClock} unitFormatter={unitFormatterBlank} />

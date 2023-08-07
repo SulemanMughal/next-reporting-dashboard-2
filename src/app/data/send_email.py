@@ -10,9 +10,9 @@
 
 import string
 
-template_text = string.Template(("Dear ${NAME}, "
-                                 "it was nice to meet you on ${DATE}. "
-                                 "Hope to talk with you and ${SPOUSE} again soon!"))
+# template_text = string.Template(("Dear ${NAME}, "
+#                                  "it was nice to meet you on ${DATE}. "
+#                                  "Hope to talk with you and ${SPOUSE} again soon!"))
 
 with open('template.txt', 'r') as f:
     

@@ -3,9 +3,6 @@ export default  function UserQuestionCard({question ,  handleChange , submitHand
         <>
         <div className="w-full col-span-3 ">
             <div className="w-full col-span-2  p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8  mb-4">
-            {/* <div className="flex items-center justify-between mb-4">
-                <h5 className="text-xl font-bold leading-none text-gray-900 dark:text-white">{question?.title}</h5>
-            </div> */}
             <div className="flow-root">
                 <p >
                     {question?.Description}
