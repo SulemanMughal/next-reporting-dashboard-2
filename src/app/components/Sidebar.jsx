@@ -12,22 +12,22 @@ import  { MdQuiz  } from "react-icons/md"
 const admin = [
     [
         "/admin/dashboard",
-        <RxDashboard size={25} />,
+        <RxDashboard size={25} key={156} />,
         "Home"
     ],
     [
         "/admin/quiz",
-        <MdQuiz size={25} />,
+        <MdQuiz size={25} key={156} />,
         "Quiz"
     ],
     [
         "/admin/teams",
-        <AiOutlineTeam size={25} />,
+        <AiOutlineTeam size={25} key={156} />,
         "Teams"
     ],
     [
         "/admin/scripts",
-        <VscTerminalBash size={25} />,
+        <VscTerminalBash size={25} key={156} />,
         "Scripts"
     ]
 ]
@@ -52,13 +52,11 @@ export default   function Sidebar({children}){
                         </Link>
                             <span className="border-none  border-b-[1px] border-gray-200 w-full p-2"></span>
                             {admin.map((item, index) => (
-                                <>
-                                    <Link href={item[0]} className="w-full bg-none text-white hover:bg-blue-300 hover:text-blue-800 cursor-pointer  p-3 py-5  transition ease-in-out delay-150  duration-300 " key={index} >
-                                        <div className="  rounded-lg  w-full flex items-center font-bold   ">
-                                        {item[1]} <span  className="ml-2 ">{item[2]}</span>
-                                        </div>
-                                    </Link>
-                                </>
+                               <Link href={item[0]} className="w-full bg-none text-white hover:bg-blue-300 hover:text-blue-800 cursor-pointer  p-3 py-5  transition ease-in-out delay-150  duration-300 " key={index} >
+                               <div className="  rounded-lg  w-full flex items-center font-bold   ">
+                               {item[1]} <span  className="ml-2 ">{item[2]}</span>
+                               </div>
+                             </Link>
                             ))}
                             
                             
