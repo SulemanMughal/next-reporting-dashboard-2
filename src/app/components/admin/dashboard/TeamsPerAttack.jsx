@@ -28,6 +28,7 @@ export default function TeamsPerAttack(){
 
     var s = new ColorScheme;
     var colors = s.scheme('tetrade')
+    .variation('light')
     .distance(0.75)
     .colors();
     const [chartOptions, setChartOptions] = useState({});
@@ -37,7 +38,12 @@ export default function TeamsPerAttack(){
             setChartData({
                 labels: getLabels(response.data.teams_per_attack_logs)[0],
                 datasets: [
-                    { label: 'Teams', data: getLabels(response.data.teams_per_attack_logs)[1], backgroundColor: colors.map(i => '#' + i) },
+                    { 
+                        label: 'Teams', 
+                        data: getLabels(response.data.teams_per_attack_logs)[1], 
+                        backgroundColor: colors.map(i => '#' + i) ,
+                        borderColor : 0
+                    },
                 ]
             })
             setChartOptions({
@@ -47,6 +53,10 @@ export default function TeamsPerAttack(){
                     legend : {
                         display : true,
                         position : "top",
+                        labels: {
+                            color: 'white',
+                            // boxWidth : 10,
+                        }
                     },
                     title : {
                         display : false,
@@ -64,9 +74,9 @@ export default function TeamsPerAttack(){
         
     }, [])
     return (
-        <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border rounded-lg bg-white overflow-hidden">
+        <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border-none rounded-lg bg-card-custom  overflow-hidden text-white">
             <h1 className="text-2xl ">Teams Per Attack</h1>
-            <hr className="mt-5 h-0.5 border-t-0 bg-black opacity-30" />
+            <hr className="mt-5 h-0.5 border-t-0 bg-white opacity-30" />
                 <Pie  data={chartData} options={chartOptions} height={200} width={200}  />
         </div>
     )

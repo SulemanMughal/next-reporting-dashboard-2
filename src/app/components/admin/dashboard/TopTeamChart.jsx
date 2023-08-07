@@ -25,6 +25,20 @@ ChartJS.register(
 
 export const options = {
   indexAxis: 'y' ,
+  scales : {
+    x: {
+      
+      ticks : {
+        color : "#ffffff"
+      }
+    },
+    y: {
+      
+      ticks : {
+        color : "#ffffff"
+      }
+    }
+  },
   elements: {
     bar: {
       borderWidth: 2,
@@ -34,6 +48,9 @@ export const options = {
   plugins: {
     legend: {
       position: 'bottom' ,
+      labels : {
+        color : "white"
+      }
     },
     title: {
       display: false,
@@ -89,10 +106,10 @@ export default function TopTeamChart() {
     });
   }, []);
     return (
-        <div className="w-full col-span-2 relative  h-[80vh]   p-8 pb-20 border rounded-lg bg-white overflow-hidden">
-            <h1 className="text-2xl ">Top Teams</h1>
-            <hr className="mt-5 h-0.5 border-t-0 bg-black opacity-30" />
-            {teams && <Bar options={options} data={teams}  /> }  
-        </div>
+      <div className="w-full col-span-2 relative  h-[80vh]   p-8 pb-20 border-none rounded-lg bg-card-custom overflow-hidden text-white">
+        <h1 className="text-2xl ">Top Teams</h1>
+        <hr className="mt-5 h-0.5 border-t-0 bg-white opacity-30" />
+        {teams && <Bar options={options} data={teams}  /> }  
+      </div>
     )
 }

@@ -14,8 +14,8 @@ function CreateScriptCard({modelHandler}){
   return (
     <>
       <div className="component component-CerCheckBox ">
-        <div className="max-w-sm  mx-2 my-2 bg-none border border-4 border-dotted border-indigo-800 rounded-lg   h-100  h-full flex flex-col    transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover:bg-gray-300 duration-300">
-            <button onClick={modelHandler} className='mb-3 font-normal text-gray-700  flex-1'>
+        <div className="max-w-sm  mx-2 my-2 bg-none border border-4 border-dotted border-indigo-800 rounded-lg   h-100  h-full flex flex-col    transition ease-in-out delay-150  hover:-translate-y-1 hover:scale-110 hover:bg-blue-200 duration-300 theme-btn-text-color border-theme-color">
+            <button onClick={modelHandler} className='mb-3 font-normal   flex-1'>
                 <VscTerminalBash size={120} className="mx-auto " />
             </button>
         </div>
@@ -44,10 +44,9 @@ export default function Scripts() {
     <>
       <CustomToaster />
       {showModal ? <CreateScriptModal setShowModal={setShowModal} updateScripts={setScripts} /> : null}
-      <main className="bg-gray-100 min-h-screen ">
-        <div className="px-5 py-4 md:py-7">
+      <div className="px-5 py-4 md:py-7">
             <div className="flex items-center justify-between">
-            <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-gray-800"> Attack Scripts</h1>
+            <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white"> Attack Scripts</h1>
                 <div className="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-none  cursor-pointer rounded">
                     <SortBtn  />
                     <FilterBtn />
@@ -62,7 +61,6 @@ export default function Scripts() {
               ))}
           </div>  
         </div>
-      </main>
     </>
   )
 }

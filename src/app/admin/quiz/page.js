@@ -8,10 +8,9 @@ import AddQuizBtn from "@/app/components/admin/quiz/AddQuizBtn"
 export default function Page(){
     return (
         <>
-             <main className="bg-gray-100 min-h-screen ">
-                <div className="px-5 py-4 md:py-7">
-                    <div className="flex items-center justify-between">
-                    <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-gray-800"> Quizes</h1>
+             <div className="px-5 py-4 md:py-7  ">
+                    <div className="flex items-center justify-between ">
+                    <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white"> Quizes</h1>
                         <div className="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-none  cursor-pointer rounded">
                             <AddQuizBtn />
                             <SortDropDown />
@@ -23,7 +22,6 @@ export default function Page(){
                 <div className="p-4 grid  grid-cols-4 gap-4 place-items-center">
                     <QuizList />
                 </div>
-             </main>
         </>
     )
 }

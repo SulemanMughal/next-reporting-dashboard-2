@@ -6,6 +6,11 @@ import { useRef ,useState } from "react"
 
 import  { BsPersonFillAdd } from "react-icons/bs"
 import  { GiCancel } from "react-icons/gi"
+
+
+import { BiAddToQueue } from "react-icons/bi"
+
+
 // axios
 
 import  toast from 'react-hot-toast';
@@ -34,7 +39,7 @@ function SubmitBtn({isSubmit,setShowModal }){
                 type="submit"
                 className=" w-6/12 justify-center rounded-md bg-indigo-600 font-bold uppercase px-6 py-2 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 flex justify-start items-center"
                 >
-                <span> Create</span> <BsPersonFillAdd size={23} className="ml-2"/>
+                <span> Add </span> <BiAddToQueue size={23} className="ml-2"/>
                 </button> 
                 </div>
                 </>
@@ -60,10 +65,7 @@ export default function CreateQuizModal({setShowModal}){
     const submitHandler = async (event) => {
         event.preventDefault()
         if(title.current == ""  || startAt.current == ""  || endAt.current == "" ){
-            console.debug(endAt.current)
-
             toast.error(`All fields are required`)
-            // console.debug(`All fields are required`)
         }
         else{
             try {
@@ -76,26 +78,15 @@ export default function CreateQuizModal({setShowModal}){
                 setShowModal(false)
                 if(response.data.status === false){
                     toast.error('Quiz with this title already exists')    
-                    // console.debug(`Team with this name already exists`)
                 }
                 else{
                     toast.success('Successfull, Quiz has been created')
-                    // console.debug(response.data)
                     push(`/admin/quiz/${response.data.quiz.id}`);
-                    // console.debug(`Successfull, Team has been created`)
-                    // axios.get('/api/team')
-                    // .then(response => {
-                    //     updateTeams(response.data);
-                    // })
-                    // .catch(error => {
-                    //     console.error(error);
-                    // });
                 }
             } catch (error) {
                 setSubmit(false)
                 console.error(error)
                 toast.error(`Sorry, you can't create quiz. Please try again after sometime`)
-                // console.debug(`Sorry, you can't create team. Please try again after sometime`)
             }
         }
     }

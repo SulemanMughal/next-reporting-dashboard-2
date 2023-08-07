@@ -31,6 +31,24 @@ ChartJS.register(
 
 
 const options = {
+  labels: {
+    fontColor: "blue",
+    fontSize: 18
+  },
+  scales : {
+    x: {
+      
+      ticks : {
+        color : "#ffffff"
+      }
+    },
+    y: {
+      
+      ticks : {
+        color : "#ffffff"
+      }
+    }
+  },
   elements: {
     line: {
         tension: 0.5
@@ -41,6 +59,9 @@ const options = {
   plugins: {
     legend: {
       position: 'top' ,
+      labels: {
+        color: 'white'
+      }
     },
     title: {
       display: false,
@@ -105,9 +126,9 @@ export default function LogLineChart(){
 
     return (
         <>
-          <div className="w-full col-span-1 relative   h-[60vh]  m-auto  p-8 pb-20  border rounded-lg bg-white ">
-            <h1 className="text-2xl">Logs Timeline</h1>
-            <hr className="my-5 h-0.5 border-t-0 bg-black opacity-30" />
+          <div className="w-full col-span-1 relative   h-[60vh]  m-auto  p-8 pb-20  border-none  rounded-lg  bg-card-custom" >
+            <h1 className="text-2xl text-white">Logs Timeline</h1>
+            <hr className="my-5 h-0.5 border-t-0 bg-white opacity-30" />
             {  logs &&    <Line options={options} data={logs}   height={350} /> }
           </div>
         </>

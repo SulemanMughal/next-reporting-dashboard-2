@@ -39,7 +39,7 @@ export default function MenuBtn({setShowModal, showModal}) {
             
             <Menu as="div" className="relative inline-block text-left">
                 <div>
-                <Menu.Button className="inline-flex w-full justify-center border-none gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50">
+                <Menu.Button className="flex w-full justify-center border-none gap-x-1.5 rounded-md bg-none  px-3 py-2 text-lg font-semibold text-gray-500 shadow-sm  items-center">
                     <BsThreeDotsVertical  size={23} />
                 </Menu.Button>
                 </div>
@@ -53,15 +53,15 @@ export default function MenuBtn({setShowModal, showModal}) {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
                 >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md theme-color  text-white shadow-lg  focus:outline-none">
                     <div className="py-1">
                     <Menu.Item>
-                        <button  className={classNames( 'text-gray-700', 'block px-4 py-3 text-sm' , 'flex justify-start items-center ' )} onClick={() => setShowModal(true)} >
+                        <button  className={classNames( '', 'block px-4 py-3 text-md ' , 'flex justify-start items-center ', ' w-full hover:bg-white hover:text-black' )} onClick={() => setShowModal(true)} >
                             <PiUsersThreeFill size={23} className="mr-3" />  <span > View Members </span>
                         </button>
                     </Menu.Item>
                     <Menu.Item>
-                        <button  className={classNames( 'text-gray-700', 'block px-4 py-2 text-sm' , 'flex justify-start items-center' )}  >
+                        <button  className={classNames( '', 'block px-4 py-2 text-md' , 'flex justify-start items-center',' w-full hover:bg-white hover:text-black' )}  >
                             <AiFillEdit size={23} className="mr-3" />  <span > Update Quiz </span>
                         </button>
                     </Menu.Item>

@@ -29,11 +29,17 @@ ChartJS.register(
 
 export const options = {
   plugins: {
+    legend : {
+      labels : {
+        color:"white"
+      }
+    },
     title: {
       display: false,
       text: 'Chart.js Bar Chart - Stacked',
     },
   },
+  
   responsive: true,
   interaction: {
     mode: 'index' ,
@@ -42,9 +48,15 @@ export const options = {
   scales: {
     x: {
       stacked: true,
+      ticks : {
+        color : "#ffffff"
+      }
     },
     y: {
       stacked: true,
+      ticks : {
+        color : "#ffffff"
+      }
     },
   },
 };
@@ -111,13 +123,13 @@ var colors = s.scheme('tetrade')
             {
               label: 'IPs',
               data:getLabels(response.data.ips_per_protocol_logs)[1],
-              backgroundColor: colors.map(i => '#' + i.split('').sort(function(){return 0.5-Math.random()}).join('')),
+              backgroundColor: colors.map(i => '#' + i),
               stack: 'Stack 0',
             },
             {
               label: 'Teams',
               data: getLabels(response.data.ips_per_protocol_logs)[2],
-              backgroundColor: colors.map(i => '#' + i.split('').sort(function(){return 0.5-Math.random()}).join('')),
+              backgroundColor: colors.map(i => '#' + i),
               stack: 'Stack 1',
             }
           ],
@@ -128,9 +140,9 @@ var colors = s.scheme('tetrade')
       });
     }, []);
   return (
-    <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border rounded-lg bg-white overflow-hidden">
+    <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border-none rounded-lg bg-card-custom text-white overflow-hidden">
         <h1 className="text-2xl ">Logs Comparison</h1>
-        <hr className="mt-5 h-0.5 border-t-0 bg-black opacity-30" />
+        <hr className="mt-5 h-0.5 border-t-0 bg-white opacity-30" />
        {logs && <Bar options={options} data={logs} height={200} width={200} /> } 
     </div>
   )

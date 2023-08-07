@@ -459,3 +459,69 @@ main#main.contact-us-main .list-inline {
   padding-left: 0;
   list-style: none;
 }
+
+
+/* customization */
+
+.bg-card-custom{
+  background-color: rgba(16,19,69, 1);
+}
+
+.gridjs-summary{
+  color: #94a3b8 !important;
+}
+
+.gridjs-search-input{
+  background-color: #0d0f2d !important;
+  border: 0px solid #495057 !important;
+  border-radius: 0.25rem !important;
+  color: white !important;
+}
+
+.gridjs-pagination .gridjs-pages button{
+  background-color: #0d0f2d !important;
+  
+  color: #94a3b8 !important;
+}
+
+
+.gridjs-pagination .gridjs-pages button:first-child{
+  border: 1px solid #495057 !important;
+  /* border-right: 0px !important; */
+
+  border-radius: 0.25rem !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+
+.gridjs-pagination .gridjs-pages button{
+  border: 1px solid #495057 !important;
+  border-left: 0px !important;
+  border-right: 1px solid #495057 !important;
+  font-size: 18px;
+}
+
+.gridjs-pagination .gridjs-pages button.gridjs-currentPage{
+  color: #e2e8f0 !important;
+}
+
+.theme-color {
+  background-image: -webkit-linear-gradient(41deg, #0d0f2d 0%, #101230 100%);
+}
+
+.theme-bg-color { 
+  background-color: #101230;
+}
+
+.theme-btn-bg-color{
+  background-color: rgba(49,81,188,1);
+}
+
+.theme-btn-text-color{
+  color: rgba(49,81,188,1);
+}
+
+.border-theme-color{
+  border-color: rgba(49,81,188,1);;
+}

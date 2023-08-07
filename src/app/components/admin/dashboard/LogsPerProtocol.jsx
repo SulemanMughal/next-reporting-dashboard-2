@@ -28,7 +28,7 @@ export default function LogsPerProtocol(){
 var s = new ColorScheme;
 var colors = s.scheme('tetrade')
 .distance(0.70)
-.variation('soft')
+.variation('light')
 .colors();
 const [chartOptions, setChartOptions] = useState({});
 useEffect(() => {
@@ -37,15 +37,32 @@ useEffect(() => {
         setChartData({
             labels: getLabels(response.data.logs_per_protocol_logs)[0],
             datasets: [
-                { label: 'Logs', data: getLabels(response.data.logs_per_protocol_logs)[1], backgroundColor: colors.map(i => '#' + i.split("").reverse().join("")) },
+                { label: 'Logs', data: getLabels(response.data.logs_per_protocol_logs)[1], backgroundColor: colors.map(i => '#' + i) },
             ]
         })
         setChartOptions({
             indexAxis: 'y',
+            scales : {
+                x: {
+                  
+                  ticks : {
+                    color : "#ffffff"
+                  }
+                },
+                y: {
+                  
+                  ticks : {
+                    color : "#ffffff"
+                  }
+                }
+            },
             plugins : {
                 legend : {
                     display : true,
                     position : "top",
+                    labels: {
+                        color: 'white'
+                    }
                 },
                 title : {
                     display : false,
@@ -63,9 +80,9 @@ useEffect(() => {
     
 }, [])
     return (
-      <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border rounded-lg bg-white overflow-hidden">
+      <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border-none rounded-lg bg-card-custom text-white overflow-hidden">
         <h1 className="text-2xl ">Logs Per Protocol</h1>
-        <hr className="mt-5 h-0.5 border-t-0 bg-black opacity-30" />
+        <hr className="mt-5 h-0.5 border-t-0 bg-white opacity-30" />
           <Bar  data={chartData} options={chartOptions} height={200} width={200}  />
       </div>
     )

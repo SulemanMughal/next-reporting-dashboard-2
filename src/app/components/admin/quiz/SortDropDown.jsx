@@ -5,7 +5,7 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 
-
+import  { MdSort } from "react-icons/md"
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -15,11 +15,11 @@ function classNames(...classes) {
 export default function SortDropDown({list = ["Latest", "Oldest" ]}){
     return (
         <>
-<Menu as="div" className="relative inline-block text-left  mx-2">
+<Menu as="div" className="relative inline-block text-left  mx-2 rounded-0">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-lg font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-        Sort By
-          <ChevronDownIcon className="-mr-1 h-7 w-7 text-gray-400 " aria-hidden="true" />
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-lg font-semibold text-white shadow-sm ">
+        <MdSort className="-mr-1 h-7 w-7 text-white " aria-hidden="true" /> <span className='text-white ml-2 text-xl'>Sort</span>
+          
         </Menu.Button>
       </div>
 
@@ -32,16 +32,16 @@ export default function SortDropDown({list = ["Latest", "Oldest" ]}){
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-          <div className="py-1">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0 bg-card-custom   text-white  shadow-lg  focus:outline-none">
+          <div className="py-0">
             {list.map((index) => (
                 <Menu.Item key={index}>
                 {({ active }) => (
                   <a
                     href="#"
                     className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block px-4 py-2 text-sm'
+                      active ? 'bg-gray-100 text-gray-900 ' : '',
+                      'block px-4 py-2 text-lg'
                     )}
                   >
                     {index}
@@ -49,60 +49,6 @@ export default function SortDropDown({list = ["Latest", "Oldest" ]}){
                 )}
               </Menu.Item>  
             ))}
-            {/* <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Latest
-                </a>
-              )}
-            </Menu.Item>
-            <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  Oldest
-                </a>
-              )}
-            </Menu.Item> */}
-            {/* <Menu.Item>
-              {({ active }) => (
-                <a
-                  href="#"
-                  className={classNames(
-                    active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                    'block px-4 py-2 text-sm'
-                  )}
-                >
-                  License
-                </a>
-              )}
-            </Menu.Item>
-            <form method="POST" action="#">
-              <Menu.Item>
-                {({ active }) => (
-                  <button
-                    type="submit"
-                    className={classNames(
-                      active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                      'block w-full px-4 py-2 text-left text-sm'
-                    )}
-                  >
-                    Sign out
-                  </button>
-                )}
-              </Menu.Item>
-            </form> */}
           </div>
         </Menu.Items>
       </Transition>

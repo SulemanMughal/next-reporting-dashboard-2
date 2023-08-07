@@ -12,8 +12,8 @@ import QuizCounter from "@/app/components/admin/dashboard/QuizCounter"
 
 export default async  function Home() {
   return (
-    <main className='bg-gray-100 min-h-screen'>
-       <div className="p-4 grid  grid-cols-4 gap-4 place-items-center justify-center mx-auto">
+    <>
+      <div className="p-4 grid  grid-cols-4 gap-4 place-items-center justify-center mx-auto">
           <TeamCounter  />
           <ScriptCounter />
           <LogsCounter />
@@ -51,7 +51,6 @@ export default async  function Home() {
         <JobStatusChart />
       </div>
        */}
-      
-    </main>
+    </>
   )
 }

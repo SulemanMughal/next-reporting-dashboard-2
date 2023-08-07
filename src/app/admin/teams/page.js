@@ -106,18 +106,17 @@ export default   function Teams(){
 
 
             {showModal ? <CreateTeamModal setShowModal={setShowModal}  updateTeams={setTeams} /> : null}
-            <main className='bg-gray-100 min-h-screen'>
-                <div className="sm:px-6 w-full">
+            <div className="sm:px-6 w-ful l">
 
                     <div className="px-4 md:px-0 py-4 md:py-7">
                         <div className="flex items-center justify-between">
-                        <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-gray-800"> Teams</h1>
+                        <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white"> Teams</h1>
                             <div className="py-3 px-4 flex items-center text-sm font-medium leading-none  cursor-pointer rounded">
                                 <SortDropDown />
                             </div>
                         </div>
                     </div>
-                    <div className="bg-white py-4 md:py-7 px-4 md:px-8 xl:px-10">
+                    <div className="bg-card-custom  py-4 md:py-7 px-4 md:px-8 xl:px-10">
                         <div className="sm:flex items-center justify-between">
                             <div className="flex items-center">
                                 <a className="rounded-full focus:outline-none focus:ring-2  focus:bg-indigo-50 focus:ring-indigo-800" href="#!">
@@ -130,10 +129,10 @@ export default   function Teams(){
                             {<AiOutlinePlus size={28} className="font-bold bg-blue-700 text-white rounded-full "  /> }<span className="pl-2 pr-4 text-blue-800 font-bold "> Create New Team</span>
                             </button>
                         </div>
-                        <div className="mt-7 overflow-x-auto">
-                            <table className="w-full whitespace-nowrap">
+                        <div className="mt-7 overflow-x-auto ">
+                            <table className="w-full whitespace-nowrap ">
                                 <thead>
-                                    <tr className="focus:outline-none h-16 border border-gray-100 rounded">
+                                    <tr className="focus:outline-none h-16 border-none rounded text-gray-400">
                                         
                                         <th>
                                             Team - ID
@@ -159,26 +158,26 @@ export default   function Teams(){
                                     
                                 { teams &&  teams.map((team, index) => (
                                     <>
-                                    <tr key={index}  className="focus:outline-none h-16 border border-gray-100 rounded">
+                                    <tr key={index}  className="focus:outline-none h-16 border border-b-0 border-s-0 border-e-0 border-gray-100 rounded text-gray-500">
                                     <td className="text-center">
-                                        <p className="text-base font-medium leading-none text-gray-700 mr-2">
+                                        <p className="text-base font-medium leading-none  mr-2">
                                             {team?.quiz === null ?  "Not Assigned Yet" : <Link href={`/admin/teams/${team.id}`}>
                                                 <span className="inline-flex items-center   px-3 py-1 text-lg font-semibold  mr-2 mb-2" >
-                                                    {team.name }  <FiChevronsRight size={23} className="p-1 my-1 ml-2 bg-gray-800 text-gray-100 rounded-full"  />
+                                                    {team.name }  <FiChevronsRight size={23} className="p-1 my-1 ml-2 bg-gray-800 text-gray-500 rounded-full"  />
                                                 </span>
                                             </Link> }
                                         </p>
                                     </td>
                                     <td className="text-center">
-                                        <p className="text-base font-medium leading-none text-gray-700 mr-2">{
+                                        <p className="text-base font-medium leading-none text-gray-500 mr-2">{
                                             team?.users === null ? "Yet to join" : (team?.users?.length ? team.users.length : "Yet to join" )
                                         }</p>
                                     </td>
                                     <td className="text-center">
-                                        <p className="text-base font-medium leading-none text-gray-700 mr-2">
+                                        <p className="text-base font-medium leading-none text-gray-500 mr-2">
                                             {team?.quiz === null ?  "Not Assigned Yet" : <Link href={`/admin/quiz/${team.quiz.id}`}>
                                                 <span className="inline-flex items-center   px-3 py-1 text-lg font-semibold  mr-2 mb-2" >
-                                                    {team.quiz.title }  <FiChevronsRight size={23} className="p-1 my-1 ml-2 bg-gray-800 text-gray-100 rounded-full"  />
+                                                    {team.quiz.title }  <FiChevronsRight size={23} className="p-1 my-1 ml-2 bg-gray-800 text-gray-500 rounded-full"  />
                                                 </span>
                                             </Link> }
                                         </p>
@@ -211,7 +210,6 @@ export default   function Teams(){
                         </div>
                     </div>
                 </div>
-            </main>
             
         </>
     )
