@@ -7,7 +7,7 @@ export async function GET(request: Request, {params} : {params : {id : string}})
     try {
         const team_id = await prisma.user.findFirst({
             where : {
-                id  : parseInt(params.id)
+                id  : params.id
             }, select : {
                 teamId : true,
             }
@@ -21,7 +21,7 @@ export async function GET(request: Request, {params} : {params : {id : string}})
         })
         const user = await prisma.user.findUnique({
             where : {
-                id : parseInt(params.id)
+                id : params.id
             },
             select : {
                 id : true,
@@ -58,8 +58,7 @@ export async function GET(request: Request, {params} : {params : {id : string}})
                                             }, select : {
                                                 id : true,
                                                 submissionStatus : true,
-                                                obtainedPoints : true,
-                                                checkStatus : true  
+                                                obtainedPoints : true
                                             }
                                         }
                                     }

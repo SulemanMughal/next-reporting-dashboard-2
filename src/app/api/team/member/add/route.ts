@@ -3,8 +3,8 @@ import prisma from "@/app/lib/prisma";
 
 
 interface RequestBody{
-    id : number;
-    user_id : number
+    id : string;
+    user_id : string
 }
 
 
@@ -13,7 +13,9 @@ export async function POST(request: Request){
     const body : RequestBody = await request.json()
 
     const team = await prisma.team.update({
-        where: { id: body.id },
+        where: { 
+            id: body.id 
+        },
         data : {
             users : {
                 connect : [

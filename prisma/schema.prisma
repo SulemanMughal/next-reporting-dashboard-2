@@ -8,18 +8,18 @@ datasource db {
 }
 
 model Quiz{
-  id    Int     @id @default(autoincrement())
+  id   String  @id @default(uuid())
   title String @unique
   startAt DateTime  @default(now())
   endAt DateTime  @default(now())
-  status String  @default("Draft") // Draft, Publish
+  // status String  @default("Draft") // Draft, Publish
   questions Question[]
   teams Team[]
-  activeIndex Int @default(1)
+  // activeIndex Int @default(1)
 }
 
 model AttackLogs{
-  id    Int     @id @default(autoincrement())
+  id    String  @id @default(uuid())
   createdAt          DateTime  @default(now()) 
   team_no String
   script_name String
@@ -27,30 +27,30 @@ model AttackLogs{
 }
 
 model Team {
-  id    Int     @id @default(autoincrement())
+  id   String  @id @default(uuid())
   name String  @unique
-  api_key String? 
-  team_number Int? 
+  // api_key String? 
+  // team_number Int? 
   quiz Quiz? @relation(fields: [quizId], references: [id])
-  quizId Int?
+  quizId String?
   answers Answer[]
   users  User[]
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
+  id   String  @id @default(uuid())
   email String  @unique
   name  String?
   role  String?  @default("user")
   password  String
   answers Answer[]
   team Team? @relation(fields: [teamId], references: [id])
-  teamId Int?
+  teamId String?
   
 }
 
 model AttackScript{
-  id    Int     @id @default(autoincrement())
+  id    String  @id @default(uuid())
   name String 
   script_category String
   desc String @default("")
@@ -71,22 +71,22 @@ model Scenario{
 
 
 model Question{
-  id    Int     @id @default(autoincrement())
+  id   String  @id @default(uuid())
   title String @default("")
   Description String @default("")
   points Int @default(50)
-  option_1 String @default("")
-  option_2 String @default("")
-  option_3 String @default("")
-  option_4 String @default("")
-  option_5 String @default("")
-  option_6 String @default("")
+  // option_1 String @default("")
+  // option_2 String @default("")
+  // option_3 String @default("")
+  // option_4 String @default("")
+  // option_5 String @default("")
+  // option_6 String @default("")
   original_answer String @default("")
-  question_index Int @default(1)
-  type String @default("1")
-  status String  @default("Publish")    // Draft, Publish
+  // question_index Int @default(1)
+  // type String @default("1")
+  // status String  @default("Publish")    // Draft, Publish
   quiz Quiz? @relation(fields: [quizId], references: [id])
-  quizId Int?
+  quizId String?
   answers Answer[]
   scenario Scenario? @relation(fields: [scenarioId], references: [id])
   scenarioId String?
@@ -96,16 +96,16 @@ model Question{
 
 
 model Answer{
-  id    Int     @id @default(autoincrement())
+  id    String  @id @default(uuid())
   submitAnswer String @default("")
   obtainedPoints Int @default(0)
   submissionStatus Boolean @default(false)
   submittedAt DateTime  @default(now())
-  checkStatus Boolean @default(false)
+  // checkStatus Boolean @default(false)
   question Question? @relation(fields: [questionId], references: [id])
-  questionId Int?
+  questionId String?
   team Team? @relation(fields: [teamId], references: [id])
-  teamId Int?
+  teamId String?
   user User? @relation(fields: [userId], references: [id])
-  userId Int?
+  userId String?
 }

@@ -9,7 +9,7 @@ export async function GET(request: Request, {params} : {params : {id : string, s
 
         const questions = await prisma.user.findFirst({
             where : {
-                id  : parseInt(params.id)
+                id  : params.id
             }, select : {
                 // id : true,
                 team : {
