@@ -1,0 +1,274 @@
+"use client"
+
+
+import { AiOutlineFileZip } from "react-icons/ai"
+import axios from "axios";
+import { toast } from "react-hot-toast";
+import {  use, useEffect, useRef, useState } from "react";
+import {  useSession } from "next-auth/react";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { BsFillSendCheckFill } from "react-icons/bs"
+
+
+
+function QuizFileInfo(){
+    return (
+        <>
+            <div className="p-4 grid  grid-cols-6 gap-4 place-items-center justify-center  ">
+                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
+                    <div className="flex  items-center justify-start px-0 place-items-start text-start">
+                        <div className="px-0">
+                            <AiOutlineFileZip className="text-gray-300" size={40} />
+                        </div>
+                        <div className="ml-2">
+                            <h3 className="mb-0 pb-0 text-sm  text-gray-400">The Report II.zip</h3>
+                            <p className="mt-0 pb-0  text-sm text-gray-400">20 MB</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-start justify-center">
+                    <h3 className="text-gray-400">Password</h3>
+                    <p className="text-gray-400">blt0</p>
+                </div>
+                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-center justify-center">
+                    <button className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded">
+                        Download File
+                    </button>
+                </div>
+            </div>
+            
+        </>
+    )
+}
+
+
+function sumPoints(questions){
+    let sum = 0
+    questions.forEach((question) => {
+        sum = sum + question.points
+    })
+    return sum
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
+
+function QuizInfoList({questions , scenario}){
+    // console.debug(questions)
+    let totalPoints = sumPoints(questions)
+    return (
+        <>
+            <div className="p-4 grid  grid-cols-8 gap-4 place-items-center justify-center  ">
+                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
+                    <h3 className="text-gray-400">Points</h3>
+                    <p className="text-orange-400">{totalPoints}</p>
+                </div>
+                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
+                    <h3 className="text-gray-400">Difficulty</h3>
+                    <p className="text-orange-600">{capitalizeFirstLetter(scenario.difficulty)}</p>
+                </div>
+                {/* <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
+                    <h3 className="text-gray-400">Solves</h3>
+                    <p className="text-green-600">20</p>
+                </div> */}
+                {/* <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
+                    <h3 className="text-gray-400">OS</h3>
+                    <p className="text-green-600">Windows/Linux</p>
+                </div> */}
+            </div>
+            <hr className="my-1 h-1  opacity-100  border border-1 border-t-0 border-l-0 border-r-0 border-dashed bg-none" />
+        </>
+        
+    )
+}
+
+
+function convertStringToArray(string){
+    return string.split(",").map(item => item.trim())
+}
+
+// convert to uppercase first letter of each word   
+function convertStringToTitleCase(string){
+    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
+function QuizTags({tags}){
+    try {
+
+        return (
+            <>
+                {
+                    convertStringToArray(tags)?.map((tag, index) => {
+                        return (
+                            <span className="inline-block  rounded-full px-3   py-1 text-sm font-semibold bg-indigo-600 text-indigo-100 mr-2 my-2" key={index}>{convertStringToTitleCase(tag)}</span>
+                        )
+                    })
+                }
+            </>
+        )
+        
+    } catch (error) {
+        return ""
+    }
+}
+
+
+function ScenarioDescription({scenario}){
+    return (
+        <>
+            <div  className="block  p-6 theme-bg-color-2 rounded-lg shadow mb-5" data-aos="fade-down" data-aos-duration="1500" data-aos-delay="500">
+            <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{scenario.name}</h5>
+            <p className="font-normal text-white mb-2 text-md">
+                {scenario.desc}    
+            </p>
+        </div>
+        </>
+    )
+}
+
+
+// axios post request
+
+
+
+function Question({question, index, team , quiz, user}){
+    const answer = useRef("")
+    const submitHandler = () => {
+        if(answer.current !== ""){
+            axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/submit/answer`, {  
+                answer: answer.current,
+                question : question.id,
+                team : team,
+                quiz : quiz,
+                user : user
+
+            })
+            .then(response => {
+                if(response.data.status === true){
+                    toast.success(`Successfully submitted` )
+                }
+                else{
+                    toast.error(`Sorry, can't be submitted. Please try again after some time.`)
+                }
+                // console.debug(response.data)
+            })
+            .catch(error => {
+                console.debug(error)
+            })
+            // toast.success(`Submitted` )
+        }
+        else{
+            toast.error("Please enter a valid answer", answer.current)
+        }
+    }
+    const changeHandler = (e) => {
+        answer.current = e.target.value
+    }
+
+    return (
+        <>
+            <div className="my-2">
+                <h1 className="text-lg text-gray-400 mb-2">
+                    {`Question ${index} ) ${question.Description}`}
+                </h1>
+                <div className="flex flex-wrap -mx-3 mb-6">
+                <div className="w-full md:w-5/6 px-3 h-full">
+                    <input className=" block w-full btn-flag-submit text-gray-400   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none" id="grid-first-name" type="text" placeholder="Format: Team 1 , Team 2" style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
+                </div>
+                <div className="w-full md:w-1/6 px-3 h-full">
+                    <button className="btn-flag-submit block w-full  text-gray-400 font-bold  rounded py-3" onClick={submitHandler}>
+                        Submit
+                    </button>
+                </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
+
+function QuestionList({questions, team , quiz, user}){
+    return (
+        <>
+            <div  className="block  p-6 bg-card-custom rounded-lg shadow " data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
+                <h5 className="mb-4 text-3xl font-bold tracking-tight text-gray-300 ">{"Challenge Submission"}</h5>
+                {
+                    questions&&  questions.map((question, index) => {    
+                        return ( <Question key={index} question={question} team={team}  index={index+1} quiz={quiz} user={user} /> )
+                    })
+                }
+            </div>
+        </>
+    )
+}
+
+
+function Details({scenario , questions}){
+    return (
+        <>
+            <div  className="block  p-6 bg-card-custom rounded-lg shadow ">
+            <h5 className="mb-2 text-3xl font-bold tracking-tight text-gray-300">{scenario.name}</h5>
+            <p className="font-normal text-gray-400 mb-2 text-md">
+                {scenario.desc}    
+            </p>
+            <QuizTags tags={scenario.tags}/>
+            <QuizInfoList questions={questions}  scenario={scenario}/>
+            <QuizFileInfo />
+        </div>
+        </>
+    )
+}
+
+
+
+
+export default  function QuizDetails({params}){
+    const { data: session } = useSession();    
+    const [questions, setQuestions] = useState(null)
+    const [scenario, setScenario] = useState(null)
+    const [team, setTeam] = useState(null)
+    const [quiz, setQuiz] = useState(null)
+    
+    useEffect(() => {
+        AOS.init();
+        if (session){
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session.user.id}/scenario/${params.slug}`)
+            .then(response => {
+                if(response.data.status === true){
+                    setQuestions(response.data?.questions?.team?.quiz?.questions)
+                    if(response.data?.questions?.team?.quiz?.questions.length){
+                        setScenario(response.data?.questions?.team?.quiz?.questions[0]?.scenario)
+                        setTeam(response.data?.questions?.team?.id)
+                        setQuiz(response.data?.questions?.team?.quiz?.id)
+                    }
+                }
+                else{
+                    toast.error(`${response.data.error}`)
+                    setTotalChallenges(0)
+                }
+            })
+            .catch(error => {
+                console.debug(error)
+            })
+        }
+    }, [])
+    return (
+        <>
+            {questions && (
+                <div className="p-4 grid  grid-cols-5 gap-4 items-start justify-center" >
+                    <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
+                        {scenario && <Details scenario={scenario} questions={questions}  /> } 
+                    </div>
+                    <div className="w-full col-span-3 relative   p-0  rounded-0">
+                        {scenario &&  <ScenarioDescription scenario={scenario} /> } 
+                        <QuestionList questions={questions} team={team} quiz={quiz} user={session.user.id} />
+                    </div>
+                </div>
+            )}
+        </>
+    )
+}

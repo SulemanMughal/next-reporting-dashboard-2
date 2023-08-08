@@ -66,6 +66,7 @@ model Scenario{
   category String @default("Security Operations") 
   desc   String @default("")
   difficulty String @default("Easy")
+  tags String @default("")
 }
 
 

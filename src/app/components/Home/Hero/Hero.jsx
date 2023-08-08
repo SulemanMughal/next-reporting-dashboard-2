@@ -13,7 +13,7 @@ import 'aos/dist/aos.css';
 export default function Hero(){
     useEffect(() => {
         AOS.init();
-      }, [])
+    }, [])
     return  (
         <>
             {/* Home Hero Section */}

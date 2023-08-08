@@ -2,39 +2,22 @@
 
 import  { FaPuzzlePiece } from "react-icons/fa6"
 import CountUp from 'react-countup';
-// import {  useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 // import {  useSession } from "next-auth/react";
 // import axios from "axios";
 // import { toast } from "react-hot-toast";
 // toast
 
+// import AOS from 'aos';
+// import 'aos/dist/aos.css';
+
 export default function TotalChallenges({totalChallenges}){
-    // const { data: session } = useSession();    
-    // const [totalChallenges, setTotalChallenges] = useState(0)
-    // useEffect(() => {
-    //     if (session){
-    //         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session.user.id}`)
-    //         .then(response => {
-    //             if(response.data.status === true){
-    //                 if(response.data.user?.team?.quiz?.questions?.length) {
-    //                     setTotalChallenges(response.data.user?.team?.quiz?.questions?.length)
-    //                 } else{
-    //                     setTotalChallenges(0)
-    //                 }
-    //             }
-    //             else{
-    //                 toast.error(`${response.data.error}`)
-    //                 setTotalChallenges(0)
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.debug(error)
-    //         })
-    //     }
+    // useEffect(()=>{
+    //     AOS.init();
     // }, [])
     return (
         <>
-            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg "  >
                 <div  className="block  p-6 bg-blue-500  rounded-lg shadow ">
                     <div className="flex justify-between items-center">
                         <div>

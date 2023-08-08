@@ -10,8 +10,8 @@ GET :   /api/admin/teams_per_attack -> get logs counter for (teams per attack)
 
 =================
 USER
-Get :   /api/user       ->      Get All users
-Get :   /api/user/[id]       ->      Get User Info by user-id
+Get :   /api/user                                   ->      Get All users
+Get :   /api/user/[id]/scenario/[scenarioId]        ->      GET ALL questions included in a scenario by scenarioId and user-id
 ==================
 
 

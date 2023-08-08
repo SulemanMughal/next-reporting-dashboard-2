@@ -4,6 +4,7 @@ import prisma from "@/app/lib/prisma";
 export async function POST(request ){
     const body = await request.json()
     const { question  , answer , team , quiz , user} = body
+    // console.debug({ question  , answer , team , quiz , user})
     try{
 
         
