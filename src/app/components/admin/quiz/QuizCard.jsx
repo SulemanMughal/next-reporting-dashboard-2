@@ -2,29 +2,11 @@
 
 
 import Link from "next/link"
-
-
-// import Image from "next/image"
-
-// import  { BiTime } from "react-icons/bi"
-// import  { BsCalendarDate } from "react-icons/bs"
-// import { FiChevronsRight } from "react-icons/fi"
-// import  { BiTimeFive } from "react-icons/bi"
-// import { BsCalendarCheck } from "react-icons/bs"
-// import { GiSandsOfTime } from "react-icons/gi"
 import  { VscTasklist } from "react-icons/vsc"
 import { MdGroups } from "react-icons/md"
-
 import { AiFillEye } from "react-icons/ai"
-
-// import { GrView } from "react-icons/gr"
-
-
 import MenuBtn from "@/app/components/admin/quiz/MenuBtn"
-
 import { useState } from "react"
-
-
 import TeamMembersModal from "./TeamMembersModal"
 
 // import { useState } from "react"

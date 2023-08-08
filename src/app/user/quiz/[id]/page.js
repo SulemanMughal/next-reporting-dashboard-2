@@ -78,10 +78,10 @@ function Question(){
                 </h1>
                 <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-5/6 px-3 h-full">
-                    <input className=" block w-full theme-bg-color text-white   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none" id="grid-first-name" type="text" placeholder="Format: Team 1 , Team 2" style={{"boxShadow": "inset 0 0px 0 #ddd"}} />
+                    <input className=" block w-full btn-flag-submit text-white   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none" id="grid-first-name" type="text" placeholder="Format: Team 1 , Team 2" style={{"boxShadow": "inset 0 0px 0 #ddd"}} />
                 </div>
                 <div className="w-full md:w-1/6 px-3 h-full">
-                    <button className="theme-bg-color block w-full  text-white font-bold  rounded py-3">
+                    <button className="btn-flag-submit block w-full  text-white font-bold  rounded py-3">
                         Submit
                     </button>
                 </div>

@@ -7,7 +7,7 @@ import CountUp from 'react-countup';
 // import { LiaCoinsSolid } from "react-icons/lia"
 import   { FaCoins } from "react-icons/fa6"
 
-export default function TotalObtainedPoints(){
+export default function TotalObtainedPoints({totalPoints}){
     return (
         <>
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
@@ -16,7 +16,7 @@ export default function TotalObtainedPoints(){
                         <div>
                             <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Points</h5>
                             <p className="font-normal text-white mb-2 text-2xl">
-                                <CountUp end={45}  duration={5} />    
+                               {totalPoints && <CountUp end={totalPoints}  duration={5} />     }  
                             </p>
                         </div>
                         <span>

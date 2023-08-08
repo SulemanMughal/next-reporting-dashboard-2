@@ -27,3 +27,44 @@ export async function POST(request: Request){
 
     return new Response(JSON.stringify(result))
 }
+
+
+export async function GET(request: Request){
+    try {
+
+        // get team id 
+        // const team_id = await prisma.team.findFirst({
+        //     where : {
+        //         id
+        //     }
+        // })
+
+        const users = await prisma.user.findMany({
+            select : {
+                id : true,
+                name : true,
+                email : true, 
+                team : {
+                    select : {
+                        id : true,
+                        name : true,
+                        quiz : {
+                            select : {
+                                questions : {
+                                    select : {
+                                        answers : true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        })
+    
+        return new Response(JSON.stringify({status : true, users}))
+    } catch (error) {
+        console.debug(error)
+        return new Response(JSON.stringify({status : false, error : error.message}))
+    }
+}

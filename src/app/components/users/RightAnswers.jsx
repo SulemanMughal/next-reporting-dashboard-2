@@ -10,7 +10,7 @@ import CountUp from 'react-countup';
 
 import  { MdIncompleteCircle } from "react-icons/md"
 
-export default function RightAnswers(){
+export default function RightAnswers({totalTrueQuestions , totalFalseQuestions}){
     return (
         <>
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
@@ -19,7 +19,9 @@ export default function RightAnswers(){
                         <div>
                             <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Statistics</h5>
                             <p className="font-normal text-white mb-2 text-2xl">
-                                <CountUp end={25}  duration={5} /> / <CountUp end={45}  duration={5} />
+                               {totalTrueQuestions &&  (<>
+                                <CountUp end={totalTrueQuestions}  duration={5} /> / <CountUp end={totalFalseQuestions}  duration={5} />
+                               </> )}  
                             </p>
                             
                         </div>

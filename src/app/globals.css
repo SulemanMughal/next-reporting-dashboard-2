@@ -529,3 +529,8 @@ main#main.contact-us-main .list-inline {
 .border-theme-color{
   border-color: rgba(49,81,188,1);;
 }
+
+
+.btn-flag-submit{
+  background-color: rgba(7,9,44,1);
+}

@@ -1,11 +1,8 @@
 "use client"
-
-// import  { GiTargetPrize } from "react-icons/gi"
-import  { FaPuzzlePiece } from "react-icons/fa6"
 import CountUp from 'react-countup';
 import { RiQuestionAnswerFill } from "react-icons/ri"
 
-export default function TotalSubmission(){
+export default function TotalSubmission({totalSubmissions}){
     return (
         <>
 
@@ -15,7 +12,7 @@ export default function TotalSubmission(){
                         <div>
                             <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Submission</h5>
                             <p className="font-normal text-white mb-2 text-2xl">
-                                <CountUp end={45}  duration={5} />    
+                                {totalSubmissions && <CountUp end={totalSubmissions}  duration={5} />  }  
                             </p>
                         </div>
                         <span>

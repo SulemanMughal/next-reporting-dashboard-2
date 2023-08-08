@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -9,10 +6,6 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
-
-
-
-
 
 model Quiz{
   id    Int     @id @default(autoincrement())
@@ -25,7 +18,6 @@ model Quiz{
   activeIndex Int @default(1)
 }
 
-
 model AttackLogs{
   id    Int     @id @default(autoincrement())
   createdAt          DateTime  @default(now()) 
@@ -33,7 +25,6 @@ model AttackLogs{
   script_name String
   job_number Int 
 }
-
 
 model Team {
   id    Int     @id @default(autoincrement())
@@ -44,15 +35,7 @@ model Team {
   quizId Int?
   answers Answer[]
   users  User[]
-  // rank  String
-  // country String
-  // points Int
-  // Flags Int
-  // members User[]
-  // ranges IP_Address[]
-  // attack_script AttackScript[]
 }
-
 
 model User {
   id    Int     @id @default(autoincrement())
@@ -66,34 +49,24 @@ model User {
   
 }
 
-
-
-// model IP_Address{
-//   id    Int     @id @default(autoincrement())
-//   ip_start String 
-//   ip_end String?
-//   ip_subnet String?
-//   ip_class String?
-//   // team Team? @relation(fields: [teamId], references: [id])
-//   // teamId Int?
-// }
-
-
-
-//  Saved attack-scritps at local db from attacker-machine
 model AttackScript{
   id    Int     @id @default(autoincrement())
   name String 
   script_category String
   desc String @default("")
   addedAt DateTime  @default(now())
-  // team Team? @relation(fields: [teamId], references: [id])
-  // teamId Int?
 }
 
-
-// type
-// 1 -> MCQs
+model Scenario{
+  id    String    @id @default(uuid())
+  name String 
+  addedAt DateTime  @default(now())
+  questions Question[]
+  status String  @default("draft")    
+  category String @default("Security Operations") 
+  desc   String @default("")
+  difficulty String @default("Easy")
+}
 
 
 model Question{
@@ -114,6 +87,9 @@ model Question{
   quiz Quiz? @relation(fields: [quizId], references: [id])
   quizId Int?
   answers Answer[]
+  scenario Scenario? @relation(fields: [scenarioId], references: [id])
+  scenarioId String?
+  
 }
 
 
@@ -132,13 +108,3 @@ model Answer{
   user User? @relation(fields: [userId], references: [id])
   userId Int?
 }
-  
-
-
-// }
-
-
-// enum QUIZ_STATUS {
-//   PUBLISH
-//   DRAFT
-// }

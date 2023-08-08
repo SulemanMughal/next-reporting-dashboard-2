@@ -8,12 +8,14 @@ GET :   /api/admin/logs_by_hour_counter ->Get logs  by hour counter
 GET :   /api/admin/teams_per_attack -> get logs counter for (teams per attack)
 ==========
 
-
-
-
-=======
+=================
 USER
-========
+Get :   /api/user       ->      Get All users
+Get :   /api/user/[id]       ->      Get User Info by user-id
+==================
+
+
+
 
 
 POST		:		/api/user/				->	Create a New User
