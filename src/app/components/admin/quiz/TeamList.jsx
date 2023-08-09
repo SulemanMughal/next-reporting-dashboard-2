@@ -12,8 +12,24 @@ import 'aos/dist/aos.css';
 import { useRef ,useState ,useEffect } from "react"
 
 
+// total obtianed points for a team
+function calcTotalPoints(team){
+
+    // console.debug("TeamList.jsx: ", team)
+
+    let points = 0
+    if(team && team.answers && team.answers.length){
+        team.answers.forEach((answer) => {
+            points = points + answer.obtainedPoints
+        })
+    }
+    return points
+}
+    
+
+
 export default function TeamList({setShowModal, teams}){
-    console.debug("TeamList.jsx: ", teams)
+    // console.debug("TeamList.jsx: ", teams)
     useEffect(()=>{
         AOS.init();
     }, [])
@@ -37,23 +53,23 @@ export default function TeamList({setShowModal, teams}){
                     <ul className=" ">
                         {teams ? teams.map((team, index) => (
                             <li className="pb-3 sm:pb-4" key={index}>
-                                <div className="flex justify-between ">
-                                    <div className="flex items-center space-x-4 w-full">
-                                        <div className="flex items-center justify-center 
-                                                h-14 w-14 rounded-full bg-blue-600 ">
-                                                <span className="text-white font-bold text-3xl p-8 ">
-                                                    {(Array.from(team.name)[0]).toString().toUpperCase()}
-                                                </span>
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <p className="text-xl text-dark fw-bold truncate">
-                                                {team.name}
-                                            </p>
-                                        </div>
-                                        <span>
-                                            {team.users.length} members
-                                        </span>
+                                <div className="flex justify-between  items-center">
+                                    <div className="flex items-center">
+                                        <div className="flex items-center justify-center h-14 w-14 rounded-full bg-blue-600 ">
+                                            <span className="text-white font-bold text-3xl p-8 ">
+                                                {(Array.from(team.name)[0]).toString().toUpperCase()}
+                                            </span>
+                                        </div>    
+                                        <p className="text-xl text-dark fw-bold ml-5">
+                                            {team.name}
+                                        </p>
                                     </div>
+                                    <span className="text-lg text-dark fw-bold truncate">
+                                        {calcTotalPoints(team)} Points
+                                    </span>
+                                    <span className="text-lg text-dark fw-bold truncate">
+                                        {team.users.length} members 
+                                    </span>
                                 </div>
                             </li>
                         )) :  <li className="pb-3 sm:pb-4">

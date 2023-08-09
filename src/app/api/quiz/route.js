@@ -77,9 +77,13 @@ export async function GET(request ){
             select : {
                 id : true,
                 title : true,
-                // status : true,
                 startAt : true,
                 endAt : true,
+                questions : {
+                    select : {
+                        points : true,
+                    }
+                },
                 _count: {
                     select: { 
                         questions: true 
@@ -91,6 +95,11 @@ export async function GET(request ){
                         users : {
                             select : {
                                 email : true
+                            }
+                        },
+                        answers  : {
+                            select : {
+                                obtainedPoints : true
                             }
                         }
                     }

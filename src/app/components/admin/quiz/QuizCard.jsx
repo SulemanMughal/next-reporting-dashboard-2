@@ -22,6 +22,16 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
+// calculate total poitns for a quiz
+function calcTotalPoints(quiz){
+    let points = 0
+    if(quiz  && quiz.questions && quiz.questions.length){
+        quiz.questions.map((question) => {
+            points = points + question.points
+        })
+    }
+    return points
+}
 
 
 function quizStatus(startAt, endAt){
@@ -54,6 +64,8 @@ export default function QuizCard({quiz}){
     
     const [showModal, setShowModal] = useState(false)
     
+    
+
     useEffect(()=>{
         AOS.init();
     }, [])
@@ -196,12 +208,8 @@ export default function QuizCard({quiz}){
                                             </div>
                                         </div>
                                     </li>
-
-                                    
-                                    
-
                                 </ul>
-
+                                <span className="py-2 text-lg font-bold bg-none text-green-600 block text-center">{calcTotalPoints(quiz) + " Points"}</span>
                                 <div className=" pt-4 pb-2 flex justify-center">
                                     <Link href={`/admin/quiz/${quiz.id}`}  className="transition ease-in-out delay-150 hover:-translate-y-1    hover:bg-blue-300 hover:text-blue-800 duration-300    btn-flag-submit text-gray-400  flex items-center  font-semibold  mr-2 mb-2 justify-center items-center   h-full rounded-0 px-4 py-2 text-xl   w-2/3    ">
                                         <AiFillEye size={23} className=" mr-2 "  /> <span>{"View Details" } </span> 
