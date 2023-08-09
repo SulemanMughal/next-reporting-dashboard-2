@@ -51,16 +51,24 @@ export default function TeamsPerAttack(){
                 cutout: "55%",
                 plugins : {
                     legend : {
+                        // title : {
+                        //     color : "white"
+                        // },
                         display : true,
                         position : "top",
+                        // borderWidth: 0,
+                        lineWidth: 0,
                         labels: {
-                            color: 'white',
+                            color: "white",
+                            // color: 'rgb(255, 99, 132)',
+                            
                             // boxWidth : 10,
                         }
                     },
                     title : {
                         display : false,
-                        text : "Daily Revenue"
+                        text : "Daily Revenue",
+                        
                     }
                 },
                 maintainAspectRatio  : false,

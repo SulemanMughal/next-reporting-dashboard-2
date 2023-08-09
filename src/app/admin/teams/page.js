@@ -43,10 +43,10 @@ export default   function Teams(){
     const [showModal, setShowModal] = useState(null);
 
     useEffect(() => {
-        axios.get('/api/team')
+        axios.get(`/api/team`)
           .then(response => {
 
-            // console.debug(response.data[0].answers)
+            console.debug(response.data)
             setTeams(response.data);
           })
           .catch(error => {

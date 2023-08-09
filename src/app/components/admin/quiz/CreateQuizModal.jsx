@@ -1,7 +1,7 @@
 "use client"
 
 import axios from "axios";
-import { useRef ,useState } from "react"
+import { useRef ,useState ,useEffect } from "react"
 
 
 import  { BsPersonFillAdd } from "react-icons/bs"
@@ -10,6 +10,14 @@ import  { GiCancel } from "react-icons/gi"
 
 import { BiAddToQueue } from "react-icons/bi"
 
+import "react-datetime/css/react-datetime.css";
+import Datetime from "react-datetime";
+
+// import { BiAddToQueue } from "react-icons/bi"
+
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // axios
 
@@ -48,11 +56,13 @@ function SubmitBtn({isSubmit,setShowModal }){
     )
 }
 
-import "react-datetime/css/react-datetime.css";
-import Datetime from "react-datetime";
 // import toast from 'react-hot-toast';
 
 export default function CreateQuizModal({setShowModal}){
+
+    useEffect(()=>{
+        AOS.init();
+    }, [])
 
     const { push } = useRouter();
 
@@ -93,13 +103,13 @@ export default function CreateQuizModal({setShowModal}){
 
     return (
         <>        
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" data-aos="zoom-out" data-aos-duration="700" 
             >
             <div className="relative w-1/3  px-4 space-y-16 ">
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-2xl font-semibold text-dark">
-                        Create A Quiz
+                     Add New Quiz
                     </h3>
                     {setShowModal && (<button
                     className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white"
@@ -121,7 +131,7 @@ export default function CreateQuizModal({setShowModal}){
                 </div>
                 
 
-                <div class="grid md:grid-cols-2 md:gap-6">
+                <div className="grid md:grid-cols-2 md:gap-6">
                 <div className="relative z-0 w-full mb-6 group">
                 <Datetime className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer z-auto" input={ true }  onChange={(e) => startAt.current=e._d}/>
                 

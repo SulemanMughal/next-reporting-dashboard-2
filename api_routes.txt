@@ -41,13 +41,14 @@ QUIZ
 =======
 
 GET     :       /api/quiz/                          ->  GET ALL Quizes (Admin Use Only)
+POST    :       /api/quiz/        ->  Get Current Active Question from quiz of a team
 PUT		:		/api/quiz/update/status/[id]		->	Update status for a quiz by quiz-id [id] 
 POST	:		/api/quiz/submit/answer		->	Submit answer for a question 
 POST	:		/api/quiz/create			->	Create Quiz
 PUT		:		/api/quiz/[id]/team/[teamId]		->	Add a team to a quiz
 GET		:		/api/quiz/[id]/team/[teamId]		->	Get quiz-info, questions , answers (submitted by a team for a quiz)
 PUT		:		/api/quiz/[id]/question/create	->	Create question for a quiz
-POST    :       /api/quiz/        ->  Get Current Active Question from quiz of a team
+
 
 
 

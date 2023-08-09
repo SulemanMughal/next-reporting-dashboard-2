@@ -8,17 +8,23 @@ import { useEffect } from "react"
 
 import QuizCard from "@/app/components/admin/quiz/QuizCard"
 
+
+
+
+
+
 export default function QuizList(){
 
     const [data, setData] = useState(null)
-    const target_url = `${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/`
 
     useEffect(() => {
-        axios.get(target_url)
+      
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/`)
         .then(response => {
             setData(response.data)
         })
         .catch(error => {
+            console.log(error)
         })
     }, [])
     return (

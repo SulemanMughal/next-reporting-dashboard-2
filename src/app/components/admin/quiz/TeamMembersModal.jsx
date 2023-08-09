@@ -1,3 +1,7 @@
+
+import  { MdGroups  } from "react-icons/md"
+
+
 export default function TeamMembersModal({setShowModal, members}){
     return (
         <>        
@@ -6,8 +10,8 @@ export default function TeamMembersModal({setShowModal, members}){
             <div className="relative w-1/3  px-4 space-y-16 ">
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                    <h3 className="text-1xl font-semibold">
-                    Team Members
+                    <h3 className="text-2xl font-semibold flex  items-center">
+                        <MdGroups size={40}/> <span className="ml-3">Team Members</span>
                     </h3>
                     <button
                     className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white"
@@ -26,7 +30,7 @@ export default function TeamMembersModal({setShowModal, members}){
                                             </span>
                                     </div>
                                     <div class="flex-1 min-w-0">
-                                        <p class="text-sm text-dark fw-bold truncate">
+                                        <p class="text-xl text-dark fw-bold truncate">
                                             {member.email}
                                         </p>
                                     </div>

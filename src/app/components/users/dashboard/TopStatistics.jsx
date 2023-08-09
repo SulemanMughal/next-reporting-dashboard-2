@@ -13,14 +13,16 @@ import { AiFillEye } from "react-icons/ai"
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+
+
 function countSubmitAnswers(data){
     let counter = 0;
+
     if(data.length){
         data.forEach((item) => {
-            if(item.answers?.[0]?.submissionStatus === true){
-                counter++
-            }
+            counter = item.answers.length  + counter
         })
+        
     }
     return counter;
 }
@@ -44,7 +46,7 @@ function checkTotalStatus(data){
     let falseQuestions = 0;
     if(data.length){
         data.forEach((item) => {
-            if(item.answers?.[0]?.checkStatus === true){
+            if(item.answers?.[0]?.submissionStatus === true){
                 trueQuestions++
             }
             else{

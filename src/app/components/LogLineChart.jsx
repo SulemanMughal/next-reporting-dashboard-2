@@ -11,6 +11,7 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from 'chart.js';
 
 
@@ -23,12 +24,19 @@ ChartJS.register(
   LinearScale,
   PointElement,
   LineElement,
+  Filler,
   Title,
   Tooltip,
   Legend
 );
 
-
+const createGradient = (canvas) => {
+  const ctx = canvas.getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, 'rgba(75,192,192,0.2)'); // Start color with opacity
+  gradient.addColorStop(1, 'rgba(75,192,192,0)'); // End color with transparency
+  return gradient;
+};
 
 const options = {
   labels: {
@@ -112,10 +120,17 @@ export default function LogLineChart(){
         setLogs({
           labels,
           datasets: [{
+            fill: true,
             label: 'Logs # ',
             data:getLogValues(response.data.logs_by_hour),
             borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            backgroundColor: (context) => {
+              const ctx = context.chart.ctx;
+              const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+              gradient.addColorStop(0, 'rgba(255, 99, 132, 0.55)'); 
+              gradient.addColorStop(1, 'rgba(255, 99, 132, 0.0)');
+              return gradient;
+            },
           }],
         })
       })

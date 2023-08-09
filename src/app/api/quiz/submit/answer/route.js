@@ -7,18 +7,15 @@ export async function POST(request ){
     try{
         const checkExisingAnswer  = await prisma.question.findUnique({
             where : {
-                id : parseInt(question)
+                id : (question)
             }, select : {
                 answers : {
                     where : {
-                        teamId : parseInt(team)
+                        teamId : (team)
                     }
                 }
             }
         })
-
-        // console.debug(checkExisingAnswer)
-
         const correct_answer = await prisma.question.findUnique({
             where : {
                 id : question
@@ -43,75 +40,56 @@ export async function POST(request ){
                 },
                 data:{
                     submitAnswer : answer,
-                    submissionStatus  : true,
-                    checkStatus : rightStatus,
+                    submissionStatus  : rightStatus,
                     obtainedPoints : points,
                     question : {
                         connect : {
-                            id : parseInt(question)
+                            id : (question)
                         }
                     },
                     team : {
                         connect : {
-                            id : parseInt(team)
+                            id : (team)
                         }
                     },
                     user : {
                         connect : {
-                            id : parseInt(user)
+                            id : (user)
                         }
                     }
                 }, select : {
                     submissionStatus : true,
-                    checkStatus : true
                 }
             })
         } else{
              result = await prisma.answer.create({
                 data:{
                     submitAnswer : answer,
-                    submissionStatus  : true,
-                    checkStatus : rightStatus,
+                    submissionStatus  : rightStatus,
                     obtainedPoints : points,
                     question : {
                         connect : {
-                            id : parseInt(question)
+                            id : (question)
                         }
                     },
                     team : {
                         connect : {
-                            id : parseInt(team)
+                            id : (team)
                         }
                     },
                     user : {
                         connect : {
-                            id : parseInt(user)
+                            id : (user)
                         }
                     }
                 }, select : {
                     submissionStatus : true,
-                    checkStatus : true
                 }
             })
 
 
             
         }
-
-        // let cQuestion = await prisma.quiz.findUnique({
-        //     where : {
-        //         id : parseInt(quiz)
-        //     }, select : {
-        //         activeIndex : true
-        //     }
-        // })
-        // await prisma.quiz.update({
-        //     where : {
-        //         id : parseInt(quiz)
-        //     }, data : {
-        //         activeIndex : cQuestion.activeIndex + 1
-        //     }
-        // })
         return new Response(JSON.stringify({status : true , result}))
 
         

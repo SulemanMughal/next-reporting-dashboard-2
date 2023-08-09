@@ -50,7 +50,6 @@ useEffect(() => {
                   }
                 },
                 y: {
-                  
                   ticks : {
                     color : "#ffffff"
                   }

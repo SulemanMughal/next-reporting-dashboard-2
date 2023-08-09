@@ -1,6 +1,7 @@
 import prisma from "@/app/lib/prisma";
 
 
+
 export async function POST(request ){
     const body = await request.json()
     const { user, quiz, team, qIndex, cIndex } = body
@@ -76,7 +77,7 @@ export async function GET(request ){
             select : {
                 id : true,
                 title : true,
-                status : true,
+                // status : true,
                 startAt : true,
                 endAt : true,
                 _count: {

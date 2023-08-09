@@ -2,15 +2,15 @@
 
 import { useRef , useState, useEffect } from "react"
 import axios from 'axios';
-import { VscTerminalBash } from "react-icons/vsc"
+// import { VscTerminalBash } from "react-icons/vsc"
 import  { BsThreeDotsVertical , BsPersonFillAdd } from "react-icons/bs"
 import { AiOutlineUnorderedList } from "react-icons/ai"
 import Link from "next/link";
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import CustomToaster from "@/app/components/CustomToaster"
-import CreateScriptModal from "@/app/components/admin/scripts/CreateScriptModal"
-import { BiWorld } from "react-icons/bi";
+// import CreateScriptModal from "@/app/components/admin/scripts/CreateScriptModal"
+// import { BiWorld } from "react-icons/bi";
 
 
 
@@ -28,7 +28,7 @@ function DropDownMenu() {
         <>
             <Menu as="div" className="relative inline-block text-left">
                 <div>
-                <Menu.Button className="inline-flex w-full justify-center border-none gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  " >
+                <Menu.Button className="inline-flex w-full justify-center border-none gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-sm font-bold text-white shadow-sm  " >
                     <BsThreeDotsVertical  size={23} />
                 </Menu.Button>
                 </div>
@@ -60,13 +60,13 @@ function DropDownMenu() {
 
 
 
-function TableTr({ script }) {
+function TableTr({ script , index}) {
     return (
       <>
         <tr tabIndex={0} className="focus:outline-none h-16 border border-t-0 border-l-0 border-r-0 border-gray-100 rounded" key={script.id}>
-          <td className="text-center">
-            <p className="text-base font-medium leading-none text-slate-500 mr-2">{script.id}</p>
-          </td>
+          {/* <td className="text-center">
+            <p className="text-base font-medium leading-none text-slate-500 mr-2">{index}</p>
+          </td> */}
           <td className="text-center">
             <p className="text-base font-medium leading-none text-slate-500 mr-2">{script.name}</p>
           </td>
@@ -99,9 +99,9 @@ function ScriptTableData({scripts , setScripts}){
                 <table className="w-full whitespace-nowrap">
                 <thead>
                     <tr className="focus:outline-none h-16 border-0 rounded">
-                    <th className="text-slate-500">
+                    {/* <th className="text-slate-500">
                         ID
-                    </th>
+                    </th> */}
                     <th className="text-slate-500">
                         Name
                     </th>
@@ -111,7 +111,7 @@ function ScriptTableData({scripts , setScripts}){
                     </tr>
                 </thead>
                 <tbody>
-                    {scripts && scripts.map((script , index) => <TableTr script={script}  key={index} />)}
+                    {scripts && scripts.map((script , index) => <TableTr script={script}  key={index} index={index+1} />)}
                 </tbody>
                 </table>
             </div>

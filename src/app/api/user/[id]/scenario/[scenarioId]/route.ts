@@ -22,11 +22,18 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                                 questions : {
                                     where: {
                                         scenario: {
-                                            id :params.scenarioId,
-                                            
+                                            id :params.scenarioId,   
                                         }
                                     },
                                     select : {
+                                        answers : {
+                                            
+                                            select :{
+                                                submissionStatus : true,
+                                                submitAnswer : true,
+                                                obtainedPoints : true
+                                            }
+                                        },
                                         title : true, 
                                         points : true,
                                         Description : true,

@@ -15,11 +15,10 @@ export default function Page(){
                             <AddQuizBtn />
                             <SortDropDown />
                             <FilterBtn />
-                            
                         </div>
                     </div>
                 </div>
-                <div className="p-4 grid  grid-cols-4 gap-4 place-items-center">
+                <div className="p-4 grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 ">
                     <QuizList />
                 </div>
         </>

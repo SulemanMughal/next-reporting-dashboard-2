@@ -9,6 +9,8 @@ import { Menu, Transition } from '@headlessui/react'
 import { PiUsersThreeFill } from "react-icons/pi"
 import { AiFillEdit } from "react-icons/ai"
 
+import { MdGroups } from "react-icons/md"
+
 // import { useState } from "react";
 
 
@@ -21,6 +23,14 @@ import { AiFillEdit } from "react-icons/ai"
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
+
+
+
+// const items=[
+//     [
+
+//     ]
+// ]
 
 export default function MenuBtn({setShowModal, showModal}) {
 
@@ -39,7 +49,7 @@ export default function MenuBtn({setShowModal, showModal}) {
             
             <Menu as="div" className="relative inline-block text-left">
                 <div>
-                <Menu.Button className="flex w-full justify-center border-none gap-x-1.5 rounded-md bg-none  px-3 py-2 text-lg font-semibold text-gray-500 shadow-sm  items-center">
+                <Menu.Button className="flex w-full justify-center border-none gap-x-1.5 rounded-md bg-none  ml-3 text-lg font-semibold text-gray-500 shadow-sm  items-center">
                     <BsThreeDotsVertical  size={23} />
                 </Menu.Button>
                 </div>
@@ -53,11 +63,16 @@ export default function MenuBtn({setShowModal, showModal}) {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
                 >
-                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md theme-color  text-white shadow-lg  focus:outline-none">
+                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md btn-flag-submit  text-white shadow-lg  focus:outline-none">
                     <div className="py-1">
-                    <Menu.Item>
+                    {/* <Menu.Item>
                         <button  className={classNames( '', 'block px-4 py-3 text-md ' , 'flex justify-start items-center ', ' w-full hover:bg-white hover:text-black' )} onClick={() => setShowModal(true)} >
                             <PiUsersThreeFill size={23} className="mr-3" />  <span > View Members </span>
+                        </button>
+                    </Menu.Item> */}
+                    <Menu.Item>
+                        <button  className={classNames( '', 'block px-4 py-3 text-md ' , 'flex justify-start items-center ', ' w-full hover:bg-white hover:text-black' )} onClick={() => setShowModal(true)}  >
+                            <MdGroups size={23} className="mr-3" />  <span > View Teams </span>
                         </button>
                     </Menu.Item>
                     <Menu.Item>

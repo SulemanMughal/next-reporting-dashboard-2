@@ -73,7 +73,9 @@ export default   function Sidebar({children}){
                             ))}
                         </div>
                     </div>
+                    {/* {session && ()} */}
                     <main className=" w-full">{children}</main>
+                    
                 </div>
             )
         }

@@ -9,9 +9,13 @@ import MenuBtn from "@/app/components/admin/quiz/MenuBtn"
 import { useState } from "react"
 import TeamMembersModal from "./TeamMembersModal"
 
-// import { useState } from "react"
+import TeamList from "./TeamList"
 
-// useState
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from "react"
+
 
 
 function capitalizeFirstLetter(string) {
@@ -49,22 +53,27 @@ function quizStatus(startAt, endAt){
 export default function QuizCard({quiz}){
     
     const [showModal, setShowModal] = useState(false)
-    // const showMembers = () => {
+    
+    useEffect(()=>{
+        AOS.init();
+    }, [])
 
     return (
         <>
             
         
-            {showModal && <TeamMembersModal  setShowModal={setShowModal}  members={quiz.teams.length ? quiz.teams[0].users : 0 } />}
-            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full ">
-                <div className="max-w-sm  mx-2 my-2 bg-card-custom border-none rounded-lg shadow  text-gray-400 ">
+            {/* {showModal && <TeamMembersModal  setShowModal={setShowModal}  members={quiz.teams.length ? quiz.teams[0].users : 0 } />} */}
+
+            {showModal && <TeamList setShowModal={setShowModal} teams={quiz.teams.length ? quiz.teams : 0 } /> }
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full " data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="500">
+                <div className="  mx-2 my-2 p-4 bg-card-custom border-none rounded-lg shadow  text-gray-400 ">
                         <div className="p-5">
-                            <div className="flex justify-between items-center mb-4">
+                            <div className="flex justify-between items-center mb-4 ">
                                 <h5 className=" text-2xl font-bold tracking-tight whitespace-normal text-gray-500 ">{quiz.title}</h5>
                                 <MenuBtn  setShowModal={setShowModal} showModal={showModal} />    
                             </div>
                             
-                            <div className=" pt-4 pb-2 text-center">
+                            {/* <div className=" pt-4 pb-2 text-center">
                                 {
                                     quiz.status.toString().toLowerCase() === "draft" ?   (
                                         <span className="inline-block   px-3 py-1 text-lg font-semibold bg-none text-red-600 mr-2 mb-2">
@@ -80,8 +89,8 @@ export default function QuizCard({quiz}){
                                 }
                                 {quizStatus(quiz.startAt, quiz.endAt)}
                                 
-                            </div>
-                                <ul className="max-w-md ">
+                            </div> */}
+                                <ul className="w-full ">
                                     {/* <li className="py-3 sm:pb-4">
                                         <div className="flex items-center space-x-4">
                                             <div className="flex-shrink-0">
@@ -194,7 +203,7 @@ export default function QuizCard({quiz}){
                                 </ul>
 
                                 <div className=" pt-4 pb-2 flex justify-center">
-                                    <Link href={`/admin/quiz/${quiz.id}`}  className="transition ease-in-out delay-150 hover:-translate-y-1    hover:bg-white hover:text-black duration-300    theme-bg-color text-gray-400  flex items-center  w-2/3 h-full rounded-0 px-4 py-2 text-xl font-semibold  mr-2 mb-2 justify-center items-center  ">
+                                    <Link href={`/admin/quiz/${quiz.id}`}  className="transition ease-in-out delay-150 hover:-translate-y-1    hover:bg-blue-300 hover:text-blue-800 duration-300    btn-flag-submit text-gray-400  flex items-center  font-semibold  mr-2 mb-2 justify-center items-center   h-full rounded-0 px-4 py-2 text-xl   w-2/3    ">
                                         <AiFillEye size={23} className=" mr-2 "  /> <span>{"View Details" } </span> 
                                     </Link>
                                 </div>
