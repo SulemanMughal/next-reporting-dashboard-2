@@ -3,6 +3,8 @@ import prisma from "@/app/lib/prisma";
 
 
 
+
+
 export async function GET(request , {params}){
 
     // const body = await request.par
@@ -31,6 +33,11 @@ export async function GET(request , {params}){
         //     }
         // })
         const results = await prisma.quiz.findUnique({
+            // orderBy: [
+            //     {
+            //       id: 'desc',
+            //     }
+            //   ],
             where : {
                 id : (params.id)
             }, select : {
@@ -38,6 +45,9 @@ export async function GET(request , {params}){
                 questions : {
                     // orderBy : {
                     //     question_index : 'asc'
+                    // },
+                    // orderBy: {
+                    //     id: 'desc',
                     // },
                     select : {
                         id     : true,
@@ -51,6 +61,7 @@ export async function GET(request , {params}){
                         // option_5 : true, 
                         // option_6 : true,
                         original_answer : true,
+                        scenario : true,
                         // question_index  : true,
                         // type  : true,
                         // status : true,

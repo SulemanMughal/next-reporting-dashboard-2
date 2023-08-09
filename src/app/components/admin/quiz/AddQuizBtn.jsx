@@ -14,7 +14,7 @@ export default function AddQuizBtn(){
 
     return (
         <>
-        <CustomToaster />
+            <CustomToaster />
             {showModal && <CreateQuizModal  setShowModal={setShowModal} /> }
             <div className="relative inline-block text-left border-none">
                 <button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color  px-3 py-2 text-lg border-none font-semibold text-white shadow-sm   items-center "  onClick={() => setShowModal(true)} >
