@@ -30,17 +30,17 @@ export default function MenuBtn({setShowModal, showModal , setShowTeamAssignModa
                     <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0 btn-flag-submit shadow-lg text-white  ">
                         <div className="py-0">
                             <Menu.Item>
-                                <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:text-black hover:bg-white' )} onClick={() => setShowModal(true)}  >
+                                <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} onClick={() => setShowModal(true)}  >
                                     <MdGroups size={23} className="mr-3" />  <span > View Teams </span>
                                 </button>
                             </Menu.Item>
                             <Menu.Item>
-                                <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:text-black hover:bg-white' )}   onClick={() => setShowTeamAssignModal(true)}>
+                                <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )}   onClick={() => setShowTeamAssignModal(true)}>
                                     <AiOutlineLink size={23} className="mr-3"  />  <span > Assign Team </span>
                                 </button>
                             </Menu.Item>
                             <Menu.Item>
-                                <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:text-black hover:bg-white' )}  >
+                                <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )}  >
                                     <AiFillEdit size={23} className="mr-3" />  <span > Update Quiz </span>
                                 </button>
                             </Menu.Item>

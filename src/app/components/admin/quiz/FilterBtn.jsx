@@ -30,13 +30,13 @@ export default function FilterBtn(){
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md btn-flag-submit shadow-lg   focus:outline-none  text-white">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0 btn-flag-submit shadow-lg   focus:outline-none  text-white">
           <div className="py-1">
                 <Menu.Item >
                     {({ active }) => (
                         <Link href={"#"} className={classNames(
                         active ? 'bg-gray-100 text-gray-900' : '',
-                        'block px-4 py-2 text-lg'
+                        'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
                     )}>
                         Upcoming
                         </Link>
@@ -46,7 +46,7 @@ export default function FilterBtn(){
                     {({ active }) => (
                         <Link href={"#"} className={classNames(
                         active ? 'bg-gray-100 text-gray-900' : '',
-                        'block px-4 py-2 text-lg'
+                        'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
                     )}>
                         In-Progress
                         </Link>
@@ -56,7 +56,7 @@ export default function FilterBtn(){
                     {({ active }) => (
                         <Link href={"#"} className={classNames(
                         active ? 'bg-gray-100 text-gray-900' : '',
-                        'block px-4 py-2 text-lg'
+                        'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
                     )}>
                         End
                         </Link>

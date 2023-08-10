@@ -42,7 +42,8 @@ GET		:		/api/team/[teamId]/quiz		->	Get Quiz Quiz Questions (with submit answers
 Scenarios
 =============
 
-GET     :   (Admin Use Only)         /api/sceanrio/                     ->  GET All Scenarios 
+GET     :   (Admin Use Only)            /api/sceanrio/                      ->  GET All Scenarios 
+POST    :   (Admin Use Only)            /api/sceanrio/                      ->  Create New Scenario
 
 ========
 QUIZ

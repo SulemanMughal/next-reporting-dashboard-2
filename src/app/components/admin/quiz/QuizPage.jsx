@@ -7,6 +7,8 @@ import QuizQuestion from "@/app/components/admin/quiz/QuizQuestion"
 import GoToQuestionDropDown from "@/app/components/admin/quiz/GoToQuestionDropDown"
 import AddNewQuestion from "@/app/components/admin/quiz/AddNewQuestion"
 import { reverseArray } from "@/app/lib/helpers"
+import AddNewScenario from "@/app/components/admin/quiz/AddNewScenario"
+import CustomToaster from "@/app/components/CustomToaster"
 
 
 export default function QuizPage({quizId}){
@@ -23,7 +25,7 @@ export default function QuizPage({quizId}){
     }, [])
     return (
         <>
-
+        <CustomToaster />
         {data ? (
             <>
                 <div className="px-5 py-4 md:py-7">
@@ -34,6 +36,7 @@ export default function QuizPage({quizId}){
                         </h1>
                     </div>
                         <div className="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-none  cursor-pointer rounded">
+                            <AddNewScenario />
                             <AddNewQuestion  quizId={quizId} setData={setData}/>
                             {
                                 data?.results.questions.length ? 

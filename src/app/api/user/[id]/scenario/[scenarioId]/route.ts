@@ -3,17 +3,21 @@
 import prisma from "@/app/lib/prisma";
 
 
+
+
+
+
+
+
+
+
 export async function GET(request: Request, {params} : {params : {id : string, scenarioId : string}}){
     try {
-        // console.debug(params)
-
         const questions = await prisma.user.findFirst({
             where : {
                 id  : params.id
             }, select : {
-                // id : true,
                 team : {
-                    
                     select : {
                         id : true,
                         quiz : {
@@ -51,15 +55,6 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                                             }
                                         }
                                     }
-                                    // select : {
-                                    //     scenario : {
-                                    //         where : {
-                                    //             id : params.scenarioId
-                                    //         }, select : {
-                                    //             questions : true
-                                    //         }
-                                    //     }
-                                    // }
                                 }
                             }
                         }
@@ -67,20 +62,6 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                 }
             }
         })
-
-        // const questions = await prisma.team.findMany({
-        //     select : {
-        //         users : {
-        //             where : {
-        //                 id : parseInt(params.id)
-        //             }
-        //         }
-        //     }
-        // })
-
-        // console.debug(questions)
-    
-
         return new Response(JSON.stringify({status : true , questions}))
     } catch (error) {
         console.debug(error)

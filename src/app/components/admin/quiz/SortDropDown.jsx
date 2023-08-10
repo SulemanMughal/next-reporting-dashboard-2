@@ -15,7 +15,7 @@ function classNames(...classes) {
 export default function SortDropDown({list = ["Latest", "Oldest" ]}){
     return (
         <>
-<Menu as="div" className="relative inline-block text-left  mx-2 rounded-0">
+<Menu as="div" className="relative inline-block text-left  mx-1 rounded-0">
       <div>
         <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-lg font-semibold text-white shadow-sm ">
         <MdSort className="-mr-1 h-7 w-7 text-white " aria-hidden="true" /> <span className='text-white ml-2 text-xl'>Sort</span>
@@ -41,7 +41,7 @@ export default function SortDropDown({list = ["Latest", "Oldest" ]}){
                     href="#"
                     className={classNames(
                       active ? 'bg-gray-100 text-gray-900 ' : '',
-                      'block px-4 py-2 text-lg'
+                      'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
                     )}
                   >
                     {index}

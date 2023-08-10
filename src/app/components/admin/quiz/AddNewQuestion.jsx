@@ -8,7 +8,7 @@ import { BiAddToQueue } from "react-icons/bi"
 
 import  { GiCancel } from "react-icons/gi"
 
-import CustomToaster from "@/app/components/CustomToaster"
+// import CustomToaster from "@/app/components/CustomToaster"
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -216,11 +216,11 @@ export default function AddNewQuestion({quizId , setData}){
 
     return (
         <>
-            <CustomToaster />
+            {/* <CustomToaster /> */}
             {showModal && <CreateQuestion  setShowModal={setShowModal} quizId={quizId}  setData={setData} /> }
-            <div className="relative inline-block text-left border-none">
+            <div className="relative inline-block text-left border-none ">
                 <button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color  px-3 py-2 text-lg border-none font-semibold text-white shadow-sm   items-center "  onClick={() => setShowModal(true)} >
-                    <BiAddToQueue  size={23} />   Add New Question
+                    <BiAddToQueue  size={23} />   New Question
                 </button>
             </div>
         </>

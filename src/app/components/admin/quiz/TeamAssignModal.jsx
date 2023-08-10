@@ -33,6 +33,12 @@ function SubmitBtn({isSubmit, setShowTeamAssignModal }){
               >
               <span> Assign</span> <BsPersonFillAdd size={23} className="ml-2"/>
               </button> 
+              {/* <button
+              type="submit"
+              className=" w-6/12 justify-center rounded-md bg-indigo-600 font-bold uppercase px-6 py-2 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 flex justify-start items-center"
+              >
+              <span> Add New Team</span> <BsPersonFillAdd size={23} className="ml-2"/>
+              </button>  */}
               </div>
               </>
               }
@@ -107,7 +113,7 @@ export default  function TeamAssignModal({setShowTeamAssignModal, quizId , setDa
         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
         data-aos="zoom-out" data-aos-duration="700" 
       >
-        <div className="relative w-1/4 px-4 space-y-16 ">
+        <div className="relative w-1/5 px-4 space-y-16 ">
           <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
             <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
               <h3 className="text-2xl font-semibold">
@@ -122,13 +128,14 @@ export default  function TeamAssignModal({setShowTeamAssignModal, quizId , setDa
               <form className="space-y-6" onSubmit={submitHandler}>
                 
                 <div className="relative z-0 w-full mb-6 group">
-                  <label htmlFor="team" className="block mb-2 text-md font-medium text-gray-900 ">Team</label>
-                  <select id="team" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " defaultValue={''}  onChange={(e) => team_id.current = e.target.value}>
+                  
+                  <select id="team" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" defaultValue={''}  onChange={(e) => team_id.current = e.target.value}>
                     <option value="" disabled>Choose a Team</option>
                     {teams && teams.length && teams.map((team , index) => (
                       <option key={index} value={team.id}>{team.name}</option>
                     ))}
                   </select>
+                  <label htmlFor="team" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Team</label>
                 </div>
                 <div>
                     <SubmitBtn  isSubmit={isSubmit} setShowTeamAssignModal={setShowTeamAssignModal} />
