@@ -61,19 +61,34 @@ function SubmitBtn({isSubmit,setShowModal }){
 
 
 function CreateQuestion({setShowModal , quizId , setData}){
-    useEffect(()=>{
-        AOS.init();
-    }, [])
+    
+    
+    
+    
 
     const title = useRef("");
     const description = useRef("");
     const original_answer = useRef("");
     const points = useRef("");
+    const scenario_id = useRef("");
     const [isSubmit, setSubmit] = useState(false)
+    const [scenario, setScenario] = useState([])
+
+    useEffect(()=>{
+        AOS.init();
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario/`)
+        .then((res) => {
+            setScenario(res.data.scenarios)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+    }, [])
+
 
     const submitHandler = async (event) => {
         event.preventDefault()
-        if(title.current == ""  || description.current == ""  || points.current == "" || original_answer.current == ""){
+        if(title.current == ""  || description.current == ""  || points.current == "" || original_answer.current == "" || scenario_id.current == ""){
             toast.error(`All fields are required`)
         } else {
             try {
@@ -83,6 +98,7 @@ function CreateQuestion({setShowModal , quizId , setData}){
                     Description : description.current,
                     original_answer : original_answer.current,
                     points : points.current,
+                    scenario_id : scenario_id.current
                 });
                 setShowModal(false)
                 if(response.data.status === false){
@@ -158,6 +174,16 @@ function CreateQuestion({setShowModal , quizId , setData}){
                             required
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                         <label htmlFor="points" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Points</label>
+                    </div>
+                    {/* scenario field */}
+                    <div className="relative z-0 w-full mb-6 group">
+                        <select id="scenario" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer " defaultValue={''}  onChange={(e) => scenario_id.current = e.target.value}>
+                            <option value="" disabled>Choose a Sceanrio</option>
+                            {scenario && scenario.map((item, index) => (
+                                <option key={index} value={item.id}>{item.name}</option>
+                            ))}
+                        </select>
+                        <label htmlFor="scenario" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Scenario</label>
                     </div>
                     
                 

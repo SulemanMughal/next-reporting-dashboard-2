@@ -36,6 +36,14 @@ GET		:		/api/team/[teamId]			->	Get details of a team by [teamId]
 DELETE		:		/api/team/[teamId]			->	Delete A Team  [teamId]
 GET		:		/api/team/[teamId]/quiz		->	Get Quiz Quiz Questions (with submit answers) and quiz details by [teamId]
 
+
+
+=============
+Scenarios
+=============
+
+GET     :   (Admin Use Only)         /api/sceanrio/                     ->  GET All Scenarios 
+
 ========
 QUIZ
 =======

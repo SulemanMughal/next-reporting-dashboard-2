@@ -17,7 +17,12 @@ export async function PUT(request , {params}){
                         original_answer: body.original_answer,
                         points: parseInt(body.points),
                         Description: body.Description,
-                    },
+                        scenario :{
+                            connect : {
+                                id : body.scenario_id
+                            }
+                        }
+                    },    
               },
             },
             include: {
@@ -25,7 +30,6 @@ export async function PUT(request , {params}){
             },
         })
 
-        // console.debug(result)
 
         return new Response(JSON.stringify({status : true, result}))
     }
