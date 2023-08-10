@@ -9,45 +9,6 @@ import AddNewQuestion from "@/app/components/admin/quiz/AddNewQuestion"
 import { reverseArray } from "@/app/lib/helpers"
 
 
-import Isotope from 'isotope-layout';
-// import isotope from 'isotope-layout';
-// import 'isotope-layout/dist/isotope.min.css';
-// import 'isotope-layout/dist/isotope.min.css';
-
-function IsotopeContainer() {
-    const isotopeContainer = useRef(null);
-    let isotopeInstance = null;
-  
-    useEffect(() => {
-      isotopeInstance = new Isotope(isotopeContainer.current, {
-        itemSelector: '.grid-item',
-        layoutMode: 'masonry',
-      });
-    }, []);
-  
-    const handleFilterClick = (filterValue) => {
-      isotopeInstance.arrange({ filter: filterValue });
-    };
-  
-    return (
-      <div>
-        <div className="filter-buttons">
-          <button onClick={() => handleFilterClick('*')}>All</button>
-          <button onClick={() => handleFilterClick('.category-a')}>Category A</button>
-          <button onClick={() => handleFilterClick('.category-b')}>Category B</button>
-        </div>
-        <div ref={isotopeContainer}>
-          <div className="grid-item category-a">Item 1 (Category A)</div>
-          <div className="grid-item category-b">Item 2 (Category B)</div>
-          {/* ... */}
-        </div>
-      </div>
-    );
-  }
-  
-
-
-
 export default function QuizPage({quizId}){
 
     const [data, setData] = useState(null)
@@ -84,10 +45,10 @@ export default function QuizPage({quizId}){
                     </div>
                 </div>
                 <div className="p-4 grid gap-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 ">
-                    {/* <IsotopeContainer /> */}
+                    
                     {data?.results.questions.length && 
                        reverseArray(data?.results.questions).map((question, index) =>  
-                        <QuizQuestion key={index} question={question} />  
+                        <QuizQuestion key={index} question={question}  quizId={quizId} setData={setData} />  
                     )}
                 </div>
             </>

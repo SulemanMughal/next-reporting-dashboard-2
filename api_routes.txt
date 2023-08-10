@@ -57,6 +57,7 @@ POST	:   (Admin Use Only) 	    /api/quiz/create			        ->	Create Quiz
 PUT		:   (Admin Use Only)	    /api/quiz/[id]/team/[teamId]		->	Add a team to a quiz
 GET		:		                    /api/quiz/[id]/team/[teamId]		->	Get quiz-info, questions , answers (submitted by a team for a quiz)
 PUT		:  (Admin Use Only)     	/api/quiz/[id]/question/create	    ->	Create question for a quiz
+PUT		:  (Admin Use Only)     	/api/quiz/[id]/question/[questionID]	    ->	Disconnect a question from a quiz
 
 
 

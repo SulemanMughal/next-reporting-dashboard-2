@@ -1,6 +1,5 @@
 "use client"
 
-
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useEffect, useState } from "react";
@@ -9,15 +8,16 @@ import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { AiFillEdit } from "react-icons/ai"
 import { GiCancel  } from "react-icons/gi"
-
 import {convertStringToTitleCase , convertStringToArray , classNames}  from "@/app/lib/helpers"
 
 
+import  { IoMdRemoveCircle } from "react-icons/io"
+
+import RemoveQuestionModal from "./RemoveQuestionModal"
 
 
-
-function QuestionMenuBtn() {
-
+function QuestionMenuBtn({setRemoveQuestion }) {
+    // console.debug(quizId)
 
     return (
         <>
@@ -41,8 +41,8 @@ function QuestionMenuBtn() {
                 <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md btn-flag-submit  text-white shadow-lg  focus:outline-none">
                     <div className="py-1">
                     <Menu.Item>
-                        <button  className={classNames( '', 'block px-4 py-3 text-md ' , 'flex justify-start items-center ', ' w-full hover:bg-white hover:text-black' )}   >
-                            <GiCancel size={23} className="mr-3" />  <span > Remove Question </span>
+                        <button  className={classNames( '', 'block px-4 py-3 text-md ' , 'flex justify-start items-center ', ' w-full hover:bg-white hover:text-black' )} onClick={() => setRemoveQuestion(true)}  >
+                            <IoMdRemoveCircle size={23} className="mr-3" />  <span > Remove Question </span>
                         </button>
                     </Menu.Item>
                     <Menu.Item>
@@ -98,17 +98,24 @@ const ToggleTextOnButtonClick = ({text}) => {
 };
   
   
-export default function QuizQuestion({question}){
+export default function QuizQuestion({question , quizId , setData }){
 
     // console.debug(question.scenario)
+    // console.debug(question.id)
+    // console.debug(quizId)
     useEffect(()=>{
         AOS.init();
     }, [])
+
+
+    const [removeQuestion, setRemoveQuestion] = useState(false)
     
     return (
         <>
-            <div className="w-full col-span-1 " data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="500">
-                <div className="w-full col-span-2  p-4 bg-card-custom border-none rounded-lg shadow sm:p-8  ">
+
+            {removeQuestion && <RemoveQuestionModal setRemoveQuestion={setRemoveQuestion}   quizId={quizId}  questionId={question.id} setData={setData}/>}
+            <div className="w-full col-span-1 h-full " data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="500">
+                <div className="w-full col-span-2  h-full p-4 bg-card-custom border-none rounded-lg shadow sm:p-8  ">
                     <div className="flex justify-between items-center  mb-4">
                         <div className=" flex items-center  " >
                             <span className='rounded-full   text-2xl font-semibold bg-none text-orange-600 '>
@@ -123,7 +130,7 @@ export default function QuizQuestion({question}){
                             
                         </div>
                         
-                        <QuestionMenuBtn />
+                        <QuestionMenuBtn setRemoveQuestion={setRemoveQuestion} />
                     </div>
                     
                     {
