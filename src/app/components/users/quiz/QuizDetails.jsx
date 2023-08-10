@@ -378,7 +378,7 @@ export default  function QuizDetails({params}){
                 if(response.data.status === true){
                     setQuestions(response.data?.questions?.team?.quiz?.questions)
                     // console.debug(response.data?.questions?.team?.quiz?.questions)
-                    console.debug(sumPoints(response.data?.questions?.team?.quiz?.questions))
+                    // console.debug(sumPoints(response.data?.questions?.team?.quiz?.questions))
 
                     if(response.data?.questions?.team?.quiz?.questions.length){
                         setScenario(response.data?.questions?.team?.quiz?.questions[0]?.scenario)

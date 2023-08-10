@@ -8,25 +8,15 @@ import  { BsThreeDotsVertical  } from "react-icons/bs"
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { AiFillEdit } from "react-icons/ai"
-import { MdGroups } from "react-icons/md"
 import { GiCancel  } from "react-icons/gi"
 
+import {convertStringToTitleCase , convertStringToArray , classNames}  from "@/app/lib/helpers"
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+
+
 
 
 function QuestionMenuBtn() {
-
-    // const [showModal, setShowModal] = useState(false)
-    // const showMembers = () => {
-    //     setShowModal(true)
-    // }
-
-
-    // const team_id = 5;
-
 
 
     return (
@@ -109,7 +99,8 @@ const ToggleTextOnButtonClick = ({text}) => {
   
   
 export default function QuizQuestion({question}){
-    
+
+    // console.debug(question.scenario)
     useEffect(()=>{
         AOS.init();
     }, [])
@@ -119,11 +110,45 @@ export default function QuizQuestion({question}){
             <div className="w-full col-span-1 " data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="500">
                 <div className="w-full col-span-2  p-4 bg-card-custom border-none rounded-lg shadow sm:p-8  ">
                     <div className="flex justify-between items-center  mb-4">
-                        <span className=" rounded-full   text-2xl font-semibold bg-none text-orange-600 " >
-                            {question?.points} {"Points"}
-                        </span>
+                        <div className=" flex items-center  " >
+                            <span className='rounded-full   text-2xl font-semibold bg-none text-orange-600 '>
+                                {question?.points} {"Points"} 
+                            </span>
+                            
+                            {
+                                question.scenario ? (
+                                    <span className="inline-block  rounded-full px-3    py-1 text-md  font-semibold  bg-none text-blue-500 mr-2 -mt-5 ml-0">{convertStringToTitleCase(question.scenario.name)}</span>
+                                ) : null
+                            }
+                            
+                        </div>
+                        
                         <QuestionMenuBtn />
                     </div>
+                    
+                    {
+                        question.scenario ? (
+                            <div className='flex justify-start items-center my-3'>
+                                    {convertStringToArray(question.scenario.tags)?.map((tag, index) => {
+                                        return (
+                                            <span className="inline-block  rounded-full px-3   py-1 text-sm font-semibold bg-indigo-600 text-indigo-100 mr-2 my-2" key={index}>{convertStringToTitleCase(tag)}</span>
+                                        )
+                                    })}
+                            </div>
+                            
+                        ) : null
+                    }
+                    {
+                        question.scenario ? (
+                            <div className=" flex items-center  justify-between px-0 mx-0 my-3" >
+                                <span className='text-lime-600'>{convertStringToTitleCase(question.scenario.difficulty)}</span>
+                                <span className='text-rose-400'>{convertStringToTitleCase(question.scenario.status)}</span>
+                                <span className="inline-block  rounded-full px-0    py-1 text-md  font-semibold  bg-none text-pink-600">{convertStringToTitleCase(question.scenario.category)}</span>
+                            </div>
+                            
+                        ) : null
+                    }
+                    
                     <div className="flow-root">
                         <div className="w-full text-gray-500 bg-none border-none rounded-lg mb-4">
                             <ToggleTextOnButtonClick  text={question.original_answer}/>

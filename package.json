@@ -26,6 +26,7 @@
     "gridjs": "^6.0.6",
     "gridjs-react": "^6.0.1",
     "inquirer": "^8.2.6",
+    "isotope-layout": "^3.0.6",
     "next": "13.4.10",
     "next-auth": "^4.22.1",
     "nextjs-toploader": "^1.4.2",
