@@ -13,7 +13,7 @@ const admin = [
     [
         "/admin/dashboard",
         <RxDashboard size={25} key={156} />,
-        "Home"
+        "Dasboard"
     ],
     [
         "/admin/quiz",
@@ -36,7 +36,7 @@ const team = [
     [
         "/user/dashboard",
         <RxDashboard size={25} key={156} />,
-        "Home"
+        "Dashboard"
     ],
     // [
     //     "/user/quiz",

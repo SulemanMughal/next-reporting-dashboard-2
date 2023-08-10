@@ -42,10 +42,13 @@ export default   function Teams(){
     const [teams, setTeams] = useState(null);
     const [showModal, setShowModal] = useState(null);
 
+
+    // console.debug(teams)
+
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
           .then(response => {
-            setTeams(response.data);
+            setTeams(response.data.teams);
           })
           .catch(error => {
             console.error(error);
@@ -76,7 +79,7 @@ export default   function Teams(){
             if(data1.data.status){
                 toast.success('Team has been deleted successfully')
             }
-            setTeams(data2.data);
+            setTeams(data2.data.teams);
         }));
     }
 

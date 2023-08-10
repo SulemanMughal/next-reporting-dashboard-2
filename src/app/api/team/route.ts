@@ -60,7 +60,14 @@ export async function GET(request : Request){
                         title : true
                     }
                 },
-                users : true,
+                users : {
+                    select : {
+                        id : true,
+                        email  : true,
+                        name  : true,
+                        role : true
+                    }
+                },
                 answers : {
                     select : {
                         obtainedPoints : true
@@ -68,7 +75,7 @@ export async function GET(request : Request){
                 },
             }
         })
-        return new Response(JSON.stringify(teams))
+        return new Response(JSON.stringify({status : true, teams}))
     } catch (error) {
         console.debug(error)
         return new Response(JSON.stringify({status : false}))

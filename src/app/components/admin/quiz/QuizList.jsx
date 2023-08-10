@@ -1,11 +1,8 @@
 "use client"
 
-
 import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
-
-
 import QuizCard from "@/app/components/admin/quiz/QuizCard"
 
 
@@ -30,7 +27,7 @@ export default function QuizList(){
     return (
         <>
             {data && data.results.map((quiz, index) => (
-                <QuizCard  key={index} quiz={quiz}  />
+                <QuizCard  key={index} quiz={quiz} setData={setData}  />
             ))}
         </>
     )

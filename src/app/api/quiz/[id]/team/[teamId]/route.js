@@ -7,12 +7,17 @@ import prisma from "@/app/lib/prisma";
 
 export async function PUT(request , {params}){
 
-    const quiz_id = parseInt(params.id)
-    const team_id = parseInt(params.teamId)
+    const quiz_id = (params.id)
+    const team_id = (params.teamId)
 
     // console.debug(params)
     try{
-
+        // const record = await prisma.quiz.findUnique({
+        //     where: {
+        //       id : quiz_id,
+        //     }
+        // })
+        // console.debug(record)
         const result = await prisma.quiz.update({
             where: {
               id: quiz_id,
@@ -28,8 +33,6 @@ export async function PUT(request , {params}){
                 teams: true,
             },
           })
-        
-        //   console.debug(result)
 
         return new Response(JSON.stringify({status : true}))
     }
@@ -41,16 +44,9 @@ export async function PUT(request , {params}){
 }
 
 
-// GET publish quiz by quiz-id and team-id
-// quiz-start-time
-// quiz-end-time
-// quiz title
-// published-questions {title, description, points, option_1, option_2, option_3, option_4, option_5, option_6, type}
-// answers submitted by team-id
-
 export async function GET(request , {params}){
-  const quiz_id = parseInt(params.id)
-  const team_id = parseInt(params.teamId)
+  const quiz_id = params.id
+  const team_id = params.teamId
   try {
     const result  = await prisma.quiz.findUnique({
       where: {
