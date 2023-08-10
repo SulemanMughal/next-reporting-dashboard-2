@@ -43,10 +43,8 @@ export default   function Teams(){
     const [showModal, setShowModal] = useState(null);
 
     useEffect(() => {
-        axios.get(`/api/team`)
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
           .then(response => {
-
-            console.debug(response.data)
             setTeams(response.data);
           })
           .catch(error => {
@@ -63,15 +61,15 @@ export default   function Teams(){
     const removeTeam = (team_id) => {
         axios.request({
             method: 'DELETE',
-            url: `/api/team/${team_id}`,
+            url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/team/${team_id}`,
         }).then(function (response) {
         }).catch(function (error) {
             console.debug(error);
         });
 
         axios.all([
-            axios.delete(`/api/team/${team_id}`), 
-            axios.get(`/api/team`)
+            axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team/${team_id}`), 
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
             ])
         .then(axios.spread((data1, data2) => {
             console.debug(data1.data.status)
@@ -161,11 +159,12 @@ export default   function Teams(){
                                     <tr key={index}  className="focus:outline-none h-16 border border-b-0 border-s-0 border-e-0 border-gray-100 rounded text-gray-500">
                                     <td className="text-center">
                                         <p className="text-base font-medium leading-none  mr-2">
-                                            {team?.quiz === null ?  "Not Assigned Yet" : <Link href={`/admin/teams/${team.id}`}>
+                                            {/* {team?.quiz === null ?  "Not Assigned Yet" : <Link href={`/admin/teams/${team.id}`}>
                                                 <span className="inline-flex items-center   px-3 py-1 text-lg font-semibold  mr-2 mb-2" >
                                                     {team.name }  <FiChevronsRight size={23} className="p-1 my-1 ml-2 bg-gray-800 text-gray-500 rounded-full"  />
                                                 </span>
-                                            </Link> }
+                                            </Link> } */}
+                                            {team.name }
                                         </p>
                                     </td>
                                     <td className="text-center">

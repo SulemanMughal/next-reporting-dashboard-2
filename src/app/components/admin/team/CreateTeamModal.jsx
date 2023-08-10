@@ -5,6 +5,10 @@ import toast, { Toaster } from 'react-hot-toast';
 import  { BsPersonFillAdd } from "react-icons/bs"
 import  { GiCancel } from "react-icons/gi"
 import { useRef , useState, useEffect } from "react"
+import axios from 'axios';
+
+
+// axios
 
 export default function CreateTeamModal({setShowModal , updateTeams}){
     
@@ -18,7 +22,7 @@ export default function CreateTeamModal({setShowModal , updateTeams}){
         else{
             try {
                 setSubmit(true)
-                const response = await axios.post('/api/team', {
+                const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`, {
                     name : name.current
                 });
                 setShowModal(false)
@@ -27,7 +31,7 @@ export default function CreateTeamModal({setShowModal , updateTeams}){
                 }
                 else{
                     toast.success('Successfull, Team has been created')
-                    axios.get('/api/team')
+                    axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
                     .then(response => {
                         updateTeams(response.data);
                     })
