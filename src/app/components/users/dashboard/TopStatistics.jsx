@@ -99,7 +99,7 @@ function QuizList({scenarios}){
     return (
         <>
             {   scenarios?.length ? [...Array(scenarios?.[0].length)].map((item, index) => (
-                    <div className="component component-CerCheckBox">
+                    <div className="component component-CerCheckBox" key={index}>
                         <div className="w-full col-span-3 relative  p-3   rounded-lg   flex flex-col " key={index}>
                             <div className="  my-2 bg-card-custom  rounded-lg shadow   ">
                                 <div className="p-5">

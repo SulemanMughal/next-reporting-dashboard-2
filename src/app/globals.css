@@ -561,3 +561,25 @@ main#main.contact-us-main .list-inline {
   max-height: 0;
   transition: opacity 200ms, max-height 200ms ease-in-out;
 }
+
+
+
+.grid-item {
+  width: 100px;
+  height: 100px;
+  margin: 10px;
+  background-color: #ccc;
+}
+
+
+.filter-buttons {
+  margin-bottom: 20px;
+}
+
+.filter-buttons button {
+  margin-right: 10px;
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: #ccc;
+  border: none;
+}

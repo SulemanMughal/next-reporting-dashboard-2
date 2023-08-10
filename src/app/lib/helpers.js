@@ -22,3 +22,12 @@ export function convertStringToArray(string){
 export function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
 }
+
+
+export function reverseArray(array){
+    let newArray = []
+    array.map((item) => {
+        newArray.unshift(item)
+    })
+    return newArray
+}
