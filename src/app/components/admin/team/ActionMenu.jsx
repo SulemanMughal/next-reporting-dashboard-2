@@ -22,7 +22,7 @@ export default function ActionMenu({team, removeTeam , addTeamMember }){
         <>
     <Menu as="div" className="relative inline-block text-left ">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-lg font-semibold text-white shadow-sm   border-0 ">
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md btn-flag-submit px-3 py-2 text-lg font-semibold text-white shadow-sm   border-0 ">
           <BsThreeDotsVertical />
         </Menu.Button>
       </div>
