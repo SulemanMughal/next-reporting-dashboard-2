@@ -15,10 +15,9 @@ export async function GET(request, {params}){
 
 export async function DELETE(request , {params}){
     try {
-        // console.debug(params.teamId)
         await prisma.team.delete({
             where : {
-                id : parseInt(params.teamId)
+                id : (params.teamId)
             }
         })
         return new Response(JSON.stringify({status : true}))
