@@ -62,6 +62,12 @@ PUT		:  (Admin Use Only)     	/api/quiz/[id]/question/[questionID]	    ->	Discon
 
 
 
+===========
+QUESTION
+===========
+PUT     :   (Admin Use Only)        /api/question/[questionID]              ->  Update A Question by questionID
+
+
 
 =================
 Attack scripts

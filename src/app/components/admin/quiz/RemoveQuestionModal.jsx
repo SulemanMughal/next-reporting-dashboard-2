@@ -8,30 +8,20 @@ import 'aos/dist/aos.css';
 import { useEffect, useState } from "react";
 
 
-import  { BsPersonFillAdd } from "react-icons/bs"
+// import  { BsPersonFillAdd } from "react-icons/bs"
 import  { GiCancel } from "react-icons/gi"
 
 import  { IoMdRemoveCircle } from "react-icons/io"
 
 
-import { BiAddToQueue } from "react-icons/bi"
+// import { BiAddToQueue } from "react-icons/bi"
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
 
 export default function RemoveQuestionModal({setRemoveQuestion , quizId, questionId , setData={setData}}){
-
-
-    // console.debug(quizId, questionId )
-
     const [isSubmit, setSubmit] = useState(false)
-
     const submitHandler = () => {
-
-        // setSubmit(true)
-        
-        // console.debug("Removing...")
-
         try {
             axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}/question/${questionId}`)
             .then((res) => {
