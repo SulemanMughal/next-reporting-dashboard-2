@@ -24,7 +24,7 @@ export async function PUT(request: Request, {params}: {params : {questionID : st
                 title : body.title,
                 Description : body.Description,
                 original_answer : body.original_answer,
-                points : body.points,
+                points : parseInt(body.points.toString()),
                 scenarioId : body.scenario_id || null
             }
         })

@@ -92,7 +92,7 @@ const ToggleTextOnButtonClick = ({text}) => {
     };
   
     return (
-      <div className="flex items-center justify-between">
+      <div className="flex items-start justify-between">
         <button onClick={handleButtonClick} className='text-teal-400 text-sm w-2/5 text-left'>
           {showText ? 'Hide Answer' : 'Show Answer'}
         </button>
@@ -101,6 +101,14 @@ const ToggleTextOnButtonClick = ({text}) => {
     );
 };
   
+
+
+
+
+
+  
+
+
   
 export default function QuizQuestion({question , quizId , setData }){
     useEffect(()=>{
@@ -114,6 +122,9 @@ export default function QuizQuestion({question , quizId , setData }){
         <>
             {removeQuestion && <RemoveQuestionModal setRemoveQuestion={setRemoveQuestion}   quizId={quizId}  questionId={question.id} setData={setData}/>}
             {updateQuestion &&  <UpdateQuizQuestion question={question} setUpdateQuestion={setUpdateQuestion}  setData={setData} quizId={quizId} /> }
+
+            
+
             <div className="w-full col-span-1 h-full " data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="500">
                 <div className="w-full col-span-2  h-full p-4 bg-card-custom border-none rounded-lg shadow sm:p-8  ">
                     <div className="flex justify-between items-center  mb-4">
