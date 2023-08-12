@@ -32,7 +32,7 @@ POST	:	(Admin Use Only)    	/api/team/member/add/			->	Add member to a team
 GET		:		/api/team/last/10			->	Get latest 10 registered teams
 POST		:		/api/team/ip_range/add/		->	Add IP_Range to a Team
 POST		:		/api/team/attack_script/add		->	Add Attack_Script to a Team
-GET		:		/api/team/[teamId]			->	Get details of a team by [teamId]
+GET		:   (Admin Use Only)		/api/team/[teamId]			    ->	Get details of a team by [teamId]
 DELETE		:		/api/team/[teamId]			->	Delete A Team  [teamId]
 GET		:		/api/team/[teamId]/quiz		->	Get Quiz Quiz Questions (with submit answers) and quiz details by [teamId]
 

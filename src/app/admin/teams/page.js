@@ -12,6 +12,7 @@ import CustomToaster from "@/app/components/CustomToaster";
 import CreateTeamModal from "@/app/components/admin/team/CreateTeamModal"
 import AddTeamMemberModal from "@/app/components/admin/team/AddTeamMemberModal"
 import RemoveMember from "@/app/components/admin/team/RemoveMember"
+import TeamDetailsModal from "@/app/components/admin/team/TeamDetailsModal"
 // import { BiAddToQueue } from "react-icons/bi"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import { BiListUl }  from "react-icons/bi"
@@ -34,7 +35,7 @@ function calCulateObtainedPoints(answers){
 
 
 // List View
-function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMemberModalHandler}){
+function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMemberModalHandler , setShowTeamDetailsModalHandler}){
     return (
         <>
             <div className="bg-card-custom  py-4 md:py-7 px-4 md:px-8 xl:px-10 mb-14">
@@ -101,7 +102,7 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
                                     {calCulateObtainedPoints(team?.answers)}
                                 </td>
                                 <td className="text-center">
-                                    <ActionMenu team={team.id}  removeTeam={removeTeam} setShowAddMemberModal={setShowAddMemberModal} setShowAddMemberModalHandler={setShowAddMemberModalHandler}  />
+                                    <ActionMenu team={team.id}  removeTeam={removeTeam} setShowAddMemberModal={setShowAddMemberModal} setShowAddMemberModalHandler={setShowAddMemberModalHandler} setShowTeamDetailsModalHandler={setShowTeamDetailsModalHandler}  />
                                 </td>
 
                                 {/* <td className="text-center">
@@ -186,18 +187,29 @@ export default   function Teams(){
     const [showAddMemberModal, setShowAddMemberModal] = useState(null);
     const [viewType, setViewType] = useState('list'); // Default view type
     const [teamID, setTeamID] = useState(null)
-    const [showRemoveMemberModal, setShowRemoveMemberModal] = useState(null);
+    const [showTeamDetailsModal, setShowTeamDetailsModal] = useState(null);
+    // const [showRemoveMemberModal, setShowRemoveMemberModal] = useState(null);
+    
     const toggleView = () => {
         setViewType(viewType === 'grid' ? 'list' : 'grid');
     };
 
 
     const setShowAddMemberModalHandler = (team_id) => {
-        // console.debug(team_id)
         setTeamID(team_id)
         setShowAddMemberModal(true)
-        
     }
+
+
+    const setShowTeamDetailsModalHandler = (team_id) => {
+        setTeamID(team_id)
+        setShowTeamDetailsModal(true)
+    }
+
+
+
+
+
 
     useEffect(() => {
         AOS.init();
@@ -244,7 +256,8 @@ export default   function Teams(){
             <CustomToaster />
             {showModal ? <CreateTeamModal setShowModal={setShowModal}  updateTeams={setTeams} /> : null}
             {showAddMemberModal  ? <AddTeamMemberModal  setShowAddMemberModal={setShowAddMemberModal} updateTeams={setTeams}  team_id={teamID} /> : null  }
-            {showRemoveMemberModal ? <RemoveMember /> : null }
+            {/* {showRemoveMemberModal ? <RemoveMember /> : null } */}
+            {showTeamDetailsModal ? <TeamDetailsModal  setShowTeamDetailsModal={setShowTeamDetailsModal}  team_id={teamID} /> : null}
             <div className="sm:px-6 w-full h-full pb-10 ">
                 <div className="px-4 md:px-0 py-4 md:py-7">
                     <div className="flex items-center justify-between">
@@ -262,7 +275,7 @@ export default   function Teams(){
                         </div>
                     </div>
                 </div>
-                {viewType === "list" ? (<TeamListView  teams={teams}  removeTeam={removeTeam}  setShowAddMemberModal={setShowAddMemberModal}  setShowAddMemberModalHandler={setShowAddMemberModalHandler}   />) : (<TeamGridView  teams={teams}  removeTeam={removeTeam}  />)}
+                {viewType === "list" ? (<TeamListView  teams={teams}  removeTeam={removeTeam}  setShowAddMemberModal={setShowAddMemberModal}  setShowAddMemberModalHandler={setShowAddMemberModalHandler}  setShowTeamDetailsModalHandler={setShowTeamDetailsModalHandler}  />) : (<TeamGridView  teams={teams}  removeTeam={removeTeam}  />)}
             </div>
         </>
     )

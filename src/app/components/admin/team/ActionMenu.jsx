@@ -10,6 +10,8 @@ import { AiOutlineUserAdd } from "react-icons/ai"
 import { BiUserX } from "react-icons/bi"
 
 import axios  from "axios"
+import { GrView } from "react-icons/gr"
+import { AiFillEye } from "react-icons/ai"
 
 
 function classNames(...classes) {
@@ -17,7 +19,7 @@ function classNames(...classes) {
 }
 
 
-export default function ActionMenu({team, removeTeam , setShowAddMemberModal , setShowAddMemberModalHandler }){
+export default function ActionMenu({team, removeTeam , setShowAddMemberModal , setShowAddMemberModalHandler , setShowTeamDetailsModalHandler }){
 
     return (
         <>
@@ -66,12 +68,12 @@ export default function ActionMenu({team, removeTeam , setShowAddMemberModal , s
             <Menu.Item>
                 {({ active }) => (
                 <button
-                
+                  onClick={() => setShowTeamDetailsModalHandler(team)}
                   className={classNames(
                   active ? ' ' : 'text-white', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
                   )}
                   >
-                  <AiOutlineUserAdd size={23} /> <span className="ml-2">Details</span>
+                  <AiFillEye size={23} /> <span className="ml-2">Details</span>
                 </button>
                 )}
             </Menu.Item>
