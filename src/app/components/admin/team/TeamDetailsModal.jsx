@@ -7,14 +7,31 @@ import { toast } from "react-hot-toast"
 
 
 
+function calculateTotalPointsPerUser(answers, email) {
+    const totalPointsPerUser = {};
+  
+    answers.forEach((answer) => {
+      const userEmail = answer.user.email;
+      const obtainedPoints = answer.obtainedPoints;
+  
+      if (!totalPointsPerUser[userEmail]) {
+        totalPointsPerUser[userEmail] = 0;
+      }
+  
+      totalPointsPerUser[userEmail] += obtainedPoints;
+    });
+    return totalPointsPerUser[email];
+  }
+
 export default function TeamDetailsModal({setShowTeamDetailsModal , team_id}){
     const [users, setUsers] = useState(null)
+    const [answers , setAnswers] = useState(null)
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team/${team_id}`)
         .then(res => {
             if(res.data.status === true){
-                console.debug(res.data.team?.users)
                 setUsers(res.data.team?.users)
+                setAnswers(res.data.team?.answers)
             } else {
                 toast.error(`${res.data.error}`)
             }
@@ -46,22 +63,24 @@ export default function TeamDetailsModal({setShowTeamDetailsModal , team_id}){
                             <ul className=" ">
                                 { ( users && users?.length ) ? (
                                     <>
-                                        {
-                                            users.map((user, index) => (
-                                                <div className="flex items-center justify-between p-4 cursor-pointer" key={index} >
-                                                    <div className="flex items-center">
-                                                        <div className="flex items-center justify-center h-14 w-14 rounded-full bg-blue-600 ">
-                                                            <span className="text-white font-bold text-3xl p-8 ">
-                                                                {(Array.from(user.email)[0]).toString().toUpperCase()}
-                                                            </span>
-                                                        </div>    
-                                                        <p className="text-xl text-dark fw-bold ml-5">
-                                                            {user.email}
-                                                        </p>
-                                                    </div>
+                                        {users.map((user , index) => (
+                                            <div className="flex items-center justify-between p-4 " key={index} >
+                                                <div className="flex items-center">
+                                                    <div className="flex items-center justify-center h-14 w-14 rounded-full bg-blue-600 ">
+                                                        <span className="text-white font-bold text-3xl p-8 ">
+                                                            {(Array.from(user.email)[0]).toString().toUpperCase()}
+                                                        </span>
+                                                    </div>    
+                                                    
+                                                    <p className="text-xl text-dark fw-bold ml-5">
+                                                        {user.email}
+                                                    </p>
+                                                    <p className="text-xl text-dark fw-bold ml-5">
+                                                        {calculateTotalPointsPerUser(answers, user.email) !== undefined ?  calculateTotalPointsPerUser(answers, user.email)  + " " + "Points" : "0" + " " + "Points"}
+                                                    </p>
                                                 </div>
-                                            ))
-                                        }
+                                            </div>
+                                        ))}
                                     </>
                                 ) : 
                                 (

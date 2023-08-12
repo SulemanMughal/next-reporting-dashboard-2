@@ -5,7 +5,6 @@ import prisma from "@/app/lib/prisma";
 
 export async function GET(request, {params}){
     try {
-        // console.debug(params.teamId)
         const team = await prisma.team.findUnique({
             where: {
                 id: (params.teamId),
@@ -16,6 +15,15 @@ export async function GET(request, {params}){
                 users : {
                     select : { 
                         email : true
+                    }
+                }, answers : {
+                    select : {
+                        user : {
+                            select : {
+                                email : true
+                            }
+                        },
+                        obtainedPoints : true,
                     }
                 }
             }
