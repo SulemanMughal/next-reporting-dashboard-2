@@ -39,11 +39,11 @@ export default function MenuBtn({setShowModal, showModal , setShowTeamAssignModa
                                     <AiOutlineLink size={23} className="mr-3"  />  <span > Assign Team </span>
                                 </button>
                             </Menu.Item>
-                            <Menu.Item>
+                            {/* <Menu.Item>
                                 <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )}  >
                                     <AiFillEdit size={23} className="mr-3" />  <span > Update Quiz </span>
                                 </button>
-                            </Menu.Item>
+                            </Menu.Item> */}
                         </div>
                     </Menu.Items>
                 </Transition>

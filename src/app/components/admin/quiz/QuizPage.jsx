@@ -33,6 +33,18 @@ function getQuestionScenarioDifficultyStatus(question) {
     }
 }
 
+// function getScenarioName(question){
+//     if(question?.scenario){
+//         try{
+//             return question?.scenario?.name
+//         } catch(error){
+//             return ""
+//         }
+//     } else {
+//         return ""
+//     }
+// }
+
   
 function FilteredDataWithButtons({data , quizId , setData}) {
     const filters = removeDuplicates(data.results.questions)

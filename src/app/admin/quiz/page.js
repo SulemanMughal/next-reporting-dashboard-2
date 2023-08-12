@@ -14,7 +14,7 @@ export default function Page(){
                         <div className="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-none  cursor-pointer rounded">
                             <AddQuizBtn />
                             <SortDropDown />
-                            <FilterBtn />
+                            {/* <FilterBtn /> */}
                         </div>
                     </div>
                 </div>

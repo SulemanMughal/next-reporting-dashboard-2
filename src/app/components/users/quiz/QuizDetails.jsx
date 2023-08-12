@@ -8,7 +8,6 @@ import {  use, useEffect, useRef, useState } from "react";
 import {  useSession } from "next-auth/react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-// import { BsFillSendCheckFill } from "react-icons/bs"
 
 
 // FileInformation
@@ -107,10 +106,6 @@ function QuizInfoList({questions , scenario}){
                     <h3 className="text-gray-400">Solves</h3>
                     <p className="text-green-600">{totalSolvedQuestions}/{questions?.length}</p>
                 </div>
-                {/* <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
-                    <h3 className="text-gray-400">OS</h3>
-                    <p className="text-green-600">Windows/Linux</p>
-                </div> */}
             </div>
             <hr className="my-1 h-1  opacity-100  border border-1 border-t-0 border-l-0 border-r-0 border-dashed bg-none" />
         </>
@@ -257,6 +252,8 @@ function Question({question, index, team , quiz, user}){
     const submitHandler = () => {
         setIsSubmit(true)
         if(answer.current !== ""){
+
+            
             setSubmitAnswer(answer.current)
             axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/submit/answer`, {  
                 answer: answer.current,
@@ -368,8 +365,6 @@ export default  function QuizDetails({params}){
     const [team, setTeam] = useState(null)
     const [quiz, setQuiz] = useState(null)
     const [totalPoints, setTotalPoints] = useState(0)
-    
-    
     useEffect(() => {
         AOS.init();
         if (session){
@@ -377,9 +372,6 @@ export default  function QuizDetails({params}){
             .then(response => {
                 if(response.data.status === true){
                     setQuestions(response.data?.questions?.team?.quiz?.questions)
-                    // console.debug(response.data?.questions?.team?.quiz?.questions)
-                    // console.debug(sumPoints(response.data?.questions?.team?.quiz?.questions))
-
                     if(response.data?.questions?.team?.quiz?.questions.length){
                         setScenario(response.data?.questions?.team?.quiz?.questions[0]?.scenario)
                         setTeam(response.data?.questions?.team?.id)

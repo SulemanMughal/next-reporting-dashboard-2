@@ -86,9 +86,6 @@ export async function POST(request ){
                     submissionStatus : true,
                 }
             })
-
-
-            
         }
         return new Response(JSON.stringify({status : true , result}))
 

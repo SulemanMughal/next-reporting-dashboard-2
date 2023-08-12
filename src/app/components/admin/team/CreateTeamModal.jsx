@@ -8,6 +8,8 @@ import { useRef , useState, useEffect } from "react"
 import axios from 'axios';
 
 
+import { MdGroups } from "react-icons/md"
+
 
 function SubmitBtn({isSubmit, setShowModal }){
     return (
@@ -79,13 +81,17 @@ export default function CreateTeamModal({setShowModal , updateTeams}){
     return (
         <>        
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
+            data-aos="zoom-out" data-aos-duration="700" 
             >
             <div className="relative w-3/8  px-4 space-y-16 ">
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
-                    <h3 className="text-1xl font-semibold">
-                    Team Details
-                    </h3>
+                    <div className='flex items-center justify-start '>
+                        <MdGroups  size={30}  />
+                        <h3 className=" font-semibold ml-3 text-xl">
+                            New Team
+                        </h3>
+                    </div>
                     <button
                     className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white"
                     onClick={() => setShowModal(false)}
@@ -98,8 +104,9 @@ export default function CreateTeamModal({setShowModal , updateTeams}){
                     name="name"
                     
                     onChange={(e) => (name.current = e.target.value)}
-                    autoComplete="name"
+                    autoComplete="off"
                     required
+
                     className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                 <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
                 </div>

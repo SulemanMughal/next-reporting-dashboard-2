@@ -33,6 +33,12 @@ export async function POST(request: Request){
     
                 }
             })
+
+            // await prisma.log.create({
+            //     data : {
+            //         action_by
+            //     }
+            // })
             return new Response(JSON.stringify({status : true, team}))
         } catch (error) {
             console.debug(error)
@@ -78,7 +84,7 @@ export async function GET(request : Request){
         return new Response(JSON.stringify({status : true, teams}))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false}))
+        return new Response(JSON.stringify({status : false, error : `Sorry! There is an error while fetching teams. Please try again after some time`}))
 
     }
 }

@@ -1,8 +1,6 @@
 "use client"
 
 
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import Link from "next/link"
 import  { VscTasklist } from "react-icons/vsc"
 import { MdGroups } from "react-icons/md"
@@ -17,9 +15,7 @@ import TeamAssignModal from "./TeamAssignModal"
 export default function QuizCard({quiz , setData}){
     const [showModal, setShowModal] = useState(false)
     const [showTeamAssignModal, setShowTeamAssignModal] = useState(false)
-    useEffect(()=>{
-        AOS.init();
-    }, [])
+    
     return (
         <>
             {showModal && <TeamList setShowModal={setShowModal} teams={quiz.teams.length ? quiz.teams : 0 } /> }

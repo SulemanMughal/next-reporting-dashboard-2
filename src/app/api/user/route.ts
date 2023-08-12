@@ -13,32 +13,27 @@ interface RequestBody{
 }
 
 export async function POST(request: Request){
-    const body : RequestBody = await request.json()
+    try {
+        const body : RequestBody = await request.json()
+        const user = await prisma.user.create({
+            data : {
+                name : body.name,
+                email : body.email,
+                password : await bcrypt.hash(body.password, 10) 
+            }
+        })
+        const {password, ...result} = user;
+        return new Response(JSON.stringify(result))
+    } catch (error) {
+        console.debug(error)
+        return new Response(JSON.stringify({status : false, error : 'Sorry! There is an error while registrating a new user. Please try again after some time'}))
 
-    const user = await prisma.user.create({
-        data : {
-            name : body.name,
-            email : body.email,
-            password : await bcrypt.hash(body.password, 10) 
-        }
-    })
-
-    const {password, ...result} = user;
-
-    return new Response(JSON.stringify(result))
+    }
 }
 
 
 export async function GET(request: Request){
     try {
-
-        // get team id 
-        // const team_id = await prisma.team.findFirst({
-        //     where : {
-        //         id
-        //     }
-        // })
-
         const users = await prisma.user.findMany({
             select : {
                 id : true,
@@ -61,10 +56,9 @@ export async function GET(request: Request){
                 }
             }
         })
-    
         return new Response(JSON.stringify({status : true, users}))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false, error : error.message}))
+        return new Response(JSON.stringify({status : false, error : 'Sorry! There is an error while fetching users. Please try again after some time'}))
     }
 }

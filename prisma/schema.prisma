@@ -109,3 +109,13 @@ model Answer{
   user User? @relation(fields: [userId], references: [id])
   userId String?
 }
+
+
+  // model Logs {
+  //   id                  String      @id @default(uuid())
+  //   action_by           String      @default("")
+  //   action_related_to   String      @default("")
+  //   message             String      @default("")
+  //   level               String      @default("info")
+  //   timestamp           DateTime    @default(now())
+  // }
