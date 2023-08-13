@@ -77,23 +77,23 @@ export async function GET(request : Request){
                         email  : true,
                         // name  : true,
                         // role : true
-                        answers : {
-                            where : {
-                                team :{
-                                    isNot: null
-                                }
-                            },
-                            select : {
-                                obtainedPoints : true,
-                                teamId : true,
-                                team : {
-                                    select : {
-                                        name  : true
-                                    }
-                                }
+                        // answers : {
+                        //     where : {
+                        //         team :{
+                        //             isNot: null
+                        //         }
+                        //     },
+                        //     select : {
+                        //         obtainedPoints : true,
+                        //         teamId : true,
+                        //         team : {
+                        //             select : {
+                        //                 name  : true
+                        //             }
+                        //         }
 
-                            }
-                        }
+                        //     }
+                        // }
                     }
                 },
                 answers : {
@@ -102,6 +102,11 @@ export async function GET(request : Request){
                         user : {
                             select : {
                                 email : true
+                            }
+                        },
+                        team : {
+                            select : { 
+                                id :true
                             }
                         }
                     }
