@@ -19,7 +19,6 @@ function creat_new_team(team_name){
       };
       
       axios.request(options).then(function (response) {
-        // console.log(response.data);
         console.debug(`Team with ${team_name} has been added`)
       }).catch(function (error) {
         console.error(error);
@@ -32,6 +31,6 @@ function creat_new_team(team_name){
 // }
 
 
-for (let index = 1 ; index < 10 ; index++){
-  creat_new_team(uuidv4().toString())    
+for (let index = 41 ; index <= 50 ; index++){
+  creat_new_team(`Team ${index}`)    
 }

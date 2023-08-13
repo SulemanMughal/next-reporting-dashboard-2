@@ -13,11 +13,13 @@ import CreateTeamModal from "@/app/components/admin/team/CreateTeamModal"
 import AddTeamMemberModal from "@/app/components/admin/team/AddTeamMemberModal"
 import RemoveMember from "@/app/components/admin/team/RemoveMember"
 import TeamDetailsModal from "@/app/components/admin/team/TeamDetailsModal"
+import TeamDeleteConfirmationModal from "@/app/components/admin/team/TeamDeleteConfirmationModal"
 // import { BiAddToQueue } from "react-icons/bi"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import { BiListUl }  from "react-icons/bi"
 import { MdGroups } from "react-icons/md"
 import { VscTasklist } from "react-icons/vsc"
+
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -70,11 +72,6 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
                                 <tr key={index}  className="focus:outline-none h-16 border border-b-0 border-s-0 border-e-0 border-gray-100 rounded text-gray-500">
                                 <td className="text-center">
                                     <p className="text-base font-medium leading-none  mr-2">
-                                        {/* {team?.quiz === null ?  "Not Assigned Yet" : <Link href={`/admin/teams/${team.id}`}>
-                                            <span className="inline-flex items-center   px-3 py-1 text-lg font-semibold  mr-2 mb-2" >
-                                                {team.name }  <FiChevronsRight size={23} className="p-1 my-1 ml-2 bg-gray-800 text-gray-500 rounded-full"  />
-                                            </span>
-                                        </Link> } */}
                                         {team.name }
                                     </p>
                                 </td>
@@ -93,23 +90,14 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
                                     </p>
                                 </td>
                                 <td className="text-center">
-                                    {/* {team?.answers === null ? "0" : (team?.answers?.length ? 0 : team.answers.length )} */}
                                     {team?.answers?.length}
                                 </td>
                                 <td className="text-center">
-                                    {/* {team?.answers === null ? "0" : (team?.answers?.length ? 0 : team.answers.length )} */}
-                                    {/* {"0"} */}
-                                    {/* {calCulateObtainedPoints(team?.answers)} */}
                                     {calCulateObtainedPoints(team?.answers)}
                                 </td>
                                 <td className="text-center">
-                                    <ActionMenu team={team.id}  removeTeam={removeTeam} setShowAddMemberModal={setShowAddMemberModal} setShowAddMemberModalHandler={setShowAddMemberModalHandler} setShowTeamDetailsModalHandler={setShowTeamDetailsModalHandler}  />
+                                    <ActionMenu team={team}  removeTeam={removeTeam} setShowAddMemberModal={setShowAddMemberModal} setShowAddMemberModalHandler={setShowAddMemberModalHandler} setShowTeamDetailsModalHandler={setShowTeamDetailsModalHandler}  />
                                 </td>
-
-                                {/* <td className="text-center">
-                                    <p className="text-base font-medium leading-none text-gray-700 mr-2">{team.api_key}</p>
-                                </td> */}
-                                
                                 </tr>
                                 <tr className="h-3"></tr>
                             </>
@@ -190,6 +178,12 @@ export default   function Teams(){
     const [teamID, setTeamID] = useState(null)
     const [showTeamDetailsModal, setShowTeamDetailsModal] = useState(null);
     // const [showRemoveMemberModal, setShowRemoveMemberModal] = useState(null);
+    const [showTeamDeleteConfirmationModal, setShowTeamDeleteConfirmationModal] = useState(null);
+
+
+    const [removeTeamID, setRemoveTeamID] = useState(null)
+    // const [removeTeam, setRemoveTeam] = useState(null)
+    
     
     const toggleView = () => {
         setViewType(viewType === 'grid' ? 'list' : 'grid');
@@ -212,7 +206,6 @@ export default   function Teams(){
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
           .then(res => {
             if(res.data.status === true){
-                // console.debug(res.data.teams)
                 setTeams(res.data.teams);
             } else{
                 toast.error(`${res.data.error}`)
@@ -225,19 +218,12 @@ export default   function Teams(){
     const modelHandler = () => {
         setShowModal(true)
     }
-    const removeTeam = (team_id) => {
-        axios.all([
-            axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team/${team_id}`), 
-            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
-        ])
-        .then(axios.spread((data1, data2) => {
-            // console.debug(data1.data.status)
-            if(data1.data.status){
-                toast.success('Team has been deleted successfully')
-            }
-            // console.debug(data2.data.teams)
-            setTeams(data2.data.teams);
-        }));
+    const removeTeam = (team) => {
+        setShowTeamDeleteConfirmationModal(true)
+        // console.debug(team)
+        setRemoveTeamID(team)
+
+        
     }
 
     return (
@@ -247,6 +233,12 @@ export default   function Teams(){
             {showAddMemberModal  ? <AddTeamMemberModal  setShowAddMemberModal={setShowAddMemberModal} updateTeams={setTeams}  team_id={teamID} /> : null  }
             {/* {showRemoveMemberModal ? <RemoveMember /> : null } */}
             {showTeamDetailsModal ? <TeamDetailsModal  setShowTeamDetailsModal={setShowTeamDetailsModal}  team_id={teamID} /> : null}
+            {showTeamDeleteConfirmationModal ?  
+                <TeamDeleteConfirmationModal 
+                    setShowTeamDeleteConfirmationModal={setShowTeamDeleteConfirmationModal} 
+                    removeTeamID={removeTeamID}
+                    setTeams={setTeams}
+                /> : null}
             <div className="sm:px-6 w-full h-full pb-10 ">
                 <div className="px-4 md:px-0 py-4 md:py-7">
                     <div className="flex items-center justify-between">
@@ -264,7 +256,17 @@ export default   function Teams(){
                         </div>
                     </div>
                 </div>
-                {viewType === "list" ? (<TeamListView  teams={teams}  removeTeam={removeTeam}  setShowAddMemberModal={setShowAddMemberModal}  setShowAddMemberModalHandler={setShowAddMemberModalHandler}  setShowTeamDetailsModalHandler={setShowTeamDetailsModalHandler}  />) : (<TeamGridView  teams={teams}  removeTeam={removeTeam}  />)}
+                {viewType === "list" ? 
+                    (
+                        <TeamListView  
+                            teams={teams}  
+                            removeTeam={removeTeam}  
+                            setShowAddMemberModal={setShowAddMemberModal}  
+                            setShowAddMemberModalHandler={setShowAddMemberModalHandler}  
+                            setShowTeamDetailsModalHandler={setShowTeamDetailsModalHandler}  
+                        />
+                    ) : 
+                    (<TeamGridView  teams={teams}  removeTeam={removeTeam}  />)}
             </div>
         </>
     )

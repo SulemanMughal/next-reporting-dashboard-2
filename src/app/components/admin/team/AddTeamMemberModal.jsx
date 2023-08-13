@@ -61,11 +61,10 @@ const SearchableSelect = ({ options,  user_id }) => {
                 key={option.value}
                 className="px-4 py-2 cursor-pointer hover:bg-gray-100 "
                 onMouseDown={(e) => {
-                  e.preventDefault(); // Prevents focus loss when clicking
+                  e.preventDefault(); 
                   setSelectedOption(option.label);
                   setIsDropdownOpen(false);
                     user_id.current = option.value
-                //   console.debug(option.label)
                 }}
               >
                 {option.label}
