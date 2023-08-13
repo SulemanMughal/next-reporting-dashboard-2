@@ -25,14 +25,12 @@ function calculateTotalPointsPerUser(answers, email) {
 
 export default function TeamDetailsModal({setShowTeamDetailsModal , team_id}){
     const [users, setUsers] = useState(null)
-    const [answers , setAnswers] = useState(null)
+    // const [answers , setAnswers] = useState(null)
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team/${team_id}`)
         .then(res => {
             if(res.data.status === true){
-                // console.log(res.data.team)
                 setUsers(res.data.team?.users)
-                setAnswers(res.data.team?.answers)
             } else {
                 toast.error(`${res.data.error}`)
             }
@@ -43,8 +41,7 @@ export default function TeamDetailsModal({setShowTeamDetailsModal , team_id}){
     }, [])
     return (
         <>        
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
-            data-aos="zoom-out" data-aos-duration="700" 
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" data-aos="zoom-out" data-aos-duration="700" 
             >
                 <div className="relative w-1/4  px-4 space-y-16 ">
                     <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
@@ -72,12 +69,8 @@ export default function TeamDetailsModal({setShowTeamDetailsModal , team_id}){
                                                             {(Array.from(user.email)[0]).toString().toUpperCase()}
                                                         </span>
                                                     </div>    
-                                                    
                                                     <p className="text-xl text-dark fw-bold ml-5">
                                                         {user.email}
-                                                    </p>
-                                                    <p className="text-xl text-dark fw-bold ml-5">
-                                                        {/* {calculateTotalPointsPerUser(answers, user.email) !== undefined ?  calculateTotalPointsPerUser(answers, user.email)  + " " + "Points" : "0" + " " + "Points"} */}
                                                     </p>
                                                 </div>
                                             </div>

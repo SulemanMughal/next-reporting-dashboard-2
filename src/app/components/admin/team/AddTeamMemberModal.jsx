@@ -12,6 +12,73 @@ import axios from "axios"
 import { toast } from "react-hot-toast"
 
 
+const SearchableSelect = ({ options,  user_id }) => {
+    const [filteredOptions, setFilteredOptions] = useState(options);
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState('');
+  
+    const mapToSelectFormat = (data) => {
+      return data.map((item) => ({
+        value: item.id,
+        label: item.email,
+      }));
+    };
+  
+    const handleInputChange = (e) => {
+        const inputValue = e.target.value;
+      setSelectedOption(inputValue);
+      
+      setFilteredOptions(
+        mapToSelectFormat(options).filter((option) =>
+          option.label.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      );
+      setIsDropdownOpen(true)
+    };
+  
+    useEffect(() => {
+      if (!selectedOption) {
+        setFilteredOptions(mapToSelectFormat(options));
+      }
+    }, [selectedOption, options]);
+  
+    return (
+      <>
+        <input
+          type="text"
+          className="block py-3 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+          placeholder=""
+          value={selectedOption}
+          onChange={handleInputChange}
+          onFocus={() => setIsDropdownOpen(true)}
+          onBlur={() => setIsDropdownOpen(false)}
+          
+        />
+        {isDropdownOpen && (
+          <div className="absolute left-0 w-full max-h-72 overflow-y-auto border rounded shadow-lg bg-white">
+            {filteredOptions.map((option) => (
+              <div
+                key={option.value}
+                className="px-4 py-2 cursor-pointer hover:bg-gray-100 "
+                onMouseDown={(e) => {
+                  e.preventDefault(); // Prevents focus loss when clicking
+                  setSelectedOption(option.label);
+                  setIsDropdownOpen(false);
+                    user_id.current = option.value
+                //   console.debug(option.label)
+                }}
+              >
+                {option.label}
+              </div>
+            ))}
+          </div>
+        )}
+      </>
+    );
+  };
+
+
+
 function SubmitBtn({isSubmit, setShowAddMemberModal }){
     return (
         <>
@@ -45,14 +112,13 @@ function SubmitBtn({isSubmit, setShowAddMemberModal }){
 
 
 
+
+
 export default function AddTeamMemberModal({setShowAddMemberModal , updateTeams, team_id}){
     
     const user_id = useRef("");
     const [isSubmit, setSubmit] = useState(false)
     const [users, setUsers] = useState(null)
-
-    // console.debug(team_id)
-
 
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`)
@@ -68,10 +134,9 @@ export default function AddTeamMemberModal({setShowAddMemberModal , updateTeams,
         });
     }, [])
 
-
     const submitHandler = async (event) => {
         event.preventDefault()
-        if(user_id.current == "" ){
+        if(user_id.current == ""  ){
             toast.error(`All fields are required`)
         }
         else{
@@ -133,12 +198,7 @@ export default function AddTeamMemberModal({setShowAddMemberModal , updateTeams,
                 <div className="relative p-6 flex-auto">
                 <form className="space-y-6" onSubmit={submitHandler}>
                     <div className="relative z-0 w-full mb-6 group">
-                        <select id="user_id" className="block py-3 px-0 w-full text-md text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" defaultValue={''}  onChange={(e) => user_id.current = e.target.value}>
-                            <option value="" disabled>Choose a Member</option>
-                            {users && users.length && users.map((user , index) => (
-                                <option key={index} value={user.id}>{user.email}</option>
-                            ))}
-                        </select>
+                        {users && <SearchableSelect options={users}  user_id={user_id} /> } 
                         <label htmlFor="user_id" className="peer-focus:font-medium absolute text-md text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">User Member</label>
                     </div>
                     <div>
@@ -146,10 +206,8 @@ export default function AddTeamMemberModal({setShowAddMemberModal , updateTeams,
                     </div>
                 </form>
                 </div>
-
                 </div>
-                    </div>
-            
+                </div>
             </div>
             <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
