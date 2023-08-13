@@ -99,6 +99,7 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
                                 <td className="text-center">
                                     {/* {team?.answers === null ? "0" : (team?.answers?.length ? 0 : team.answers.length )} */}
                                     {/* {"0"} */}
+                                    {/* {calCulateObtainedPoints(team?.answers)} */}
                                     {calCulateObtainedPoints(team?.answers)}
                                 </td>
                                 <td className="text-center">
@@ -206,16 +207,12 @@ export default   function Teams(){
         setShowTeamDetailsModal(true)
     }
 
-
-
-
-
-
     useEffect(() => {
         AOS.init();
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
           .then(res => {
             if(res.data.status === true){
+                // console.debug(res.data.teams)
                 setTeams(res.data.teams);
             } else{
                 toast.error(`${res.data.error}`)
@@ -229,24 +226,16 @@ export default   function Teams(){
         setShowModal(true)
     }
     const removeTeam = (team_id) => {
-        // axios.request({
-        //     method: 'DELETE',
-        //     url: `${process.env.NEXT_PUBLIC_BASE_URL}/api/team/${team_id}`,
-        // }).then(function (response) {
-        // }).catch(function (error) {
-        //     console.debug(error);
-        // });
-
         axios.all([
             axios.delete(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team/${team_id}`), 
             axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
         ])
         .then(axios.spread((data1, data2) => {
-            console.debug(data1.data.status)
+            // console.debug(data1.data.status)
             if(data1.data.status){
                 toast.success('Team has been deleted successfully')
             }
-            console.debug(data2.data.teams)
+            // console.debug(data2.data.teams)
             setTeams(data2.data.teams);
         }));
     }

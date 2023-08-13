@@ -30,6 +30,7 @@ export default function TeamDetailsModal({setShowTeamDetailsModal , team_id}){
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team/${team_id}`)
         .then(res => {
             if(res.data.status === true){
+                // console.log(res.data.team)
                 setUsers(res.data.team?.users)
                 setAnswers(res.data.team?.answers)
             } else {
@@ -76,7 +77,7 @@ export default function TeamDetailsModal({setShowTeamDetailsModal , team_id}){
                                                         {user.email}
                                                     </p>
                                                     <p className="text-xl text-dark fw-bold ml-5">
-                                                        {calculateTotalPointsPerUser(answers, user.email) !== undefined ?  calculateTotalPointsPerUser(answers, user.email)  + " " + "Points" : "0" + " " + "Points"}
+                                                        {/* {calculateTotalPointsPerUser(answers, user.email) !== undefined ?  calculateTotalPointsPerUser(answers, user.email)  + " " + "Points" : "0" + " " + "Points"} */}
                                                     </p>
                                                 </div>
                                             </div>

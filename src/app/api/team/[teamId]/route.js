@@ -14,12 +14,21 @@ export async function GET(request, {params}){
                 quizId : true,
                 users : {
                     select : { 
-                        email : true
+                        email : true, 
+                        answers : {
+                            where : {
+                                teamId : (params.teamId)
+                            }, select : {
+                                obtainedPoints : true,
+                            }
+                        }
                     }
                 }, answers : {
                     select : {
                         user : {
-                            select : {
+                            where : {
+                                teamId : (params.teamId)
+                            } ,select : {
                                 email : true
                             }
                         },

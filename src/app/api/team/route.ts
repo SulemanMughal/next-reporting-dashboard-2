@@ -67,16 +67,43 @@ export async function GET(request : Request){
                     }
                 },
                 users : {
+                    // where : {
+                    //     team :{
+                    //         is: {}
+                    //     }
+                    // },
                     select : {
-                        id : true,
+                        // id : true,
                         email  : true,
-                        name  : true,
-                        role : true
+                        // name  : true,
+                        // role : true
+                        answers : {
+                            where : {
+                                team :{
+                                    isNot: null
+                                }
+                            },
+                            select : {
+                                obtainedPoints : true,
+                                teamId : true,
+                                team : {
+                                    select : {
+                                        name  : true
+                                    }
+                                }
+
+                            }
+                        }
                     }
                 },
                 answers : {
                     select : {
-                        obtainedPoints : true
+                        obtainedPoints : true,
+                        user : {
+                            select : {
+                                email : true
+                            }
+                        }
                     }
                 },
             }
