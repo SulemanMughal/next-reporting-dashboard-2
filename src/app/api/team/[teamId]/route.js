@@ -13,6 +13,7 @@ export async function GET(request, {params}){
                 name : true,
                 quizId : true,
                 users : {
+                    
                     select : { 
                         email : true, 
                         answers : {
