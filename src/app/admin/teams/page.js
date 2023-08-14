@@ -4,21 +4,20 @@ import Link from "next/link";
 import SortDropDown from "@/app/components/admin/quiz/SortDropDown"
 import ActionMenu from "@/app/components/admin/team/ActionMenu"
 import {FiChevronsRight} from "react-icons/fi"
-// import {  AiOutlinePlus } from "react-icons/ai"
 import { useRef , useState, useEffect } from "react"
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import CustomToaster from "@/app/components/CustomToaster";
 import CreateTeamModal from "@/app/components/admin/team/CreateTeamModal"
 import AddTeamMemberModal from "@/app/components/admin/team/AddTeamMemberModal"
 import RemoveMember from "@/app/components/admin/team/RemoveMember"
 import TeamDetailsModal from "@/app/components/admin/team/TeamDetailsModal"
 import TeamDeleteConfirmationModal from "@/app/components/admin/team/TeamDeleteConfirmationModal"
-// import { BiAddToQueue } from "react-icons/bi"
 import { BsGrid3X3GapFill } from "react-icons/bs"
 import { BiListUl }  from "react-icons/bi"
 import { MdGroups } from "react-icons/md"
 import { VscTasklist } from "react-icons/vsc"
+
 
 
 import AOS from 'aos';
@@ -179,6 +178,7 @@ export default   function Teams(){
     const [showTeamDetailsModal, setShowTeamDetailsModal] = useState(null);
     // const [showRemoveMemberModal, setShowRemoveMemberModal] = useState(null);
     const [showTeamDeleteConfirmationModal, setShowTeamDeleteConfirmationModal] = useState(null);
+    const [showQuizModal, setQuizModal] = useState(null);
 
 
     const [removeTeamID, setRemoveTeamID] = useState(null)
