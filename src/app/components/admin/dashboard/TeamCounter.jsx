@@ -7,12 +7,17 @@ import { RiTeamFill } from "react-icons/ri"
 import axios from 'axios';
 
 
+import decrypt from "@/app/lib/decrypt"
+
+
 export default function TeamCounter(){
     const [teamCounter, setTeamCounter] = useState(null);
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/team_counter`)
-        .then(response => {
-            setTeamCounter(response.data.total_teams)
+        .then(res => {
+            
+            const {...data } = decrypt(res.data.encryptedData)
+            setTeamCounter(data.total_teams)
         })
         .catch(error => {
             console.error(error);

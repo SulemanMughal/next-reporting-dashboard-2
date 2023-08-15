@@ -1,11 +1,20 @@
 import prisma from "@/app/lib/prisma";
 
+// const crypto = require('crypto');
+// const secretKey = 'your-secret-key';
+
+
+import encrypt from "@/app/lib/encrypt";
+
+import decrypt from "@/app/lib/decrypt"
+
 
 
 interface RequestBody{
-    name : string;
-    api_key : string;
-    team_number : number;
+    // name : string;
+    // api_key : string;
+    // team_number : number;
+    data : string
 
 }
 
@@ -17,10 +26,11 @@ interface RequestBody{
 
 export async function POST(request: Request){
     const body : RequestBody = await request.json()
-
+    const {...data } = decrypt(body.data)
+    // console.debug(data.name)
     const team = await prisma.team.findUnique({
         where: {
-          name: body.name,
+          name: data.name,
         },
       })
 
@@ -29,7 +39,7 @@ export async function POST(request: Request){
         try {
             const team = await prisma.team.create({
                 data : {
-                    name : body.name
+                    name : data.name
     
                 }
             })
@@ -39,15 +49,22 @@ export async function POST(request: Request){
             //         action_by
             //     }
             // })
-            return new Response(JSON.stringify({status : true, team}))
+            
+            const encryptedData = encrypt({status : true, team});
+            // return new Response(JSON.stringify({status : true, team}))
+            return new Response(JSON.stringify({ encryptedData }))
         } catch (error) {
             console.debug(error)
-            return new Response(JSON.stringify({status : false}))
+            const encryptedData = encrypt({status : false});
+            return new Response(JSON.stringify({ encryptedData }))
+            // return new Response(JSON.stringify({status : false}))
         }
 
     }
     else{
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false});
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
     }    
 }
 
@@ -113,10 +130,16 @@ export async function GET(request : Request){
                 },
             }
         })
-        return new Response(JSON.stringify({status : true, teams}))
+        const encryptedData = encrypt({status : true, teams});
+        // console.debug(encryptedData)
+        // console.debug(decrypt(encryptedData))
+        // return new Response(JSON.stringify({status : true, teams  }))
+        // asdas
+        return new Response(JSON.stringify({ encryptedData }))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false, error : `Sorry! There is an error while fetching teams. Please try again after some time`}))
+        const encryptedData = encrypt({status : false, error : `Sorry! There is an error while fetching teams. Please try again after some time`});
+        return new Response(JSON.stringify({encryptedData}))
 
     }
 }

@@ -1,11 +1,19 @@
 import prisma from "@/app/lib/prisma";
 
 
+
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 export async function PUT(request , {params}){
+    
+    
     try{
         
         const quiz_id = (params.id)
         const body =   await request.json()
+        const {...data } = decrypt(body.encryptedData)
         const result = await prisma.quiz.update({
             where: {
               id: quiz_id,
@@ -13,13 +21,13 @@ export async function PUT(request , {params}){
             data: {
                 questions: {
                     create: {
-                        title : body.title,
-                        original_answer: body.original_answer,
-                        points: parseInt(body.points),
-                        Description: body.Description,
+                        title : data.title,
+                        original_answer: data.original_answer,
+                        points: parseInt(data.points),
+                        Description: data.Description,
                         scenario :{
                             connect : {
-                                id : body.scenario_id
+                                id : data.scenario_id
                             }
                         }
                     },    
@@ -31,11 +39,18 @@ export async function PUT(request , {params}){
         })
 
 
-        return new Response(JSON.stringify({status : true, result}))
+        const encryptedData = encrypt({status : true, result})
+        return new Response(JSON.stringify({ encryptedData }))
+        
+        // return new Response(JSON.stringify({status : true, result}))
     }
     catch (err){
         console.error(err)
-        return new Response(JSON.stringify({status : false}))
+        
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+
+        // return new Response(JSON.stringify({status : false}))
     }
 
 }

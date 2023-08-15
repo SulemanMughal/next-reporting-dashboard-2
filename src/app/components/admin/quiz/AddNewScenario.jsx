@@ -119,6 +119,12 @@ function TagsInput({tags , setTags}) {
   }
   
 
+
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+  
+
 function CreateScenario({setShowModal}){
     
     
@@ -137,26 +143,21 @@ function CreateScenario({setShowModal}){
         }  else { 
             try {
                 // console.debug(name.current, description.current, difficulty.current, arrayToString(tags))
-                const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario/`, {
+                
+                const encryptedData = encrypt( {
                     name : name.current,
                     desc : description.current,
                     difficulty : difficulty.current,
                     tags : arrayToString(tags),
-                });
+                })
+                const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario/`, {encryptedData});
                 setShowModal(false)
-                if(response.data.status === false){
+                const {...data } = decrypt(res.data.encryptedData)
+                if(data.status === false){
                     toast.error(`Sorry, you can't create scenario. Please try again after sometime`)    
                 } else {
                     toast.success('Successfull, Scenario has been created')
-                    // axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}`)
-                    // .then((res) => {
-                    //     setData(res.data)
-                    // })
-                    // .catch((err) => {
-                    //     console.log(err)
-                    // })
                 }
-                
             } catch (error) {
                 setSubmit(false)
                 console.error(error)

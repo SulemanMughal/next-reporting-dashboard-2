@@ -14,6 +14,10 @@ import  { GiCancel } from "react-icons/gi"
 import  { IoMdRemoveCircle } from "react-icons/io"
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 // import { BiAddToQueue } from "react-icons/bi"
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
@@ -25,12 +29,16 @@ export default function RemoveQuestionModal({setRemoveQuestion , quizId, questio
         try {
             axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}/question/${questionId}`)
             .then((res) => {
+                
+                // const {...data } = decrypt(res.data.encryptedData)
+
                 setSubmit(false)
                 setRemoveQuestion(false)
                 toast.success(`Successfully removed question`)
                 axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}`)
                 .then((res) => {
-                    setData(res.data)
+                    const {...data } = decrypt(res.data.encryptedData)
+                    setData(data)
                 })
                 .catch((err) => {
                     console.log(err)

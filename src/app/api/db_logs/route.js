@@ -2,13 +2,24 @@
 
 import  {selectRows} from "@/app/lib/read_db.js"
 
+
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 export async function GET(request){
     try{
         const logs = await selectRows()
-        return new Response(JSON.stringify(logs))
+        
+        const encryptedData = encrypt({logs : logs})
+        return new Response(JSON.stringify({ encryptedData }))
+
+        // return new Response(JSON.stringify(logs))
     } catch(error){
         console.debug(error)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
         
     }
 

@@ -7,7 +7,9 @@ import { categories } from "@/app/data/data"
 import toast from 'react-hot-toast';  
 
 
+import decrypt from "@/app/lib/decrypt"
 
+import encrypt from "@/app/lib/encrypt"
 
 
 const SubmitBtn = ({isSubmit, setShowModal }) => {
@@ -52,9 +54,11 @@ export default  function CreateScriptModal({ setShowModal, updateScripts }) {
   
     useEffect(() => {
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/attack_script`)
-        .then(response => {
-          setSnames(response.data);
-          name.current=response.data[0]
+        .then(res => {
+
+          const {...data } = decrypt(res.data.encryptedData)
+          setSnames(data.scripts);
+          name.current=data.scripts[0]
           category.current = categories[0]
         })
         .catch(error => {
@@ -84,16 +88,23 @@ export default  function CreateScriptModal({ setShowModal, updateScripts }) {
       } else {
         try {
           setSubmit(true)
-          await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/local_scripts`, {
+          
+          const encryptedData = encrypt({
             name: name.current,
             script_id: (category.current),
             desc : desc.current
+          })
+          await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/local_scripts`, {
+            encryptedData
           });
           setShowModal(false)
           toast.success(`Script has been added successfully`)
           axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/local_scripts`)
-          .then(response => {
-            updateScripts(response.data);
+          .then(res => {
+            
+            const {...data } = decrypt(res.data.encryptedData)
+            // console.debug(data.scripts)
+            updateScripts(data.scripts);
           })
           .catch(error => {
             console.error(error);

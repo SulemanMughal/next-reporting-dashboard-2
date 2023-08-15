@@ -2,20 +2,33 @@
 import prisma from "@/app/lib/prisma";
 
 
+
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 export async function POST(request){
     const body  = await request.json()
+    // console.debug(body)
+    const data = decrypt(body.encryptedData)
     try {
         const result = await prisma.attackScript.create({
             data : {
-                name : body.name,
-                script_category : body.script_id,
-                desc : body.desc
+                name : data.name,
+                script_category : data.script_id,
+                desc : data.desc
             }
         })
-        return new Response(JSON.stringify({status : true, result}))
+        
+        const encryptedData = encrypt({status : true, result})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : true, result}))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
     }
 
 }
@@ -24,9 +37,13 @@ export async function POST(request){
 export async function GET(request ){
     try {
         const scripts = await prisma.attackScript.findMany({})
-        return new Response(JSON.stringify(scripts))
+        const encryptedData = encrypt({scripts : scripts})
+        return new Response(JSON.stringify({encryptedData}))
+        // return new Response(JSON.stringify(scripts))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({encryptedData}))
+        // return new Response(JSON.stringify({status : false}))
     }
 }

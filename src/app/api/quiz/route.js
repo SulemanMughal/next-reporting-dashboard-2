@@ -1,6 +1,9 @@
 import prisma from "@/app/lib/prisma";
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 
 export async function POST(request ){
     const body = await request.json()
@@ -106,9 +109,15 @@ export async function GET(request ){
                 }
             }
         })
-        return new Response(JSON.stringify({status : true , results:results}))
+        
+        const encryptedData = encrypt({status : true , results:results})
+        return new Response(JSON.stringify({ encryptedData }))
+
+        // return new Response(JSON.stringify({status : true , results:results}))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
     }
 }

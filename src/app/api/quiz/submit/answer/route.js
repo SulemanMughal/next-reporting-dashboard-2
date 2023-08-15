@@ -1,9 +1,15 @@
 import prisma from "@/app/lib/prisma";
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 export async function POST(request ){
     const body = await request.json()
-    const { question  , answer , team , quiz , user} = body
+
+    const {...data } = decrypt(body.encryptedData)
+
+    const { question  , answer , team , quiz , user} = data
     try{
         const checkExisingAnswer  = await prisma.question.findUnique({
             where : {
@@ -87,12 +93,18 @@ export async function POST(request ){
                 }
             })
         }
-        return new Response(JSON.stringify({status : true , result}))
+        
+        const encryptedData = encrypt({status : true , result})
+        return new Response(JSON.stringify({ encryptedData }))
+
+        // return new Response(JSON.stringify({status : true , result}))
 
         
     }
     catch (err){
         console.error(err)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
     }
 }   

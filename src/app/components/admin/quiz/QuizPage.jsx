@@ -11,6 +11,10 @@ import AddNewScenario from "@/app/components/admin/quiz/AddNewScenario"
 import CustomToaster from "@/app/components/CustomToaster"
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 function removeDuplicates(array) {
     let items = []
     array.map((item) => {
@@ -44,6 +48,8 @@ function getQuestionScenarioDifficultyStatus(question) {
 //         return ""
 //     }
 // }
+
+
 
   
 function FilteredDataWithButtons({data , quizId , setData}) {
@@ -104,7 +110,8 @@ export default function QuizPage({quizId}){
     useEffect(() => {   
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}`)
         .then((res) => {
-            setData(res.data)
+            const {...data } = decrypt(res.data.encryptedData)
+            setData(data)
         })
         .catch((err) => {
             console.log(err)

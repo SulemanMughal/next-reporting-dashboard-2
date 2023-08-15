@@ -7,6 +7,10 @@ import  { GiCancel } from "react-icons/gi"
 import toast, { Toaster } from 'react-hot-toast';
 import  { BsPersonFillAdd } from "react-icons/bs";
 
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
@@ -64,10 +68,12 @@ export default  function TeamAssignModal({setShowTeamAssignModal, quizId , setDa
         
         axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}/team/${team_id.current}`)
         .then((res) => {
+          const {...data } = decrypt(res.data.encryptedData)
           toast.success(`Successfully assigned team`)
           axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/`)
-          .then(response => {
-              setData(response.data)
+          .then(res_2 => {
+              const {...data } = decrypt(res_2.data.encryptedData)
+              setData(data)
           })
           .catch(error => {
               console.log(error)
@@ -98,7 +104,8 @@ export default  function TeamAssignModal({setShowTeamAssignModal, quizId , setDa
     AOS.init();
     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
     .then((res) => {
-      setTeams(res.data.teams)
+      const {...data } = decrypt(res.data.encryptedData)
+      setTeams(data.teams)
     })
     .catch((err) => {
       console.log(err)

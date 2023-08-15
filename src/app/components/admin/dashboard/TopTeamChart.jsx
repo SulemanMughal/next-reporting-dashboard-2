@@ -75,25 +75,31 @@ function getLabels(data) {
 }
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 
 export default function TopTeamChart() {
   const [teams, setTeams] = useState(null);
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/top_teams`)
-    .then(response => {
+    .then(res => {
+      
+      const {...data } = decrypt(res.data.encryptedData)
       setTeams({
-        labels : getLabels(response.data.records)[3],
+        labels : getLabels(data.records)[3],
         datasets: [
           {
             label: 'Solved Questions',
-            data: getLabels(response.data.records)[2],
+            data: getLabels(data.records)[2],
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: 'rgba(255, 99, 132, 0.5)',
             stack: 'Stack 0'
           },
           {
             label: 'Obtained Points',
-            data:  getLabels(response.data.records)[0],
+            data:  getLabels(data.records)[0],
             borderColor: 'rgb(53, 162, 235)',
             backgroundColor: 'rgba(53, 162, 235, 0.5)',
             stack: 'Stack 0'

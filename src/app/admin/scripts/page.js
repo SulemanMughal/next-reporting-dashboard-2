@@ -10,6 +10,9 @@ import CreateScriptModal from "@/app/components/admin/scripts/CreateScriptModal"
 import SortBtn from "@/app/components/admin/scripts/SortBtn"
 
 
+import decrypt from "@/app/lib/decrypt"
+
+
 function CreateScriptCard({modelHandler}){
   return (
     <>
@@ -33,12 +36,13 @@ export default function Scripts() {
   }
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/local_scripts`)
-      .then(response => {
-        setScripts(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .then(res => {
+      const {...data } = decrypt(res.data.encryptedData)
+      setScripts(data.scripts);
+    })
+    .catch(error => {
+      console.error(error);
+    });
   }, []);
   return (
     <>

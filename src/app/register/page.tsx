@@ -44,6 +44,10 @@ function SubmitBtn({isSubmit, submitHandler}){
   )
 }
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 
 export default function Login() {
 
@@ -66,10 +70,14 @@ export default function Login() {
         setSubmit(true)
 
         try{
+          
+          const encryptedData = encrypt({
+            email : username.current,
+            password : pass.current,
+            name : name.current,
+        })
             await axios.post('/api/user', {
-                email : username.current,
-                password : pass.current,
-                name : name.current,
+              encryptedData
             });
 
             toast.success('Register Successfully.')

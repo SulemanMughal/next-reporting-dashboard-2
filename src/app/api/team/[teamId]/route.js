@@ -2,6 +2,8 @@
 
 import prisma from "@/app/lib/prisma";
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
 
 export async function GET(request, {params}){
     try {
@@ -38,10 +40,14 @@ export async function GET(request, {params}){
                 }
             }
         })
-        return new Response(JSON.stringify({status : true, team}))
+        const encryptedData = encrypt({status : true, team});
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : true, team}))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false, error : "Sorry! There is an error while fetching team details. Please try again after some time"}))
+        const encryptedData = encrypt({status : false, error : "Sorry! There is an error while fetching team details. Please try again after some time"});
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false, error : "Sorry! There is an error while fetching team details. Please try again after some time"}))
     }
 }
 
@@ -53,9 +59,13 @@ export async function DELETE(request , {params}){
                 id : (params.teamId)
             }
         })
-        return new Response(JSON.stringify({status : true}))
+        // return new Response(JSON.stringify({status : true}))
+        const encryptedData = encrypt({status : true});
+        return new Response(JSON.stringify({ encryptedData }))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false});
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
     }
 }

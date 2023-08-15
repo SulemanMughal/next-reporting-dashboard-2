@@ -2,6 +2,9 @@
 import prisma from "@/app/lib/prisma";
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 
 export async function GET(request ){
     try {
@@ -13,10 +16,15 @@ export async function GET(request ){
             ],
             take : 10
         })
-        return new Response(JSON.stringify(scripts))
+        
+        const encryptedData = encrypt({scripts : scripts})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify(scripts))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
         
     }
 }

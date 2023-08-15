@@ -20,6 +20,10 @@ function getLabels(data) {
   return [labels,logs]
 }
 
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 export default function LogsPerProtocol(){
   const [chartData, setChartData] = useState({
     datasets : []
@@ -33,11 +37,15 @@ var colors = s.scheme('tetrade')
 const [chartOptions, setChartOptions] = useState({});
 useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_per_protocol`)
-    .then(response => {
+    
+    
+
+    .then(res => {
+      const {...data } = decrypt(res.data.encryptedData)
         setChartData({
-            labels: getLabels(response.data.logs_per_protocol_logs)[0],
+            labels: getLabels(data.logs_per_protocol_logs)[0],
             datasets: [
-                { label: 'Logs', data: getLabels(response.data.logs_per_protocol_logs)[1], backgroundColor: colors.map(i => '#' + i) },
+                { label: 'Logs', data: getLabels(data.logs_per_protocol_logs)[1], backgroundColor: colors.map(i => '#' + i) },
             ]
         })
         setChartOptions({

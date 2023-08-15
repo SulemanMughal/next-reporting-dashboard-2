@@ -5,6 +5,11 @@
 import prisma from "@/app/lib/prisma";
 
 
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 export async function PUT(request , {params}){
 
     const quiz_id = (params.id)
@@ -33,12 +38,17 @@ export async function PUT(request , {params}){
                 teams: true,
             },
           })
+          
+        const encryptedData = encrypt({status : true})
+        return new Response(JSON.stringify({ encryptedData }))
 
-        return new Response(JSON.stringify({status : true}))
+        // return new Response(JSON.stringify({status : true}))
     }
     catch(err){
         console.error(err)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
     }
 
 }

@@ -103,6 +103,12 @@ function getLabels(data) {
 
 
 
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
+
 export default function IP_PerProtocol() {
 
   
@@ -116,19 +122,22 @@ var colors = s.scheme('tetrade')
   const [logs, setLogs] = useState(null);
     useEffect(() => {
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ips_per_protocol`)
-      .then(response => {
+      .then(res => {
+        
+
+      const {...data } = decrypt(res.data.encryptedData)
         setLogs({
-          labels : getLabels(response.data.ips_per_protocol_logs)[0],
+          labels : getLabels(data.ips_per_protocol_logs)[0],
           datasets: [
             {
               label: 'IPs',
-              data:getLabels(response.data.ips_per_protocol_logs)[1],
+              data:getLabels(data.ips_per_protocol_logs)[1],
               backgroundColor: colors.map(i => '#' + i),
               stack: 'Stack 0',
             },
             {
               label: 'Teams',
-              data: getLabels(response.data.ips_per_protocol_logs)[2],
+              data: getLabels(data.ips_per_protocol_logs)[2],
               backgroundColor: colors.map(i => '#' + i),
               stack: 'Stack 1',
             }

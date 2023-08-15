@@ -21,6 +21,11 @@ function getLabels(data) {
     return [labels,teams, logs]
 }
 
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 export default function TeamsPerAttack(){
     const [chartData, setChartData] = useState({
         datasets : []
@@ -34,13 +39,15 @@ export default function TeamsPerAttack(){
     const [chartOptions, setChartOptions] = useState({});
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/teams_per_attack`)
-        .then(response => {
+        .then(res => {
+                        
+            const {...data } = decrypt(res.data.encryptedData)
             setChartData({
-                labels: getLabels(response.data.teams_per_attack_logs)[0],
+                labels: getLabels(data.teams_per_attack_logs)[0],
                 datasets: [
                     { 
                         label: 'Teams', 
-                        data: getLabels(response.data.teams_per_attack_logs)[1], 
+                        data: getLabels(data.teams_per_attack_logs)[1], 
                         backgroundColor: colors.map(i => '#' + i) ,
                         borderColor : 0
                     },

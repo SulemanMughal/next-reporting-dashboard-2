@@ -3,35 +3,41 @@
 import prisma from "@/app/lib/prisma";
 
 
+
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 interface RequestBody{
-    name : string;
-    desc : string;
-    difficulty : string;
-    tags : string;
+    encryptedData : string;
 
 }
 
 
 export async function POST(request: Request){
     const body : RequestBody = await request.json()
-
-    // console.debug(body)
-
+    const {...data} = decrypt(body.encryptedData)
     try {
         const scenario = await prisma.scenario.create({
             data : {
-                name : body.name,
-                desc : body.desc,
-                difficulty  : body.difficulty,
-                tags : body.tags
+                name : data.name,
+                desc : data.desc,
+                difficulty  : data.difficulty,
+                tags : data.tags
     
             }
         })
-        return new Response(JSON.stringify({status : true}))
+        
+        const encryptedData = encrypt({status : true})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : true}))
 
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false, error : "Sorry! There is an error while creating scenario.Please try again later"}))
+        const encryptedData = encrypt({status : false, error : "Sorry! There is an error while creating scenario.Please try again later"})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false, error : "Sorry! There is an error while creating scenario.Please try again later"}))
     }
 }
 
@@ -47,9 +53,14 @@ export async function GET(request: Request){
             }
         })
         
-        return new Response(JSON.stringify({status : true , scenarios}))
+
+        const encryptedData = encrypt({status : true , scenarios})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : true , scenarios}))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false, error : error.message}))
+        const encryptedData = encrypt({status : false, error : error.message})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false, error : error.message}))
     }
 }

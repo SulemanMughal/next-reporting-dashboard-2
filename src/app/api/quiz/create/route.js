@@ -1,22 +1,33 @@
 import prisma from "@/app/lib/prisma";
 
 
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 export async function POST(request){
-    const {title, startAt, endAt}  = await request.json()
+    
     try{
+        const body  = await request.json()
+        const {...data } = decrypt(body.encryptedData)
         const quiz = await prisma.quiz.create({
             data : {
-                title : title,
-                startAt : new Date(startAt),
-                endAt  : new Date(endAt)
+                title : data.title,
+                startAt : new Date(data.startAt),
+                endAt  : new Date(data.endAt)
     
             }
         })
-        return new Response(JSON.stringify({status : true, quiz}))
+        
+        const encryptedData = encrypt({status : true, quiz})
+        return new Response(JSON.stringify({ encryptedData }))
     }
     catch (err){
         console.error(err)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
     }
 
 }

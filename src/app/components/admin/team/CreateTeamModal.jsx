@@ -7,6 +7,10 @@ import  { GiCancel } from "react-icons/gi"
 import { useRef , useState, useEffect } from "react"
 import axios from 'axios';
 
+// import encrypt from "@root/core/encrypt"
+import encrypt from '@/app/lib/encrypt';
+import decrypt from "@/app/lib/decrypt"
+
 
 import { MdGroups } from "react-icons/md"
 
@@ -54,18 +58,21 @@ export default function CreateTeamModal({setShowModal , updateTeams}){
         else{
             try {
                 setSubmit(true)
-                const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`, {
-                    name : name.current
+                const encryptedData = encrypt({name : name.current});
+                const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`, {
+                    data : encryptedData
                 });
                 setShowModal(false)
-                if(response.data.status === false){
+                const {...data } = decrypt(res.data.encryptedData)
+                if(data.status === false){
                     toast.error(`${name.current} already exists`)    
                 }
                 else{
                     toast.success('Successfull, Team has been created')
                     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
-                    .then(response => {
-                        updateTeams(response.data.teams);
+                    .then(res => {
+                        const {...data } = decrypt(res.data.encryptedData)
+                        updateTeams(data.teams);
                     })
                     .catch(error => {
                         console.error(error);

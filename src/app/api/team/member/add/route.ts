@@ -1,27 +1,39 @@
 import prisma from "@/app/lib/prisma";
 
 
+// import encrypt from "@/app/lib/encrypt"
+
+
+import decrypt from "@/app/lib/decrypt"
+
+import encrypt from "@/app/lib/encrypt"
+
 
 interface RequestBody{
-    id : string;
-    user_id : string
+    // id : string;
+    encryptedData : string
 }
 
 
 
 export async function POST(request: Request){
+
+
     try {
         const body : RequestBody = await request.json()
 
+        // console.debug( decrypt( body.encryptedData    ))
+        const member = decrypt( body.encryptedData)
+
         const team = await prisma.team.update({
             where: { 
-                id: body.id 
+                id: member.id 
             },
             data : {
                 users : {
                     connect : [
                         {
-                            id : body.user_id
+                            id : member.user_id
                         }
                     ]
                 }
@@ -38,12 +50,16 @@ export async function POST(request: Request){
         })
 
         const {...result} = team;
-
-        return new Response(JSON.stringify({status : true, result}))
+        
+        const encryptedData = encrypt({status : true, result});
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : true, result}))
         
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false, error : `Sorry! There is an error while adding member. Please try again after some time`}))
+        const encryptedData = encrypt({status : false, error : `Sorry! There is an error while adding member. Please try again after some time`});
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false, error : `Sorry! There is an error while adding member. Please try again after some time`}))
     }
 }
 

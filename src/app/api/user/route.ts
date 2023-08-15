@@ -5,28 +5,38 @@ import prisma from "@/app/lib/prisma";
 import * as bcrypt from "bcrypt"
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 
 interface RequestBody{
-    name : string;
-    email : string;
-    password : string;
+    encryptedData : string;
 }
 
 export async function POST(request: Request){
     try {
         const body : RequestBody = await request.json()
+        
+        const {...data } = decrypt(body.encryptedData)
+
         const user = await prisma.user.create({
             data : {
-                name : body.name,
-                email : body.email,
-                password : await bcrypt.hash(body.password, 10) 
+                name : data.name,
+                email : data.email,
+                password : await bcrypt.hash(data.password, 10) 
             }
         })
         const {password, ...result} = user;
-        return new Response(JSON.stringify(result))
+        // return new Response(JSON.stringify(result))
+        
+        const encryptedData = encrypt(result);
+        return new Response(JSON.stringify({ encryptedData }))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false, error : 'Sorry! There is an error while registrating a new user. Please try again after some time'}))
+        const encryptedData = encrypt({status : false, error : 'Sorry! There is an error while registrating a new user. Please try again after some time'});
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false, error : 'Sorry! There is an error while registrating a new user. Please try again after some time'}))
 
     }
 }
@@ -61,9 +71,15 @@ export async function GET(request: Request){
                 }
             }
         })
-        return new Response(JSON.stringify({status : true, users}))
+        // return new Response(JSON.stringify({status : true, users}))
+        const encryptedData = encrypt({status : true, users})
+        return new Response(JSON.stringify({ encryptedData }))
+        
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false, error : 'Sorry! There is an error while fetching users. Please try again after some time'}))
+        const encryptedData = encrypt({status : false, error : 'Sorry! There is an error while fetching users. Please try again after some time'})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false, error : 'Sorry! There is an error while fetching users. Please try again after some time'}))
     }
 }
+

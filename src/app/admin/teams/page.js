@@ -19,6 +19,9 @@ import { MdGroups } from "react-icons/md"
 import { VscTasklist } from "react-icons/vsc"
 
 
+import decrypt from "@/app/lib/decrypt"
+
+
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -179,8 +182,6 @@ export default   function Teams(){
     // const [showRemoveMemberModal, setShowRemoveMemberModal] = useState(null);
     const [showTeamDeleteConfirmationModal, setShowTeamDeleteConfirmationModal] = useState(null);
     const [showQuizModal, setQuizModal] = useState(null);
-
-
     const [removeTeamID, setRemoveTeamID] = useState(null)
     // const [removeTeam, setRemoveTeam] = useState(null)
     
@@ -205,10 +206,11 @@ export default   function Teams(){
         AOS.init();
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
           .then(res => {
-            if(res.data.status === true){
-                setTeams(res.data.teams);
+            const {...data } = decrypt(res.data.encryptedData)
+            if(data.status === true){
+                setTeams(data.teams);
             } else{
-                toast.error(`${res.data.error}`)
+                toast.error(`${data.error}`)
             }
           })
           .catch(error => {
@@ -220,7 +222,6 @@ export default   function Teams(){
     }
     const removeTeam = (team) => {
         setShowTeamDeleteConfirmationModal(true)
-        // console.debug(team)
         setRemoveTeamID(team)
 
         
@@ -248,10 +249,10 @@ export default   function Teams(){
                                 <MdGroups  size={28} className="mr-2" />   Create New Team
                             </button>
                             <SortDropDown />
-                            <button
+                            {/* <button
                                 className="px-4 py-2 theme-btn-bg-color text-white text-lg rounded  flex items-center gap-x-1.5"
                                 onClick={toggleView}
-                            >{viewType === 'grid' ?  (<><BiListUl  size={28}/> <span>{'List'}</span></>) : (<><BsGrid3X3GapFill  size={28}/> <span>{'Grid'}</span></>)}</button>
+                            >{viewType === 'grid' ?  (<><BiListUl  size={28}/> <span>{'List'}</span></>) : (<><BsGrid3X3GapFill  size={28}/> <span>{'Grid'}</span></>)}</button> */}
                             
                         </div>
                     </div>

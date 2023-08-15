@@ -14,6 +14,10 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 
 
 import  toast from 'react-hot-toast';
@@ -78,7 +82,8 @@ function CreateQuestion({setShowModal , quizId , setData}){
         AOS.init();
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario/`)
         .then((res) => {
-            setScenario(res.data.scenarios)
+            const {...data } = decrypt(res.data.encryptedData)
+            setScenario(data.scenarios)
         })
         .catch((err) => {
             console.log(err)
@@ -93,21 +98,28 @@ function CreateQuestion({setShowModal , quizId , setData}){
         } else {
             try {
                 setSubmit(true)
-                const response = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}/question/create`, {
+                
+                const encryptedData = encrypt({
                     title : title.current,
                     Description : description.current,
                     original_answer : original_answer.current,
                     points : points.current,
                     scenario_id : scenario_id.current
-                });
+                })
+                const res = await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}/question/create`, {encryptedData });
                 setShowModal(false)
-                if(response.data.status === false){
+                    
+                const {...data } = decrypt(res.data.encryptedData)
+
+                if(data.status === false){
                     toast.error(`Sorry, you can't create question. Please try again after sometime`)    
                 } else {
                     toast.success('Successfull, Question has been created')
                     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}`)
+                    
                     .then((res) => {
-                        setData(res.data)
+                        const {...data_2 } = decrypt(res.data.encryptedData)
+                        setData(data_2)
                     })
                     .catch((err) => {
                         console.log(err)

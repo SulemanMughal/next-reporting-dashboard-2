@@ -3,6 +3,10 @@ import prisma from "@/app/lib/prisma";
 import axios from 'axios';
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 import { scripts } from "@/app/data/data"
 
 interface RequestBody{
@@ -60,5 +64,8 @@ export async function GET(request : Request){
 //     " Shellshock",
 //     "File Inclusion"
 //    ]
-   return new Response(JSON.stringify(scripts))
+
+    const encryptedData = encrypt({scripts : scripts})
+    return new Response(JSON.stringify({ encryptedData }))
+//    return new Response(JSON.stringify(scripts))
 }

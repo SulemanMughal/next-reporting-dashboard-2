@@ -1,6 +1,9 @@
 import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
+import decrypt from "@/app/lib/decrypt"
+
+import encrypt from "@/app/lib/encrypt"
 
 const handler  = NextAuth({
     providers : [
@@ -15,16 +18,23 @@ const handler  = NextAuth({
               username: { label: "Username", type: "text", placeholder: "jsmith" },
               password: { label: "Password", type: "password" }
             },
+            
             async authorize(credentials, req) {
               // Add logic here to look up the user from the credentials supplied
+              
+              // console.debug(credentials)
+              const {...data } = decrypt(credentials.encryptedData)
+              
+
+
               const res = await fetch(`${process.env.LOCAL_API}/api/login`, {
                 method : "POST",
                 headers : {
                     "Content-Type" : "application/json",
                 },
                 body : JSON.stringify({
-                    username : credentials?.username,
-                    password : credentials?.password
+                    username : data?.username,
+                    password : data?.password
                 })
               })
 
@@ -34,6 +44,8 @@ const handler  = NextAuth({
         
               if (user) {
                 // Any object returned will be saved in `user` property of the JWT
+                // console.debug(encrypt({user : user}))
+                // console.debug(user)
                 return user
               } else {
                 // If you return null then an error will be displayed advising the user to check their details.
@@ -48,6 +60,10 @@ const handler  = NextAuth({
     ],
     callbacks : {
       async jwt({token, user}){
+
+        // console.debug(user)
+        
+        
         return ({...token, ...user})
       },
       async session({session, token, user}){

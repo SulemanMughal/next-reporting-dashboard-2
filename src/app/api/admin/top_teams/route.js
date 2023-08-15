@@ -2,6 +2,10 @@
 import prisma from "@/app/lib/prisma";
 
 
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 export async function GET(request){
    try {
         const results = await prisma.$queryRaw`SELECT SUM(obtainedPoints), COALESCE(sum(CASE WHEN submissionStatus THEN 1 ELSE 0 END),0), teamId, name  FROM Answer FULL JOIN Team ON Answer.teamId = Team.id  GROUP BY teamId  ORDER BY SUM(obtainedPoints) DESC LIMIT 15`
@@ -21,9 +25,14 @@ export async function GET(request){
         } catch (error) {
             console.debug(error)
         }
-        return new Response(JSON.stringify({status : true , records }))
+        
+        const encryptedData = encrypt({status : true , records})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : true , records }))
    } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
    }
 }

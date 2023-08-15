@@ -19,6 +19,8 @@ import Datetime from "react-datetime";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
 // axios
 
 import  toast from 'react-hot-toast';
@@ -80,18 +82,24 @@ export default function CreateQuizModal({setShowModal}){
         else{
             try {
                 setSubmit(true)
-                const response = await axios.post('/api/quiz/create', {
+                
+                const encryptedData = encrypt({
                     title : title.current,
                     startAt : startAt.current,
                     endAt : endAt.current,
-                });
+                })
+                const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/create`, {encryptedData});
                 setShowModal(false)
-                if(response.data.status === false){
+                // console.debug()
+                
+                const {...data } = decrypt(res.data.encryptedData)
+                // console.debug(data)
+                if(data.status === false){
                     toast.error('Quiz with this title already exists')    
                 }
                 else{
                     toast.success('Successfull, Quiz has been created')
-                    push(`/admin/quiz/${response.data.quiz.id}`);
+                    push(`${process.env.NEXT_PUBLIC_BASE_URL}/admin/quiz/${data.quiz.id}`);
                 }
             } catch (error) {
                 setSubmit(false)

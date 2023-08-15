@@ -6,14 +6,19 @@ import CountUp from 'react-countup';
 
 import  { MdQuiz } from "react-icons/md"
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 
 
 export default function QuizCounter(){
     const [quizCounter, setQuizCounter] = useState(null);
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/quiz_counter`)
-        .then(response => {
-            setQuizCounter(response.data.total_quizes)
+        .then(res => {
+                        
+            const {...data } = decrypt(res.data.encryptedData)
+            setQuizCounter(data.total_quizes)
         })
         .catch(error => {
             console.error(error);

@@ -1,6 +1,9 @@
 import prisma from "@/app/lib/prisma";
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 
 
 
@@ -79,10 +82,14 @@ export async function GET(request , {params}){
                 }
             }
         })
-        // console.debug(results)
-        return new Response(JSON.stringify({status : true , results }))
+        
+        const encryptedData = encrypt({status : true , results})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : true , results }))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false}))
+        const encryptedData = encrypt({status : false})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false}))
     }
 }

@@ -235,6 +235,10 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
 }
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 
 // function to delay a time 
 function delay(ms) {
@@ -255,7 +259,8 @@ function Question({question, index, team , quiz, user}){
 
             
             setSubmitAnswer(answer.current)
-            axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/submit/answer`, {  
+            
+            const encryptedData = encrypt({  
                 answer: answer.current,
                 question : question.id,
                 team : team,
@@ -263,20 +268,26 @@ function Question({question, index, team , quiz, user}){
                 user : user
 
             })
-            .then(response => {
-                if(response.data.status === true){
-                    if(response.data.result.submissionStatus === true){
+            axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/submit/answer`, {  encryptedData})
+            .then(res => {
+                
+                const {...data } = decrypt(res.data.encryptedData)
+
+
+                if(data.status === true){
+
+                    if(data.result.submissionStatus === true){
                         delay(1000).then(() => {
                             toast.success(`Right Answer` )
                             setIsSubmit(false)
-                            setSolved(response.data.result.submissionStatus)
+                            setSolved(data.result.submissionStatus)
                         })
                         
                     } else{
                         delay(1000).then(() => {
                             toast.error(`Wrong Answer` )
                             setIsSubmit(false)
-                            setSolved(response.data.result.submissionStatus)
+                            setSolved(data.result.submissionStatus)
                         })   
                     }
                 }
@@ -358,6 +369,12 @@ function Details({scenario , questions}){
 
 
 
+
+
+// import encrypt from "@/app/lib/encrypt"
+// import decrypt from "@/app/lib/decrypt"
+
+
 export default  function QuizDetails({params}){
     const { data: session } = useSession();    
     const [questions, setQuestions] = useState(null)
@@ -368,18 +385,23 @@ export default  function QuizDetails({params}){
     useEffect(() => {
         AOS.init();
         if (session){
-            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session.user.id}/scenario/${params.slug}`)
-            .then(response => {
-                if(response.data.status === true){
-                    setQuestions(response.data?.questions?.team?.quiz?.questions)
-                    if(response.data?.questions?.team?.quiz?.questions.length){
-                        setScenario(response.data?.questions?.team?.quiz?.questions[0]?.scenario)
-                        setTeam(response.data?.questions?.team?.id)
-                        setQuiz(response.data?.questions?.team?.quiz?.id)
+            // const {...data_user } = decrypt(session?.user.user) 
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}/scenario/${params.slug}`)
+            .then(res => {
+                
+                const {...data } = decrypt(res.data.encryptedData)
+
+
+                if(data.status === true){
+                    setQuestions(data?.questions?.team?.quiz?.questions)
+                    if(data?.questions?.team?.quiz?.questions.length){
+                        setScenario(data?.questions?.team?.quiz?.questions[0]?.scenario)
+                        setTeam(data?.questions?.team?.id)
+                        setQuiz(data?.questions?.team?.quiz?.id)
                     }
                 }
                 else{
-                    toast.error(`${response.data.error}`)
+                    toast.error(`${data.error}`)
                     setTotalChallenges(0)
                 }
             })

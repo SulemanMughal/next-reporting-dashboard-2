@@ -13,6 +13,9 @@ import { useRef , useState, useEffect } from "react"
 import axios from 'axios';
 
 
+import decrypt from "@/app/lib/decrypt"
+
+
 function SubmitBtn({isSubmit, setShowTeamDeleteConfirmationModal, submitHandler }){
     return (
         <>
@@ -56,9 +59,11 @@ export default function TeamDeleteConfirmationModal({setShowTeamDeleteConfirmati
             axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
         ])
         .then(axios.spread((data1, data2) => {
-            if(data1.data.status){
+            const {...data3 } = decrypt(data1.data.encryptedData)
+            const {...data4 } = decrypt(data2.data.encryptedData)
+            if(data3.status){
                 toast.success(`${ removeTeamID.name } has been deleted successfully`)
-                setTeams(data2.data.teams);
+                setTeams(data4.teams);
             }
             
         }));

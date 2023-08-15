@@ -9,6 +9,10 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 
+import decrypt from "@/app/lib/decrypt"
+
+
+
 export default function QuizList(){
 
     
@@ -17,8 +21,11 @@ export default function QuizList(){
     useEffect(() => {
         AOS.init();
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/`)
-        .then(response => {
-            setData(response.data)
+        .then(res => {
+            
+            const {...data } = decrypt(res.data.encryptedData)
+            // console.debug(data)
+            setData(data)
         })
         .catch(error => {
             console.log(error)

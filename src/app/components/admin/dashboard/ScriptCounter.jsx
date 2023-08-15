@@ -6,12 +6,18 @@ import CountUp from 'react-countup';
 import { VscTerminalBash } from "react-icons/vsc"
 
 
+import decrypt from "@/app/lib/decrypt"
+
+
+
 export default function ScriptCounter(){
     const [scriptCounter, setScriptCounter] = useState(null);
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/script_counter`)
-        .then(response => {
-            setScriptCounter(response.data.total_scripts)
+        .then(res => {
+                    
+            const {...data } = decrypt(res.data.encryptedData)
+            setScriptCounter(data.total_scripts)
         })
         .catch(error => {
             console.error(error);

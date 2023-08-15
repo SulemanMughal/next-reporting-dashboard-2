@@ -4,6 +4,9 @@ import prisma from "@/app/lib/prisma";
 
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 
 
 
@@ -62,9 +65,15 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                 }
             }
         })
-        return new Response(JSON.stringify({status : true , questions}))
+        
+        const encryptedData = encrypt({status : true , questions})
+        return new Response(JSON.stringify({ encryptedData }))
+
+        // return new Response(JSON.stringify({status : true , questions}))
     } catch (error) {
         console.debug(error)
-        return new Response(JSON.stringify({status : false, error : "Sorry! There is an error while fetching user data.Please try again later"}))
+        const encryptedData = encrypt({status : false, error : "Sorry! There is an error while fetching user data.Please try again later"})
+        return new Response(JSON.stringify({ encryptedData }))
+        // return new Response(JSON.stringify({status : false, error : "Sorry! There is an error while fetching user data.Please try again later"}))
     }
 }

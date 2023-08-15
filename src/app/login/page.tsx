@@ -25,6 +25,9 @@ Signing In...
 }
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 
 
 export default function Login() {
@@ -38,14 +41,28 @@ export default function Login() {
     } else {
       setSubmit(true)
       try{
-        const result  = await signIn("credentials" , {
+        
+        const encryptedData = encrypt({
           username : userName.current,
           password : pass.current,
+        })
+        const res  = await signIn("credentials" , {
+          encryptedData,
           redirect : false,
           callbackUrl : "/dashboard"
         })
-        if(result.error ){
-          console.log(result.error)
+
+        // console.debug(res)
+        
+        // // const {...data } = decrypt(res)
+        // confirm
+
+        // delay function
+        // const delay = ms => new Promise(res => setTimeout(res, ms));
+        // await delay(5000);
+
+        if(res.error ){
+          console.log(res.error)
           setSubmit(false)
           toast.error('Credentials do not match!')
         }

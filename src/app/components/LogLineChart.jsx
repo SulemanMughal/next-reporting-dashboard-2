@@ -112,17 +112,26 @@ function getLogValues(arr){
   return arr_logs
 }
 
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 export default function LogLineChart(){
     const [logs, setLogs] = useState(null);
     useEffect(() => {
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_by_hour_counter`)
-      .then(response => {
+      .then(res => {
+
+
+        const {...data } = decrypt(res.data.encryptedData)
+
         setLogs({
           labels,
           datasets: [{
             fill: true,
             label: 'Logs # ',
-            data:getLogValues(response.data.logs_by_hour),
+            data:getLogValues(data.logs_by_hour),
             borderColor: 'rgb(255, 99, 132)',
             backgroundColor: (context) => {
               const ctx = context.chart.ctx;

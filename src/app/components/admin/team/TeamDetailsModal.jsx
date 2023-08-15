@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 
+import decrypt from "@/app/lib/decrypt"
 
 
 function calculateTotalPointsPerUser(answers, email) {
@@ -29,10 +30,12 @@ export default function TeamDetailsModal({setShowTeamDetailsModal , team_id}){
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team/${team_id}`)
         .then(res => {
-            if(res.data.status === true){
-                setUsers(res.data.team?.users)
+            
+            const {...data } = decrypt(res.data.encryptedData)
+            if(data.status === true){
+                setUsers(data.team?.users)
             } else {
-                toast.error(`${res.data.error}`)
+                toast.error(`${data.error}`)
             }
         })
         .catch(err => {

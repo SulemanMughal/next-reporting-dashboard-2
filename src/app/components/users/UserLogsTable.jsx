@@ -43,12 +43,21 @@ const style = {
     // }
   }
 
+
+
+  import encrypt from "@/app/lib/encrypt"
+  import decrypt from "@/app/lib/decrypt"
+  
+
 export default function UserLogsTable(){
     const [logs, setLogs] = useState(null)
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/db_logs`)
-        .then(response => {
-            setLogs(response.data);
+        .then(res => {
+          
+          const {...data } = decrypt(res.data.encryptedData)
+
+            setLogs(data.logs);
         })
         .catch(error => {
             console.error(error);

@@ -1,5 +1,25 @@
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
+const encryptedData = encrypt()
+return new Response(JSON.stringify({ encryptedData }))
+
+
+const {...data } = decrypt(res.data.encryptedData)
+
+
+
+
+const {...data } = decrypt(session?.user.user)
+data.user.role === "admin"
+
+
+
+
+
 ==========
 ADMIN
 Get :   /api/admin/logs_counter ->  Get Total number of logs from attacker saved db

@@ -80,12 +80,19 @@ function TableTr({ script , index}) {
 }
 
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 
 function ScriptTableData({scripts , setScripts}){
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/local_scripts/latest/10`)
-        .then(response => {
-            setScripts(response.data);
+        .then(res => {
+            
+            const {...data } = decrypt(res.data.encryptedData)
+
+            setScripts(data.scripts);
         })
         .catch(error => {
             console.error(error);

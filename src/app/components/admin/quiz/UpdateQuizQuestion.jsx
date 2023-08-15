@@ -13,6 +13,12 @@ import { BiAddToQueue } from "react-icons/bi"
 import  toast from 'react-hot-toast';
 // import { error } from 'console';
 
+
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 function SubmitBtn({isSubmit,setUpdateQuestion }){
     return (
         <>
@@ -69,21 +75,27 @@ export default function UpdateQuizQuestion({question , setUpdateQuestion , setDa
         } else {
             try{
                 setSubmit(true)
-                await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/question/${question.id}`, {
+                
+                const encryptedData = encrypt({
                     title : title.current,
                     Description : description.current,
                     original_answer : original_answer.current,
                     points : points.current,
                     scenario_id : scenario_id.current
-                }).then((res) => {
-                    // console.debug(res.data)
-                    if(res.data.status === false){
+                })
+                await axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/question/${question.id}`, {encryptedData})
+                .then((res) => {
+                    
+                    const {...data } = decrypt(res.data.encryptedData)
+                    if(data.status === false){
                         toast.error(`Sorry, you can't update question. Please try again after sometime`)    
                     } else {
                         toast.success('Successfull, Question has been update')
                         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}`)
+                        
                         .then((res) => {
-                            setData(res.data)
+                            const {...data_2 } = decrypt(res.data.encryptedData)
+                            setData(data_2)
                         })
                         .catch((err) => {
                             console.log(err)
@@ -111,7 +123,10 @@ export default function UpdateQuizQuestion({question , setUpdateQuestion , setDa
         AOS.init();
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario/`)
         .then((res) => {
-            setScenario(res.data.scenarios)
+            
+            const {...data } = decrypt(res.data.encryptedData)
+
+            setScenario(data.scenarios)
         })
         .catch((err) => {
             console.log(err)

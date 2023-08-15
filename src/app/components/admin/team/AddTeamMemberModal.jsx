@@ -12,6 +12,11 @@ import axios from "axios"
 import { toast } from "react-hot-toast"
 
 
+
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
+
 const SearchableSelect = ({ options,  user_id }) => {
     const [filteredOptions, setFilteredOptions] = useState(options);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -122,10 +127,11 @@ export default function AddTeamMemberModal({setShowAddMemberModal , updateTeams,
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user`)
         .then(res => {
-            if(res.data.status === true){
-                setUsers(res.data.users)
+          const {...data } = decrypt(res.data.encryptedData)
+            if(data.status === true){
+                setUsers(data.users)
             } else {
-                toast.error(`${res.data.error}`)
+                toast.error(`${data.error}`)
             }
         })
         .catch(err => {
@@ -141,27 +147,31 @@ export default function AddTeamMemberModal({setShowAddMemberModal , updateTeams,
         else{
             try {
                 setSubmit(true)
-                const response = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team/member/add/`, {
-                    user_id : user_id.current,
-                    id : team_id
-                });
                 
-                if(response.data.status === false){
+                const encryptedData = encrypt({
+                  user_id : user_id.current,
+                  id : team_id
+                });
+                const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team/member/add/`, { encryptedData });
+                
+                const {...data } = decrypt(res.data.encryptedData)
+                if(data.status === false){
                     setSubmit(false)
                     setShowAddMemberModal(false)
-                    toast.error(`${response.data.error}`)    
+                    toast.error(`${data.error}`)    
                 }
                 else{
                     setSubmit(false)
                     setShowAddMemberModal(false)
-                    toast.success('Successfull, Member has been added.')
+                    toast.success(`Successfull, Member has been added.`)
                     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/team`)
                     .then(res => {
-                        if(res.data.status === true){
-                            updateTeams(res.data.teams);
+                        const {...data2 } = decrypt(res.data.encryptedData)
+                        if(data2.status === true){
+                            updateTeams(data2.teams);
                         }
                         else{
-                            toast.error(`${res.data.error}`)
+                            toast.error(`${data2.error}`)
                         }
                     })
                     .catch(err => {

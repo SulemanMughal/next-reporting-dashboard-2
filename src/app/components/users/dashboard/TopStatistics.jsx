@@ -127,9 +127,14 @@ function QuizList({scenarios}){
     )
 }
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 
 export default function TopStatistics(){
-    const { data: session } = useSession();    
+    const { data: session } = useSession();   
+    
+    
     const [totalChallenges, setTotalChallenges] = useState(0)
     const [totalSubmissions, setTotalSubmissions] = useState(0)
     const [totalPoints, setTotalPoints] = useState(0)
@@ -140,11 +145,16 @@ export default function TopStatistics(){
     useEffect(() => {
         AOS.init();
         if (session){
-            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session.user.id}`)
-            .then(response => {
-                if(response.data.status === true){
-                    if(response.data.user?.team?.quiz?.questions?.length) {
-                        data = response.data?.user?.team?.quiz?.questions;
+            // const {...data_user } = decrypt(session?.user.user) 
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}`)
+            .then(res => {
+                
+                const {...data_2 } = decrypt(res.data.encryptedData)
+
+                
+                if(data_2.status === true){
+                    if(data_2.user?.team?.quiz?.questions?.length) {
+                        data = data_2?.user?.team?.quiz?.questions;
                         setScenarios(checkScenarios(data))
                         setTotalChallenges(data?.length)
                         setTotalSubmissions(countSubmitAnswers(data))
@@ -156,7 +166,7 @@ export default function TopStatistics(){
                     }
                 }
                 else{
-                    toast.error(`${response.data.error}`)
+                    toast.error(`${data_2.error}`)
                     setTotalChallenges(0)
                 }
             })
