@@ -157,8 +157,8 @@ export default function QuizQuestion({question , quizId , setData }){
                         question.scenario ? (
                             <div className=" flex items-center  justify-between px-0 mx-0 my-3" >
                                 <span className='text-lime-600'>{convertStringToTitleCase(question.scenario.difficulty)}</span>
-                                <span className='text-rose-400'>{convertStringToTitleCase(question.scenario.status)}</span>
-                                <span className="inline-block  rounded-full px-0    py-1 text-md  font-semibold  bg-none text-pink-600">{convertStringToTitleCase(question.scenario.category)}</span>
+                                {/* <span className='text-rose-400'>{convertStringToTitleCase(question.scenario.status)}</span>
+                                <span className="inline-block  rounded-full px-0    py-1 text-md  font-semibold  bg-none text-pink-600">{convertStringToTitleCase(question.scenario.category)}</span> */}
                             </div>
                             
                         ) : null

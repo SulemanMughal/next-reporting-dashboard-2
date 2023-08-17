@@ -42,7 +42,7 @@ function calCulateObtainedPoints(answers){
 function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMemberModalHandler , setShowTeamDetailsModalHandler}){
     return (
         <>
-            <div className="bg-card-custom  py-4 md:py-7 px-4 md:px-8 xl:px-10 mb-14">
+            <div className="bg-card-custom  py-4 md:py-7 px-4 md:px-8 xl:px-10 mb-14" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                 
                 <div className="mt-7   ">
                     <table className="w-full whitespace-nowrap ">
@@ -117,8 +117,8 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
 function TeamGridView({teams, removeTeam}){
     return (
         <>
-            <div className="p-4 grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 ">
-            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full " data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="500">
+            <div className="p-4 grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full " >
                 <div className="  mx-2 my-2 p-4 bg-card-custom border-none rounded-lg shadow  text-gray-400 ">
                         <div className="p-5">
                             
