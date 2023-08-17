@@ -93,6 +93,7 @@ function checkScenarios(data){
 }
 
 
+import ExpandableText from "@/app/components/ExpandableText"
 
 
 function QuizList({scenarios}){
@@ -106,11 +107,12 @@ function QuizList({scenarios}){
                                     <div className="flex justify-between items-center mb-4">
                                         <h5 className=" text-2xl font-bold tracking-tight whitespace-normal text-gray-300 ">{scenarios[1][index]}</h5>
                                     </div>
-                                    <p className="text-gray-400">{scenarios[4][index]}</p>
-                                    <div className=" pt-4 pb-2 text-start">
-                                        <span className="px-1 py-1 text-md font-semibold bg-none text-green-600 ">{scenarios[2][index]}</span>
-                                        <span className="px-1 py-1 text-md font-semibold bg-none text-pink-600">{scenarios[3][index]}</span>
-                                        <span className="px-1 py-1 text-md font-semibold bg-none text-orange-400">{ scenarios[5][index] +  " Points"}</span>
+                                    {/* <p className="text-gray-400">{scenarios[4][index]}</p> */}
+                                    <ExpandableText initialText={scenarios[4][index]}  maxLength={150} />
+                                    <div className=" pt-4 pb-2 text-center">
+                                        {/* <span className="px-1 py-1 text-md font-semibold bg-none text-green-600 ">{scenarios[2][index]}</span>
+                                        <span className="px-1 py-1 text-md font-semibold bg-none text-pink-600">{scenarios[3][index]}</span> */}
+                                        <span className="px-1 py-1 text-md font-semibold bg-none text-orange-400 ">{ scenarios[5][index] +  " Points"}</span>
                                     </div>
                                 </div>
                                 <div className=" pt-0 pb-4 flex justify-center">

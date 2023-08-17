@@ -103,24 +103,17 @@ function UserSideBar(){
 }
 
 
-import decrypt from "@/app/lib/decrypt"
+// import decrypt from "@/app/lib/decrypt"
 
 
 export default   function Sidebar({children}){
     const { data: session } = useSession();
-    
-    // console.debug(session?.user)
-    
     if (session){
-        // console.debug(session?.user)
-        // const {...data } = decrypt(session?.user.user)
-        // console.debug(data)
-        // console.debug(decrypt(data.encryptedData))
         if (session?.user.role === "admin") {
             return (
                 <div className="flex" style={{backgroundColor:"rgba(16,19,69, 96%)"}}>
                     <AdminSideBar   />
-                    <main className=" w-full">{children}</main>
+                    {session?.user.role && <main className=" w-full">{children}</main> }
                 </div>
             )
         }
@@ -128,7 +121,7 @@ export default   function Sidebar({children}){
             return (
                 <div className="flex" style={{backgroundColor:"rgba(16,19,69, 96%)"}}>
                     <UserSideBar />
-                    <main className=" w-full">{children}</main>
+                    {session?.user.role && <main className=" w-full">{children}</main> }
                 </div>
             )
         }
