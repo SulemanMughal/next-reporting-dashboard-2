@@ -2,6 +2,8 @@
 
 import { signIn } from "next-auth/react";
 import { useRef , useState } from "react"
+import React, {  useEffect } from 'react';
+
 import Image from 'next/image'
 import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -30,6 +32,148 @@ import decrypt from "@/app/lib/decrypt"
 
 
 
+// const DynamicWaveAnimation = () => {
+//   const generateRandomHeight = () => {
+//     return Math.floor(Math.random() * 40) + 20; // Generate random height between 20 and 60
+//   };
+
+//   const numPoints = 100; // Number of points
+
+//   return (
+//     <div className="dynamic-wave-container">
+//       <div className="dynamic-wave">
+//         {Array.from({ length: numPoints }).map((_, index) => (
+//           <div
+//             key={index}
+//             className="point"
+//             style={{ height: `${generateRandomHeight()}px` }}
+//           ></div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+
+// const SineWaveAnimation = () => {
+//   const numPoints = 100; // Number of points
+
+//   const generatePointStyle = (index) => {
+//     const angle = (index / numPoints) * Math.PI * 2;
+//     const x = index * 8; // Horizontal spacing between points
+//     const y = Math.sin(angle) * 50 + 50; // Adjust the amplitude and baseline
+//     return {
+//       left: `${x}px`,
+//       bottom: `${y}px`,
+//     };
+//   };
+
+//   return (
+//     <div className="sine-wave-container">
+//       <div className="sine-wave">
+//         {Array.from({ length: numPoints }).map((_, index) => (
+//           <div
+//             key={index}
+//             className="point"
+//             style={generatePointStyle(index)}
+//           ></div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+
+// const DotsWaveAnimation = () => {
+//   const numDots = 100; // Number of dots
+
+//   const generateDotStyle = (index) => {
+//     const x = index * 10; // Horizontal spacing between dots
+//     const y = Math.sin((x / 100) * Math.PI * 2) * 15 + 20; // Adjust the amplitude and baseline
+//     return {
+//       left: `${x}px`,
+//       bottom: `${y}px`,
+//     };
+//   };
+
+//   return (
+//     <div className="dots-wave-container">
+//       <div className="dots-wave">
+//         {Array.from({ length: numDots }).map((_, index) => (
+//           <div
+//             key={index}
+//             className="dot"
+//             style={generateDotStyle(index)}
+//           ></div>
+//         ))}
+//       </div>
+//     </div>
+//   );
+// };
+// const WaveLinesOfDotsAnimation = () => {
+//   const numLines = 5; // Number of wave lines
+//   const dotsPerLine = 50; // Dots per line
+
+//   const generateDotStyle = (lineIndex, dotIndex) => {
+//     const x = dotIndex * 10; // Horizontal spacing between dots
+//     const y = Math.sin((x / 100) * Math.PI * 2) * 15 + 20; // Adjust the amplitude and baseline
+//     return {
+//       left: `${x}px`,
+//       bottom: `${y + lineIndex * 25}px`, // Adjust vertical position for each line
+//     };
+//   };
+
+//   return (
+//     <div className="wave-lines-container">
+//       {Array.from({ length: numLines }).map((_, lineIndex) => (
+//         <div className="wave-line" key={lineIndex}>
+//           {Array.from({ length: dotsPerLine }).map((_, dotIndex) => (
+//             <div
+//               key={dotIndex}
+//               className="dot"
+//               style={generateDotStyle(lineIndex, dotIndex)}
+//             ></div>
+//           ))}
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// const AnimatedWaveLinesOfDots = () => {
+//   const numLines = 5; // Number of wave lines
+//   const dotsPerLine = 10; // Dots per line
+
+//   const generateDotStyle = (lineIndex, dotIndex) => {
+//     const x = dotIndex * 10; // Horizontal spacing between dots
+//     const y = Math.sin((x / 100) * Math.PI * 2) * 15 + 20; // Adjust the amplitude and baseline
+//     return {
+//       left: `${x}px`,
+//       bottom: `${y + lineIndex * 25}px`, // Adjust vertical position for each line
+//     };
+//   };
+
+//   return (
+//     <div className="wave-lines-container">
+//       {Array.from({ length: numLines }).map((_, lineIndex) => (
+//         <div className="wave-line" key={lineIndex}>
+//           {Array.from({ length: dotsPerLine }).map((_, dotIndex) => (
+//             <div
+//               key={dotIndex}
+//               className="dot"
+//               style={generateDotStyle(lineIndex, dotIndex)}
+//             ></div>
+//           ))}
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+
+
+
+
+
 export default function Login() {
   const { push } = useRouter();
   const [isSubmit, setSubmit] = useState(false)
@@ -52,15 +196,7 @@ export default function Login() {
           callbackUrl : "/dashboard"
         })
 
-        // console.debug(res)
         
-        // // const {...data } = decrypt(res)
-        // confirm
-
-        // delay function
-        // const delay = ms => new Promise(res => setTimeout(res, ms));
-        // await delay(5000);
-
         if(res.error ){
           console.log(res.error)
           setSubmit(false)
@@ -82,7 +218,11 @@ export default function Login() {
   
     return (
       <>
+      
         <CustomToaster />
+        {/* <AnimatedWaveLinesOfDots /> */}
+        
+        
         <div className=" relative py-16 ">
           <div className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-0 mr-auto mb-0 ml-auto max-w-7xl
               xl:px-5 lg:flex-row">
@@ -180,6 +320,7 @@ export default function Login() {
             </div>
           </div>
         </div>
+        
       </>
     )
   }
