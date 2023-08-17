@@ -12,7 +12,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import axios from 'axios';
 
 ChartJS.register(
   CategoryScale,
@@ -75,41 +74,31 @@ function getLabels(data) {
 }
 
 
-import encrypt from "@/app/lib/encrypt"
-import decrypt from "@/app/lib/decrypt"
 
-
-
-export default function TopTeamChart() {
+export default function TopTeamChart({top_teams}) {
   const [teams, setTeams] = useState(null);
   useEffect(() => {
-    axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/top_teams`)
-    .then(res => {
-      
-      const {...data } = decrypt(res.data.encryptedData)
-      setTeams({
-        labels : getLabels(data.records)[3],
-        datasets: [
-          {
-            label: 'Solved Questions',
-            data: getLabels(data.records)[2],
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-            stack: 'Stack 0'
-          },
-          {
-            label: 'Obtained Points',
-            data:  getLabels(data.records)[0],
-            borderColor: 'rgb(53, 162, 235)',
-            backgroundColor: 'rgba(53, 162, 235, 0.5)',
-            stack: 'Stack 0'
-          },
-        ],
-      })
+
+    setTeams({
+      labels : getLabels(top_teams)[3],
+      datasets: [
+        {
+          label: 'Solved Questions',
+          data: getLabels(top_teams)[2],
+          borderColor: 'rgb(255, 99, 132)',
+          backgroundColor: 'rgba(255, 99, 132, 0.5)',
+          stack: 'Stack 0'
+        },
+        {
+          label: 'Obtained Points',
+          data:  getLabels(top_teams)[0],
+          borderColor: 'rgb(53, 162, 235)',
+          backgroundColor: 'rgba(53, 162, 235, 0.5)',
+          stack: 'Stack 0'
+        },
+      ],
     })
-    .catch(error => {
-      console.error(error);
-    });
+
   }, []);
     return (
       <div className="w-full col-span-2 relative  h-[80vh]   p-8 pb-20 border-none rounded-lg bg-card-custom overflow-hidden text-white">

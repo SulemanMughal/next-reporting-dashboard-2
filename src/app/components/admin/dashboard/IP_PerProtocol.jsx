@@ -2,7 +2,6 @@
 
 
 import {React, useState, useEffect} from 'react';
-import axios from 'axios';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -65,27 +64,6 @@ export const options = {
 var ColorScheme = require('color-scheme');
 
 
-// const labels = ['HTTP', 'SSH', 'FTP', "NMAP"];
-
-// export const data = {
-//   labels,
-//   datasets: [
-//     {
-//       label: 'IPs',
-//       data: [159,357,158,326,149,138,753,196,864],
-//       backgroundColor: 'rgb(255, 99, 132)',
-//       stack: 'Stack 0',
-//     },
-//     {
-//       label: 'Teams',
-//       data: [159,357,158,326,149,138,753,196,864],
-//       backgroundColor: 'rgb(75, 192, 192)',
-//       stack: 'Stack 1',
-//     }
-//   ],
-// };
-
-
 
 function getLabels(data) {
   let labels = []
@@ -96,20 +74,11 @@ function getLabels(data) {
       ips.push(item[0])
       teams.push(item[1])
   })
-  // console.debug([labels,ips, teams])
   return [labels,ips, teams]
 }
 
 
-
-
-
-import encrypt from "@/app/lib/encrypt"
-import decrypt from "@/app/lib/decrypt"
-
-
-
-export default function IP_PerProtocol() {
+export default function IP_PerProtocol({ips_per_protocol_logs}) {
 
   
 var s = new ColorScheme;
@@ -118,35 +87,26 @@ var colors = s.scheme('tetrade')
 .variation('soft')
 .colors();
 
-
   const [logs, setLogs] = useState(null);
     useEffect(() => {
-      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/ips_per_protocol`)
-      .then(res => {
-        
-
-      const {...data } = decrypt(res.data.encryptedData)
-        setLogs({
-          labels : getLabels(data.ips_per_protocol_logs)[0],
-          datasets: [
-            {
-              label: 'IPs',
-              data:getLabels(data.ips_per_protocol_logs)[1],
-              backgroundColor: colors.map(i => '#' + i),
-              stack: 'Stack 0',
-            },
-            {
-              label: 'Teams',
-              data: getLabels(data.ips_per_protocol_logs)[2],
-              backgroundColor: colors.map(i => '#' + i),
-              stack: 'Stack 1',
-            }
-          ],
-        })
+      setLogs({
+        labels : getLabels(ips_per_protocol_logs)[0],
+        datasets: [
+          {
+            label: 'IPs',
+            data:getLabels(ips_per_protocol_logs)[1],
+            backgroundColor: colors.map(i => '#' + i),
+            stack: 'Stack 0',
+          },
+          {
+            label: 'Teams',
+            data: getLabels(ips_per_protocol_logs)[2],
+            backgroundColor: colors.map(i => '#' + i),
+            stack: 'Stack 1',
+          }
+        ],
       })
-      .catch(error => {
-        console.error(error);
-      });
+
     }, []);
   return (
     <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border-none rounded-lg bg-card-custom text-white overflow-hidden">

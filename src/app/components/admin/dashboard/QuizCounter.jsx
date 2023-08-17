@@ -1,29 +1,8 @@
 "use client"
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+
 import CountUp from 'react-countup';
-
-
 import  { MdQuiz } from "react-icons/md"
-
-import encrypt from "@/app/lib/encrypt"
-import decrypt from "@/app/lib/decrypt"
-
-
-
 export default function QuizCounter({total_quizes}){
-    // const [quizCounter, setQuizCounter] = useState(null);
-    // useEffect(() => {
-    //     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/quiz_counter`)
-    //     .then(res => {
-                        
-    //         const {...data } = decrypt(res.data.encryptedData)
-    //         setQuizCounter(data.total_quizes)
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-    // }, []);
     return (
         <>
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">

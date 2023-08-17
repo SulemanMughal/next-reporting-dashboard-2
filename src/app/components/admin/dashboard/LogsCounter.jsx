@@ -1,27 +1,10 @@
 "use client"
 
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { BsFillRocketTakeoffFill } from "react-icons/bs"
 
 
-import encrypt from "@/app/lib/encrypt"
-import decrypt from "@/app/lib/decrypt"
-
-
 export default function LogsCounter({total_logs}){
-    // const [logsCounter, setLogsCounter] = useState(null);
-    // useEffect(() => {
-    //     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_counter`)
-    //     .then(res => {
-    //         const {...data } = decrypt(res.data.encryptedData)
-    //         setLogsCounter(data.total_logs)
-    //     })
-    //     .catch(error => {
-    //         console.error(error);
-    //     });
-    // }, []);
     return (
         <>
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">

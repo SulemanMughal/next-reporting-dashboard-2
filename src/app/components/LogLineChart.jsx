@@ -16,7 +16,6 @@ import {
 
 
 import { Line } from 'react-chartjs-2';
-import axios from 'axios';
 
 
 ChartJS.register(
@@ -30,13 +29,6 @@ ChartJS.register(
   Legend
 );
 
-const createGradient = (canvas) => {
-  const ctx = canvas.getContext('2d');
-  const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-  gradient.addColorStop(0, 'rgba(75,192,192,0.2)'); // Start color with opacity
-  gradient.addColorStop(1, 'rgba(75,192,192,0)'); // End color with transparency
-  return gradient;
-};
 
 const options = {
   labels: {
@@ -112,41 +104,30 @@ function getLogValues(arr){
   return arr_logs
 }
 
-
-import encrypt from "@/app/lib/encrypt"
-import decrypt from "@/app/lib/decrypt"
-
-
-export default function LogLineChart(){
+export default function LogLineChart({logs_by_hour}){
     const [logs, setLogs] = useState(null);
     useEffect(() => {
-      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_by_hour_counter`)
-      .then(res => {
-
-
-        const {...data } = decrypt(res.data.encryptedData)
-
-        setLogs({
-          labels,
-          datasets: [{
-            fill: true,
-            label: 'Logs # ',
-            data:getLogValues(data.logs_by_hour),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: (context) => {
-              const ctx = context.chart.ctx;
-              const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-              gradient.addColorStop(0, 'rgba(255, 99, 132, 0.55)'); 
-              gradient.addColorStop(1, 'rgba(255, 99, 132, 0.0)');
-              return gradient;
-            },
-          }],
-        })
+      setLogs({
+        labels,
+        datasets: [{
+          fill: true,
+          label: 'Logs # ',
+          data:getLogValues(logs_by_hour),
+          borderColor: 'rgb(255, 99, 132)',
+          backgroundColor: (context) => {
+            const ctx = context.chart.ctx;
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(255, 99, 132, 0.55)'); 
+            gradient.addColorStop(1, 'rgba(255, 99, 132, 0.0)');
+            return gradient;
+          },
+        }],
       })
-      .catch(error => {
-        console.error(error);
-      });
     }, []);
+
+
+    
+
 
     return (
         <>

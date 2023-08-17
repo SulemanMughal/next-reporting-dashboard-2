@@ -3,8 +3,7 @@ import { useEffect, useState } from "react"
 var ColorScheme = require('color-scheme');
 
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
-import { Doughnut, Pie } from 'react-chartjs-2';
-import axios from "axios";
+import {  Pie } from 'react-chartjs-2';
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 
@@ -22,11 +21,8 @@ function getLabels(data) {
 }
 
 
-import encrypt from "@/app/lib/encrypt"
-import decrypt from "@/app/lib/decrypt"
 
-
-export default function TeamsPerAttack(){
+export default function TeamsPerAttack({teams_per_attack_logs}){
     const [chartData, setChartData] = useState({
         datasets : []
     });
@@ -38,55 +34,39 @@ export default function TeamsPerAttack(){
     .colors();
     const [chartOptions, setChartOptions] = useState({});
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/teams_per_attack`)
-        .then(res => {
-                        
-            const {...data } = decrypt(res.data.encryptedData)
-            setChartData({
-                labels: getLabels(data.teams_per_attack_logs)[0],
-                datasets: [
-                    { 
-                        label: 'Teams', 
-                        data: getLabels(data.teams_per_attack_logs)[1], 
-                        backgroundColor: colors.map(i => '#' + i) ,
-                        borderColor : 0
-                    },
-                ]
-            })
-            setChartOptions({
-                radius : "90%",
-                cutout: "55%",
-                plugins : {
-                    legend : {
-                        // title : {
-                        //     color : "white"
-                        // },
-                        display : true,
-                        position : "top",
-                        // borderWidth: 0,
-                        lineWidth: 0,
-                        labels: {
-                            color: "white",
-                            // color: 'rgb(255, 99, 132)',
-                            
-                            // boxWidth : 10,
-                        }
-                    },
-                    title : {
-                        display : false,
-                        text : "Daily Revenue",
-                        
+        
+        setChartData({
+            labels: getLabels(teams_per_attack_logs)[0],
+            datasets: [
+                { 
+                    label: 'Teams', 
+                    data: getLabels(teams_per_attack_logs)[1], 
+                    backgroundColor: colors.map(i => '#' + i) ,
+                    borderColor : 0
+                },
+            ]
+        })
+        setChartOptions({
+            radius : "90%",
+            cutout: "55%",
+            plugins : {
+                legend : {
+                    display : true,
+                    position : "top",
+                    lineWidth: 0,
+                    labels: {
+                        color: "white",
                     }
                 },
-                maintainAspectRatio  : false,
-                responsive : true
-            })
+                title : {
+                    display : false,
+                    text : "Daily Revenue",
+                    
+                }
+            },
+            maintainAspectRatio  : false,
+            responsive : true
         })
-        .catch(error => {
-            console.error(error);
-        });
-
-        
     }, [])
     return (
         <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border-none rounded-lg bg-card-custom  overflow-hidden text-white">

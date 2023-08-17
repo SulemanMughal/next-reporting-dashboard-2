@@ -1,7 +1,6 @@
 "use client"
 
 
-import axios from 'axios';
 import {  useState, useEffect } from "react"
 import "gridjs/dist/theme/mermaid.css";
 import { Grid } from 'gridjs-react';
@@ -9,7 +8,6 @@ import { Grid } from 'gridjs-react';
 const style = {
     table: {
       'border': '1px solid #64748b',
-      // color 
     },
     th: {
       'background-color': 'rgba(0, 0, 0, 0.1)',
@@ -21,7 +19,6 @@ const style = {
     td: {
       'text-align': 'start',
       'color': '#64748b',
-    //   'background-color': 'black',
     'background-color': 'rgba(16,19,69, 97%)',
     "border" : "0"  ,
     "border-bottom" : "1px solid #64748b",
@@ -34,34 +31,13 @@ const style = {
       "border-top" : "0",
       "color" : "white"
     }
-    
-    // paginationSummary  : {
-    //   "color" : "white !important"
-    // },
-    // pagination : {
-    //   "color" : "white !important"
-    // }
   }
 
 
-
-  import encrypt from "@/app/lib/encrypt"
-  import decrypt from "@/app/lib/decrypt"
-  
-
-export default function UserLogsTable(){
+export default function UserLogsTable({attack_history_logs}){
     const [logs, setLogs] = useState(null)
     useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/db_logs`)
-        .then(res => {
-          
-          const {...data } = decrypt(res.data.encryptedData)
-
-            setLogs(data.logs);
-        })
-        .catch(error => {
-            console.error(error);
-        });
+      setLogs(attack_history_logs);
     }, []);
     return (
         <>
