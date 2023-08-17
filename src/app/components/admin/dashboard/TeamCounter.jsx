@@ -1,8 +1,15 @@
 "use client"
+import { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { RiTeamFill } from "react-icons/ri"
 
+
+
 export default function TeamCounter({total_teams}){
+    const [teamCounter, setTeamCounter] = useState(0)
+    useEffect(() => (
+        setTeamCounter(total_teams)
+    ), [])
     return (
         <>
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
@@ -11,7 +18,7 @@ export default function TeamCounter({total_teams}){
                         <div>
                             <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Teams</h5>
                             <p className="font-normal text-white mb-2 text-2xl">
-                                {total_teams &&  <CountUp end={total_teams}  duration={5} />     }
+                                {teamCounter &&  <CountUp end={teamCounter}  duration={5} />     }
                             </p>
                         </div>
                         <span>

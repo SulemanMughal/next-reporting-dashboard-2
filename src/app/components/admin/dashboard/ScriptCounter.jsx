@@ -1,8 +1,13 @@
 "use client"
 
+import { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { VscTerminalBash } from "react-icons/vsc"
 export default function ScriptCounter({total_scripts}){
+    const [scriptCounter, setScriptCounter] = useState(0)
+    useEffect(() => (
+        setScriptCounter(total_scripts)
+    ), [])
     return (
         <>
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
@@ -11,7 +16,7 @@ export default function ScriptCounter({total_scripts}){
                         <div>
                             <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Scripts</h5>
                             <p className="font-normal text-white mb-2 text-2xl">
-                               {total_scripts && <CountUp end={total_scripts}  duration={5} />     }   
+                               {scriptCounter && <CountUp end={scriptCounter}  duration={5} />     }   
                             </p>
                         </div>
                         <span>

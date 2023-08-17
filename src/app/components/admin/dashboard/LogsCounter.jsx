@@ -1,10 +1,16 @@
 "use client"
 
+
+import { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { BsFillRocketTakeoffFill } from "react-icons/bs"
 
 
 export default function LogsCounter({total_logs}){
+    const [logCounter, setLogCounter] = useState(0)
+    useEffect(() => (
+        setLogCounter(total_logs)
+    ), [])
     return (
         <>
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
@@ -13,7 +19,7 @@ export default function LogsCounter({total_logs}){
                         <div>
                             <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Logs</h5>
                             <p className="font-normal text-white mb-2 text-2xl">
-                              {total_logs && <CountUp end={total_logs}  duration={5} />     }  
+                              {logCounter && <CountUp end={logCounter}  duration={5} />     }  
                             </p>
                         </div>
                         <span>

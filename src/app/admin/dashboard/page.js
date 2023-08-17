@@ -33,7 +33,7 @@ export default async  function Page() {
   }
   return (
     <>
-      <Dashboard  data={data} />
+      {data && <Dashboard  data={data} /> }  
     </>
   )
 }
