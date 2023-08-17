@@ -22,7 +22,7 @@ export default function TeamCounter(){
         .catch(error => {
             console.error(error);
         });
-    }, []);
+    }, [teamCounter]);
 
     return (
         <>
