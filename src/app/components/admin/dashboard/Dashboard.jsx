@@ -22,7 +22,7 @@ import { useEffect } from 'react';
 // useEffect
 
 
-export default function Dashboard(){
+export default function Dashboard({total_teams, total_scripts, total_logs , total_quizes}){
     // const { data: session } = useSession(); 
     useEffect(() => {
         AOS.init();
@@ -30,10 +30,11 @@ export default function Dashboard(){
     return (
         <>
             <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4" data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="500">
-                <TeamCounter  />
-                <ScriptCounter />
-                <LogsCounter />
-                <QuizCounter /> 
+            { total_teams && <TeamCounter  total_teams={total_teams} /> }
+            {total_scripts && <ScriptCounter total_scripts={total_scripts}  /> }
+            {total_logs && <LogsCounter  total_logs={total_logs} /> }
+            {total_quizes &&  <QuizCounter  total_quizes={total_quizes} />  }
+                
             </div>
             <div className="p-4 grid  grid-cols-1 gap-4 place-items-center" data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
                 <LogLineChart />

@@ -10,19 +10,22 @@ import axios from 'axios';
 import decrypt from "@/app/lib/decrypt"
 
 
-export default function TeamCounter(){
-    const [teamCounter, setTeamCounter] = useState(null);
-    useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/team_counter`)
-        .then(res => {
-            
-            const {...data } = decrypt(res.data.encryptedData)
-            setTeamCounter(data.total_teams)
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }, [teamCounter]);
+
+
+
+
+export default function TeamCounter({total_teams}){
+    // const [teamCounter, setTeamCounter] = useState(null);
+    // useEffect(() => {
+    //     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/team_counter`)
+    //     .then(res => {
+    //         const {...data } = decrypt(res.data.encryptedData)
+    //         setTeamCounter(data.total_teams)
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
+    // }, []);
 
     return (
         <>
@@ -32,7 +35,7 @@ export default function TeamCounter(){
                         <div>
                             <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Teams</h5>
                             <p className="font-normal text-white mb-2 text-2xl">
-                                {teamCounter &&  <CountUp end={teamCounter}  duration={5} />     }
+                                {total_teams &&  <CountUp end={total_teams}  duration={5} />     }
                             </p>
                         </div>
                         <span>

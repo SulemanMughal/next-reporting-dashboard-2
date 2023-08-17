@@ -13,12 +13,12 @@ export async function GET(request){
         // console.debug(results)
         try {
             results.map((item) => {
-                if(item['SUM(obtainedPoints)']){
+                if(item['SUM(obtainedPoints)'] &&  item['SUM(obtainedPoints)'] !== null){
                     records.push({
-                        obtainedPoints:   item['SUM(obtainedPoints)'].toString(),
-                        teamId: item['teamId'].toString(),
-                        submission : item['COALESCE(sum(CASE WHEN submissionStatus THEN 1 ELSE 0 END),0)'].toString(),
-                        name : item['name']
+                        obtainedPoints:   item['SUM(obtainedPoints)']?.toString() || "",
+                        teamId: item['teamId']?.toString() || "",
+                        submission : item['COALESCE(sum(CASE WHEN submissionStatus THEN 1 ELSE 0 END),0)']?.toString() ||"" ,
+                        name : item['name'] || ""
                     })
                 }
             })

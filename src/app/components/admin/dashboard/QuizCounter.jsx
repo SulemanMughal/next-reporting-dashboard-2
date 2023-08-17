@@ -11,19 +11,19 @@ import decrypt from "@/app/lib/decrypt"
 
 
 
-export default function QuizCounter(){
-    const [quizCounter, setQuizCounter] = useState(null);
-    useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/quiz_counter`)
-        .then(res => {
+export default function QuizCounter({total_quizes}){
+    // const [quizCounter, setQuizCounter] = useState(null);
+    // useEffect(() => {
+    //     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/quiz_counter`)
+    //     .then(res => {
                         
-            const {...data } = decrypt(res.data.encryptedData)
-            setQuizCounter(data.total_quizes)
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }, []);
+    //         const {...data } = decrypt(res.data.encryptedData)
+    //         setQuizCounter(data.total_quizes)
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
+    // }, []);
     return (
         <>
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
@@ -32,7 +32,7 @@ export default function QuizCounter(){
                         <div>
                             <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Quizes</h5>
                             <p className="font-normal text-white mb-2 text-2xl">
-                                {quizCounter && <CountUp end={quizCounter}  duration={5} /> }   
+                                {total_quizes && <CountUp end={total_quizes}  duration={5} /> }   
                             </p>
                         </div>
                         <span>

@@ -10,19 +10,19 @@ import decrypt from "@/app/lib/decrypt"
 
 
 
-export default function ScriptCounter(){
-    const [scriptCounter, setScriptCounter] = useState(null);
-    useEffect(() => {
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/script_counter`)
-        .then(res => {
+export default function ScriptCounter({total_scripts}){
+    // const [scriptCounter, setScriptCounter] = useState(null);
+    // useEffect(() => {
+    //     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/script_counter`)
+    //     .then(res => {
                     
-            const {...data } = decrypt(res.data.encryptedData)
-            setScriptCounter(data.total_scripts)
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }, []);
+    //         const {...data } = decrypt(res.data.encryptedData)
+    //         setScriptCounter(data.total_scripts)
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //     });
+    // }, []);
     return (
         <>
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
@@ -31,7 +31,7 @@ export default function ScriptCounter(){
                         <div>
                             <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Scripts</h5>
                             <p className="font-normal text-white mb-2 text-2xl">
-                               {scriptCounter && <CountUp end={scriptCounter}  duration={5} />     }   
+                               {total_scripts && <CountUp end={total_scripts}  duration={5} />     }   
                             </p>
                         </div>
                         <span>
