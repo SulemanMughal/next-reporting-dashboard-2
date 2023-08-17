@@ -86,7 +86,7 @@ model Question{
   id   String  @id @default(uuid())
   title String @default("")
   Description String @default("")
-  points Int @default(50)
+  points Int @default(50) 
   // option_1 String @default("")
   // option_2 String @default("")
   // option_3 String @default("")

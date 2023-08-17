@@ -1,3 +1,5 @@
+import ExpandableText from "@/app/components/ExpandableText"
+
 export default function ScriptCard({script}){
     return (
         <>
@@ -9,7 +11,8 @@ export default function ScriptCard({script}){
                             
                         </div>
                         <span className="inline-block bg-none rounded-0 px-0 py-2 text-md font-semibold text-green-500 ">{script.script_category }</span>
-                        <p className="mb-3 font-normal text-gray-500   ">{script.desc}</p>
+                        {/* <p className="mb-3 font-normal text-gray-500   ">{script.desc}</p> */}
+                        <ExpandableText initialText={script.desc} maxLength={150} />
                     </div>
                     {/* <div className="  pb-2 px-5">
                         <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-green-500 mr-2 mb-2">{script.script_category }</span>
