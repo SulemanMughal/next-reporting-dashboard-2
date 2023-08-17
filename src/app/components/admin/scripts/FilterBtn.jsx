@@ -21,7 +21,7 @@ export default function FilterBtn(){
         <>
 <Menu as="div" className="relative inline-block text-left ">
       <div>
-        <Menu.Button className="flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-lg font-semibold text-white shadow-sm  items-center">
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-lg font-semibold text-white shadow-sm">
             <FiFilter className="-mr-1 h-7 w-7 text-dark  " aria-hidden="true" /> <span className='text-dark ml-2 text-xl'>Filter</span>
         </Menu.Button>
       </div>
@@ -35,14 +35,14 @@ export default function FilterBtn(){
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0  bg-card-custom  text-white shadow-lg  ">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0 btn-flag-submit   text-white  shadow-lg  focus:outline-none  ">
           <div className="py-0">
             {categories.map((index) => (
                 <Menu.Item key={index}>
                 {({ active }) => (
                  <Link href={"#"} className={classNames(
                   active ? 'bg-gray-100 ' : '',
-                  'block px-4 py-2 text-lg  hover:text-black'
+                  'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
                 )}>
                    {index}
                  </Link>

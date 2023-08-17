@@ -11,7 +11,7 @@ export default function Header(){
     <nav className=" border-gray-200  sticky top-0 z-20" style={{backgroundColor:"rgba(16,19,69, 96%)"}}>
       <div className="flex flex-wrap justify-between items-center  w-full px-4 py-2">
         <Link href="/" className="flex items-center">
-            <span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white" style={{color : "#35c2f1"}}>NeoRix</span>
+            <span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white" style={{color : "#35c2f1"}}>Attack & Defense - Q</span>
         </Link>
         <div className="flex md:order-2">
           <SigninButton />

@@ -23,7 +23,7 @@ export default function SortBtn(){
         <>
 <Menu as="div" className="relative inline-block text-left mx-2 ">
       <div>
-        <Menu.Button className="flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-lg font-semibold text-white shadow-sm  items-center">
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-lg font-semibold text-white shadow-sm">
             <MdSort className="-mr-1 h-7 w-7 text-dark  " aria-hidden="true" /> <span className='text-dark ml-2 text-xl'>Sort</span>
         </Menu.Button>
       </div>
@@ -37,13 +37,13 @@ export default function SortBtn(){
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0 bg-card-custom shadow-lg ">
+        <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0 btn-flag-submit   text-white  shadow-lg  focus:outline-none">
           <div className="py-0">
             <Menu.Item >
                 {({ active }) => (
                 <Link href={"#"} className={classNames(
                 active ? 'bg-gray-100 text-gray-900' : 'text-white',
-                'block px-4 py-2 text-lg'
+                'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
                 )}>
                 Oldest
                 </Link>
@@ -53,7 +53,7 @@ export default function SortBtn(){
                 {({ active }) => (
                 <Link href={"#"} className={classNames(
                 active ? 'bg-gray-100 text-gray-900' : 'text-white',
-                'block px-4 py-2 text-lg'
+                'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
                 )}>
                     Latest
                 </Link>
