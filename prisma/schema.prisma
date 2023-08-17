@@ -67,6 +67,18 @@ model Scenario{
   desc   String @default("")
   difficulty String @default("Easy")
   tags String @default("")
+  files File[]
+}
+
+
+
+model File {
+  id       String      @id @default(uuid())
+  filename String @default("")
+  filepath String @default("")  // This could be a relative/absolute path or a URL
+  password String @default("")
+  scenario Scenario? @relation(fields: [scenarioId], references: [id])
+  scenarioId String?
 }
 
 
