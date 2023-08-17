@@ -37,3 +37,7 @@ next-env.d.ts
 
 prisma/migrations/*
 dev.db
+
+
+# ignore media files
+public/media/*

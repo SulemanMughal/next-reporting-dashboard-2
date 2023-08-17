@@ -8,34 +8,82 @@ import {  use, useEffect, useRef, useState } from "react";
 import {  useSession } from "next-auth/react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+// import { useRouter } from 'next/router';
 
+
+// import Link from "next/link"
+
+
+function FileDownloadButton({ file }) {
+    const [downloading, setDownloading] = useState(false);
+    // console.debug(file)
+    const downloadFile = async () => {
+      if (!downloading) {
+        setDownloading(true);
+        try {
+          const response = await fetch(`${file.filepath}`);
+          if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.filename;
+            document.body.appendChild(a);
+            a.click((e) => (e.preventDefault()));
+            a.remove();
+          } else {
+            console.error('Error downloading file:', response.status);
+          }
+        } catch (error) {
+          console.error('Error downloading file:', error);
+        }
+        setDownloading(false);
+      }
+    };
+  
+    return (
+      <button
+        className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded"
+        onClick={downloadFile}
+        disabled={downloading}
+      >
+        {downloading ? 'Downloading...' : 'Download File'}
+      </button>
+    );
+  }
+  
+//   export default FileDownloadButton;
 
 // FileInformation
-function QuizFileInfo(){
+function QuizFileInfo({files}){
     return (
         <>
-            <div className="p-4 grid  grid-cols-6 gap-4 place-items-center justify-center  ">
+        {files && files.map((file, index) => (
+            <div className="p-4 grid  grid-cols-6 gap-4 place-items-center justify-center  " key={file.id}>
                 <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <div className="flex  items-center justify-start px-0 place-items-start text-start">
                         <div className="px-0">
                             <AiOutlineFileZip className="text-gray-300" size={40} />
                         </div>
                         <div className="ml-2">
-                            <h3 className="mb-0 pb-0 text-sm  text-gray-400">The Report II.zip</h3>
-                            <p className="mt-0 pb-0  text-sm text-gray-400">20 MB</p>
+                            <h3 className="mb-0 pb-0 text-sm  text-gray-400">{file.filename}</h3>
+                            {/* <p className="mt-0 pb-0  text-sm text-gray-400">20 MB</p> */}
                         </div>
                     </div>
                 </div>
                 <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-start justify-center">
                     <h3 className="text-gray-400">Password</h3>
-                    <p className="text-gray-400">blt0</p>
+                    <p className="text-gray-400">{file.password}</p>
                 </div>
                 <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-center justify-center">
-                    <button className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded">
+                    {/* <Link  href={`${file.filepath}`} className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded">
                         Download File
-                    </button>
+                    </Link> */}
+                    <FileDownloadButton file={file} />
                 </div>
             </div>
+        ))}
+            
             
         </>
     )
@@ -237,6 +285,7 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
 
 import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
+import Link from "next/link";
 
 
 
@@ -351,6 +400,7 @@ function QuestionList({questions, team , quiz, user}){
 
 
 function Details({scenario , questions}){
+    // console.debug(scenario?.files)
     return (
         <>
             <div  className="block  p-6 bg-card-custom rounded-lg shadow ">
@@ -360,7 +410,7 @@ function Details({scenario , questions}){
             </p>
             <QuizTags tags={scenario.tags}/>
             <QuizInfoList questions={questions}  scenario={scenario}/>
-            <QuizFileInfo />
+            <QuizFileInfo  files={scenario?.files}/>
         </div>
         </>
     )

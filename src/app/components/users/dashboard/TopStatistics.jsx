@@ -180,13 +180,13 @@ export default function TopStatistics(){
 
     return (
         <>
-            <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="500">
+            <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                 <TotalChallenges  totalChallenges={totalChallenges}   />
                 <TotalSubmission  totalSubmissions={totalSubmissions} />
                 <TotalObtainedPoints  totalPoints={totalPoints} />
                 <RightAnswers  totalTrueQuestions={totalTrueQuestions} totalFalseQuestions={totalFalseQuestions} />
             </div>
-            <div className="grid gap-1 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="1000">
+            <div className="grid gap-1 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
                 {scenarios &&  <QuizList scenarios={scenarios} /> }
             </div>           
         </>

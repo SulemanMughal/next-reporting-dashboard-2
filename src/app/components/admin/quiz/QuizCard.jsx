@@ -20,7 +20,7 @@ export default function QuizCard({quiz , setData}){
         <>
             {showModal && <TeamList setShowModal={setShowModal} teams={quiz.teams.length ? quiz.teams : 0 } /> }
             {showTeamAssignModal &&  <TeamAssignModal setShowTeamAssignModal={setShowTeamAssignModal} quizId={quiz.id} setData={setData}  /> }
-            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full " data-aos="zoom-in" data-aos-duration="1500" data-aos-delay="500">
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                 <div className="  mx-2 my-2 p-4 bg-card-custom border-none rounded-lg shadow  text-gray-400 ">
                         <div className="p-5">
                             <div className="flex justify-between items-center mb-4 ">

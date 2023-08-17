@@ -54,6 +54,7 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                                                 category : true,
                                                 difficulty : true,
                                                 tags : true,
+                                                files : true
                                                 
                                             }
                                         }
