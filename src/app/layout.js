@@ -31,7 +31,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en"  >
-      {/* <link rel="icon" href="/assets/img/logo_new.ico" sizes="any" /> */}
+      <link rel="icon" href="/assets/img/logo_new.ico" sizes="any" />
       <body className={inter.className}>
         <Providers >
           
