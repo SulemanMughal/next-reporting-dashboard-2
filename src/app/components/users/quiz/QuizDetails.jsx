@@ -267,7 +267,7 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
                 <>
                     <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full md:w-5/6 px-3 h-full">
-                            <input className=" block w-full btn-flag-submit text-gray-400   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none" id="grid-first-name" type="text" placeholder="Format: Team 1 , Team 2" style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
+                            <input className=" block w-full btn-flag-submit text-gray-400   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none" id="grid-first-name" type="text" placeholder="Format: X, X, X ( In case of multiple values required , otherwise simple : ) X" style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
                         </div>
                         <div className="w-full md:w-1/6 px-3 h-full">
                             <SubmitBtn  isSubmit={isSubmit} submitHandler={submitHandler}/>

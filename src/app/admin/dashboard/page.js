@@ -15,7 +15,7 @@ export default async  function Page() {
   const ips_per_protocol_logs = await getIPsPerProtocol()
   const top_teams = await getTopTeams()
   const latest_scripts = await getLatestScripts()
-  const attack_history_logs = await getAttackHistoryLogs()
+  // const attack_history_logs = await getAttackHistoryLogs()
 
 
   const data={
@@ -29,7 +29,7 @@ export default async  function Page() {
     ips_per_protocol_logs,
     top_teams,
     latest_scripts,
-    attack_history_logs
+    // attack_history_logs
   }
   return (
     <>

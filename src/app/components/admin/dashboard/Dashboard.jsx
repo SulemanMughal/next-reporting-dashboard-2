@@ -41,7 +41,7 @@ export default function Dashboard({data}){
                 <AttakScriptTable latest_scripts={data.latest_scripts} />
             </div>
             <div className="p-4 grid grid-cols-3 gap-4 place-items-start h-100" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500">
-                <UserLogsTable attack_history_logs={data.attack_history_logs} />
+                <UserLogsTable  />
             </div>
         </>
     )
