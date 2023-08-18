@@ -23,10 +23,10 @@ export default function Dashboard({data}){
     return (
         <>
             <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
-                <TeamCounter  total_teams={data.total_teams} />
-                <ScriptCounter total_scripts={data.total_scripts}  />
-                <LogsCounter  total_logs={data.total_logs} />
-                <QuizCounter  total_quizes={data.total_quizes} />
+                <TeamCounter   />
+                <ScriptCounter   />
+                <LogsCounter   />
+                <QuizCounter   />
             </div>
             <div className="p-4 grid  grid-cols-1 gap-4 place-items-center" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
                 <LogLineChart  logs_by_hour={data.logs_by_hour} />

@@ -5,10 +5,10 @@ export const revalidate = 0;
 
 export default async  function Page() {
 
-  const total_teams = await getTotalTeam()
-  const total_scripts = await getTotalScripts()
-  const total_logs = await getTotalLogs()
-  const total_quizes = await getTotalQuizes()
+  // const total_teams = await getTotalTeam()
+  // const total_scripts = await getTotalScripts()
+  // const total_logs = await getTotalLogs()
+  // const total_quizes = await getTotalQuizes()
   const logs_by_hour = await getLogsPerHour()
   const teams_per_attack_logs = await getTeamsPerAttack()
   const logs_per_protocol_logs = await getLogsPerProtocol()
@@ -19,10 +19,10 @@ export default async  function Page() {
 
 
   const data={
-    total_teams,
-    total_scripts,
-    total_logs,
-    total_quizes,
+    // total_teams,
+    // total_scripts,
+    // total_logs,
+    // total_quizes,
     logs_by_hour,
     teams_per_attack_logs,
     logs_per_protocol_logs,
