@@ -104,7 +104,8 @@ export default function UserLogsTable(){
     const [logs, setLogs] = useState(null)
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/db_logs`, {
-          headers: { 'Cache-Control': 'no-cache' },
+          headers: { 'Cache-Control': 'no-store' },
+          params: { timestamp: new Date().getTime() },
         })
         .then(res => {
           
