@@ -107,8 +107,8 @@ const SelectField = ({ options, onChange }) => {
     return (
         <>
             <button className="theme-btn-bg-color  text-gray-300 my-2 py-2 px-4 rounded">
-                    Reset Filters
-                </button>
+              Reset Filters
+            </button>
 
         </>
     )
@@ -163,7 +163,7 @@ const FiltersBtn = () => {
     
     return (
         <>
-            <div  className="block  p-6 bg-dark-blue  rounded-lg shadow ">
+            <div  className="block  p-6 bg-card-custom  rounded-lg shadow ">
                     <SearchInput /> 
                     <SelectField options={options} onChange={handleSelectChange} />
                     <CheckboxGroup text={"Status"} options={options_2} />

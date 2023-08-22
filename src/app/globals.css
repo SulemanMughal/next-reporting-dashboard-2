@@ -541,7 +541,7 @@ main#main.contact-us-main .list-inline {
 }
 
 .bg-dark-blue{
-  background-color: #101345;
+  background-color: #0F0836;
 }
 
 
@@ -649,7 +649,7 @@ input[type="checkbox"]:checked {
   --tw-text-opacity: 1;
   align-items: center;
   
-  color: rgba(255,255,255,var(--tw-text-opacity));
+  color: rgba(255,255,255,1);
   content: "";
   display: flex;
   height: 100%;

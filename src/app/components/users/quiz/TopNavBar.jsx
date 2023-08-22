@@ -34,6 +34,14 @@ function checkQuizPath(pathname){
     }
 }
 
+function checkLeaderBoardPage(pathname){
+    if(pathname === "/user/board" ){
+        return true
+    } else {
+        return false
+    }
+}
+
 
 // function isCheckPath(url, page_name){
 //     if(url === "/user/dashboard" && page_name === "dashboard"){
@@ -46,6 +54,9 @@ function checkQuizPath(pathname){
     
 // }
 
+
+
+
 export default function TopNavBar() {
 
     const pathname = usePathname()
@@ -57,7 +68,7 @@ export default function TopNavBar() {
                 
                 <ul className="flex space-x-4 mb-0">
                 <li >
-                    <Link href={"#"} className={classNames( checkDashboardPath(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )} >
+                    <Link href={"/user/dashboard"} className={classNames( checkDashboardPath(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )} >
                         <AiFillHome  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">Home</p>    
                     </Link>
                 </li>
@@ -67,8 +78,8 @@ export default function TopNavBar() {
                     </Link>
                 </li>
                 <li >
-                    <Link href={"#"} className="flex  items-center justify-start  p-3 px-5 rounded-3xl rounded-b-none">
-                        <MdLeaderboard  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">Leaderboard</p>    
+                    <Link href={"/user/board"} className={classNames( checkLeaderBoardPage(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )}>
+                        <MdLeaderboard  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">ScoreBoard</p>    
                     </Link>
                 </li>
                 </ul>
