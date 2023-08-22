@@ -2,32 +2,21 @@
 
 import  { FaPuzzlePiece } from "react-icons/fa6"
 import CountUp from 'react-countup';
-import {  useEffect, useState } from "react";
-// import {  useSession } from "next-auth/react";
-// import axios from "axios";
-// import { toast } from "react-hot-toast";
-// toast
 
-// import AOS from 'aos';
-// import 'aos/dist/aos.css';
-
-export default function TotalChallenges({totalChallenges}){
-    // useEffect(()=>{
-    //     AOS.init();
-    // }, [])
+export default function TotalChallenges({totalChallenges, totalSubmissions}){
     return (
         <>
-            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg "  >
-                <div  className="block  p-6 bg-blue-500  rounded-lg shadow ">
-                    <div className="flex justify-between items-center">
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box"  >
+                <div  className="block  p-6 bg-dark-blue  rounded-lg shadow relative">
+                <div className="flex justify-between items-center ">
                         <div>
-                            <h5 className="mb-2 text-3xl font-bold tracking-tight text-white">Challenges</h5>
-                            <p className="font-normal text-white mb-2 text-2xl">
-                                {totalChallenges && (<CountUp end={totalChallenges}  duration={5} /> ) }  
+                            <FaPuzzlePiece size={40}  className="text-blue-500 mb-6" />
+                            <p className="font-bold text-white  text-4xl mb-2">
+                            {totalSubmissions && <CountUp end={totalSubmissions}  duration={3} />     } / {totalChallenges && (<CountUp end={totalChallenges}  duration={3} /> ) }  
                             </p>
+                            <h5 className="text-md text-gray-400">Challenges Completed / Total</h5>
                         </div>
                         <span>
-                            <FaPuzzlePiece size={40}  className="text-white" />
                         </span>
                     </div>
                 </div>

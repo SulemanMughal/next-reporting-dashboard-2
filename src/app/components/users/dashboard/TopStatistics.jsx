@@ -13,6 +13,9 @@ import { AiFillEye } from "react-icons/ai"
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+
 
 
 function countSubmitAnswers(data){
@@ -75,6 +78,7 @@ function checkScenarios(data){
     let category_list=  [];
     let description_list = [];
     let total_points = []
+    let overall_points = 0;
     if(data.length){
         data.forEach((item) => {
             if(item.scenario){
@@ -85,11 +89,12 @@ function checkScenarios(data){
                     category_list.push(item.scenario.category)
                     description_list.push(item.scenario.desc)
                     total_points.push(calcScenarioPoints(item.scenario.questions))
+                    overall_points = overall_points + calcScenarioPoints(item.scenario.questions)
                 }
             }
         })
     }
-    return [ids, names , status_list, category_list , description_list , total_points];
+    return [ids, names , status_list, category_list , description_list , total_points , overall_points];
 }
 
 
@@ -97,6 +102,7 @@ import ExpandableText from "@/app/components/ExpandableText"
 
 
 function QuizList({scenarios}){
+    // console.debug(scenarios)
     return (
         <>
             {   scenarios?.length ? [...Array(scenarios?.[0].length)].map((item, index) => (
@@ -129,12 +135,41 @@ function QuizList({scenarios}){
     )
 }
 
-import encrypt from "@/app/lib/encrypt"
-import decrypt from "@/app/lib/decrypt"
+
+
+// const UserRank = () => {
+//     return (
+//         <>
+          
+
+
+//             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box"  >
+//                 <div  className="block  p-6 bg-dark-blue  rounded-lg shadow relative">
+//                 <div className="flex justify-between items-center ">
+//                         <div>
+//                             <MdIncompleteCircle size={40}  className="text-blue-500 mb-6" />
+//                             <p className="font-bold text-white  text-4xl">
+//                             <CountUp end={totalTrueQuestions}  duration={5} /> / <CountUp end={totalFalseQuestions}  duration={5} />
+//                             </p>
+//                             <h5 className="text-md text-gray-400">Overall position</h5>
+//                         </div>
+//                         <span>
+//                         </span>
+//                     </div>
+//                 </div>
+//             </div>
+
+            
+
+//         </>
+//     )
+// }
 
 
 export default function TopStatistics(){
-    const { data: session } = useSession();   
+    const { data: session } = useSession();  
+    
+    // console.debug(session)
     
     
     const [totalChallenges, setTotalChallenges] = useState(0)
@@ -152,6 +187,8 @@ export default function TopStatistics(){
             .then(res => {
                 
                 const {...data_2 } = decrypt(res.data.encryptedData)
+
+                // console.debug(scenarios[6])
 
                 
                 if(data_2.status === true){
@@ -176,19 +213,21 @@ export default function TopStatistics(){
                 console.debug(error)
             })
         }
-    }, [])
+    }, [session])
 
     return (
         <>
             <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
-                <TotalChallenges  totalChallenges={totalChallenges}   />
-                <TotalSubmission  totalSubmissions={totalSubmissions} />
-                <TotalObtainedPoints  totalPoints={totalPoints} />
-                <RightAnswers  totalTrueQuestions={totalTrueQuestions} totalFalseQuestions={totalFalseQuestions} />
+                <TotalChallenges  totalChallenges={totalChallenges} totalSubmissions={totalSubmissions}   />
+                {/* <TotalSubmission  totalSubmissions={totalSubmissions} /> */}
+                <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]} />
+                {/* <RightAnswers  totalTrueQuestions={totalTrueQuestions} totalFalseQuestions={totalFalseQuestions} /> */}
+                {/* <UserRank /> */}
+                
             </div>
-            <div className="grid gap-1 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+            {/* <div className="grid gap-1 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
                 {scenarios &&  <QuizList scenarios={scenarios} /> }
-            </div>           
+            </div>            */}
         </>
     )
 }

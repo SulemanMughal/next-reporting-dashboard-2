@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google'
 
 // import sidebar
 
-import Sidebar from './components/Sidebar'
+// import Sidebar from './components/Sidebar'
 
 import Providers from './components/Providers'
 
@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en"  >
       <link rel="icon" href="/assets/img/logo_new.ico" sizes="any" />
-      <body className={inter.className }>
+      <body className={inter.className  + "  theme-color"}>
         <Providers >
           
         <NextTopLoader
@@ -46,12 +46,14 @@ export default function RootLayout({ children }) {
   speed={200}
   shadow="0 0 10px #be123c,0 0 5px #be123c"
 />
-          <Sidebar>
-          <Header />
-          <main className=' min-h-screen theme-color ' >
-            {children}
+          
+          
+          <main className=' min-h-screen  ' >
+            
+              <Header />
+                {children}
+              
           </main>
-          </Sidebar>
         </Providers>
         </body>
     </html>

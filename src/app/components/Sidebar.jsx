@@ -108,36 +108,37 @@ function UserSideBar(){
 
 export default   function Sidebar({children}){
     const { data: session } = useSession();
-    if (session){
-        if (session?.user.role === "admin") {
-            return (
-                <div className="flex" style={{backgroundColor:"rgba(16,19,69, 96%)"}}>
-                    <AdminSideBar   />
-                    {session?.user.role && <main className=" w-full">{children}</main> }
-                </div>
-            )
-        }
-        else if (session?.user.role === "user"){
-            return (
-                <div className="flex" style={{backgroundColor:"rgba(16,19,69, 96%)"}}>
-                    <UserSideBar />
-                    {session?.user.role && <main className=" w-full">{children}</main> }
-                </div>
-            )
-        }
-        else{
-            return (
-                <div className="flex" style={{backgroundColor:"rgba(16,19,69, 96%)"}}>
-                    <main className=" w-full">{children}</main>
-                </div>
-            )
-        }
-    }
-    else{
-        return (
-            <>
-                {children}
-            </>
-        )
-    }
+    // if (session){
+    //     if (session?.user.role === "admin") {
+    //         return (
+    //             <div className="flex" style={{backgroundColor:"rgba(16,19,69, 96%)"}}>
+    //                 <AdminSideBar   />
+    //                 {session?.user.role && <main className=" w-full">{children}</main> }
+    //             </div>
+    //         )
+    //     }
+    //     else if (session?.user.role === "user"){
+    //         return (
+    //             <div className="flex" style={{backgroundColor:"rgba(16,19,69, 96%)"}}>
+    //                 <UserSideBar />
+    //                 {session?.user.role && <main className=" w-full">{children}</main> }
+    //             </div>
+    //         )
+    //     }
+    //     else{
+    //         return (
+    //             <div className="flex" style={{backgroundColor:"rgba(16,19,69, 96%)"}}>
+    //                 <main className=" w-full">{children}</main>
+    //             </div>
+    //         )
+    //     }
+    // }
+    // else{
+        
+    // }
+    return (
+        <>
+            {children}
+        </>
+    )
 }
