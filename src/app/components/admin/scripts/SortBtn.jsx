@@ -62,7 +62,7 @@ export default function SortBtn(){
           </div>
         </Menu.Items>
       </Transition>
-    </Menu>
+</Menu>
         </>
     )
 }

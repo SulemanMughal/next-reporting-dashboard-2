@@ -182,7 +182,6 @@ export default function TopStatistics(){
     useEffect(() => {
         AOS.init();
         if (session){
-            // const {...data_user } = decrypt(session?.user.user) 
             axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}`)
             .then(res => {
                 
