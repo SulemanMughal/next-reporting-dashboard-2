@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en"  >
       <link rel="icon" href="/assets/img/logo_new.ico" sizes="any" />
-      <body className={inter.className}>
+      <body className={inter.className }>
         <Providers >
           
         <NextTopLoader
@@ -48,7 +48,7 @@ export default function RootLayout({ children }) {
 />
           <Sidebar>
           <Header />
-          <main className=' min-h-screen ' style={{backgroundImage: "-webkit-linear-gradient(41deg, #0d0f2d 0%, #101230 100%)"}}>
+          <main className=' min-h-screen theme-color ' >
             {children}
           </main>
           </Sidebar>
