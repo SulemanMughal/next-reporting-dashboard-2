@@ -142,14 +142,14 @@ export default function QuizPage({quizId}){
                     </div>
                 </div>
 
-                {data?.results.questions.length &&  <FilteredDataWithButtons data={data} quizId={quizId}  setData={setData} /> }  
+                {/* {data?.results.questions.length &&  <FilteredDataWithButtons data={data} quizId={quizId}  setData={setData} /> }   */}
 
-                {/* <div className="p-4 grid gap-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  ">
+                <div className="p-4 grid gap-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  ">
                     {data?.results.questions.length && 
                        reverseArray(data?.results.questions).map((question, index) =>  
                         <QuizQuestion key={index} question={question}  quizId={quizId} setData={setData} />  
                     )}
-                </div> */}
+                </div>
             </>
 
         ) : null}

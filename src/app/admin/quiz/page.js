@@ -1,3 +1,4 @@
+"use client"
 import SortDropDown from "@/app/components/admin/quiz/SortDropDown"
 import QuizList from "@/app/components/admin/quiz/QuizList"
 import FilterBtn from "@/app/components/admin/quiz/FilterBtn"

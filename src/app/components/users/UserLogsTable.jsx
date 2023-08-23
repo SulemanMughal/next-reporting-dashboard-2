@@ -112,7 +112,6 @@ export default function UserLogsTable(){
           params: { timestamp: new Date().getTime() },
         })
         .then(res => {
-          
           const {...data } = decrypt(res.data.encryptedData)
             setLogs(data.logs);
             setError(null);

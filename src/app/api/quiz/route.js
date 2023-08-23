@@ -85,6 +85,11 @@ export async function GET(request ){
                 questions : {
                     select : {
                         points : true,
+                        scenario  : {
+                            select : {
+                                name : true,
+                            }
+                        } 
                     }
                 },
                 _count: {

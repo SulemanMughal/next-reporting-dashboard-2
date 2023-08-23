@@ -8,9 +8,26 @@ import { AiFillEye } from "react-icons/ai"
 import MenuBtn from "@/app/components/admin/quiz/MenuBtn"
 import TeamList from "./TeamList"
 import { useEffect , useState } from "react"
+import { FaPuzzlePiece } from "react-icons/fa"
 import { quizStatus, capitalizeFirstLetter , calcTotalPoints } from "@/app/lib/helpers"
 
 import TeamAssignModal from "./TeamAssignModal"
+
+
+function calcTotalScenarios(quiz){
+    let new_array = []
+    if(quiz?.questions){
+        quiz?.questions.forEach(element => {
+            if(element?.scenario){
+                if(!new_array.includes(element?.scenario?.name)){
+                    new_array.push(element?.scenario?.name)
+                }
+            }
+        });    
+    }
+    return new_array.length 
+}
+
 
 export default function QuizCard({quiz , setData}){
     const [showModal, setShowModal] = useState(false)
@@ -20,7 +37,7 @@ export default function QuizCard({quiz , setData}){
         <>
             {showModal && <TeamList setShowModal={setShowModal} teams={quiz.teams.length ? quiz.teams : 0 } /> }
             {showTeamAssignModal &&  <TeamAssignModal setShowTeamAssignModal={setShowTeamAssignModal} quizId={quiz.id} setData={setData}  /> }
-            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full " data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
                 <div className="  mx-2 my-2 p-4 bg-card-custom border-none rounded-lg shadow  text-gray-400 ">
                         <div className="p-5">
                             <div className="flex justify-between items-center mb-4 ">
@@ -28,21 +45,7 @@ export default function QuizCard({quiz , setData}){
                                 <MenuBtn  setShowModal={setShowModal} showModal={showModal} setShowTeamAssignModal={setShowTeamAssignModal} />    
                             </div>
                             <ul className="w-full ">
-                                <li className="py-3 sm:pb-4">
-                                    <div className="flex items-center space-x-4">
-                                        <div className="flex-shrink-0">
-                                            <VscTasklist   size={28}/>
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <p className="text-md font-medium  truncate ">
-                                            Questions
-                                            </p>
-                                        </div>
-                                        <div className="flex flex-rows items-center text-base font-semibold  ">
-                                            <p>{quiz._count.questions}</p>
-                                        </div>
-                                    </div>
-                                </li>
+                                
                                 <li className="py-3 sm:pb-4">
                                     <div className="flex items-center space-x-4">
                                         <div className="flex-shrink-0">
@@ -61,15 +64,30 @@ export default function QuizCard({quiz , setData}){
                                 <li className="py-3 sm:pb-4">
                                     <div className="flex items-center space-x-4">
                                         <div className="flex-shrink-0">
-                                            <MdGroups   size={28}/>
+                                            <FaPuzzlePiece   size={28}/>
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <p className="text-md font-medium  truncate ">
-                                            Scenarios
+                                            Challenges
                                             </p>
                                         </div>
                                         <div className="flex flex-rows items-center text-base font-semibold  ">
-                                            <p>{quiz.teams.length}</p>
+                                            <p>{calcTotalScenarios(quiz)}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li className="py-3 sm:pb-4">
+                                    <div className="flex items-center space-x-4">
+                                        <div className="flex-shrink-0">
+                                            <VscTasklist   size={28}/>
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-md font-medium  truncate ">
+                                            Questions
+                                            </p>
+                                        </div>
+                                        <div className="flex flex-rows items-center text-base font-semibold  ">
+                                            <p>{quiz._count.questions}</p>
                                         </div>
                                     </div>
                                 </li>
