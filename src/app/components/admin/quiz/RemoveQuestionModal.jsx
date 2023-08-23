@@ -23,11 +23,15 @@ import axios from 'axios';
 import { toast } from 'react-hot-toast';
 
 
-export default function RemoveQuestionModal({setRemoveQuestion , quizId, questionId , setData={setData}}){
+export default function RemoveQuestionModal({setRemoveQuestion , quizId, question , setData , setQuestion}){
+
+
+    
+
     const [isSubmit, setSubmit] = useState(false)
     const submitHandler = () => {
         try {
-            axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}/question/${questionId}`)
+            axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}/question/${question.id}`)
             .then((res) => {
                 
                 // const {...data } = decrypt(res.data.encryptedData)
@@ -60,6 +64,7 @@ export default function RemoveQuestionModal({setRemoveQuestion , quizId, questio
 
     useEffect(()=>{
         AOS.init();
+        // console.log(quizId, question.id)
     }, [])
 
         return (
@@ -73,12 +78,12 @@ export default function RemoveQuestionModal({setRemoveQuestion , quizId, questio
                             Remove Question
                         </h3>
                         <button
-                        className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white" onClick={() => setRemoveQuestion(false)}
+                        className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white" onClick={() => (setRemoveQuestion(false) , setQuestion(null))}
                         >✗</button>
                     </div>
                     <div className="relative p-6 flex-auto">
                         <p className='text-md mb-5'>
-                            Are you sure you want to remove this question?
+                            Are you sure you want to remove question?
                         </p>         
                         {isSubmit ? <button disabled type="button" className="py-2.5 px-5 mr-2 text-sm font-medium text-gray-900 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700  inline-flex items-center w-full justify-center">
                 <svg aria-hidden="true" role="status" className="inline w-4 h-4 mr-3 text-gray-200 animate-spin " viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -88,17 +93,17 @@ export default function RemoveQuestionModal({setRemoveQuestion , quizId, questio
                 Removing...
                 </button>  :
                 <>
-                <div className="flex items-center justify-center p-3 ">
+                <div className="flex items-center justify-end p-3 ">
                 <button
-                className=" font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 w-6/12 justify-center rounded-md leading-6 bg-red-700  text-red-100 shadow-sm hover:bg-red-500 flex justify-start items-center"
+                className=" font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1  justify-center rounded-md leading-6 bg-red-700  text-red-100 shadow-sm hover:bg-red-500 flex justify-start items-center"
                 type="button"
                 onClick={() => setRemoveQuestion(false)}
-                ><span>Cancel</span> <GiCancel  size={23} className="ml-2" /></button>
+                ><GiCancel  size={23} className="mr-2" />  <span>Cancel</span> </button>
                 <button
                 type="button"
-                className=" w-6/12 justify-center rounded-md bg-indigo-600 font-bold uppercase px-6 py-2 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 flex justify-start items-center" onClick={() => submitHandler()}
+                className="  justify-center rounded-md bg-indigo-600 font-bold uppercase px-6 py-2 font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 flex justify-start items-center" onClick={() => submitHandler()}
                 >
-                <span> Remove </span> <IoMdRemoveCircle size={23} className="ml-2"/>
+                <IoMdRemoveCircle size={23} className="mr-2"/> <span> Remove </span> 
                 </button> 
                 </div>
                 </>

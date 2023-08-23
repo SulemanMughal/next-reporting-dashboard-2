@@ -72,3 +72,18 @@ export function calcTotalPoints(quiz){
     }
     return points
 }
+
+
+
+// convert an array to a string with comma separated values
+export function arrayToString(array){
+    let string = ""
+    array.map((item, index) => {
+        if(index === array.length - 1){
+            string += item
+        } else {
+            string += item + ","
+        }
+    })
+    return string
+}

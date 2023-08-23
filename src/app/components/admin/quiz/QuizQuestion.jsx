@@ -12,12 +12,12 @@ import  { IoMdRemoveCircle } from "react-icons/io"
 import RemoveQuestionModal from "./RemoveQuestionModal"
 import UpdateQuizQuestion from "./UpdateQuizQuestion"
 import { AiFillEye } from "react-icons/ai"
-
+import {HiOutlinePencilAlt} from "react-icons/hi"
 
 // import { TbNewSection } from "react-icons/tb"
 
 
-function QuestionMenuBtn({setRemoveQuestion , scenario , setUpdateQuestion , question , setQuestion }) {
+function QuestionMenuBtn({setRemoveQuestion , scenario , setUpdateQuestion , question , setQuestion , setShowScenario }) {
     return (
         <>  
             <Menu as="div" className="relative inline-block text-left">
@@ -45,22 +45,25 @@ function QuestionMenuBtn({setRemoveQuestion , scenario , setUpdateQuestion , que
                         </Menu.Item>    
                     )} */}
                         
-                    <Menu.Item>
+                    {/* <Menu.Item>
                         <button  
-                            className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} 
+                            className={classNames( '', 'block px-4 py-5 text-lg  w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} 
                             onClick={() => (setRemoveQuestion(true) , setQuestion(question)  )}  
                         >
                             <IoMdRemoveCircle size={23} className="mr-3" />  <span > Remove Question </span>
                         </button>
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item>
-                        <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} onClick={() => (setUpdateQuestion(true), setQuestion(question))} >
-                            <AiFillEdit size={23} className="mr-3" />  <span > Update Question</span>
+                        <button  className={classNames( '', 'block px-4 py-5 text-lg  w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} onClick={() => (setUpdateQuestion(true), setQuestion(question))} >
+                            <AiFillEdit size={23} className="mr-3" />  <span > Question</span>
                         </button>
                     </Menu.Item>
                     <Menu.Item>
-                        <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )}  >
-                            <AiFillEye size={23} className="mr-3" />  <span > Challenge Details</span>
+                        <button  
+                            className={classNames( '', 'block px-4 py-5 text-lg  w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )}  
+                            onClick={() => (setShowScenario(true), setQuestion(question))}
+                        >
+                            <HiOutlinePencilAlt size={23} className="mr-3" />  <span >Challenge </span>
                         </button>
                     </Menu.Item>
                     </div>
@@ -127,7 +130,7 @@ function getDifficultyColor(difficulty){
 
   
 
-export default function QuizQuestion({question , quizId , setData , removeQuestion, setRemoveQuestion, updateQuestion, setUpdateQuestion , setQuestion}){
+export default function QuizQuestion({question , quizId , setData , removeQuestion, setRemoveQuestion, updateQuestion, setUpdateQuestion , setQuestion , setShowScenario}){
     useEffect(()=>{
         AOS.init();
     }, [])
@@ -159,12 +162,13 @@ export default function QuizQuestion({question , quizId , setData , removeQuesti
                             scenario={question.scenario} 
                             setQuestion={setQuestion}  
                             question={question}
+                            setShowScenario={setShowScenario}
                         />
                     </div>
                     
                     {
                         question.scenario ? (
-                            <div className='flex justify-start items-center my-3'>
+                            <div className='flex justify-start flex-wrap items-center my-3'>
                                     {convertStringToArray(question.scenario.tags)?.map((tag, index) => {
                                         return (
                                             <span className="inline-block  rounded-full px-2   py-1 text-sm  bg-indigo-600 text-indigo-100 mr-2 my-2" key={index}>{convertStringToTitleCase(tag)}</span>

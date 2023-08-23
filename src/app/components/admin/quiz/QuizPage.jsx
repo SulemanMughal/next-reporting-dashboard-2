@@ -14,9 +14,10 @@ import { BsSearch } from "react-icons/bs"
 
 import { ThreeDots , Triangle } from 'react-loader-spinner'
 import UpdateQuizQuestion from "./UpdateQuizQuestion"
-
-
 import RemoveQuestionModal from "./RemoveQuestionModal"
+import ScenarioDetailModal from "./ScenarioDetailModal"
+
+import {FaPuzzlePiece} from "react-icons/fa"
 
 
 
@@ -253,7 +254,7 @@ export default function QuizPage({quizId}){
     const [error, setError] = useState(null);
     const [removeQuestion, setRemoveQuestion] = useState(false)
     const [updateQuestion, setUpdateQuestion] = useState(false)
-    
+    const [showScenario, setShowScenario] = useState(false)
     const [question, setQuestion] = useState(null)
 
 
@@ -298,8 +299,10 @@ export default function QuizPage({quizId}){
             </>
         ) : (
             <>
-                {removeQuestion && <RemoveQuestionModal setRemoveQuestion={setRemoveQuestion}   quizId={quizId}  question={question.id} setData={setData}/>}
-                {updateQuestion &&  <UpdateQuizQuestion question={question} setUpdateQuestion={setUpdateQuestion}  setData={setData} quizId={quizId} /> }
+                {removeQuestion && <RemoveQuestionModal setRemoveQuestion={setRemoveQuestion}   quizId={quizId}  question={question} setData={setData}  setQuestion={setQuestion} />}
+                {updateQuestion &&  <UpdateQuizQuestion question={question} setUpdateQuestion={setUpdateQuestion}  setData={setData} quizId={quizId}   setQuestion={setQuestion} setRemoveQuestion={setRemoveQuestion} /> }
+                {showScenario && <ScenarioDetailModal setShowScenario={setShowScenario} setData={setData} quizId={quizId} setQuestion={setQuestion} question={question}  /> }
+
                 <div className="flex items-center justify-between px-5 py-4 md:py-7">
             <div className="inline-flex">
                 <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white ">
@@ -335,6 +338,7 @@ export default function QuizPage({quizId}){
                                 quizId={quizId} 
                                 setData={setData} 
                                 setQuestion={setQuestion}
+                                setShowScenario={setShowScenario}
                             />  
                         )}
                     </div>

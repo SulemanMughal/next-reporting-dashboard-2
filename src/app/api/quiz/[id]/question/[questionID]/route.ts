@@ -15,6 +15,8 @@ export async function PUT(request: Request, params : {params : {id : string, que
         //     }
         // })
 
+        // console.debug(params)
+
         // console.debug(params.params.questionID)
 
         const record = await prisma.quiz.update({
