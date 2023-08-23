@@ -58,11 +58,27 @@ export default function QuizCard({quiz , setData}){
                                         </div>
                                     </div>
                                 </li>
+                                <li className="py-3 sm:pb-4">
+                                    <div className="flex items-center space-x-4">
+                                        <div className="flex-shrink-0">
+                                            <MdGroups   size={28}/>
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-md font-medium  truncate ">
+                                            Scenarios
+                                            </p>
+                                        </div>
+                                        <div className="flex flex-rows items-center text-base font-semibold  ">
+                                            <p>{quiz.teams.length}</p>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
                             <span className="py-2 text-lg font-bold bg-none text-green-600 block text-center">{calcTotalPoints(quiz) + " Points"}</span>
                             <div className=" pt-4 pb-2 flex justify-center">
-                                <Link href={`/admin/quiz/${quiz.id}`}  className="transition ease-in-out delay-150 hover:-translate-y-1    hover:bg-blue-300 hover:text-blue-800 duration-300    btn-flag-submit text-gray-400  flex items-center  font-semibold  mr-2 mb-2 justify-center items-center   h-full rounded-0 px-4 py-2 text-xl   w-2/3    ">
-                                    <AiFillEye size={23} className=" mr-2 "  /> <span>{"View Details" } </span> 
+                                <Link href={`/admin/quiz/${quiz.id}`}  className="transition ease-in-out delay-150 hover:-translate-y-1    hover:bg-blue-300 hover:text-blue-800 duration-300    btn-flag-submit text-gray-400  flex items-center  font-semibold  mr-2 mb-2 justify-center items-center   h-full rounded-lg px-0 py-1 text-lg   w-2/4    ">
+                                    {/* <AiFillEye size={23} className=" mr-2 "  />  */}
+                                    <span>{"View Details" } </span> 
                                 </Link>
                             </div>
                         </div>

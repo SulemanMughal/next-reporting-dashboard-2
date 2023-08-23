@@ -659,3 +659,27 @@ input[type="checkbox"]:checked {
   transition: all .2s ease-in-out;
   width: 100%;
 }
+
+
+/* Scrollbar.css */
+
+/* Hide the default scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

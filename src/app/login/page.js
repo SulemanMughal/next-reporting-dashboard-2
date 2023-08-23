@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import CustomToaster from "@/app/components/CustomToaster"
 import encrypt from "@/app/lib/encrypt"
 import Link from "next/link";
+import {  useSession } from "next-auth/react";
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -136,11 +137,21 @@ export default function Login() {
   const [isSubmit, setSubmit] = useState(false)
   const userName = useRef("");
   const pass = useRef("");
+  const { data: session } = useSession();
 
 
   useEffect(() => {
     AOS.init();
-  }, [])
+    if(session !== undefined && session?.user !== null){
+      if(session?.user?.role === "admin"){
+          push("/admin/dashboard")
+      } else if (session?.user?.role === "user"){
+          push("/user/dashboard")
+      } else {
+          push("/login")
+      }
+  }
+  }, [session])
 
   const submitHandler = async () => {
     if(userName.current == "" || pass.current == "" ){

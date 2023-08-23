@@ -61,7 +61,7 @@ const AccordionItem = ({  isOpen, toggleAccordion , team }) => {
             <div className="ml-24 py-2 ">
                 {
                    ( team.users && team.users.length) ? team.users.map((user, index) => (
-                        <div className="flex items-center" key={index}>
+                        <div className="flex items-center mb-3" key={index}>
                             <FaUserAlt size={23}/>
                             <p className="text-lg text-dark fw-bold ml-5">
                                 {user.email}
@@ -102,11 +102,11 @@ export default function TeamList({setShowModal, teams}){
     }, [])
     return (
         <>        
-            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" data-aos="zoom-out" data-aos-duration="700" 
+            <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed top-0 left-0 inset-0 z-50  outline-none focus:outline-none " data-aos="zoom-out" data-aos-duration="700" 
             >
-            <div className="relative w-2/5  px-4 space-y-16 ">
-                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+            <div className="relative w-2/5  px-4 space-y-24 ">
+                <div className="border-0 rounded-lg shadow-lg  relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="flex items-start justify-between  p-5 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-2xl font-semibold flex  items-center">
                         <MdGroups size={40}/> <span className="ml-3">Teams</span>
                     </h3>
@@ -115,7 +115,7 @@ export default function TeamList({setShowModal, teams}){
                    onClick={() => setShowModal(false)}
                     >✗</button>
                 </div>
-                <div className="relative p-6 flex-auto">
+                <div className="relative p-6 flex-auto overflow-y-auto overflow-x-hidden h-96">
                     <ul className=" ">
                         { teams ?  ( <Accordion  teams={teams}/> ) :  
                             <li className="pb-3 sm:pb-4">

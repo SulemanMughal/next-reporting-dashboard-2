@@ -11,6 +11,8 @@ import axios from 'axios';
 
 // import {useRouter} from 'next/router'
 
+import { useSession } from "next-auth/react";
+
 
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -81,15 +83,22 @@ export default function Login() {
     const username = useRef("");
     const pass = useRef("");
     const name = useRef("")
+    const { data: session } = useSession();
 
     
   useEffect(() => {
     AOS.init();
-  }, [])
+    if(session?.user?.role === "admin"){
+      push("/admin/dashboard")
+  } else if (session?.user?.role === "user"){
+      push("/user/dashboard")
+  } else {
+      push("/login")
+  }
+  }, [session])
 
     const submitHandler = async () => {
       if(username.current == "" || pass.current == "" || name.current == ""){
-        // alert("All fields are required")
         toast.error('All fields are required')
       }
       else{
@@ -113,7 +122,6 @@ export default function Login() {
         }
         catch (err){
             setSubmit(false)
-            // alert("Please try again after sometime")
             toast.error('Please try again after sometime')
             console.log(err);
         }
