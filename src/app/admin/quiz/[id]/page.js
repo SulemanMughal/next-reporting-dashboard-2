@@ -1,11 +1,15 @@
+
+
 import QuizPage from "@/app/components/admin/quiz/QuizPage"
 
-export default async  function Page({params}){
+export default   function Page({params}){
     const quizId = params.id
     
     return (
         <>
-            <QuizPage quizId={quizId} />
+            <div className="mx-10 mb-10 p-3 bg-midnight-blue rounded-3xl ">
+                <QuizPage quizId={quizId} />
+            </div>
         </>
     )
 }

@@ -28,7 +28,6 @@ export default function QuizList(){
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/`)
         .then(res => {
             const {...data } = decrypt(res.data.encryptedData)
-            // console.debug(data)
             setData(data)
             setError(null);
             setLoading(false);

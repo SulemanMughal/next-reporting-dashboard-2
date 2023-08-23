@@ -49,7 +49,7 @@ function checkQuizPath(pathname){
 
 
 function checkAdminQuizPath(pathname){
-    if(pathname === "/admin/quiz" ){
+    if(pathname === "/admin/quiz" || pathname.includes("/admin/quiz/")  ){
         return true
     } else {
         return false
@@ -127,6 +127,8 @@ export default function TopNavBar() {
 
     const pathname = usePathname()
     const { data: session } = useSession();
+
+    // console.debug(pathname.includes("/admin/quiz/") )
 
     return (
         <>

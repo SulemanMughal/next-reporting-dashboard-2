@@ -4,17 +4,9 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import axios from 'axios';
 import { useEffect, useState , useRef } from "react";
-
 import  { GiCancel } from "react-icons/gi"
-
 import { BiAddToQueue } from "react-icons/bi"
-
-
 import  toast from 'react-hot-toast';
-// import { error } from 'console';
-
-
-
 import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
 
@@ -52,22 +44,13 @@ function SubmitBtn({isSubmit,setUpdateQuestion }){
 
 
 export default function UpdateQuizQuestion({question , setUpdateQuestion , setData , quizId}){
-
-    // console.debug(question.scenario.id)
-
     const title = useRef(question.title);
     const description = useRef(question.Description);
     const original_answer = useRef(question.original_answer);
     const points = useRef(question.points);
     const scenario_id = useRef(question.scenario?.id || "");
     const [scenario, setScenario] = useState([])
-
     const [isSubmit, setSubmit] = useState(false)
-
-
-    // console.debug(scenario_id.current)
-
-
     const submitHandler = async (event) => {
         event.preventDefault()
         if(title.current == ""  || description.current == ""  || points.current == "" || original_answer.current == "" ){
@@ -114,11 +97,6 @@ export default function UpdateQuizQuestion({question , setUpdateQuestion , setDa
             }
         }
     }
-
-
-    // console.debug(scenario_id.current)
-
-
     useEffect(()=>{
         AOS.init();
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario/`)
@@ -193,12 +171,12 @@ export default function UpdateQuizQuestion({question , setUpdateQuestion , setDa
                         {/* scenario field */}
                         <div className="relative z-0 w-full mb-6 group">
                             <select id="scenario" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer " defaultValue={scenario_id.current}  onChange={(e) => scenario_id.current = e.target.value}>
-                                <option value={""} >Choose a Sceanrio</option>
+                                <option value={""} >Choose a Challenge</option>
                                 {scenario && scenario.map((item, index) => (
                                     <option key={index} value={item.id}  selected={scenario_id.current=== item.id ? item.id : null} >{item.name}</option>
                                 ))}
                             </select>
-                            <label htmlFor="scenario" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Scenario</label>
+                            <label htmlFor="scenario" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Challenge</label>
                         </div>
                         <SubmitBtn  isSubmit={isSubmit} setUpdateQuestion={setUpdateQuestion} />
                     </form>

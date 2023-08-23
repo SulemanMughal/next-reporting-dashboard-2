@@ -11,12 +11,13 @@ import {convertStringToTitleCase , convertStringToArray , classNames}  from "@/a
 import  { IoMdRemoveCircle } from "react-icons/io"
 import RemoveQuestionModal from "./RemoveQuestionModal"
 import UpdateQuizQuestion from "./UpdateQuizQuestion"
+import { AiFillEye } from "react-icons/ai"
 
 
 // import { TbNewSection } from "react-icons/tb"
 
 
-function QuestionMenuBtn({setRemoveQuestion , scenario , setUpdateQuestion }) {
+function QuestionMenuBtn({setRemoveQuestion , scenario , setUpdateQuestion , question , setQuestion }) {
     return (
         <>  
             <Menu as="div" className="relative inline-block text-left">
@@ -45,13 +46,21 @@ function QuestionMenuBtn({setRemoveQuestion , scenario , setUpdateQuestion }) {
                     )} */}
                         
                     <Menu.Item>
-                        <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} onClick={() => setRemoveQuestion(true)}  >
+                        <button  
+                            className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} 
+                            onClick={() => (setRemoveQuestion(true) , setQuestion(question)  )}  
+                        >
                             <IoMdRemoveCircle size={23} className="mr-3" />  <span > Remove Question </span>
                         </button>
                     </Menu.Item>
                     <Menu.Item>
-                        <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} onClick={() => setUpdateQuestion(true)} >
+                        <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} onClick={() => (setUpdateQuestion(true), setQuestion(question))} >
                             <AiFillEdit size={23} className="mr-3" />  <span > Update Question</span>
+                        </button>
+                    </Menu.Item>
+                    <Menu.Item>
+                        <button  className={classNames( '', 'block px-4 py-5 text-lg font-bold w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )}  >
+                            <AiFillEye size={23} className="mr-3" />  <span > Challenge Details</span>
                         </button>
                     </Menu.Item>
                     </div>
@@ -104,24 +113,32 @@ const ToggleTextOnButtonClick = ({text}) => {
 
 
 
-
+function getDifficultyColor(difficulty){
+    if(difficulty === "Easy"){
+        return "px-1 py-1 text-md font-semibold bg-none text-green-400"
+    } else if(difficulty === "Medium"){
+        return " px-1 py-1 text-md font-semibold bg-none text-orange-400"
+    } else if(difficulty === "Hard"){
+        return " px-1 py-1 text-md font-semibold bg-none text-red-400"
+    } else {
+        return " px-1 py-1 text-md font-semibold bg-none text-gray-400"
+    }
+}
 
   
 
-
-  
-export default function QuizQuestion({question , quizId , setData }){
+export default function QuizQuestion({question , quizId , setData , removeQuestion, setRemoveQuestion, updateQuestion, setUpdateQuestion , setQuestion}){
     useEffect(()=>{
         AOS.init();
     }, [])
-    const [removeQuestion, setRemoveQuestion] = useState(false)
+    // const [removeQuestion, setRemoveQuestion] = useState(false)
 
-    const [updateQuestion, setUpdateQuestion] = useState(false)
+    // const [updateQuestion, setUpdateQuestion] = useState(false)
 
     return (
         <>
-            {removeQuestion && <RemoveQuestionModal setRemoveQuestion={setRemoveQuestion}   quizId={quizId}  questionId={question.id} setData={setData}/>}
-            {updateQuestion &&  <UpdateQuizQuestion question={question} setUpdateQuestion={setUpdateQuestion}  setData={setData} quizId={quizId} /> }
+            {/* {removeQuestion && <RemoveQuestionModal setRemoveQuestion={setRemoveQuestion}   quizId={quizId}  questionId={question.id} setData={setData}/>} */}
+            {/* {updateQuestion &&  <UpdateQuizQuestion question={question} setUpdateQuestion={setUpdateQuestion}  setData={setData} quizId={quizId} /> } */}
 
             
 
@@ -129,16 +146,20 @@ export default function QuizQuestion({question , quizId , setData }){
                 <div className="w-full col-span-2  h-full p-4 bg-card-custom border-none rounded-lg shadow sm:p-8  ">
                     <div className="flex justify-between items-center  mb-4">
                         <div className=" flex items-center  " >
-                            <span className='rounded-full   text-2xl font-semibold bg-none text-orange-600 '>
-                                {question?.points} {"Points"} 
-                            </span>
+                            
                             {
                                 question.scenario ? (
-                                    <span className="inline-block  rounded-full px-3    py-1 text-md  font-semibold  bg-none text-blue-500 mr-2 -mt-5 ml-0">{convertStringToTitleCase(question.scenario.name)}</span>
+                                    <span className='rounded-full   text-lg font-semibold bg-none text-gray-400 '>{convertStringToTitleCase(question.scenario.name)}</span>
                                 ) : null
                             }
                         </div>
-                        <QuestionMenuBtn setRemoveQuestion={setRemoveQuestion}  setUpdateQuestion={setUpdateQuestion} scenario={question.scenario} />
+                        <QuestionMenuBtn 
+                            setRemoveQuestion={setRemoveQuestion}  
+                            setUpdateQuestion={setUpdateQuestion} 
+                            scenario={question.scenario} 
+                            setQuestion={setQuestion}  
+                            question={question}
+                        />
                     </div>
                     
                     {
@@ -146,7 +167,7 @@ export default function QuizQuestion({question , quizId , setData }){
                             <div className='flex justify-start items-center my-3'>
                                     {convertStringToArray(question.scenario.tags)?.map((tag, index) => {
                                         return (
-                                            <span className="inline-block  rounded-full px-3   py-1 text-sm font-semibold bg-indigo-600 text-indigo-100 mr-2 my-2" key={index}>{convertStringToTitleCase(tag)}</span>
+                                            <span className="inline-block  rounded-full px-2   py-1 text-sm  bg-indigo-600 text-indigo-100 mr-2 my-2" key={index}>{convertStringToTitleCase(tag)}</span>
                                         )
                                     })}
                             </div>
@@ -155,8 +176,13 @@ export default function QuizQuestion({question , quizId , setData }){
                     }
                     {
                         question.scenario ? (
-                            <div className=" flex items-center  justify-between px-0 mx-0 my-3" >
-                                <span className='text-lime-600'>{convertStringToTitleCase(question.scenario.difficulty)}</span>
+                            <div className=" flex items-center  justify-center text-center px-0 mx-0 my-3" >
+                                <span className="px-1 py-1 text-md font-semibold bg-none text-blue-400">{convertStringToTitleCase(question.scenario.category)}</span>
+                                <span className={getDifficultyColor(convertStringToTitleCase(question.scenario.difficulty)) + " mx-2"}>{convertStringToTitleCase(question.scenario.difficulty)}</span>
+                                
+                                <span className='px-1 py-1 text-md font-semibold bg-none text-yellow-400'>
+                                    {question?.points} {"Points"} 
+                                </span>
                                 {/* <span className='text-rose-400'>{convertStringToTitleCase(question.scenario.status)}</span>
                                 <span className="inline-block  rounded-full px-0    py-1 text-md  font-semibold  bg-none text-pink-600">{convertStringToTitleCase(question.scenario.category)}</span> */}
                             </div>
