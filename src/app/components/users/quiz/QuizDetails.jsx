@@ -8,6 +8,9 @@ import {  use, useEffect, useRef, useState } from "react";
 import {  useSession } from "next-auth/react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+
+import { convertStringToArray , capitalizeFirstLetter } from "@/app/lib/helpers"
+
 // import { useRouter } from 'next/router';
 
 
@@ -90,7 +93,7 @@ function QuizFileInfo({files}){
 }
 
 
-// total points for a scenario  
+// total points for a scenario 
 function sumPoints(questions){
     let sum = 0
     questions.forEach((question) => {
@@ -99,9 +102,9 @@ function sumPoints(questions){
     return sum
 }
 
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+// function capitalizeFirstLetter(string) {
+//     return string.charAt(0).toUpperCase() + string.slice(1);
+// }
 
 
 
@@ -162,9 +165,9 @@ function QuizInfoList({questions , scenario}){
 }
 
 
-function convertStringToArray(string){
-    return string.split(",").map(item => item.trim())
-}
+// function convertStringToArray(string){
+//     return string.split(",").map(item => item.trim())
+// }
 
 // convert to uppercase first letter of each word   
 function convertStringToTitleCase(string){
@@ -431,7 +434,11 @@ export default  function QuizDetails({params}){
     const [scenario, setScenario] = useState(null)
     const [team, setTeam] = useState(null)
     const [quiz, setQuiz] = useState(null)
-    const [totalPoints, setTotalPoints] = useState(0)
+    // const [totalPoints, setTotalPoints] = useState(0)
+
+
+
+
     useEffect(() => {
         AOS.init();
         if (session){
@@ -459,7 +466,7 @@ export default  function QuizDetails({params}){
                 console.debug(error)
             })
         }
-    }, [])
+    }, [session])
     return (
         <>
             {questions && (

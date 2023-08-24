@@ -17,7 +17,6 @@ import { AiFillFile } from "react-icons/ai"
 import { FaKey } from "react-icons/fa"
 import { BsFillDatabaseFill } from "react-icons/bs"
 import ExpandableText from "@/app/components/ExpandableText"
-
 import { BsSearch } from "react-icons/bs"
 
 
@@ -43,16 +42,22 @@ const SearchInput = () => {
 
 const SelectField = ({ options, onChange }) => {
     return (
-      <select
-        className="placeholder-gray-400 outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-500    text-white    w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-midnight-blue  rounded-md"
-        onChange={onChange}
-      >
-        {options.map((option) => (
-          <option key={option.value} value={option.value} className="text-md py-1">
-            {option.label}
-          </option>
-        ))}
-      </select>
+        <>
+            <label className="text-lg text-gray-400 block py-2">
+                {"Sort By"}
+            </label>
+            <select
+                className="placeholder-gray-400 outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-500    text-white    w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-midnight-blue  rounded-md"
+                onChange={onChange}
+            >
+                {options.map((option) => (
+                <option key={option.value} value={option.value} className="text-md py-1">
+                    {option.label}
+                </option>
+                ))}
+            </select>
+        </>
+      
     );
   };
 
@@ -164,36 +169,6 @@ const FiltersBtn = () => {
 
 
 function ScenarioCard({scenario}) {
-    // console.debug(scenario?.desc)
-    // const [fileSize, setFileSize] = useState(null);
-    // const getFileSize =  (url) => {
-    //     // console.debug(url)
-    //     if(url !== undefined){
-    //         try {
-    //             const response =  fetch(url);
-    //             const contentLength = response.headers.get('content-length');
-    //             console.debug(contentLength)
-    //             if (contentLength) {
-    //               const sizeInBytes = parseInt(contentLength, 10);
-    //               const sizeInKB = sizeInBytes / 1024;
-    //               const sizeInMB = sizeInKB / 1024;
-          
-    //               setFileSize({
-    //                 bytes: sizeInBytes,
-    //                 kilobytes: sizeInKB,
-    //                 megabytes: sizeInMB,
-    //               });
-    //             }
-    //           } catch (error) {
-    //             console.error('Error fetching file size:', error.message);
-    //           }
-    //     }
-    //     else{
-    //         setFileSize(null)
-    //     }
-        
-    // }
-    // console.debug(scenario.files)
     return (
         <>
             <div className="w-full col-span-1 h-full " data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">

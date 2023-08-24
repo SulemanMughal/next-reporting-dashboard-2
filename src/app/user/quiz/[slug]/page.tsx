@@ -7,8 +7,6 @@ export default async function Page({ params }: { params: { slug: string } }){
     
     return (
         <>
-            
-            {/* {params.slug} */}
             <CustomToaster />
             <QuizDetails params={params}  />
         </>

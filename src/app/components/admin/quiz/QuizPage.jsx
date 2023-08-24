@@ -126,7 +126,11 @@ const SearchInput = () => {
 
 const SelectField = ({ options, onChange }) => {
     return (
-      <select
+      <>
+        <label className="text-lg text-gray-400 py-2 block  ">
+          {"Sort By"}
+        </label>
+        <select
         className="placeholder-gray-400 outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-500    text-white    w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-midnight-blue  rounded-md"
         onChange={onChange}
       >
@@ -136,6 +140,8 @@ const SelectField = ({ options, onChange }) => {
           </option>
         ))}
       </select>
+      </>
+      
     );
   };
 
