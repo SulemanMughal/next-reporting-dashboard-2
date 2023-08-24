@@ -76,10 +76,10 @@ function QuizFileInfo({files}){
                     <p className="text-gray-400">{file.password}</p>
                 </div>
                 <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-center justify-center">
-                    {/* <Link  href={`${file.filepath}`} className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded">
+                    <Link  href={`${file.filepath}`} className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded">
                         Download File
-                    </Link> */}
-                    <FileDownloadButton file={file} />
+                    </Link>
+                    {/* <FileDownloadButton file={file} /> */}
                 </div>
             </div>
         ))}

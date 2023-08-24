@@ -120,6 +120,23 @@ export function calcTotalPointsScenario(scenario){
 }
 
 
+
+// calculate total obtained by a team
+export function calcTeamObtainedPoints(answers){    
+    let points = 0
+    try {
+        for(let index = 0 ; index < answers.length ; index++){
+            points = points + answers[index].obtainedPoints
+        }
+        return points
+    } catch (error) {
+        console.debug(error)
+        return points
+    }
+}
+
+
+
 // calculate filesize in kb, mb, gb
 export function formatBytes(bytes, decimals = 2) {
     if (bytes === 0) return '0 Bytes';
@@ -130,6 +147,9 @@ export function formatBytes(bytes, decimals = 2) {
     // console.debug(parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i])
     return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
 }
+
+
+
 
 // const ufs = require("url-file-size");
 

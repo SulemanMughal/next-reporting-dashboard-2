@@ -242,7 +242,7 @@ function ScenarioCard({scenario}) {
                                     <div className="flex justify-start items-center mx-3">
                                         <FaKey  size={23} className="text-green-500"/>
                                         <span className="px-2 py-1 text-md font-semibold bg-none text-blue-400">
-                                            {convertStringToTitleCase(file.filename)}
+                                            {convertStringToTitleCase(file.password)}
                                         </span>
                                     </div>
                                     {/* <div className="flex justify-start items-center mx-3">

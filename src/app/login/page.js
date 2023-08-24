@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 import CustomToaster from "@/app/components/CustomToaster"
 import encrypt from "@/app/lib/encrypt"
 import Link from "next/link";
-import {  useSession } from "next-auth/react";
+import {  useSession } from "next-auth/react";
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -129,8 +129,13 @@ function LeftImage(){
 }
 
 
+import { usePathname } from 'next/navigation'
+import { Triangle } from 'react-loader-spinner'
 
 export default function Login() {
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   
   const { push } = useRouter();
@@ -138,6 +143,8 @@ export default function Login() {
   const userName = useRef("");
   const pass = useRef("");
   const { data: session } = useSession();
+  const pathname = usePathname()
+  
 
 
   useEffect(() => {
@@ -147,9 +154,15 @@ export default function Login() {
           push("/admin/dashboard")
       } else if (session?.user?.role === "user"){
           push("/user/dashboard")
-      } else {
-          push("/login")
-      }
+      } 
+      // else {
+      //     // push("/login")
+      //     if(pathname === "/register"){
+      //       push("/register")
+      //     } else{
+      //       push("/login")
+      //     }
+      // }
   }
   }, [session])
 
@@ -167,7 +180,7 @@ export default function Login() {
         const res  = await signIn("credentials" , {
           encryptedData,
           redirect : false,
-          callbackUrl : "/dashboard"
+          callbackUrl : "/"
         })
 
         
@@ -178,7 +191,8 @@ export default function Login() {
         }
         else{
             toast.success('Sign In Successfully.')
-            setSubmit(false)    
+            setSubmit(false) 
+            // console.debug(session?.user)   
             push('/');
         }
       }
@@ -200,7 +214,31 @@ export default function Login() {
               <div className="flex flex-col justify-between items-center w-full pt-5 pr-10 pb-20 pl-10 lg:pt-15 lg:flex-row ">
               <LeftImage />
                 <div className="w-full mt-20 mr-0 mb-0 ml-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12" >
-                  <div className="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-transparent  rounded-xl
+
+                {loading ? (
+            <>
+                <div>
+                   <Triangle
+                        height="300"
+                        width="300"
+                        color="#4fa94d"
+                        ariaLabel="triangle-loading"
+                        wrapperStyle={{}}
+                        wrapperClass={"flex justify-center"}
+                        visible={true}
+                        className={"flex justify-center"}
+                    />
+                </div>
+            </>
+        ) : error ? (
+            <>
+                <div><p className="text-lg text-white">
+                            Error: {error}
+                        </p></div>
+            </>
+        ) : (
+            <>
+                <div className="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-transparent  rounded-xl
                       relative z-10">
                     <p className="w-full text-4xl font-medium text-left leading-snug  text-white" data-aos="fade-left" data-aos-duration="600">Sign In</p>
                     <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
@@ -215,6 +253,10 @@ export default function Login() {
                       </div>
                     </div>
                   </div>
+            </>
+        )}
+
+                  
                   
                 </div>
                 

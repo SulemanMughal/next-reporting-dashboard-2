@@ -5,7 +5,7 @@ import { useRef, useState, useEffect } from "react"
 import  { GiCancel } from "react-icons/gi"
 import { categories } from "@/app/data/data"
 import toast from 'react-hot-toast';  
-import { SVGLoader } from "@/app/components/SVGLoader"
+import SVGLoader from "@/app/components/SVGLoader"
 
 import decrypt from "@/app/lib/decrypt"
 

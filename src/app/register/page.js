@@ -12,6 +12,7 @@ import axios from 'axios';
 // import {useRouter} from 'next/router'
 
 import { useSession } from "next-auth/react";
+import { usePathname } from 'next/navigation'
 
 
 import toast, { Toaster } from 'react-hot-toast';
@@ -84,6 +85,7 @@ export default function Login() {
     const pass = useRef("");
     const name = useRef("")
     const { data: session } = useSession();
+    const pathname = usePathname()
 
     
   useEffect(() => {
@@ -93,7 +95,12 @@ export default function Login() {
   } else if (session?.user?.role === "user"){
       push("/user/dashboard")
   } else {
-      push("/login")
+      if(pathname === "/register"){
+        push("/register")
+      } else{
+        push("/login")
+      }
+      
   }
   }, [session])
 

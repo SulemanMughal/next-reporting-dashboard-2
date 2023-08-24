@@ -17,7 +17,8 @@ import { BsGrid3X3GapFill } from "react-icons/bs"
 import { BiListUl }  from "react-icons/bi"
 import { MdGroups } from "react-icons/md"
 import { VscTasklist } from "react-icons/vsc"
-
+import { Triangle } from 'react-loader-spinner'
+import { calcTeamObtainedPoints } from "@/app/lib/helpers"
 
 import decrypt from "@/app/lib/decrypt"
 
@@ -26,14 +27,6 @@ import decrypt from "@/app/lib/decrypt"
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-
-function calCulateObtainedPoints(answers){    
-    let points = 0
-    for(let index = 0 ; index < answers.length ; index++){
-        points = points + answers[index].obtainedPoints
-    }
-    return points
-}
 
 
 
@@ -95,7 +88,7 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
                                     {team?.answers?.length}
                                 </td>
                                 <td className="text-center">
-                                    {calCulateObtainedPoints(team?.answers)}
+                                    {calcTeamObtainedPoints(team?.answers)}
                                 </td>
                                 <td className="text-center">
                                     <ActionMenu team={team}  removeTeam={removeTeam} setShowAddMemberModal={setShowAddMemberModal} setShowAddMemberModalHandler={setShowAddMemberModalHandler} setShowTeamDetailsModalHandler={setShowTeamDetailsModalHandler}  />
@@ -174,6 +167,8 @@ function TeamGridView({teams, removeTeam}){
 
 export default   function Teams(){    
     const [teams, setTeams] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(null);
     const [showAddMemberModal, setShowAddMemberModal] = useState(null);
     const [viewType, setViewType] = useState('list'); // Default view type
@@ -209,13 +204,18 @@ export default   function Teams(){
             const {...data } = decrypt(res.data.encryptedData)
             if(data.status === true){
                 setTeams(data.teams);
+                setError(null);
             } else{
                 toast.error(`${data.error}`)
+                setError(`${data.error}`);
             }
           })
           .catch(error => {
             toast.error(`Sorry! There is an error while fetching teams. Please try again after some time`)
-          });
+            setError(`Sorry! There is an error while fetching teams. Please try again after some time`);
+          }).finally(() => {
+             setLoading(false);
+            });
     }, []);
     const modelHandler = () => {
         setShowModal(true)
@@ -240,35 +240,67 @@ export default   function Teams(){
                     removeTeamID={removeTeamID}
                     setTeams={setTeams}
                 /> : null}
-            <div className="sm:px-6 w-full h-full pb-10 ">
-                <div className="px-4 md:px-0 py-4 md:py-7">
-                    <div className="flex items-center justify-between">
-                    <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white"> Teams</h1>
-                        <div className="py-3 px-4 flex items-center text-sm font-medium leading-none  cursor-pointer rounded">
-                            <button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color  px-3 py-2 text-lg border-none font-semibold text-white shadow-sm   items-center mx-1"  onClick={modelHandler} >
-                                <MdGroups  size={28} className="mr-2" />   Create New Team
-                            </button>
-                            <SortDropDown />
-                            {/* <button
-                                className="px-4 py-2 theme-btn-bg-color text-white text-lg rounded  flex items-center gap-x-1.5"
-                                onClick={toggleView}
-                            >{viewType === 'grid' ?  (<><BiListUl  size={28}/> <span>{'List'}</span></>) : (<><BsGrid3X3GapFill  size={28}/> <span>{'Grid'}</span></>)}</button> */}
-                            
+            <div className="mx-10 mb-10 p-3 bg-midnight-blue rounded-3xl">
+                <div className="sm:px-6 w-full h-full pb-10 ">
+                    {/* Top Header */}
+                    <div className="px-4 md:px-0 py-4 md:py-7">
+                        <div className="flex items-center justify-between">
+                        <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white"> Teams</h1>
+                            <div className="py-3 px-4 flex items-center text-sm font-medium leading-none  cursor-pointer rounded">
+                                <button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color  px-3 py-2 text-lg border-none font-semibold text-white shadow-sm   items-center mx-1"  onClick={modelHandler} >
+                                    <MdGroups  size={28} className="mr-2" />   Create New Team
+                                </button>
+                                <SortDropDown />
+                                {/* <button
+                                    className="px-4 py-2 theme-btn-bg-color text-white text-lg rounded  flex items-center gap-x-1.5"
+                                    onClick={toggleView}
+                                >{viewType === 'grid' ?  (<><BiListUl  size={28}/> <span>{'List'}</span></>) : (<><BsGrid3X3GapFill  size={28}/> <span>{'Grid'}</span></>)}</button> */}
+                                
+                            </div>
                         </div>
                     </div>
+                    {loading ? (
+            <>
+                <div>
+                <Triangle
+                        height="300"
+                        width="300"
+                        color="#4fa94d"
+                        ariaLabel="triangle-loading"
+                        wrapperStyle={{}}
+                        wrapperClass={"flex justify-center"}
+                        visible={true}
+                        className={"flex justify-center"} 
+                    />
                 </div>
+            </>
+        ) : error ? (
+            <>
+                <div>
+                    <p className="text-lg text-white">
+                        Error: {error}
+                    </p>
+                </div>
+            </>
+        ) : (
+            <>
                 {viewType === "list" ? 
-                    (
-                        <TeamListView  
-                            teams={teams}  
-                            removeTeam={removeTeam}  
-                            setShowAddMemberModal={setShowAddMemberModal}  
-                            setShowAddMemberModalHandler={setShowAddMemberModalHandler}  
-                            setShowTeamDetailsModalHandler={setShowTeamDetailsModalHandler}  
+                    ( <TeamListView  
+                        teams={teams}  
+                        removeTeam={removeTeam}  
+                        setShowAddMemberModal={setShowAddMemberModal}  
+                        setShowAddMemberModalHandler={setShowAddMemberModalHandler}  
+                        setShowTeamDetailsModalHandler={setShowTeamDetailsModalHandler}  
                         />
                     ) : 
-                    (<TeamGridView  teams={teams}  removeTeam={removeTeam}  />)}
+                    ( <TeamGridView  teams={teams}  removeTeam={removeTeam}  /> )
+                }
+            </>
+        )}
+                    
+                </div>
             </div>
+            
         </>
     )
 }
