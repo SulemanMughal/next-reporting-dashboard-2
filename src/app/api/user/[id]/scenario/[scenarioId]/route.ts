@@ -15,47 +15,66 @@ import decrypt from "@/app/lib/decrypt"
 
 
 export async function GET(request: Request, {params} : {params : {id : string, scenarioId : string}}){
+    
     try {
-        const questions = await prisma.user.findFirst({
+        const teamId = await prisma.user.findFirst({
             where : {
-                id  : params.id
-            }, select : {
-                team : {
-                    select : {
-                        id : true,
-                        quiz : {
-                            select : {
-                                id : true,
-                                questions : {
-                                    where: {
-                                        scenario: {
-                                            id :params.scenarioId,   
-                                        }
-                                    },
-                                    select : {
-                                        answers : {
-                                            
-                                            select :{
-                                                submissionStatus : true,
-                                                submitAnswer : true,
-                                                obtainedPoints : true
+                id : params.id
+            },
+            select : {
+                teamId : true,
+                // team : true
+            }
+
+        })
+
+        // console.debug(teamId)
+
+        if(teamId.teamId && teamId.teamId !== null){
+            const questions = await prisma.user.findFirst({
+                where : {
+                    id  : params.id,
+                    // teamId : teamId.teamId
+                }, select : {
+                    team : {
+                        select : {
+                            id : true,
+                            quiz : {
+                                select : {
+                                    id : true,
+                                    questions : {
+                                        where: {
+                                            scenario: {
+                                                id :params.scenarioId,   
                                             }
                                         },
-                                        title : true, 
-                                        points : true,
-                                        Description : true,
-                                        id : true,
-                                        scenario : {
-                                            select : {
-                                                id : true,
-                                                name : true,
-                                                status : true,
-                                                desc : true,
-                                                category : true,
-                                                difficulty : true,
-                                                tags : true,
-                                                files : true
-                                                
+                                        select : {
+                                            answers : {
+                                                where : {
+                                                    teamId : teamId.teamId
+                                                },
+                                                select :{
+                                                    submissionStatus : true,
+                                                    submitAnswer : true,
+                                                    obtainedPoints : true
+                                                }
+                                            },
+                                            title : true, 
+                                            points : true,
+                                            Description : true,
+                                            id : true,
+                                            scenario : {
+                                                select : {
+                                                    id : true,
+                                                    name : true,
+                                                    status : true,
+                                                    desc : true,
+                                                    category : true,
+                                                    difficulty : true,
+                                                    tags : true,
+                                                    files : true
+                                                    
+                                                }
                                             }
                                         }
                                     }
@@ -64,17 +83,16 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                         }
                     }
                 }
-            }
-        })
-        
-        const encryptedData = encrypt({status : true , questions})
-        return new Response(JSON.stringify({ encryptedData }))
-
-        // return new Response(JSON.stringify({status : true , questions}))
+            })
+            const encryptedData = encrypt({status : true , questions})
+            return new Response(JSON.stringify({ encryptedData }))
+        } else{
+            const encryptedData = encrypt({status : false, error : "Sorry! There is no challenges related to respective user .Please try again later"})
+            return new Response(JSON.stringify({ encryptedData }))
+        }
     } catch (error) {
         console.debug(error)
         const encryptedData = encrypt({status : false, error : "Sorry! There is an error while fetching user data.Please try again later"})
         return new Response(JSON.stringify({ encryptedData }))
-        // return new Response(JSON.stringify({status : false, error : "Sorry! There is an error while fetching user data.Please try again later"}))
     }
 }

@@ -1,4 +1,6 @@
-// const fs = require('fs')
+const fs = require("fs");
+var path = require('path');
+
 
 
 // convert to uppercase first letter of each word   
@@ -151,21 +153,15 @@ export function formatBytes(bytes, decimals = 2) {
 
 
 
-// const ufs = require("url-file-size");
 
-// calculate filezize from a given filepath
-// export function getFileSize(filepath){
-//     // console.debug(filepath)
-//     try {
-//         const stats = fs.statSync(filepath)
-//         const fileSizeInBytes = stats.size
-//         return formatBytes(fileSizeInBytes)
-//         // ufs("https://dimden.dev/logo.png")
-//         // .then(console.log) // 1416
-//         // .catch(console.error);
-//         // return 
-//     } catch (error) {
-//         console.debug(error)
-//         return "0 Bytes"
-//     }
-// }
+// calculate filsize at a given path
+export function calcFileSize(filepath){
+    const file = path.resolve(process.env.BASE_PATH + filepath);
+    try {
+        const stats = fs.statSync(file)
+        return formatBytes(stats.size)
+    } catch (error) {
+        console.debug(error)
+        return "0 Bytes"
+    }
+}

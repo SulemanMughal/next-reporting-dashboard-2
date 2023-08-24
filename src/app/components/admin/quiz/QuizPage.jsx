@@ -252,6 +252,8 @@ const FiltersBtn = () => {
 
   
 
+import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
+
 export default function QuizPage({quizId}){
     
     
@@ -287,7 +289,7 @@ export default function QuizPage({quizId}){
         {loading ? (
             <>
                 <div  className="col-span-4 ">
-                    <Triangle
+                    {/* <Triangle
                         height="300"
                         width="300"
                         color="#4fa94d"
@@ -296,7 +298,8 @@ export default function QuizPage({quizId}){
                         wrapperClass={"flex justify-center"}
                         visible={true}
                         className={"flex justify-center"} 
-                    />
+                    /> */}
+                    <CustomTriangleLoader />
                 </div>
             </>
         ) : error ? (

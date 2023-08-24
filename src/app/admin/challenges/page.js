@@ -253,6 +253,7 @@ function ScenarioCard({scenario}) {
     )
 }
 
+import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
 
 
 export default function Page(){
@@ -312,7 +313,7 @@ export default function Page(){
                 {loading ? (
                     <>
                         <div className="w-full col-span-3 relative  p-0 border-none rounded-lg">
-                        <Triangle
+                        {/* <Triangle
                             height="300"
                             width="300"
                             color="#4fa94d"
@@ -321,7 +322,8 @@ export default function Page(){
                             wrapperClass={"flex justify-center"}
                             visible={true}
                             className={"flex "} 
-                        />
+                        /> */}
+                        <CustomTriangleLoader />
                         </div>
                     </>
                 ) : error ? (

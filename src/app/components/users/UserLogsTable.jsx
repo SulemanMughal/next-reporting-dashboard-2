@@ -37,6 +37,7 @@ const style = {
 
 
 
+  import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
 
   
 
@@ -69,7 +70,7 @@ export default function UserLogsTable(){
             <hr className="my-5 h-0.5 border-t-0 bg-white opacity-30" />
             {loading ? (
               <>
-                <div>
+                {/* <div>
                   <Triangle
                       height="300"
                       width="300"
@@ -80,7 +81,8 @@ export default function UserLogsTable(){
                       visible={true}
                       className={"flex justify-center"}
                     />
-                </div>
+                </div> */}
+                <CustomTriangleLoader />
               </>
             ) : error ? (
               <>

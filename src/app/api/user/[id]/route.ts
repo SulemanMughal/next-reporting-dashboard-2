@@ -16,7 +16,7 @@ export async function GET(request: Request, {params} : {params : {id : string}})
             }
         })
         if(team_id.teamId === null){
-            const encryptedData = encrypt({status : false, error : "Sorry! You're not part of any team. Please contact your team leader to add you to the team"})
+            const encryptedData = encrypt({status : false, error : "Sorry! You're not part of any team. Please contact admin."})
             return new Response(JSON.stringify({ encryptedData }))
 
         } else {

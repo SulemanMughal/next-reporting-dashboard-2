@@ -9,7 +9,14 @@ import {  useSession } from "next-auth/react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
-import { convertStringToArray , capitalizeFirstLetter } from "@/app/lib/helpers"
+import { convertStringToArray , capitalizeFirstLetter , getDifficultyColor } from "@/app/lib/helpers"
+
+import { AiFillFile } from "react-icons/ai"
+import { FaKey } from "react-icons/fa"
+import { BsFillDatabaseFill } from "react-icons/bs"
+import { IoCopyOutline } from "react-icons/io5"
+// import ReactTooltip from 'react-tooltip';
+import { Tooltip as ReactTooltip } from "react-tooltip";
 
 // import { useRouter } from 'next/router';
 
@@ -55,37 +62,157 @@ function FileDownloadButton({ file }) {
     );
   }
   
-//   export default FileDownloadButton;
+
+  const CopyButton = ({ text }) => {
+
+    
+
+    // const [isShow, setIsShow] = useState(false);
+
+    // const [copied, setCopied] = useState(false);
+
+
+    // useEffect(() => {
+    //     setCopied(false)
+    //     setIsShow(false)
+    // }, [])
+  
+    const handleCopyClick = () => {
+      navigator.clipboard.writeText(text);
+    //   setCopied(true);
+    //   setIsShow(true);
+    //   setTimeout(() => {
+    //     setCopied(false);
+    //     setIsShow(false)
+    //   }, 1500);
+    };
+  
+    return (
+      <>
+        <button
+            onClick={handleCopyClick}
+            className="bg-transparent hover:text-blue-500 text-white  px-6 rounded"
+            data-tooltip-id={"my-tooltip-1"}
+        >
+            
+            <IoCopyOutline  size={23}  />
+        </button>
+
+        <ReactTooltip id="my-tooltip-1"  
+            place="top"
+            content="Copy Password" />
+
+        {/* {copied && (
+           
+        )    } */}
+
+        {/* {isShow && (  )}  */}
+        
+      </>
+    );
+  };
+
+
+
+  const FileSize = ({file}) => {
+    // console.debug(file)
+    const [fileSize, setFileSize] = useState(0);
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/files/${file.id}`)
+        .then(res => {
+            const {...data } = decrypt(res.data.encryptedData)
+            if(data.status === true){
+                setFileSize(data.size)
+            }
+            else{
+                setFileSize(0)
+                toast.error(`${data.error}`)
+            }
+        }).catch(error => {
+            setFileSize(0)
+            toast.error(`Sorry! There is an error while fetching file info.Please try again later`)
+        })
+    }, []);
+    return (
+        <>
+            <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  ">
+                    <div className="flex justify-start items-center w-full col-span-2 relative">
+                        <BsFillDatabaseFill className="text-sky-400" size={23}/><span className="ml-2 text-gray-400"> Size : </span>
+                    </div>
+                    <div className="flex justify-start items-center w-full col-span-4 relative">
+                        <span className="ml-2 text-gray-400"> {fileSize} </span>
+                    </div>
+                </div>
+        </>
+    )
+  }
+
+
+  // <div className="p-4 grid  grid-cols-6 gap-4 place-items-center justify-center  " key={file.id}>
+            //     <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
+            //         <div className="flex  items-center justify-start px-0 place-items-start text-start">
+            //             <div className="px-0">
+            //                 <AiOutlineFileZip className="text-gray-300" size={40} />
+            //             </div>
+            //             <div className="ml-2">
+            //                 <h3 className="mb-0 pb-0 text-sm  text-gray-400">{file.filename}</h3>
+            //                 {/* <p className="mt-0 pb-0  text-sm text-gray-400">20 MB</p> */}
+            //             </div>
+            //         </div>
+            //     </div>
+            //     <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-start justify-center">
+            //         <h3 className="text-gray-400">Password</h3>
+            //         <p className="text-gray-400">{file.password}</p>
+            //     </div>
+            //     <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-center justify-center">
+            //         <Link  href={`${file.filepath}`} className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded">
+            //             Download File
+            //         </Link>
+            //         {/* <FileDownloadButton file={file} /> */}
+            //     </div>
+            // </div>
+             {/* size */}
+                {/* <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  ">
+                    <div className="flex justify-start items-center w-full col-span-2 relative">
+                        <BsFillDatabaseFill className="text-sky-400" size={23}/><span className="ml-2 text-gray-400"> Size : </span>
+                    </div>
+                    <div className="flex justify-start items-center w-full col-span-4 relative">
+                        <span className="ml-2 text-gray-400"> {"20 MB"} </span>
+                    </div>
+                </div> */}
+
 
 // FileInformation
 function QuizFileInfo({files}){
+    
     return (
         <>
+        <div  className="block  p-6 bg-card-custom rounded-lg shadow my-3 ">
         {files && files.map((file, index) => (
-            <div className="p-4 grid  grid-cols-6 gap-4 place-items-center justify-center  " key={file.id}>
-                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
-                    <div className="flex  items-center justify-start px-0 place-items-start text-start">
-                        <div className="px-0">
-                            <AiOutlineFileZip className="text-gray-300" size={40} />
-                        </div>
-                        <div className="ml-2">
-                            <h3 className="mb-0 pb-0 text-sm  text-gray-400">{file.filename}</h3>
-                            {/* <p className="mt-0 pb-0  text-sm text-gray-400">20 MB</p> */}
-                        </div>
+            <div  key={file.id}>
+                <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  " >
+                    <div className="flex justify-start items-center w-full col-span-2 relative">
+                        <AiFillFile className="text-blue-400" size={23}/><span className="ml-2 text-gray-400"> File : </span>
+                    </div>
+                    <div className="flex justify-start items-center w-full col-span-4 relative">
+                        <span className="ml-2 text-gray-400"> {file.filename} </span>
                     </div>
                 </div>
-                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-start justify-center">
-                    <h3 className="text-gray-400">Password</h3>
-                    <p className="text-gray-400">{file.password}</p>
+                
+                <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start my-5 ">
+                    <div className="flex justify-start items-center w-full col-span-2 relative">
+                        <FaKey className="text-green-400" size={23}/><span className="ml-2 text-gray-400"> Password : </span>
+                    </div>
+                    <div className="flex justify-start items-center w-full col-span-4 relative">
+                        <span className="ml-2 text-gray-400"> {file.password} </span>
+                        <CopyButton text={file.password} />
+                    </div>
                 </div>
-                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-center justify-center">
-                    <Link  href={`${file.filepath}`} className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded">
-                        Download File
-                    </Link>
-                    {/* <FileDownloadButton file={file} /> */}
-                </div>
+                    <FileSize file={file}  />
             </div>
         ))}
+        </div>
+        
             
             
         </>
@@ -139,26 +266,30 @@ function getTotalSolvedQuestions(questions){
 }
 
 function QuizInfoList({questions , scenario}){
-    let totalObtainedPoints = getTotalObtainedPoints(questions)
-    let totalPoints = sumPoints(questions)
-    let totalSolvedQuestions = getTotalSolvedQuestions(questions)
+    // let totalObtainedPoints = getTotalObtainedPoints(questions)
+    // let totalPoints = sumPoints(questions)
+    // let totalSolvedQuestions = getTotalSolvedQuestions(questions)
     return (
         <>
             <div className="p-4 grid  grid-cols-8 gap-4 place-items-center justify-center  ">
-                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
+                {/* <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <h3 className="text-gray-400">Points</h3>
-                    <p className="text-orange-400">{totalObtainedPoints}/{totalPoints}</p>
-                </div>
+                    <p className="text-orange-400 text-xl">{totalObtainedPoints}/{totalPoints}</p>
+                </div> */}
                 <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <h3 className="text-gray-400">Difficulty</h3>
-                    <p className="text-orange-600">{capitalizeFirstLetter(scenario.difficulty)}</p>
+                    <p className={getDifficultyColor(capitalizeFirstLetter(scenario.difficulty))}>{capitalizeFirstLetter(scenario.difficulty)}</p>
                 </div>
-                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
+                {/* <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <h3 className="text-gray-400">Solves</h3>
-                    <p className="text-green-600">{totalSolvedQuestions}/{questions?.length}</p>
+                    <p className="text-green-600 text-xl">{totalSolvedQuestions}/{questions?.length}</p>
+                </div> */}
+                <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
+                    <h3 className="text-gray-400">OS</h3>
+                    <p className="text-rose-600 text-xl">{"Windows/Linux"}</p>
                 </div>
             </div>
-            <hr className="my-1 h-1  opacity-100  border border-1 border-t-0 border-l-0 border-r-0 border-dashed bg-none" />
+            {/* <hr className="my-1 h-1  opacity-100  border border-1 border-t-0 border-l-0 border-r-0 border-dashed bg-none" /> */}
         </>
         
     )
@@ -181,7 +312,7 @@ function QuizTags({tags}){
                 {
                     convertStringToArray(tags)?.map((tag, index) => {
                         return (
-                            <span className="inline-block  rounded-full px-3   py-1 text-sm font-semibold bg-indigo-600 text-indigo-100 mr-2 my-2" key={index}>{convertStringToTitleCase(tag)}</span>
+                            <span className="inline-block  rounded-full px-3   py-1 text-sm font-semibold bg-blue-800 text-indigo-100 mr-2 my-2" key={index}>{convertStringToTitleCase(tag)}</span>
                         )
                     })
                 }
@@ -258,8 +389,11 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
                 <>
                     <div className="flex flex-wrap -mx-3 mb-6">
                         <div className="w-full  px-3 h-full ">
-                            <p className=" block w-full btn-flag-submit text-gray-400   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none">
+                            {/* <p className=" block w-full btn-flag-submit text-gray-400   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none">
                                 {submittedAnswer}
+                            </p> */}
+                            <p className="text-xl text-green-500 font-bold italic">
+                                Solved
                             </p>
                         </div>
                         
@@ -299,11 +433,13 @@ function delay(ms) {
 
   
 // single question component
-function Question({question, index, team , quiz, user}){
+function Question({question, index, team , quiz, user , setQuestions , params}){
     const [sovled, setSolved] = useState(checkAnswerSubmissionStatus(question.answers))
     const [isSubmit, setIsSubmit] = useState(false)
     const answer = useRef("")
     const [submitAnswer, setSubmitAnswer] = useState(getSubmitAnswer(question.answers))
+
+    // console.debug(question)
 
     const submitHandler = () => {
         setIsSubmit(true)
@@ -333,6 +469,19 @@ function Question({question, index, team , quiz, user}){
                             toast.success(`Right Answer` )
                             setIsSubmit(false)
                             setSolved(data.result.submissionStatus)
+                            // after successful answer submission update the question
+                            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${user}/scenario/${params.slug}`)
+                            .then(res => {
+                                const {...data_2 } = decrypt(res.data.encryptedData)
+                                if(data_2.status === true){
+                                    setQuestions(data_2?.questions?.team?.quiz?.questions)
+                                }
+                                else{
+                                    toast.error(`${data_2.error}`)
+                                }
+                            }).catch(error => {
+                                console.debug(error)
+                            })
                         })
                         
                     } else{
@@ -374,7 +523,7 @@ function Question({question, index, team , quiz, user}){
         <>
             <div className="my-2">
                 <h1 className="text-lg text-gray-400 mb-2">
-                    {`Question ${index} ) ${question.Description}`}
+                    {`Question ${index} ) ${question.Description}`} <span className="italic text-sm">({question.points} points)</span>
                 </h1>
                 {
                     <AnswerInputWidget submitHandler={submitHandler} changeHandler={changeHandler}  sovled={sovled}  isSubmit={isSubmit} setIsSubmit={setIsSubmit}  submittedAnswer={submitAnswer} />
@@ -386,14 +535,14 @@ function Question({question, index, team , quiz, user}){
 }
 
 
-function QuestionList({questions, team , quiz, user}){
+function QuestionList({questions, team , quiz, user , setQuestions , params}){
     return (
         <>
             <div  className="block  p-6 bg-card-custom rounded-lg shadow " data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
                 <h5 className="mb-4 text-3xl font-bold tracking-tight text-gray-300 ">{"Challenge Submission"}</h5>
                 {
                     questions&&  questions.map((question, index) => {    
-                        return ( <Question key={index} question={question} team={team}  index={index+1} quiz={quiz} user={user} /> )
+                        return ( <Question key={index} question={question} team={team}  index={index+1} quiz={quiz} user={user}  setQuestions={setQuestions} params={params} /> )
                     })
                 }
             </div>
@@ -402,84 +551,131 @@ function QuestionList({questions, team , quiz, user}){
 }
 
 
+const ProgressBarWithLabel = ({ percentage, label }) => {
+    // const gradientStyle = `linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 0, 0, 1) ${percentage}%, rgba(0, 255, 0, 1) ${percentage}%, rgba(0, 255, 0, 1) 100%)`;
+    return (
+      <div className="w-full">
+        <div className="relative w-full h-4 bg-gray-700 rounded-full">
+          <div
+            className="absolute h-full transition-all duration-300 ease-in-out rounded-full bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
+            style={{ width: `${percentage}%` }}
+          />
+          <div className="absolute inset-0 flex items-center justify-center text-white text-sm font-bold">
+            {label}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+
+
+//   function to calculate percentage check no null or zero values
+function calculatePercentage(totalObtainedPoints, totalPoints){
+    if(totalObtainedPoints !== 0 && totalPoints !== 0){
+        return (totalObtainedPoints/totalPoints)*100
+    } else{
+        return 0
+    }
+}
+
+
+function ChallengePerformance({   questions}){
+    let totalObtainedPoints = getTotalObtainedPoints(questions)
+    let totalPoints = sumPoints(questions)
+    let totalSolvedQuestions = getTotalSolvedQuestions(questions)
+    
+    return (
+        <>
+           <div  className="block  p-6 my-3 bg-card-custom rounded-lg shadow ">
+                <div className="flex justify-between mb-2">
+                    {/* obtained points/totalpoints */}
+                    <p className="text-gray-400">{totalObtainedPoints} / {totalPoints} Pts</p>
+                    {/* solved questions/total questions */}
+                    <p className="text-gray-400">{totalSolvedQuestions} / {questions?.length} Questions</p>
+                </div>
+                {/* <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
+                    <div className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500" style={{width: "45%"}}></div>
+                </div> */}
+                {/* <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                    <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{width: "0"}}> 45%</div>
+                </div> */}
+                <ProgressBarWithLabel percentage={calculatePercentage(totalSolvedQuestions,questions?.length)} label={`${calculatePercentage(totalSolvedQuestions,questions?.length)}%`} />
+           </div>
+        </>
+    )
+
+}
+
+
 function Details({scenario , questions}){
-    // console.debug(scenario?.files)
     return (
         <>
             <div  className="block  p-6 bg-card-custom rounded-lg shadow ">
-            <h5 className="mb-2 text-3xl font-bold tracking-tight text-gray-300">{scenario.name}</h5>
-            <p className="font-normal text-gray-400 mb-2 text-md">
-                {scenario.desc}    
-            </p>
-            <QuizTags tags={scenario.tags}/>
-            <QuizInfoList questions={questions}  scenario={scenario}/>
-            <QuizFileInfo  files={scenario?.files}/>
-        </div>
+                <h5 className="mb-2 text-3xl font-bold tracking-tight text-gray-300">{scenario.name}</h5>
+                <p className="font-normal text-gray-400 mb-2 text-md">
+                    {scenario.desc}    
+                </p>
+                <QuizTags tags={scenario.tags}/>
+                <QuizInfoList questions={questions}  scenario={scenario}/>
+            </div>
+            <ChallengePerformance  questions={questions}   />
+            {scenario?.files?.length ? ( <QuizFileInfo  files={scenario?.files}/> ) : null }
         </>
     )
 }
 
 
-
-
-
-
-// import encrypt from "@/app/lib/encrypt"
-// import decrypt from "@/app/lib/decrypt"
-
-
-export default  function QuizDetails({params}){
-    const { data: session } = useSession();    
+function QuizLoad({params, userID}){
+    // const { data: session } = useSession();    
     const [questions, setQuestions] = useState(null)
     const [scenario, setScenario] = useState(null)
     const [team, setTeam] = useState(null)
     const [quiz, setQuiz] = useState(null)
-    // const [totalPoints, setTotalPoints] = useState(0)
-
-
-
-
     useEffect(() => {
         AOS.init();
-        if (session){
-            // const {...data_user } = decrypt(session?.user.user) 
-            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}/scenario/${params.slug}`)
-            .then(res => {
-                
-                const {...data } = decrypt(res.data.encryptedData)
-
-
-                if(data.status === true){
-                    setQuestions(data?.questions?.team?.quiz?.questions)
-                    if(data?.questions?.team?.quiz?.questions.length){
-                        setScenario(data?.questions?.team?.quiz?.questions[0]?.scenario)
-                        setTeam(data?.questions?.team?.id)
-                        setQuiz(data?.questions?.team?.quiz?.id)
-                    }
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userID}/scenario/${params.slug}`)
+        .then(res => {
+            const {...data } = decrypt(res.data.encryptedData)
+            if(data.status === true){
+                setQuestions(data?.questions?.team?.quiz?.questions)
+                if(data?.questions?.team?.quiz?.questions.length){
+                    setScenario(data?.questions?.team?.quiz?.questions[0]?.scenario)
+                    setTeam(data?.questions?.team?.id)
+                    setQuiz(data?.questions?.team?.quiz?.id)
                 }
-                else{
-                    toast.error(`${data.error}`)
-                    setTotalChallenges(0)
-                }
-            })
-            .catch(error => {
-                console.debug(error)
-            })
-        }
-    }, [session])
+            }
+            else{
+                toast.error(`${data.error}`)
+                setTotalChallenges(0)
+            }
+        })
+        .catch(error => {
+            console.debug(error)
+        })
+    }, [])
     return (
         <>
-            {questions && (
-                <div className="p-4 grid  grid-cols-5 gap-4 items-start justify-center" >
-                    <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="1500" data-aos-delay="500">
+        {questions && (
+                <div className="p-4 grid  grid-cols-6 gap-4 items-start justify-center" >
+                    <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="700" data-aos-delay="500">
                         {scenario && <Details scenario={scenario} questions={questions}  /> } 
                     </div>
-                    <div className="w-full col-span-3 relative   p-0  rounded-0">
+                    <div className="w-full col-span-4 relative   p-0  rounded-0">
                         {scenario &&  <ScenarioDescription scenario={scenario} /> } 
-                        <QuestionList questions={questions} team={team} quiz={quiz} user={session.user.id} />
+                        <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} params={params} />
                     </div>
                 </div>
-            )}
+        )}
+        </>
+    )
+}
+
+export default  function QuizDetails({params}){
+    const { data: session } = useSession();  
+    return (
+        <>
+            {session && <QuizLoad params={params} userID={session?.user.id} />}
         </>
     )
 }

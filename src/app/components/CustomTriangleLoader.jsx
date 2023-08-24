@@ -2,7 +2,7 @@
 
 import { Triangle } from 'react-loader-spinner'
 
-export default function CustomTriangleLoader({height="300", width="300", className="flex justify-center" , color="#4fa94d"}) {
+export default function CustomTriangleLoader({height="300", width="300", className="flex justify-center" , color="#3151bc"}) {
     return (
         <>
             <div>

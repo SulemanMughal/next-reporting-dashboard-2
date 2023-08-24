@@ -163,6 +163,7 @@ function TeamGridView({teams, removeTeam}){
 
 
 
+import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
 
 
 export default   function Teams(){    
@@ -261,7 +262,7 @@ export default   function Teams(){
                     </div>
                     {loading ? (
             <>
-                <div>
+                {/* <div>
                 <Triangle
                         height="300"
                         width="300"
@@ -272,7 +273,8 @@ export default   function Teams(){
                         visible={true}
                         className={"flex justify-center"} 
                     />
-                </div>
+                </div> */}
+                <CustomTriangleLoader />
             </>
         ) : error ? (
             <>

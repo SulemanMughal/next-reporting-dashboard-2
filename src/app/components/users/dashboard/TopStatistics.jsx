@@ -184,12 +184,7 @@ export default function TopStatistics(){
         if (session){
             axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}`)
             .then(res => {
-                
                 const {...data_2 } = decrypt(res.data.encryptedData)
-
-                // console.debug(scenarios[6])
-
-                
                 if(data_2.status === true){
                     if(data_2.user?.team?.quiz?.questions?.length) {
                         data = data_2?.user?.team?.quiz?.questions;

@@ -15,6 +15,9 @@ import decrypt from "@/app/lib/decrypt"
 
 
 
+import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
+
+
 export default function QuizList(){
 
     
@@ -43,7 +46,7 @@ export default function QuizList(){
         {loading ? (
             <>
                 <div  className="col-span-4 ">
-                    <Triangle
+                    {/* <Triangle
                         height="300"
                         width="300"
                         color="#4fa94d"
@@ -52,7 +55,8 @@ export default function QuizList(){
                         wrapperClass={"flex justify-center"}
                         visible={true}
                         className={"flex justify-center"} 
-                    />
+                    /> */}
+                    <CustomTriangleLoader />
                 </div>
             </>
         ) : error ? (

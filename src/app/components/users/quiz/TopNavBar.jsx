@@ -33,7 +33,7 @@ function checkAdminDashboardPath(pathname){
 }
 
 function checkQuizPath(pathname){
-    if(pathname === "/user/quiz" ){
+    if(pathname === "/user/quiz"  || pathname.includes("/user/quiz/")){
         return true
     } else {
         return false
