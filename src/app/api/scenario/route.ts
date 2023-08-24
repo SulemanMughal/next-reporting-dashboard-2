@@ -45,22 +45,28 @@ export async function POST(request: Request){
 
 export async function GET(request: Request){
     try {
-
         const scenarios = await prisma.scenario.findMany({
             select : {
                 id : true,
-                name : true
+                name : true,
+                tags : true,
+                category : true,
+                difficulty : true,
+                desc : true,
+                status : true,
+                questions  : {
+                    select : {
+                        points : true
+                    }
+                },
+                files : true
             }
         })
-        
-
         const encryptedData = encrypt({status : true , scenarios})
         return new Response(JSON.stringify({ encryptedData }))
-        // return new Response(JSON.stringify({status : true , scenarios}))
     } catch (error) {
         console.debug(error)
-        const encryptedData = encrypt({status : false, error : error.message})
+        const encryptedData = encrypt({status : false, error : "Sorry! There is an error while fethcing challenges.Please try again later"})
         return new Response(JSON.stringify({ encryptedData }))
-        // return new Response(JSON.stringify({status : false, error : error.message}))
     }
 }

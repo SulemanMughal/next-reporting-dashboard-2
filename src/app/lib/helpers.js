@@ -1,3 +1,5 @@
+// const fs = require('fs')
+
 
 // convert to uppercase first letter of each word   
 export function convertStringToTitleCase(string){
@@ -87,3 +89,63 @@ export function arrayToString(array){
     })
     return string
 }
+
+
+// different colors for different level of difficulty
+export function getDifficultyColor(difficulty){
+    // console.debug(difficulty)
+    if(difficulty === "Easy"){
+        return "px-1 py-1 text-md font-semibold bg-none text-green-400"
+    } else if(difficulty === "Medium"){
+        return " px-1 py-1 text-md font-semibold bg-none text-orange-400"
+    } else if(difficulty === "Hard"){
+        return " px-1 py-1 text-md font-semibold bg-none text-red-400"
+    } else {
+        return " px-1 py-1 text-md font-semibold bg-none text-gray-400"
+    }
+}
+
+
+
+
+// calculate total poitns for a challenge
+export function calcTotalPointsScenario(scenario){
+    let points = 0
+    if(scenario  && scenario.questions && scenario.questions.length){
+        scenario.questions.map((question) => {
+            points = points + question.points
+        })
+    }
+    return points
+}
+
+
+// calculate filesize in kb, mb, gb
+export function formatBytes(bytes, decimals = 2) {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const dm = decimals < 0 ? 0 : decimals;
+    const sizes = ['B', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    // console.debug(parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i])
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
+}
+
+// const ufs = require("url-file-size");
+
+// calculate filezize from a given filepath
+// export function getFileSize(filepath){
+//     // console.debug(filepath)
+//     try {
+//         const stats = fs.statSync(filepath)
+//         const fileSizeInBytes = stats.size
+//         return formatBytes(fileSizeInBytes)
+//         // ufs("https://dimden.dev/logo.png")
+//         // .then(console.log) // 1416
+//         // .catch(console.error);
+//         // return 
+//     } catch (error) {
+//         console.debug(error)
+//         return "0 Bytes"
+//     }
+// }

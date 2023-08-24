@@ -55,7 +55,7 @@ function QuestionMenuBtn({setRemoveQuestion , scenario , setUpdateQuestion , que
                     </Menu.Item> */}
                     <Menu.Item>
                         <button  className={classNames( '', 'block px-4 py-5 text-lg  w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )} onClick={() => (setUpdateQuestion(true), setQuestion(question))} >
-                            <AiFillEdit size={23} className="mr-3" />  <span > Question</span>
+                            <AiFillEdit size={23} className="mr-3" />  <span >Update Question</span>
                         </button>
                     </Menu.Item>
                     <Menu.Item>
@@ -63,7 +63,7 @@ function QuestionMenuBtn({setRemoveQuestion , scenario , setUpdateQuestion , que
                             className={classNames( '', 'block px-4 py-5 text-lg  w-full  flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800' )}  
                             onClick={() => (setShowScenario(true), setQuestion(question))}
                         >
-                            <HiOutlinePencilAlt size={23} className="mr-3" />  <span >Challenge </span>
+                            <HiOutlinePencilAlt size={23} className="mr-3" />  <span >Update Challenge </span>
                         </button>
                     </Menu.Item>
                     </div>

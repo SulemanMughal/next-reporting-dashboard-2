@@ -15,6 +15,8 @@ import  { FaPuzzlePiece } from "react-icons/fa6"
 
 import { BsSearch } from "react-icons/bs"
 
+import {getDifficultyColor} from "@/app/lib/helpers"
+
 
 
 
@@ -218,33 +220,17 @@ function checkScenarios(data){
 
 import { AiFillEye } from "react-icons/ai"
 
-
-// functions based on difficulty level : select different colors
-function getDifficultyColor(difficulty){
-    if(difficulty === "Easy"){
-        return "px-1 py-1 text-md font-semibold bg-none text-green-400"
-    } else if(difficulty === "Medium"){
-        return " px-1 py-1 text-md font-semibold bg-none text-orange-400"
-    } else if(difficulty === "Hard"){
-        return " px-1 py-1 text-md font-semibold bg-none text-red-400"
-    } else {
-        return " px-1 py-1 text-md font-semibold bg-none text-gray-400"
-    }
-}
-
-// based on condition select different classess
-// function getDifficultyClass(difficulty){
+// function getDifficultyColor(difficulty){
 //     if(difficulty === "Easy"){
-//         return "text-blue-400"
+//         return "px-1 py-1 text-md font-semibold bg-none text-green-400"
 //     } else if(difficulty === "Medium"){
-//         return "text-yellow-400"
+//         return " px-1 py-1 text-md font-semibold bg-none text-orange-400"
 //     } else if(difficulty === "Hard"){
-//         return "text-red-400"
+//         return " px-1 py-1 text-md font-semibold bg-none text-red-400"
 //     } else {
-//         return "text-gray-400"
+//         return " px-1 py-1 text-md font-semibold bg-none text-gray-400"
 //     }
 // }
-
 
 
 function QuizList({scenarios}){
