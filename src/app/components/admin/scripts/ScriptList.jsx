@@ -49,7 +49,7 @@ export default function ScriptList({data}) {
                     <FilterBtn />
                 </div>
             </div>
-            <div className="p-4 grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+            <div className="py-4 px-0 grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
               <CreateScriptCard modelHandler={modelHandler} />
               {scripts && scripts.map((script, index) => (
                 <>
