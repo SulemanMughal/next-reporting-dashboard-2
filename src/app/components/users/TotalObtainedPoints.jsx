@@ -6,6 +6,7 @@ import CountUp from 'react-countup';
 
 // import { LiaCoinsSolid } from "react-icons/lia"
 import   { FaCoins } from "react-icons/fa6"
+import { MdGroups } from "react-icons/md"   
 
 export default function TotalObtainedPoints({totalPoints , overall_points }){
     return (
@@ -30,11 +31,12 @@ export default function TotalObtainedPoints({totalPoints , overall_points }){
                 <div  className="block  p-6 bg-card-custom  rounded-lg shadow relative">
                 <div className="flex justify-between items-center ">
                         <div>
-                            <FaCoins size={40}  className="text-blue-500 mb-6" />
+                            {/* <FaCoins size={40}  className="text-blue-500 mb-6" /> */}
+                            <MdGroups  size={40}  className="text-blue-500 mb-6"  />
                             <p className="font-bold text-white  text-4xl mb-2">
                                 {totalPoints && <CountUp end={totalPoints}  duration={3} />} / {totalPoints && <CountUp end={overall_points}  duration={3} />}  
                             </p>
-                            <h5 className="text-md text-gray-400">Your Points / Total Points</h5>
+                            <h5 className="text-md text-gray-400">Team Points / Total Points</h5>
                         </div>
                         <span>
                         </span>

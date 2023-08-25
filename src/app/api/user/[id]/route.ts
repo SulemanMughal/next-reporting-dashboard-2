@@ -67,7 +67,12 @@ export async function GET(request: Request, {params} : {params : {id : string}})
                                                 }, select : {
                                                     id : true,
                                                     submissionStatus : true,
-                                                    obtainedPoints : true
+                                                    obtainedPoints : true,
+                                                    user : {
+                                                        select : {
+                                                            id : true,
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }

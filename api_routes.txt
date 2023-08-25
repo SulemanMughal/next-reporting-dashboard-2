@@ -42,6 +42,13 @@ POST		:   (Admin)		/api/user/				->	    Create a New User
 POST		:		/api/user/team/			->	Get team and quiz details by a [user-id]
 
 
+================
+answers
+================
+
+GET :   /api/submissions/   ->  Fetch All Answers by all teams 
+
+
 =======
 TEAM
 ==========

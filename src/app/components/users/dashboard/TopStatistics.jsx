@@ -15,6 +15,13 @@ import 'aos/dist/aos.css';
 
 import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
+import  { FaPuzzlePiece } from "react-icons/fa6"
+import CountUp from 'react-countup';
+
+// import { LiaCoinsSolid } from "react-icons/lia"
+import   { FaCoins } from "react-icons/fa6"
+import { MdGroups } from "react-icons/md"  
+import { FaUser } from "react-icons/fa6"
 
 
 
@@ -166,13 +173,55 @@ function QuizList({scenarios}){
 // }
 
 
+function calculateTotalObtainedPoints(data, userId) {
+    // console.debug(data, userId)
+    try{
+        const totalObtainedPoints = data.reduce((total, obj) => {
+            const userAnswers = obj.answers.filter(answer => answer.user.id === userId);
+            const userObtainedPoints = userAnswers.reduce((sum, answer) => sum + answer.obtainedPoints, 0);
+            return total + userObtainedPoints;
+          }, 0);
+          
+          return totalObtainedPoints;
+    } catch(error){
+        console.debug(error)
+        return 0;
+    }
+  }
+
+
+function UserObtainedPoints({totalObtainedPointsUser, overall_points}){
+    // console.debug(overall_points)
+    return (
+        <>
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box"  >
+                <div  className="block  p-6 bg-card-custom  rounded-lg shadow relative">
+                <div className="flex justify-between items-center ">
+                        <div>
+                            {/* <FaCoins size={40}  className="text-blue-500 mb-6" /> */}
+                            <FaUser  size={40}  className="text-blue-500 mb-6"  />
+                            <p className="font-bold text-white  text-4xl mb-2">
+                                {totalObtainedPointsUser && <CountUp end={totalObtainedPointsUser}  duration={3} />} / {overall_points && <CountUp end={overall_points}  duration={3} />}  
+                            </p>
+                            <h5 className="text-md text-gray-400">Your Points / Total Points</h5>
+                        </div>
+                        <span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
+
 function TopStatisticsData({userId}){
     const [totalChallenges, setTotalChallenges] = useState(0)
     const [totalSubmissions, setTotalSubmissions] = useState(0)
     const [totalPoints, setTotalPoints] = useState(0)
-    const [totalTrueQuestions, setTotalTrueQuestions] = useState(0)
-    const [totalFalseQuestions, setTotalFalseQuestions] = useState(0)
+    // const [totalTrueQuestions, setTotalTrueQuestions] = useState(0)
+    // const [totalFalseQuestions, setTotalFalseQuestions] = useState(0)
     const [scenarios, setScenarios] = useState([])
+    const [totalObtainedPointsUser, setTotalObtainedPointsUser] = useState(0)
     let data ;
     useEffect(() => {
         AOS.init();
@@ -186,8 +235,9 @@ function TopStatisticsData({userId}){
                         setTotalChallenges(data?.length)
                         setTotalSubmissions(countSubmitAnswers(data))
                         setTotalPoints(calcTotalPoints(data))
-                        setTotalTrueQuestions(checkTotalStatus(data)[0])
-                        setTotalFalseQuestions(checkTotalStatus(data)[1])
+                        setTotalObtainedPointsUser(calculateTotalObtainedPoints(data, userId))
+                        // setTotalTrueQuestions(checkTotalStatus(data)[0])
+                        // setTotalFalseQuestions(checkTotalStatus(data)[1])
                     } else{
                         setTotalChallenges(0)
                     }
@@ -206,9 +256,17 @@ function TopStatisticsData({userId}){
     return (
         <>
              <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+
+                {/* Overall Team Challenge Stats */}
                 <TotalChallenges  totalChallenges={totalChallenges} totalSubmissions={totalSubmissions}   />
-                {/* <TotalSubmission  totalSubmissions={totalSubmissions} /> */}
+
+                {/* User Obtained Points */}
+                <UserObtainedPoints totalObtainedPointsUser={totalObtainedPointsUser} overall_points={scenarios[6]} />
+
+                {/* OverAll Team Points */}
                 <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]} />
+
+                {/* <TotalSubmission  totalSubmissions={totalSubmissions} /> */}
                 {/* <RightAnswers  totalTrueQuestions={totalTrueQuestions} totalFalseQuestions={totalFalseQuestions} /> */}
                 {/* <UserRank /> */}
                 

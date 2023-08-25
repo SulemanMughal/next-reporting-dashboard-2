@@ -213,7 +213,7 @@ function QuizFileInfo({files}){
                      <Link  href={`${file.filepath}`}  className="w-full my-5 block btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded" target="_blank" rel="noopener noreferrer">
                          
                         
-                         Download File
+                         Download Challenge
                        
                      </Link>
                      {/* <Link href="https://example.com" passHref>
