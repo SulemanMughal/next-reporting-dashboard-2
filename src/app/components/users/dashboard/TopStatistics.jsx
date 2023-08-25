@@ -12,7 +12,7 @@ import Link from "next/link"
 import { AiFillEye } from "react-icons/ai"
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-
+import { FaAward } from "react-icons/fa6"
 import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
 import  { FaPuzzlePiece } from "react-icons/fa6"
@@ -191,10 +191,10 @@ function calculateTotalObtainedPoints(data, userId) {
 
 
 function UserObtainedPoints({totalObtainedPointsUser, overall_points}){
-    // console.debug(overall_points)
     return (
         <>
-            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box"  >
+        <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300">
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box "  data-aos="fade-down" data-aos-duration="500" data-aos-delay="700" >
                 <div  className="block  p-6 bg-card-custom  rounded-lg shadow relative">
                 <div className="flex justify-between items-center ">
                         <div>
@@ -210,9 +210,37 @@ function UserObtainedPoints({totalObtainedPointsUser, overall_points}){
                     </div>
                 </div>
             </div>
+        </div>
         </>
     )
 }
+
+
+function TeamPosition({team_position = 0, total_teams = 0}){
+    return (
+        <>
+        <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300">
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box"  data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" >
+                <div  className="block  p-6 bg-card-custom  rounded-lg shadow relative">
+                <div className="flex justify-between items-center ">
+                        <div>
+                            {/* <FaCoins size={40}  className="text-blue-500 mb-6" /> */}
+                            <FaAward  size={40}  className="text-blue-500 mb-6"  />
+                            <p className="font-bold text-white  text-4xl mb-2">
+                                {team_position && <CountUp end={team_position}  duration={3} />} / {total_teams && <CountUp end={total_teams}  duration={3} />}  
+                            </p>
+                            <h5 className="text-md text-gray-400">Team Position / Total Teams</h5>
+                        </div>
+                        <span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </>
+    )
+}
+
 
 function TopStatisticsData({userId}){
     const [totalChallenges, setTotalChallenges] = useState(0)
@@ -222,6 +250,8 @@ function TopStatisticsData({userId}){
     // const [totalFalseQuestions, setTotalFalseQuestions] = useState(0)
     const [scenarios, setScenarios] = useState([])
     const [totalObtainedPointsUser, setTotalObtainedPointsUser] = useState(0)
+    const [total_teams, setTotalTeams] = useState(0)
+    const [team_position, setTeamPosition] = useState(0)
     let data ;
     useEffect(() => {
         AOS.init();
@@ -229,7 +259,10 @@ function TopStatisticsData({userId}){
             .then(res => {
                 const {...data_2 } = decrypt(res.data.encryptedData)
                 if(data_2.status === true){
+                    // console.debug(data_2.total_teams)
                     if(data_2.user?.team?.quiz?.questions?.length) {
+                        setTotalTeams(data_2.total_teams)
+                        setTeamPosition(data_2.team_position)
                         data = data_2?.user?.team?.quiz?.questions;
                         setScenarios(checkScenarios(data))
                         setTotalChallenges(data?.length)
@@ -255,16 +288,19 @@ function TopStatisticsData({userId}){
 
     return (
         <>
-             <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+             <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " >
 
                 {/* Overall Team Challenge Stats */}
                 <TotalChallenges  totalChallenges={totalChallenges} totalSubmissions={totalSubmissions}   />
 
                 {/* User Obtained Points */}
-                <UserObtainedPoints totalObtainedPointsUser={totalObtainedPointsUser} overall_points={scenarios[6]} />
+                <UserObtainedPoints totalObtainedPointsUser={totalObtainedPointsUser} overall_points={scenarios[6]}  />
 
                 {/* OverAll Team Points */}
-                <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]} />
+                <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]}  />
+
+                {/* Team Position */}
+                <TeamPosition  team_position={team_position} total_teams={total_teams} />
 
                 {/* <TotalSubmission  totalSubmissions={totalSubmissions} /> */}
                 {/* <RightAnswers  totalTrueQuestions={totalTrueQuestions} totalFalseQuestions={totalFalseQuestions} /> */}

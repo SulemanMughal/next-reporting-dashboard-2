@@ -26,8 +26,10 @@ export default function TotalObtainedPoints({totalPoints , overall_points }){
                     </div>
                 </div>
             </div> */}
-
-            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box"  >
+            
+            <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300">
+                
+            <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box"  data-aos="fade-down" data-aos-duration="500" data-aos-delay="800" >
                 <div  className="block  p-6 bg-card-custom  rounded-lg shadow relative">
                 <div className="flex justify-between items-center ">
                         <div>
@@ -42,6 +44,8 @@ export default function TotalObtainedPoints({totalPoints , overall_points }){
                         </span>
                     </div>
                 </div>
+            </div>
+            
             </div>
 
             

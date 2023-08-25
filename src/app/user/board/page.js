@@ -6,6 +6,9 @@ import { BsSearch } from "react-icons/bs"
 import decrypt from "@/app/lib/decrypt"
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
 
 const SearchInput = () => {
     return (
@@ -73,7 +76,7 @@ const DataRow = ({index , item}) =>{
     const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
     return (
         <>
-            <div className="grid gap-3 auto-rows-fr  grid-cols-5  py-5 px-7 text-xl bg-card-custom text-white rounded-xl place-items-center mb-5">
+            <div className="grid gap-3 auto-rows-fr  grid-cols-5  py-5 px-7 text-xl bg-card-custom text-white rounded-xl place-items-center mb-5" data-aos="fade-left" data-aos-duration="500" data-aos-delay={index * 100}>
                 <div className="flex  items-center w-full col-span-1 relative ">
                     <h1 className=" ">
                         {index}
@@ -116,6 +119,7 @@ const DataRow = ({index , item}) =>{
 export default function Page(){
     const [data, setData] = useState([])
     useEffect(() => {
+        AOS.init();
       try {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/submissions/`)
         .then((res) => {
