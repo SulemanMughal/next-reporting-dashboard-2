@@ -209,9 +209,23 @@ function QuizFileInfo({files}){
                     </div>
                 </div>
                     <FileSize file={file}  />
+                    <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-center justify-center">
+                     <Link  href={`${file.filepath}`}  className="w-full my-5 block btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded" target="_blank" rel="noopener noreferrer">
+                         
+                        
+                         Download File
+                       
+                     </Link>
+                     {/* <Link href="https://example.com" passHref>
+                        
+                    </Link> */}
+                     {/* <FileDownloadButton file={file} /> */}
+                 </div>
             </div>
         ))}
         </div>
+
+       
         
             
             
@@ -626,8 +640,7 @@ function Details({scenario , questions}){
 }
 
 
-function QuizLoad({params, userID}){
-    // const { data: session } = useSession();    
+function QuizLoad({params, userID}){  
     const [questions, setQuestions] = useState(null)
     const [scenario, setScenario] = useState(null)
     const [team, setTeam] = useState(null)

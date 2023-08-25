@@ -166,12 +166,7 @@ function QuizList({scenarios}){
 // }
 
 
-export default function TopStatistics(){
-    const { data: session } = useSession();  
-    
-    // console.debug(session)
-    
-    
+function TopStatisticsData({userId}){
     const [totalChallenges, setTotalChallenges] = useState(0)
     const [totalSubmissions, setTotalSubmissions] = useState(0)
     const [totalPoints, setTotalPoints] = useState(0)
@@ -181,8 +176,7 @@ export default function TopStatistics(){
     let data ;
     useEffect(() => {
         AOS.init();
-        if (session){
-            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}`)
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userId}`)
             .then(res => {
                 const {...data_2 } = decrypt(res.data.encryptedData)
                 if(data_2.status === true){
@@ -206,12 +200,12 @@ export default function TopStatistics(){
             .catch(error => {
                 console.debug(error)
             })
-        }
-    }, [session])
+    }, [])
+
 
     return (
         <>
-            <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+             <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                 <TotalChallenges  totalChallenges={totalChallenges} totalSubmissions={totalSubmissions}   />
                 {/* <TotalSubmission  totalSubmissions={totalSubmissions} /> */}
                 <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]} />
@@ -222,6 +216,15 @@ export default function TopStatistics(){
             {/* <div className="grid gap-1 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
                 {scenarios &&  <QuizList scenarios={scenarios} /> }
             </div>            */}
+        </>
+    )
+}
+
+export default function TopStatistics(){
+    const { data: session } = useSession();  
+    return (
+        <>
+            {session &&  <TopStatisticsData userId={session?.user.id} /> }
         </>
     )
 }
