@@ -78,6 +78,7 @@ function CreateQuestion({setShowModal , quizId , setData}){
     const scenario_id = useRef("");
     const [isSubmit, setSubmit] = useState(false)
     const [scenario, setScenario] = useState([])
+    const [questionTitle, setQuestionTitle] = useState("")
 
     useEffect(()=>{
         AOS.init();
@@ -111,8 +112,6 @@ function CreateQuestion({setShowModal , quizId , setData}){
                 setShowModal(false)
                     
                 const {...data } = decrypt(res.data.encryptedData)
-                // asdasdasdsadasd
-                // asdasd
 
                 if(data.status === false){
                     toast.error(`Sorry, you can't create question. Please try again after sometime`)    
@@ -137,6 +136,21 @@ function CreateQuestion({setShowModal , quizId , setData}){
     }
 
 
+    const challengeHandler =  (event) => {
+        scenario_id.current = event.target.value
+        if(scenario_id.current !== "" || scenario_id.current !== null){
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario/${scenario_id.current}`)        
+            .then((res) => {
+                const {...data_3 } = decrypt(res.data.encryptedData)
+                title.current = `${data_3?.questions_counter?.name} : ${data_3?.questions_counter?._count?.questions + 1}`
+                setQuestionTitle(`${data_3?.questions_counter?.name} : ${data_3?.questions_counter?._count?.questions + 1}`)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+        }
+    }
+
     return (
         <>
             <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" data-aos="zoom-out" data-aos-duration="700" 
@@ -155,13 +169,26 @@ function CreateQuestion({setShowModal , quizId , setData}){
                 </div>
                 <div className="relative p-6 flex-auto">
                 <form className="space-y-6" onSubmit={submitHandler}>
+                    {/* scenario field */}
+                    <div className="relative z-0 w-full mb-6 group">
+                        <select id="scenario" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer " defaultValue={''}  onChange={(e) => challengeHandler(e)}>
+                            <option value="" disabled>Choose a Challenge</option>
+                            {scenario && scenario.map((item, index) => (
+                                <option key={index} value={item.id}>{item.name}</option>
+                            ))}
+                        </select>
+                        <label htmlFor="scenario" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Challenge</label>
+                    </div>
                     {/* title */}
                     <div className="relative z-0 w-full mb-6 group">
                         <input type="text" id="text"
                             name="title"
-                            onChange={(e) => (title.current = e.target.value)}
+                            // onChange={(e) => (title.current = e.target.value)}
+                            value={questionTitle}
                             autoComplete="name"
                             required
+                            disabled
+                            readOnly
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                         <label htmlFor="floating_email" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Title</label>
                     </div>
@@ -190,16 +217,7 @@ function CreateQuestion({setShowModal , quizId , setData}){
                             className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "  />
                         <label htmlFor="points" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Points</label>
                     </div>
-                    {/* scenario field */}
-                    <div className="relative z-0 w-full mb-6 group">
-                        <select id="scenario" className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer " defaultValue={''}  onChange={(e) => scenario_id.current = e.target.value}>
-                            <option value="" disabled>Choose a Challenge</option>
-                            {scenario && scenario.map((item, index) => (
-                                <option key={index} value={item.id}>{item.name}</option>
-                            ))}
-                        </select>
-                        <label htmlFor="scenario" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Challenge</label>
-                    </div>
+                    
                     
                 
 
@@ -223,12 +241,7 @@ function CreateQuestion({setShowModal , quizId , setData}){
 
 
 export default function AddNewQuestion({quizId , setData}){
-
     const [showModal, setShowModal] = useState(false)
-
-    
-
-
     return (
         <>
             {/* <CustomToaster /> */}

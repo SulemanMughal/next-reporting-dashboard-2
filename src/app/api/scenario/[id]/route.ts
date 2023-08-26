@@ -40,3 +40,33 @@ export async function PUT(request: Request , params : {params : {id : string}}){
         return new Response(JSON.stringify({ encryptedData }))
     }
 }
+
+
+
+export async function GET(request: Request , params : {params : {id : string}}){
+    
+    try {
+        // const body : RequestBody = await request.json()
+
+        // console.debug(params.params.id)
+
+        const questions_counter = await prisma.scenario.findUnique({
+            where : {
+                id : params.params.id
+            }, select : {
+                _count: {
+                    select: { questions: true },
+                },
+                name : true,
+            }
+        })
+
+        
+        const encryptedData = encrypt({status : true , questions_counter})
+        return new Response(JSON.stringify({ encryptedData }))
+    } catch (error) {
+        console.debug(error)
+        const encryptedData = encrypt({status : false, error : "Sorry! There is an error while fetching challenge.Please try again later"})
+        return new Response(JSON.stringify({ encryptedData }))
+    }
+}
