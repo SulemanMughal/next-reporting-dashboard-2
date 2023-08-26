@@ -28,7 +28,7 @@ export default function TeamCounter({total_teams}){
                 </div>
             </div> */}
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box"  >
-                <div  className="block  p-6 bg-card-custom  rounded-lg shadow relative">
+                <div  className="block  p-6 deep-blue-violet  rounded-lg shadow relative">
                 <div className="flex justify-between items-center ">
                         <div>
                             <RiTeamFill size={40}  className="text-blue-500 mb-6" />

@@ -1,0 +1,22 @@
+.bg-custom-dark{
+    background-color: #00202e;
+}
+
+.theme_btn {
+
+    text-align: center;
+    font: 600 16px/1 "Hind Guntur", sans-serif;
+    padding: 12px 25px 8px 25px;
+    text-transform: uppercase;
+    transition: all 300ms linear 0s;
+}
+
+
+.banner_area {
+    padding: 150px 0 150px 0;
+    overflow: hidden;
+    background-image: linear-gradient(41deg, #0d0f2d 0%, #101230 100%);
+    /* background-image: linear-gradient(41deg, #0d0f2d 0%, #101230 100%);
+    background-image: linear-gradient(41deg, #0d0f2d 0%, #101230 100%); */
+}
+

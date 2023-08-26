@@ -9,6 +9,8 @@ import { useSession } from "next-auth/react";
 import  { MdQuiz } from "react-icons/md"
 import { VscTerminalBash } from "react-icons/vsc"
 import  { MdGroups } from "react-icons/md"
+import { GiSpy } from "react-icons/gi"
+import { FaServer } from "react-icons/fa"
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -95,23 +97,23 @@ function checkAdminLeaderBoardPage(pathname){
 const UserNavBar = ({pathname}) => {
     return (
         <>
-            <nav className="bg-transparent text-gray-400 pt-4 pb-0" id="user_dashboard">
-                <div className="container mx-auto flex items-center justify-between">
+            <nav className="bg-transparent text-gray-400 pt-4 -mb-6" id="user_dashboard">
+                <div className="container ml-28">
                     
-                    <ul className="flex space-x-4 mb-0">
-                    <li >
-                        <Link href={"/user/dashboard"} className={classNames( checkDashboardPath(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )} >
-                            <AiFillHome  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">Home</p>    
+                    <ul className="flex space-x-2 space-y-0 items-end place-items-end">
+                    <li className="" >
+                        <Link href={"/user/dashboard"} className={classNames( checkDashboardPath(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )} >
+                            <AiFillHome  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Home</p>    
                         </Link>
                     </li>
-                    <li >
-                        <Link href={"/user/quiz"} className={classNames( checkQuizPath(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )}>
-                            <FaPuzzlePiece  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">Challenges</p>    
+                    <li className="" >
+                        <Link href={"/user/quiz"} className={classNames( checkQuizPath(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <FaServer  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Challenges</p>    
                         </Link>
                     </li>
-                    <li >
-                        <Link href={"/user/board"} className={classNames( checkLeaderBoardPage(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )}>
-                            <MdLeaderboard  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">ScoreBoard</p>    
+                    <li className="" >
+                        <Link href={"/user/board"} className={classNames( checkLeaderBoardPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <MdLeaderboard  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">ScoreBoard</p>    
                         </Link>
                     </li>
                     </ul>

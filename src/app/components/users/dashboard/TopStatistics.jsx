@@ -23,6 +23,15 @@ import   { FaCoins } from "react-icons/fa6"
 import { MdGroups } from "react-icons/md"  
 import { FaUser } from "react-icons/fa6"
 
+import { CircularProgressbar , buildStyles  } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import MultiSeriesPieChart from "./MultiSeriesPieChart"
+import UserProgressChart from "./UserProgressChart"
+import { FaUserLarge } from "react-icons/fa6"
+import { FaServer } from "react-icons/fa6"
+import Image from "next/image"
+import { FaMedal } from "react-icons/fa6"
+// import { FaUser } from "react-icons/fa6"
 
 
 function countSubmitAnswers(data){
@@ -195,15 +204,16 @@ function UserObtainedPoints({totalObtainedPointsUser, overall_points}){
         <>
         <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300">
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box "  data-aos="fade-down" data-aos-duration="500" data-aos-delay="700" >
-                <div  className="block  p-6 bg-card-custom  rounded-lg shadow relative">
+                <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow relative">
                 <div className="flex justify-between items-center ">
                         <div>
                             {/* <FaCoins size={40}  className="text-blue-500 mb-6" /> */}
-                            <FaUser  size={40}  className="text-blue-500 mb-6"  />
-                            <p className="font-bold text-white  text-4xl mb-2">
+                            {/* <FaUser  size={40}  className="text-blue-500 mb-6"  /> */}
+                            <FaUserLarge  size={35}  className="text-light-blue mb-6"  />
+                            <p className="font-bold  leading-8 text-white  text-3xl mb-2">
                                 {totalObtainedPointsUser && <CountUp end={totalObtainedPointsUser}  duration={3} />} / {overall_points && <CountUp end={overall_points}  duration={3} />}  
                             </p>
-                            <h5 className="text-md text-gray-400">Your Points / Total Points</h5>
+                            <h5 className="text-base text-gray-400">Your Points / Total</h5>
                         </div>
                         <span>
                         </span>
@@ -225,8 +235,8 @@ function TeamPosition({team_position = 0, total_teams = 0}){
                 <div className="flex justify-between items-center ">
                         <div>
                             {/* <FaCoins size={40}  className="text-blue-500 mb-6" /> */}
-                            <FaAward  size={40}  className="text-blue-500 mb-6"  />
-                            <p className="font-bold text-white  text-4xl mb-2">
+                            <FaAward  size={35}  className="text-light-blue mb-6"  />
+                            <p className="font-bold  leading-8 text-white  text-3xl mb-2">
                                 {team_position && <CountUp end={team_position}  duration={3} />} / {total_teams && <CountUp end={total_teams}  duration={3} />}  
                             </p>
                             <h5 className="text-md text-gray-400">Team Position / Total Teams</h5>
@@ -236,15 +246,303 @@ function TeamPosition({team_position = 0, total_teams = 0}){
                     </div>
                 </div>
             </div>
-            </div>
+        </div>
         </>
     )
 }
 
+// import styles from './CircularProgressBar.module.css';
 
-function TopStatisticsData({userId}){
+// const CircularProgressBar = ({ percentage }) => {
+//     const progressStyle = {
+//       strokeDasharray: `${percentage} 100`,
+//     };
+  
+//     return (
+//       <div className={styles.circularProgressBar}>
+//         <svg viewBox="0 0 100 100">
+//           <circle className={styles.circleBackground} cx="50" cy="50" r="45" />
+//           <circle
+//             className={styles.circleProgress}
+//             cx="50"
+//             cy="50"
+//             r="45"
+//             style={progressStyle}
+//           />
+//           <text x="50" y="50" className={styles.progressLabel}>
+//             {percentage}%
+//           </text>
+//         </svg>
+//       </div>
+//     );
+//   };
+
+
+function TeamCircularProgressBar({  totalPoints , overall_points }) {
+    let percentage = 0;
+    if(totalPoints !== 0){
+        percentage = parseInt((totalPoints / overall_points) * 100)
+    }
+    else{
+        percentage = 0
+    }
+
+
+    return (
+        <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300" data-aos="fade-down" data-aos-duration="500" data-aos-delay="800">
+            <div  className=" w-full col-span-1 p-6 bg-card-custom h-full rounded-lg shadow relative">
+                <div className="flex justify-center items-center h-full">
+                    <div style={{ width: 200 }}>
+                        <CircularProgressbar value={percentage} text={`${percentage}%`}   />
+                        
+                    </div>
+                        
+                    </div>
+                </div>
+            
+        </div>
+        
+    )
+}
+
+
+function checkEqualNumberOfQuestionsAndAnswers(data) {
+    let soved_challenges = 0;
+    try {
+        data.forEach(item => {
+            let { scenario, answers } = item;
+            if (scenario.questions.length === answers.length) {
+                soved_challenges = soved_challenges + 1
+            } 
+          });
+          return soved_challenges;
+    } catch (error) {
+        return 0
+    }
+  }
+  
+  
+
+//   function getAnswersByUser(data, userId) {
+
+//     // console.debug(userId)
+//     const results = {};
+  
+//     try{
+//         data.forEach(item => {
+//             const { scenario, answers } = item;
+//             const scenarioId = scenario.id;
+//             const scenarioName = scenario.name;
+        
+//             const userAnswers = answers.filter(answer => answer.user.id === userId);
+        
+//             if (!results[scenarioId]) {
+//               results[scenarioId] = {
+//                 scenarioId,
+//                 scenarioName,
+//                 userAnswers: []
+//               };
+//             }
+        
+//             results[scenarioId].userAnswers.push(...userAnswers);
+//           });
+        
+//           return Object.values(results);
+//     } catch(error){
+//         return {}
+//     }   
+//   }
+
+
+// function getGroupedAnswersWithTotalQuestions(data, userId) {
+//     const groupedAnswers = {};
+  
+//     data.forEach(entry => {
+//       const scenarioId = entry.scenario.id;
+//       const userAnswers = entry.answers.filter(answer => answer.user.id === userId);
+  
+//       if (userAnswers.length > 0) {
+//         if (!groupedAnswers[scenarioId]) {
+//           groupedAnswers[scenarioId] = {
+//             scenarioId: scenarioId,
+//             scenarioName: entry.scenario.name,
+//             userAnswers: [],
+//             totalQuestions: entry.scenario.questions.length
+//           };
+//         }
+  
+//         groupedAnswers[scenarioId].userAnswers.push(userAnswers[0]);
+//       }
+//     });
+  
+//     return Object.values(groupedAnswers);
+//   }
+
+// function calculateScenarioStats(data, userId) {
+//     const groupedAnswers = {};
+  
+//     data.forEach(entry => {
+//       const scenarioId = entry.scenario.id;
+//       const userAnswers = entry.answers.filter(answer => answer.user.id === userId);
+  
+//       if (userAnswers.length > 0) {
+//         if (!groupedAnswers[scenarioId]) {
+//           groupedAnswers[scenarioId] = {
+//             scenarioId: scenarioId,
+//             scenarioName: entry.scenario.name,
+//             userAnswers: [],
+//             totalQuestions: entry.scenario.questions.length,
+//             totalObtainedPoints: 0  // Initialize total obtained points
+//           };
+//         }
+  
+//         const obtainedPoints = userAnswers[0].obtainedPoints;
+//         groupedAnswers[scenarioId].userAnswers.push(userAnswers[0]);
+//         groupedAnswers[scenarioId].totalObtainedPoints += obtainedPoints;  // Add obtained points
+//       }
+//     });
+  
+//     return Object.values(groupedAnswers);
+//   }
+
+function calculateScenarioStats(data, userId) {
+    const groupedAnswers = {};
+  
+    data.forEach(entry => {
+      const scenarioId = entry.scenario.id;
+      const userAnswers = entry.answers.filter(answer => answer.user.id === userId);
+  
+      if (userAnswers.length > 0) {
+        if (!groupedAnswers[scenarioId]) {
+          groupedAnswers[scenarioId] = {
+            scenarioId: scenarioId,
+            scenarioName: entry.scenario.name,
+            userAnswers: [],
+            totalQuestions: entry.scenario.questions.length,
+            totalPoints: entry.scenario.questions.reduce((total, question) => total + question.points, 0), // Calculate total points
+            totalObtainedPoints: 0
+          };
+        }
+  
+        const obtainedPoints = userAnswers[0].obtainedPoints;
+        groupedAnswers[scenarioId].userAnswers.push(userAnswers[0]);
+        groupedAnswers[scenarioId].totalObtainedPoints += obtainedPoints;
+      }
+    });
+  
+    return Object.values(groupedAnswers);
+  }
+
+function Discord(){
+    return (
+        <>
+            <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300">
+                <div  className="block   p-6 bg-deep-blue-violet  rounded-lg shadow relative" data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
+                            <h2 className="font-medium text-lg text-white">
+                                Join our BTLO discord server here!
+                            </h2>
+                            <a href="#!" target="_BLANK">
+                                <div className="intro-y mt-6">
+                                    <div className="news__preview image-stretch">
+                                        <Image alt="DISCORD " className="rounded-md" width={500} height={500} src="/assets/img/discord.png" />
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                </div>
+        </>
+    )
+}
+
+function CareerBox(){
+    return (
+        <>
+            <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300 my-5">
+                <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow relative" data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
+                            <h2 className="font-medium text-lg text-white ">
+                            Cysec Careers Has Launched!
+                            </h2>
+                            <p className="text-white text-xs mt-2">The platform to help you find your next cybersecurity career!</p>
+                            <a href="#!" target="_BLANK">
+                                <div className="intro-y mt-6">
+                                    <div className="news__preview image-stretch">
+                                        <Image alt="DISCORD " className="rounded-md" width={500} height={500} src="/assets/img/cysec_careers_released.png" />
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                </div>
+        </>
+    )
+}
+
+function PlatformIntrodduction(){
+    return (
+        <>
+            <div className="w-full col-span-7  bg-card-custom  rounded-lg shadow   p-6 mt-10 " data-aos="fade-down" data-aos-duration="500" data-aos-delay="800">
+                        <div className="flex justify-between">
+                            <div className="w-9/12">
+                                <h1 className="text-2xl mb-3">
+                                    <span className="text-white">Welcome to Blue Team Labs</span> <span style={{color : "#35c2f1"}}>Online !</span>
+                                </h1>
+                                <div>
+                                    <p className="text-white text-md">
+                                        {"Please familiarise yourself with our Platform Rules. This will ensure you're aware of our restrictions regarding publishing writeups, sharing answers, and other activities."}
+                                    </p>
+                                </div>
+                                <div className="my-5">
+                                    <p className="text-white text-md ">
+                                        {"Our platform is the perfect place for established cyber defenders to practice in realistic scenarios and showcase their skills in a gamified and competitive environment. Paired with external training or self-study BTLO can develop your technical capability to investigate and defend against cyber attacks and intrusions."}
+                                    </p>
+                                </div>
+                                <div>
+                                    <p className="text-white text-md">
+                                        {"Good luck Defenders!"}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="w-3/12">
+                                {/* <div className="flex justify-end">
+                                    <button className="bg-blue-500 text-white rounded-md  py-1 px-6">
+                                        View Investigations
+                                    </button>
+                                </div> */}
+                                <div class="col-span-12 md:col-span-3 rounded-md px-5 mb-auto mt-auto py-4 bg-theme-3 text-white">
+                                    <div class="items-center">
+                                       
+                                        {/* <a href="#!">
+                                            <button class="button xl:mt-auto mr-1 mb-2 bg-blue-600 text-white sm:w-full"> View Investigations <i class="fa fa-user-secret text-base text-white"></i></button>
+                                        </a> */}
+                                        <a href="#!">
+                                            <button class=" bg-purple-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Challenges 
+                                            <FaServer className="text-base text-white ml-3"  /></button>
+                                        </a>
+                                        <a href="#!">
+                                            <button class=" bg-yellow-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Your Profile <FaUser className="text-base text-white ml-3" /></button>
+                                        </a>
+                                        <a href="#!">
+                                            <button class=" bg-yellow-700 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Highlight Badges &amp; Titles  <FaMedal  className="text-base text-white ml-3" /> </button>
+                                        </a>
+                                        <a href="#!">
+                                            <button class=" bg-green-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Redeem Code <FaMedal  className="text-base text-white ml-3" /></button>
+                                        </a>
+                                        <a href="#!">
+                                            <button class=" bg-red-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Help / FAQ <FaMedal  className="text-base text-white ml-3" /></button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>    
+        </>
+    )
+}
+
+function TopStatisticsData({userId , userName}){
+    // console.debug(userName)
     const [totalChallenges, setTotalChallenges] = useState(0)
-    const [totalSubmissions, setTotalSubmissions] = useState(0)
+    const [totalSolvedChallenges, setTotalSolvedChallenges] = useState(0)
+    // const [totalSubmissions, setTotalSubmissions] = useState(0)
     const [totalPoints, setTotalPoints] = useState(0)
     // const [totalTrueQuestions, setTotalTrueQuestions] = useState(0)
     // const [totalFalseQuestions, setTotalFalseQuestions] = useState(0)
@@ -252,6 +550,11 @@ function TopStatisticsData({userId}){
     const [totalObtainedPointsUser, setTotalObtainedPointsUser] = useState(0)
     const [total_teams, setTotalTeams] = useState(0)
     const [team_position, setTeamPosition] = useState(0)
+    const [userAnswersCategory, setUserAnswersCategory] = useState(null)
+
+    
+
+    // const [total_questions, setTotalQuestions] = useState(0)
     let data ;
     useEffect(() => {
         AOS.init();
@@ -261,23 +564,36 @@ function TopStatisticsData({userId}){
                 if(data_2.status === true){
                     // console.debug(data_2.total_teams)
                     if(data_2.user?.team?.quiz?.questions?.length) {
+                        data = data_2?.user?.team?.quiz?.questions
+                        // console.debug(data)
+                        // setTotalQuestions(data.length)
                         setTotalTeams(data_2.total_teams)
                         setTeamPosition(data_2.team_position)
-                        data = data_2?.user?.team?.quiz?.questions;
                         setScenarios(checkScenarios(data))
-                        setTotalChallenges(data?.length)
-                        setTotalSubmissions(countSubmitAnswers(data))
+                        // setTotalChallenges(data?.length)
+                        // setTotalSubmissions(countSubmitAnswers(data))
                         setTotalPoints(calcTotalPoints(data))
                         setTotalObtainedPointsUser(calculateTotalObtainedPoints(data, userId))
+                        // console.debug(checkEqualNumberOfQuestionsAndAnswers(data))
+                        setTotalSolvedChallenges(checkEqualNumberOfQuestionsAndAnswers(data))
+
+                        // console.debug(checkScenarios(data)?.[0]?.length)
+                        setTotalChallenges(checkScenarios(data)?.[0]?.length)
+
+                        // console.debug(getGroupedAnswersWithTotalQuestions(data, userId))
+                        setUserAnswersCategory(calculateScenarioStats(data, userId))
+
+                        // console.debug(scenarios)
+
                         // setTotalTrueQuestions(checkTotalStatus(data)[0])
                         // setTotalFalseQuestions(checkTotalStatus(data)[1])
                     } else{
-                        setTotalChallenges(0)
+                        // setTotalChallenges(0)
                     }
                 }
                 else{
                     toast.error(`${data_2.error}`)
-                    setTotalChallenges(0)
+                    // setTotalChallenges(0)
                 }
             })
             .catch(error => {
@@ -285,31 +601,28 @@ function TopStatisticsData({userId}){
             })
     }, [])
 
+    // const percentage = 66;
+
 
     return (
         <>
-             <div className="p-4 grid gap-3 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " >
-
-                {/* Overall Team Challenge Stats */}
-                <TotalChallenges  totalChallenges={totalChallenges} totalSubmissions={totalSubmissions}   />
-
-                {/* User Obtained Points */}
-                <UserObtainedPoints totalObtainedPointsUser={totalObtainedPointsUser} overall_points={scenarios[6]}  />
-
-                {/* OverAll Team Points */}
-                <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]}  />
-
-                {/* Team Position */}
-                <TeamPosition  team_position={team_position} total_teams={total_teams} />
-
-                {/* <TotalSubmission  totalSubmissions={totalSubmissions} /> */}
-                {/* <RightAnswers  totalTrueQuestions={totalTrueQuestions} totalFalseQuestions={totalFalseQuestions} /> */}
-                {/* <UserRank /> */}
-                
+        <div className="p-4 grid gap-3 auto-rows-fr grid-cols-9">
+            <div className="w-full col-span-7">
+                <div className=" grid gap-6 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " >
+                    <TotalChallenges  totalChallenges={totalChallenges} totalSolvedChallenges={totalSolvedChallenges}    />
+                    <UserObtainedPoints totalObtainedPointsUser={totalObtainedPointsUser} overall_points={scenarios[6]}  />
+                    <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]}  />
+                    <TeamPosition  team_position={team_position} total_teams={total_teams} />
+                </div>
+                <PlatformIntrodduction />
             </div>
-            {/* <div className="grid gap-1 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
-                {scenarios &&  <QuizList scenarios={scenarios} /> }
-            </div>            */}
+            <div className="w-full col-span-2">
+                <Discord />
+                <CareerBox />
+
+            </div>
+        </div>
+            
         </>
     )
 }
@@ -318,7 +631,7 @@ export default function TopStatistics(){
     const { data: session } = useSession();  
     return (
         <>
-            {session &&  <TopStatisticsData userId={session?.user.id} /> }
+            {session &&  <TopStatisticsData userId={session?.user.id}  userName={session?.user?.name || "Undefined"} /> }
         </>
     )
 }

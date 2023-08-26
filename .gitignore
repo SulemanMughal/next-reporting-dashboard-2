@@ -41,3 +41,10 @@ dev.db
 
 # ignore media files
 public/media/*
+
+
+# remove old code
+old_code.js
+
+# remove credentials
+credentials.txt

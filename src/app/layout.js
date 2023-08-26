@@ -9,7 +9,7 @@ import { Inter } from 'next/font/google'
 import Providers from './components/Providers'
 
 
-import Header from './components/Header'
+import Header from './components/Header/Header'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -32,7 +32,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en"  >
       <link rel="icon" href="/assets/img/logo_new.ico" sizes="any" />
-      <body className={inter.className  + "  theme-color"}>
+      <body className={inter.className  + "  theme-color "}>
         <Providers >
           
         <NextTopLoader

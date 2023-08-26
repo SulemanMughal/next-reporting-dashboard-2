@@ -9,9 +9,8 @@ export default function UserDashboard(){
     return (
         <>
             <CustomToaster />
-            <div className="mx-10 p-3 bg-midnight-blue rounded-3xl ">
-                <TopStatistics />
-            </div>
+            <TopStatistics />
+            
         </>
     )
 }

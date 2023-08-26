@@ -537,7 +537,7 @@ main#main.contact-us-main .list-inline {
 }
 
 .bg-midnight-blue{
-  background-color: rgb(15 17 46);
+  background-color: #0f112e;
 }
 
 .bg-dark-blue{
@@ -618,11 +618,11 @@ input[type=text]:focus, input[type=password]:focus{
 
 
 nav#user_dashboard a.active{
-  background-color: rgb(15 17 46);
+  background-color: #07092c;
   color: white;
 }
 
-input[type="checkbox"]{
+input[type="checkbox"]:not(input[role="switch"]):not(input[role="terms"]){
   background-color: rgb(63 72 101);
   appearance: none;
   -webkit-appearance: none;
@@ -635,17 +635,17 @@ input[type="checkbox"]{
   cursor: pointer;
 }
 
-input[type="checkbox"]:checked {
+input[type="checkbox"]:not(input[role="switch"]):not(input[role="terms"]):checked {
    content: '\2713';
-  border-color: rgb(63 72 101);
-  background-color: rgb(63 72 101);
   background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' class='feather feather-check'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E");
   background-position: 50%;
   background-repeat: no-repeat;
   background-size: 80%;
+  background-color: rgba(7,9,44,1);
+  border-color: rgba(7,9,44,1);
 }
 
-.input[type=checkbox]:not(.input--switch):before {
+.input[type=checkbox]:not(input[role="switch"]):not(input[role="terms"]):before {
   --tw-text-opacity: 1;
   align-items: center;
   
@@ -659,6 +659,7 @@ input[type="checkbox"]:checked {
   transition: all .2s ease-in-out;
   width: 100%;
 }
+
 
 
 /* Scrollbar.css */
@@ -683,3 +684,13 @@ input[type="checkbox"]:checked {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+
+
+
+
+
+/* switch checkbox */
+
+
+
