@@ -22,6 +22,9 @@ import { FaTint } from "react-icons/fa"
 import  { FaCloud } from "react-icons/fa"
 
 import Image from "next/image";
+import { FaExclamationTriangle } from  "react-icons/fa"
+
+import Modal from './ReportingModal'
 
 // import { useRouter } from 'next/router';
 
@@ -987,13 +990,13 @@ function Details({scenario , questions , top_user , team_name , recentSolves}){
 }
 
 
-function ReportIssue(){
+function ReportIssue({setShowModal}){
     return (
         <>
-            <div  className="rounded-md px-3 py-2 mb-2 bg-amber-700 text-white mb-5 cursor-pointer">
+            <div  className="rounded-md px-3 py-2 mb-2 bg-amber-700 text-white mb-5 cursor-pointer" onClick={() => setShowModal(true)}>
                 <div className="flex items-center">
-                    <div className="font-medium text-base mr-5">
-                        <i className="fas fa-exclamation-triangle mr-2 "></i>
+                    <div className="font-medium text-base mr-5 flex justify-start items-center">
+                        <FaExclamationTriangle  className="mr-2"/>
                         Found an issue with this challenge? Click here to report it!
                     </div>
                 </div>
@@ -1001,6 +1004,56 @@ function ReportIssue(){
         </>
     )
 }
+
+
+function ReportIssueModal({setShowModal , showModal}){
+
+    
+
+    return (
+        <>
+        <div className="absolute inset-0 bg-gray-500 opacity-75 " style={{zIndex : "40"}}></div>
+                <div
+          className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" data-aos="zoom-out" data-aos-duration="700" 
+        >
+          <div className="relative w-1/4 px-4 space-y-16 ">
+            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-dark-imperial-blue outline-none focus:outline-none">
+              
+              <div className="modal-header">
+                    <h2 className="font-medium text-base mr-auto text-gray-300">Reporting Content</h2>   
+                </div>
+                <div className="flex flex-col p-4 space-y-4">
+                
+                <p className="text-sm text-gray-300 font-sans">
+                Please provide as much information as possible about the issue with this content.
+                </p>
+
+                
+                <div>
+                    <label for="team-description-input" className="text-sm text-gray-300 font-sans">Description</label>
+                    <textarea id="team-description-input" className="input w-full block mt-1 bg-deep-indigo rounded-lg" ></textarea>
+                                    </div>
+
+                
+            </div>
+            <div className="flex justify-end items-center p-4"> 
+                <button  type="button" data-dismiss="modal" className="button w-20  text-gray-300 mr-1 rounded-lg cursor-pointer py-2 px-3" style={{"border" : "1px solid  #3f4865"}} onClick={() => setShowModal(false)}>Cancel</button> 
+                               
+                    <button onClick={() => setShowModal(false)} type="button"  className="w-20  bg-dark-navy-blue   border-dark-navy-blue text-gray-300 mr-1 rounded-lg cursor-pointer py-2 px-3">
+                        Submit
+                    </button>
+                            </div>
+            </div>
+          </div>
+        </div>
+        
+        
+        </>
+    )
+}
+
+
+
 
 function QuizLoad({params, userID}){  
     const [questions, setQuestions] = useState(null)
@@ -1010,6 +1063,20 @@ function QuizLoad({params, userID}){
     const [topUser, setTopUser] = useState(null)
     const [teamName, setTeamName] = useState(null)
     const [recentSolves, setRecentSolves] = useState([])
+    const [showModal, setShowModal] = useState(false)
+
+
+
+
+
+    useEffect(() => {
+        if(showModal){
+            document.documentElement.style.overflow = "hidden";
+        } else{
+            document.documentElement.style.overflow = "auto";
+        }
+    }, [showModal])
+    
     
     useEffect(() => {
         AOS.init();
@@ -1040,14 +1107,16 @@ function QuizLoad({params, userID}){
     }, [])
     return (
         <>
+        {showModal && 
+        <ReportIssueModal setShowModal={setShowModal} showModal={showModal} />}
         {questions && (
                 <div className="p-2 grid  grid-cols-6 gap-4 items-start justify-center" >
                     <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="700" data-aos-delay="500">
                         {scenario && <Details scenario={scenario} questions={questions} top_user={topUser}  team_name={teamName} recentSolves={recentSolves} /> } 
                     </div>
                     <div className="w-full col-span-4 relative   p-0  rounded-0">
-                        {scenario &&  <ScenarioDescription scenario={scenario} /> } 
-                        {scenario && <ReportIssue />}
+                        {scenario &&  <ScenarioDescription scenario={scenario}  /> } 
+                        {scenario && <ReportIssue   setShowModal={setShowModal} />}
                         <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} setTopUser={setTopUser} params={params} setRecentSolves={setRecentSolves} />
                     </div>
                 </div>

@@ -113,7 +113,7 @@ const UserNavBar = ({pathname}) => {
                     </li>
                     <li className="" >
                         <Link href={"/user/board"} className={classNames( checkLeaderBoardPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
-                            <MdLeaderboard  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">ScoreBoard</p>    
+                            <MdLeaderboard  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Leaderboard</p>    
                         </Link>
                     </li>
                     </ul>

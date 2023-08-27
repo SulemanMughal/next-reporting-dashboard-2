@@ -529,9 +529,9 @@ function PlatformIntroduction(){
                                         <a href="#!">
                                             <button className=" bg-yellow-700 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Highlight Badges &amp; Titles  <FaMedal  className="text-base text-white ml-3" /> </button>
                                         </a>
-                                        <a href="#!">
+                                        {/* <a href="#!">
                                             <button className=" bg-green-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Redeem Code <FaMedal  className="text-base text-white ml-3" /></button>
-                                        </a>
+                                        </a> */}
                                         <a href="#!">
                                             <button className=" bg-red-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Help / FAQ <FaMedal  className="text-base text-white ml-3" /></button>
                                         </a>
