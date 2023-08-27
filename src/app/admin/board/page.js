@@ -100,7 +100,7 @@ const DataRow = ({index , item}) =>{
 
                 <div className="w-full col-span-1 relative border border-2 border-gray-500 border-t-0 border-r-0 border-b-0 text-center">
                     <h1 className=" ">
-                        {item.question.scenario.category}
+                    {item.question?.scenario?.category || null}
                     </h1>
                     <span className="block text-sm text-green-500  pt-1    ">{"+" + ` ${item.obtainedPoints}` + " Points"}</span>
                 </div>

@@ -74,6 +74,7 @@ const getInitials = (name) => {
 const DataRow = ({index , item}) =>{
     // console.debug(item)
     const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
+    // console.debug(item.question)
     return (
         <>
             <div className="grid gap-3 auto-rows-fr  grid-cols-5  py-5 px-7 text-xl bg-card-custom text-white rounded-xl place-items-center mb-5" data-aos="fade-left" data-aos-duration="500" data-aos-delay={index * 100}>
@@ -103,7 +104,7 @@ const DataRow = ({index , item}) =>{
 
                 <div className="w-full col-span-1 relative border border-2 border-gray-500 border-t-0 border-r-0 border-b-0 text-center">
                     <h1 className=" ">
-                        {item.question.scenario.category}
+                        {item.question?.scenario?.category || null}
                     </h1>
                     <span className="block text-sm text-green-500  pt-1    ">{"+" + ` ${item.obtainedPoints}` + " Points"}</span>
                 </div>
