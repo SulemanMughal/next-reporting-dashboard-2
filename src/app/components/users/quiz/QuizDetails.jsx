@@ -17,11 +17,118 @@ import { BsFillDatabaseFill } from "react-icons/bs"
 import { IoCopyOutline } from "react-icons/io5"
 // import ReactTooltip from 'react-tooltip';
 import { Tooltip as ReactTooltip } from "react-tooltip";
+import { FaFile } from "react-icons/fa"
+import { FaTint } from "react-icons/fa"
+import  { FaCloud } from "react-icons/fa"
+
+import Image from "next/image";
 
 // import { useRouter } from 'next/router';
 
 
 // import Link from "next/link"
+
+
+
+
+// function findUserWithMostAnswers(questionsData) {
+//     const userAnswerCounts = {};
+  
+//     questionsData.team.quiz.questions.forEach(question => {
+//       question.answers.forEach(answer => {
+//         const userName = answer.user.name;
+//         if (userAnswerCounts[userName]) {
+//           userAnswerCounts[userName]++;
+//         } else {
+//           userAnswerCounts[userName] = 1;
+//         }
+//       });
+//     });
+  
+//     let mostAnswersUser = null;
+//     let mostAnswersCount = 0;
+  
+//     for (const user in userAnswerCounts) {
+//       if (userAnswerCounts[user] > mostAnswersCount) {
+//         mostAnswersUser = user;
+//         mostAnswersCount = userAnswerCounts[user];
+//       }
+//     }
+  
+//     return {
+//       user: mostAnswersUser,
+//       count: mostAnswersCount
+//     };
+//   }
+
+
+
+function findUserWithMostAnswersAndPoints(questionsData) {
+    const userAnswerCounts = {};
+    const userTotalPoints = {};
+  
+    questionsData.team.quiz.questions.forEach(question => {
+      question.answers.forEach(answer => {
+        const userName = answer.user.name;
+        if (userAnswerCounts[userName]) {
+          userAnswerCounts[userName]++;
+          userTotalPoints[userName] += answer.obtainedPoints || 0;
+        } else {
+          userAnswerCounts[userName] = 1;
+          userTotalPoints[userName] = answer.obtainedPoints || 0;
+        }
+      });
+    });
+  
+    let mostAnswersUser = null;
+    let mostAnswersCount = 0;
+    let mostPointsUser = null;
+    let mostPoints = 0;
+  
+    for (const user in userAnswerCounts) {
+      if (userAnswerCounts[user] > mostAnswersCount) {
+        mostAnswersUser = user;
+        mostAnswersCount = userAnswerCounts[user];
+      }
+      if (userTotalPoints[user] > mostPoints) {
+        mostPointsUser = user;
+        mostPoints = userTotalPoints[user];
+      }
+    }
+  
+    return {
+      mostAnswers: {
+        user: mostAnswersUser,
+        count: mostAnswersCount
+      },
+      mostPoints: {
+        user: mostPointsUser,
+        points: mostPoints
+      }
+    };
+  }
+  
+
+
+function getUsersWithSubmissionTime(questionsData) {
+  const userSubmissions = [];
+
+  questionsData.forEach(question => {
+    question.answers.forEach(answer => {
+      const userName = answer.user.name;
+      const submissionTime = answer.submittedAt;
+      userSubmissions.push({
+        user: userName,
+        time: submissionTime
+      });
+    });
+  });
+
+  userSubmissions.sort((a, b) => new Date(b.time) - new Date(a.time));
+
+  return userSubmissions;
+}
+
 
 
 function FileDownloadButton({ file }) {
@@ -135,14 +242,22 @@ function FileDownloadButton({ file }) {
     }, []);
     return (
         <>
-            <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  ">
+            {/* <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  ">
                     <div className="flex justify-start items-center w-full col-span-2 relative">
                         <BsFillDatabaseFill className="text-sky-400" size={23}/><span className="ml-2 text-gray-400"> Size : </span>
                     </div>
                     <div className="flex justify-start items-center w-full col-span-4 relative">
                         <span className="ml-2 text-gray-400"> {fileSize} </span>
                     </div>
+                </div> */}
+
+
+            <div className="ml-4">
+                <a className="font-medium text-gray-300" href="">{file.filename}</a> 
+                <div className="text-gray-400 text-xs">
+                    {fileSize}
                 </div>
+            </div>
         </>
     )
   }
@@ -187,10 +302,32 @@ function QuizFileInfo({files}){
     
     return (
         <>
-        <div  className="block  p-6 bg-card-custom rounded-lg shadow my-3 ">
+        
         {files && files.map((file, index) => (
             <div  key={file.id}>
-                <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  " >
+                <div className="w-full border-t border-gray-200  border-dark-5 border-dashed mt-5"></div>
+                <div className="flex items-center mt-5">
+                            <div className="file">
+                                <a href="" className="w-12 file__icon file__icon--file">
+                                    <FaFile  className="text-3xl text-white"/>
+                                </a>
+                            </div>
+                            <FileSize  file={file} />
+
+                                <div className="ml-auto">
+                                    <a className="font-medium text-gray-300" href="">Password</a> 
+                                    <div className="text-gray-400 text-xs">
+                                    {file.password}
+                                    </div>
+                                </div>
+                            
+                            <div className="ml-auto">
+                                <Link  href={`${file.filepath}`}  className="w-full my-5 block bg-dark-navy-blue  text-white font-medium font-xs py-2 px-4 border-none rounded" target="_blank" rel="noopener noreferrer">
+                                    Download File
+                                </Link>
+                            </div>
+                </div>
+                {/* <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  " >
                     <div className="flex justify-start items-center w-full col-span-2 relative">
                         <AiFillFile className="text-blue-400" size={23}/><span className="ml-2 text-gray-400"> File : </span>
                     </div>
@@ -216,14 +353,10 @@ function QuizFileInfo({files}){
                          Download Challenge
                        
                      </Link>
-                     {/* <Link href="https://example.com" passHref>
-                        
-                    </Link> */}
-                     {/* <FileDownloadButton file={file} /> */}
-                 </div>
+                 </div> */}
             </div>
         ))}
-        </div>
+        
 
        
         
@@ -280,19 +413,52 @@ function getTotalSolvedQuestions(questions){
 }
 
 function QuizInfoList({questions , scenario}){
-    // let totalObtainedPoints = getTotalObtainedPoints(questions)
-    // let totalPoints = sumPoints(questions)
-    // let totalSolvedQuestions = getTotalSolvedQuestions(questions)
+    let totalObtainedPoints = getTotalObtainedPoints(questions)
+    let totalPoints = sumPoints(questions)
+    let totalSolvedQuestions = getTotalSolvedQuestions(questions)
     return (
         <>
-            <div className="p-4 grid  grid-cols-8 gap-4 place-items-center justify-center  ">
+        <div className="intro-y flex relative  pt-16 sm:pt-6 items-center">
+
+        <div className="absolute sm:relative -mt-12 sm:mt-0 w-full flex  text-gray-400 text-xs sm:text-sm">
+            
+            <div className="intro-x sm:mr-3 ">
+                <span className="font-medium text-gray-400  ">{"Team Points"} / {"Total"}</span>
+                 <br />
+                <span className="font-bold text-yellow-500 text-lg">{totalObtainedPoints} / {totalPoints}</span> 
+                <br />
+                
+            </div>
+            <div className="intro-x sm:mr-3 ml-auto">
+                <span className="font-medium text-gray-400  ">{"Solved Questions / Total"}</span>
+                
+                <br />
+                <span className="font-bold text-emerald-500 text-lg">
+                    {totalSolvedQuestions} / {questions?.length}
+                </span> 
+            </div>
+            <div className="intro-x sm:mr-3 ml-auto">Difficulty<br />
+                <span className={" text-sm " +  getDifficultyColor(capitalizeFirstLetter(scenario.difficulty)) } >
+                    {capitalizeFirstLetter(scenario.difficulty)}
+                </span> 
+            </div>
+            
+            <div className="intro-x sm:mr-3 ml-auto">OS<br />
+                <span className="text-sm  text-emerald-500 py-1 ">
+                    {scenario.os_type}
+                </span> 
+            </div>
+        </div>
+
+        </div>
+            { null &&  (<div className="p-4 grid  grid-cols-8 gap-4 place-items-center justify-center  ">
                 {/* <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <h3 className="text-gray-400">Points</h3>
                     <p className="text-orange-400 text-xl">{totalObtainedPoints}/{totalPoints}</p>
                 </div> */}
                 <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <h3 className="text-gray-400">Difficulty</h3>
-                    <p className={getDifficultyColor(capitalizeFirstLetter(scenario.difficulty))}>{capitalizeFirstLetter(scenario.difficulty)}</p>
+                    <p className={ "px-0  "   +   getDifficultyColor(capitalizeFirstLetter(scenario.difficulty)) }>{capitalizeFirstLetter(scenario.difficulty)}</p>
                 </div>
                 {/* <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <h3 className="text-gray-400">Solves</h3>
@@ -300,9 +466,9 @@ function QuizInfoList({questions , scenario}){
                 </div> */}
                 <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <h3 className="text-gray-400">OS</h3>
-                    <p className="text-rose-600 text-xl">{"Windows/Linux"}</p>
+                    <p className="text-rose-600  font-bold py-1 text-xl">{"Windows/Linux"}</p>
                 </div>
-            </div>
+            </div>)}
             {/* <hr className="my-1 h-1  opacity-100  border border-1 border-t-0 border-l-0 border-r-0 border-dashed bg-none" /> */}
         </>
         
@@ -323,13 +489,15 @@ function QuizTags({tags}){
     try {
         return (
             <>
+                <div className="mt-5">
                 {
                     convertStringToArray(tags)?.map((tag, index) => {
                         return (
-                            <span className="inline-block  rounded-full px-3   py-1 text-sm font-semibold bg-blue-800 text-indigo-100 mr-2 my-2" key={index}>{convertStringToTitleCase(tag)}</span>
+                            <span className="px-2 py-1 rounded-full bg-deep-blue text-white mr-1 font-sm " key={index}>{convertStringToTitleCase(tag)}</span>
                         )
                     })
                 }
+                </div>
             </>
         )
     } catch (error) {
@@ -341,12 +509,23 @@ function QuizTags({tags}){
 function ScenarioDescription({scenario}){
     return (
         <>
-            <div  className="block  p-6 theme-bg-color-2 rounded-lg shadow mb-5" data-aos="fade-down" data-aos-duration="1500" data-aos-delay="500">
+            { false &&  (<div  className="block  p-6 theme-bg-color-2 rounded-lg shadow mb-5" data-aos="fade-down" data-aos-duration="1500" data-aos-delay="500">
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-white">{scenario.name}</h5>
                 <p className="font-normal text-white mb-2 text-md">
                     {scenario.desc}    
                 </p>
-            </div>
+            </div>)}
+
+            <div className="rounded-md px-5 py-4 mb-2 bg-deep-blue text-white mb-5">
+                    <div className="flex items-center">
+                        <div className="font-medium text-lg">Scenario</div>
+                        <div className="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">{scenario.name}</div>
+                    </div>
+                    <div className="mt-3 text-base">
+                        {scenario.desc} 
+
+                    </div>
+                </div>
         </>
     )
 }
@@ -385,23 +564,24 @@ const SubmitBtn  = ({isSubmit , submitHandler}) => {
     return (
       <>
       {isSubmit ? 
-      <button disabled type="button" className="btn-flag-submit block w-full  text-gray-400 font-bold  rounded py-3">
+      <button disabled type="button" className="btn-flag-submit block w-full  text-gray-400 font-bold  rounded py-3 ">
   <svg aria-hidden="true" role="status" className="inline w-5 h-5 mr-3 text-gray-200 animate-spin " viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
   <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor"/>
   <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
   </svg>
 
-  </button> : <button className="btn-flag-submit block w-full  text-gray-400 font-bold  rounded py-3" onClick={submitHandler}>Submit</button> }
+  </button> : <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" onClick={submitHandler}>Submit</button> }
   </>
     )
   }
 
-function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, submittedAnswer}){
+function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, submittedAnswer , format}){
+    // console.debug(format)
     return (
         <>
             {sovled ? (
                 <>
-                    <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="flex flex-wrap -mx-3 mt-2">
                         <div className="w-full  px-3 h-full ">
                             {/* <p className=" block w-full btn-flag-submit text-gray-400   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none">
                                 {submittedAnswer}
@@ -416,9 +596,9 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
 
             ) : (
                 <>
-                    <div className="flex flex-wrap -mx-3 mb-6">
+                    <div className="flex flex-wrap -mx-3 mt-2">
                         <div className="w-full md:w-5/6 px-3 h-full">
-                            <input className=" block w-full btn-flag-submit text-gray-400   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none" id="grid-first-name" type="text" placeholder="Format: X, X, X ( In case of multiple values required , otherwise simple : ) X" style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
+                            <input className=" placeholder-gray-400 outline-0  border border-2 border-deep-indigo focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-2 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm" id="grid-first-name" type="text" placeholder={format} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
                         </div>
                         <div className="w-full md:w-1/6 px-3 h-full">
                             <SubmitBtn  isSubmit={isSubmit} submitHandler={submitHandler}/>
@@ -445,9 +625,31 @@ function delay(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+
+
+// function extractStrategyName(inputString) {
+//     const match = inputString.match(/Format: (.*)/);
+//     if (match && match[1]) {
+//         return match[1];
+//     } else {
+//         return null; // No match found
+//     }
+// }
+
+function extractLastStrategyName(inputString) {
+    const matches = inputString.match(/Format: ([^\)]*)/g);
+    if (matches && matches.length > 0) {
+        const lastMatch = matches[matches.length - 1];
+        return lastMatch.replace("Format: ", "");
+    } else {
+        return "* * * * * * "; // No match found
+    }
+}
+
+
   
 // single question component
-function Question({question, index, team , quiz, user , setQuestions , params}){
+function Question({question, index, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves}){
     const [sovled, setSolved] = useState(checkAnswerSubmissionStatus(question.answers))
     const [isSubmit, setIsSubmit] = useState(false)
     const answer = useRef("")
@@ -489,6 +691,8 @@ function Question({question, index, team , quiz, user , setQuestions , params}){
                                 const {...data_2 } = decrypt(res.data.encryptedData)
                                 if(data_2.status === true){
                                     setQuestions(data_2?.questions?.team?.quiz?.questions)
+                                    setTopUser(findUserWithMostAnswersAndPoints(data_2?.questions))
+                                    setRecentSolves(getUsersWithSubmissionTime(data_2?.questions?.team?.quiz?.questions))
                                 }
                                 else{
                                     toast.error(`${data_2.error}`)
@@ -535,12 +739,12 @@ function Question({question, index, team , quiz, user , setQuestions , params}){
 
     return (
         <>
-            <div className="my-2">
-                <h1 className="text-lg text-gray-400 mb-2">
-                    {`Question ${index} ) ${question.Description}`} <span className="italic text-sm">({question.points} points)</span>
-                </h1>
+            <div className="mt-6 text-lg text-gray-300">
+                <label>
+                    {`Question ${index} ) ${question.Description}`} <span className="text-xs text-gray-500 ml-2 italic">({question.points} points)</span>
+                </label>
                 {
-                    <AnswerInputWidget submitHandler={submitHandler} changeHandler={changeHandler}  sovled={sovled}  isSubmit={isSubmit} setIsSubmit={setIsSubmit}  submittedAnswer={submitAnswer} />
+                    <AnswerInputWidget submitHandler={submitHandler} changeHandler={changeHandler}  sovled={sovled}  isSubmit={isSubmit} setIsSubmit={setIsSubmit}  submittedAnswer={submitAnswer}  format={extractLastStrategyName(question.Description)} />
                 }
                 
             </div>
@@ -549,14 +753,14 @@ function Question({question, index, team , quiz, user , setQuestions , params}){
 }
 
 
-function QuestionList({questions, team , quiz, user , setQuestions , params}){
+function QuestionList({questions, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves}){
     return (
         <>
-            <div  className="block  p-6 bg-card-custom rounded-lg shadow " data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
-                <h5 className="mb-4 text-3xl font-bold tracking-tight text-gray-300 ">{"Challenge Submission"}</h5>
+            <div  className="  p-5 bg-deep-blue-violet rounded-lg shadow " data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
+                <h2 className="text-xl font-medium mr-auto text-gray-300">{"Challenge Submission"}</h2>
                 {
                     questions&&  questions.map((question, index) => {    
-                        return ( <Question key={index} question={question} team={team}  index={index+1} quiz={quiz} user={user}  setQuestions={setQuestions} params={params} /> )
+                        return ( <Question key={index} question={question} setTopUser={setTopUser} team={team}  index={index+1} quiz={quiz} user={user}  setQuestions={setQuestions} params={params} setRecentSolves={setRecentSolves} /> )
                     })
                 }
             </div>
@@ -608,10 +812,10 @@ function ChallengePerformance({   questions}){
                     {/* solved questions/total questions */}
                     <p className="text-gray-400">{totalSolvedQuestions} / {questions?.length} Questions</p>
                 </div>
-                {/* <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4 dark:bg-gray-700">
-                    <div className="bg-blue-600 h-2.5 rounded-full dark:bg-blue-500" style={{width: "45%"}}></div>
+                {/* <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4  bg-gray-700">
+                    <div className="bg-blue-600 h-2.5 rounded-full  bg-blue-500" style={{width: "45%"}}></div>
                 </div> */}
-                {/* <div className="w-full bg-gray-200 rounded-full dark:bg-gray-700">
+                {/* <div className="w-full bg-gray-200 rounded-full  bg-gray-700">
                     <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{width: "0"}}> 45%</div>
                 </div> */}
                 <ProgressBarWithLabel percentage={calculatePercentage(totalSolvedQuestions,questions?.length)} label={`${calculatePercentage(totalSolvedQuestions,questions?.length)}%`} />
@@ -622,29 +826,191 @@ function ChallengePerformance({   questions}){
 }
 
 
-function Details({scenario , questions}){
+function BestTeamMember({top_user ,team_name}){
+    // console.debug(team_name)
+    
     return (
         <>
-            <div  className="block  p-6 bg-card-custom rounded-lg shadow ">
-                <h5 className="mb-2 text-3xl font-bold tracking-tight text-gray-300">{scenario.name}</h5>
-                <p className="font-normal text-gray-400 mb-2 text-md">
-                    {scenario.desc}    
-                </p>
-                <QuizTags tags={scenario.tags}/>
-                <QuizInfoList questions={questions}  scenario={scenario}/>
-            </div>
-            <ChallengePerformance  questions={questions}   />
-            {scenario?.files?.length ? ( <QuizFileInfo  files={scenario?.files}/> ) : null }
+            <div className="w-full border-t  border-dark-5 border-dashed mt-5"></div>
+            <div className="flex justify-between  items-center">
+                        <div className="w-1/2 mt-3">
+                            <div className="intro-x flex items-center h-10">
+                                <h2 className="text-base font-bold truncate mr-5 text-red-700 flex  justify-start items-center">
+                                    <FaTint  />
+                                    Top User
+                                </h2>
+                            </div>
+                            { parseInt(top_user.mostPoints.points) !== 0 ? (
+                                <>
+                                    <div className="mt-1">
+                                        <a href="#!">
+                                            <div className="intro-x">
+                                                <div className=" mb-3 flex items-center zoom-in">
+                                                    <div className="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
+                                                        <Image  width={"50"} height={"50"} alt="LonerVamp" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
+                                                    </div>
+                                                    <div className="ml-4  ">
+                                                        <div className="font-medium text-gray-300 uppercase">{top_user.mostPoints.user}</div>
+                                                    </div>
+                                                    <div className="text-green-500 text-lg font-bold  ml-4">{top_user.mostPoints.points + " Pts"}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="mt-1">
+                                    <a href="#!">
+                                        <div className="intro-x">
+                                            <div className=" mb-3 flex items-center zoom-in">
+                                                <div className="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
+                                                    <Image  width={"50"} height={"50"} alt="LonerVamp" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
+                                                </div>
+                                                <div className="ml-4  ">
+                                                    <div className="font-medium text-gray-300 uppercase">{"No User"}</div>
+                                                </div>
+                                                {/* <div className="text-green-500 text-lg font-bold  ml-4">{top_user.mostPoints.points + " Pts"}</div> */}
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            )}
+                            
+                        </div>
+
+                        <div className="w-1/2 mt-3 ml-10 ">
+                            <div className="intro-x flex items-center justify-start h-10">
+                                <h2 className="text-base font-medium truncate mr-5 text-amber-400  flex items-center justify-start">
+                                    <FaCloud className="mr-2"/>
+                                    Team
+                                </h2>
+                            </div>
+
+                            
+                            <div className="mt-1 ">
+                                <a href="#!">
+                                    <div className="intro-x">
+                                        <div className=" mb-3 flex items-center zoom-in">
+                                            <div className="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
+                                                <Image  width={"50"} height={"50"} alt="BTLO" src="/assets/img/bWwHTdsIEC1mQFPmnXnZ.png" />
+                                            </div>
+                                            <div className="ml-4 ">
+                                                {/* <div className="font-medium text-gray-300">{"Current Team Name"}</div> */}
+                                            </div>
+                                            <div className="text-gray-300 text-lg font-bold">{team_name}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
         </>
     )
 }
 
+import { formatDistanceToNow , parseISO  } from 'date-fns'
+
+
+
+function RecentSolves({questions , recentSolves}){
+    // console.debug(getUsersWithSubmissionTime(questions))
+    // console.debug(formatDistanceToNow(questions[0].time, { addSuffix: true }))
+    // console.debug(parseISO(questions[0].time) , questions[0])
+    // const [recentSolves, setRecentSolves] = useState([])
+    // useEffect(() => {
+    //     // let testing = getUsersWithSubmissionTime(questions)
+    //     // console.debug(testing[0].time, parseISO(testing[0].time) , formatDistanceToNow(parseISO(testing[0].time), { addSuffix: true }))
+    //     setRecentSolves(getUsersWithSubmissionTime(questions))
+    // }, [])
+    return (
+        <>
+            <div className="w-full border-t border-dark-5 border-dashed mt-5"></div>
+            <div className="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3 text-gray-300">
+                        <div className="intro-x flex items-center h-10">
+                            <h2 className="text-base font-medium truncate mr-5 ">
+                                Recent Solves
+                            </h2>
+                        </div>
+                        {recentSolves.length !== 0 ? (
+                            <>
+                                <div className="report-timeline mt-2 relative">
+                                {recentSolves.map((solve, index) => (
+                                    <>
+                                        <a href="#!" key={index}>
+                                            <div className="intro-x relative flex items-center mb-3">
+                                                <div className="report-timeline__image">
+                                                    <div className="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
+                                                        <Image  width={"50"}  height={"50"} alt="Ramiz Rzayev" src="/assets/img/download.png" />
+                                                    </div>
+                                                </div>
+                                                <div className="box px-5 py-3 ml-4 flex-1 zoom-in">
+                                                    <div className="flex items-center">
+                                                        <div className="font-medium uppercase">{solve.user}</div>
+                                                        <div className="text-sm text-gray-500 ml-auto">{formatDistanceToNow(parseISO(solve.time))}</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </>
+                                ))}
+
+                                    
+                        </div>
+                            </>
+                        ) : (null)}
+                        
+                    </div>
+        </>
+    )
+}
+
+
+function Details({scenario , questions , top_user , team_name , recentSolves}){
+    // console.debug(scenario)
+    return (
+        <>
+            <div  className="block  p-6 bg-deep-blue-violet rounded-lg shadow ">
+                <h5 className="block font-medium text-3xl text-blue-600">{scenario.name}</h5>
+                <p className=" text-gray-300 mt-2 text-lg">
+                    {scenario.desc}    
+                </p>
+                <QuizTags tags={scenario.tags}/>
+                <QuizInfoList questions={questions}  scenario={scenario}/>
+                {scenario?.files?.length ? ( <QuizFileInfo  files={scenario?.files}/> ) : null }
+                <BestTeamMember top_user={top_user} team_name={team_name}  />
+                <RecentSolves  questions={questions} recentSolves={recentSolves}/>
+            </div>
+            {/* <ChallengePerformance  questions={questions}   /> */}
+        </>
+    )
+}
+
+
+function ReportIssue(){
+    return (
+        <>
+            <div  className="rounded-md px-3 py-2 mb-2 bg-amber-700 text-white mb-5 cursor-pointer">
+                <div className="flex items-center">
+                    <div className="font-medium text-base mr-5">
+                        <i className="fas fa-exclamation-triangle mr-2 "></i>
+                        Found an issue with this challenge? Click here to report it!
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+}
 
 function QuizLoad({params, userID}){  
     const [questions, setQuestions] = useState(null)
     const [scenario, setScenario] = useState(null)
     const [team, setTeam] = useState(null)
     const [quiz, setQuiz] = useState(null)
+    const [topUser, setTopUser] = useState(null)
+    const [teamName, setTeamName] = useState(null)
+    const [recentSolves, setRecentSolves] = useState([])
+    
     useEffect(() => {
         AOS.init();
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userID}/scenario/${params.slug}`)
@@ -655,7 +1021,12 @@ function QuizLoad({params, userID}){
                 if(data?.questions?.team?.quiz?.questions.length){
                     setScenario(data?.questions?.team?.quiz?.questions[0]?.scenario)
                     setTeam(data?.questions?.team?.id)
+                    setTeamName(data?.questions?.team?.name)
                     setQuiz(data?.questions?.team?.quiz?.id)
+                    setTopUser(findUserWithMostAnswersAndPoints(data?.questions))
+                    // console.debug(getUsersWithSubmissionTime(data?.questions?.team?.quiz?.questions))
+                    setRecentSolves(getUsersWithSubmissionTime(data?.questions?.team?.quiz?.questions))
+                    
                 }
             }
             else{
@@ -670,13 +1041,14 @@ function QuizLoad({params, userID}){
     return (
         <>
         {questions && (
-                <div className="p-4 grid  grid-cols-6 gap-4 items-start justify-center" >
+                <div className="p-2 grid  grid-cols-6 gap-4 items-start justify-center" >
                     <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="700" data-aos-delay="500">
-                        {scenario && <Details scenario={scenario} questions={questions}  /> } 
+                        {scenario && <Details scenario={scenario} questions={questions} top_user={topUser}  team_name={teamName} recentSolves={recentSolves} /> } 
                     </div>
                     <div className="w-full col-span-4 relative   p-0  rounded-0">
                         {scenario &&  <ScenarioDescription scenario={scenario} /> } 
-                        <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} params={params} />
+                        {scenario && <ReportIssue />}
+                        <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} setTopUser={setTopUser} params={params} setRecentSolves={setRecentSolves} />
                     </div>
                 </div>
         )}

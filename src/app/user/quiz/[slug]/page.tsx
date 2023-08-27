@@ -8,9 +8,7 @@ export default async function Page({ params }: { params: { slug: string } }){
     return (
         <>
             <CustomToaster />
-            <div className="mx-10 p-3 bg-midnight-blue rounded-3xl mb-10">
-                <QuizDetails params={params}  />
-            </div>
+            <QuizDetails params={params}  />
         </>
     )
 }

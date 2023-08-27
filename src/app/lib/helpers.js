@@ -248,13 +248,13 @@ export function arrayToString(array){
 export function getDifficultyColor(difficulty){
     // console.debug(difficulty)
     if(difficulty === "Easy"){
-        return "px-1 py-1 text-md font-semibold bg-none text-green-400"
+        return " py-1 text-base font-bold bg-none text-green-600"
     } else if(difficulty === "Medium"){
-        return " px-1 py-1 text-md font-semibold bg-none text-orange-400"
+        return "  py-1 text-base font-bold bg-none text-hot-cinnamon"
     } else if(difficulty === "Hard"){
-        return " px-1 py-1 text-md font-semibold bg-none text-red-400"
+        return "  py-1 text-base font-bold bg-none text-valencia-red"
     } else {
-        return " px-1 py-1 text-md font-semibold bg-none text-gray-400"
+        return "  py-1 text-base font-bold bg-none text-gray-400"
     }
 }
 

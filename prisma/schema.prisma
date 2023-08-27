@@ -69,6 +69,7 @@ model Scenario{
   difficulty String @default("Easy")
   tags String @default("")
   files File[]
+  os_type String? @default("Linux")
 }
 
 

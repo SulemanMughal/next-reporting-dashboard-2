@@ -30,8 +30,14 @@ import UserProgressChart from "./UserProgressChart"
 import { FaUserLarge } from "react-icons/fa6"
 import { FaServer } from "react-icons/fa6"
 import Image from "next/image"
-import { FaMedal } from "react-icons/fa6"
-// import { FaUser } from "react-icons/fa6"
+import { FaMedal  } from "react-icons/fa6"
+import { FaExternalLinkAlt } from "react-icons/fa"
+
+import LabTimeChart from "./LabTimeChart"
+import InvestigationChart from "./InvestigationChart"
+import ChallengesChart from "./ChallengesChart"
+
+// import styles from "./Dashboard.module.css"
 
 
 function countSubmitAnswers(data){
@@ -476,10 +482,10 @@ function CareerBox(){
     )
 }
 
-function PlatformIntrodduction(){
+function PlatformIntroduction(){
     return (
         <>
-            <div className="w-full col-span-7  bg-card-custom  rounded-lg shadow   p-6 mt-10 " data-aos="fade-down" data-aos-duration="500" data-aos-delay="800">
+            <div className="w-full col-span-7 bg-deep-blue-violet  rounded-lg shadow   p-6 mt-10 " data-aos="fade-down" data-aos-duration="500" data-aos-delay="800">
                         <div className="flex justify-between">
                             <div className="w-9/12">
                                 <h1 className="text-2xl mb-3">
@@ -507,27 +513,27 @@ function PlatformIntrodduction(){
                                         View Investigations
                                     </button>
                                 </div> */}
-                                <div class="col-span-12 md:col-span-3 rounded-md px-5 mb-auto mt-auto py-4 bg-theme-3 text-white">
-                                    <div class="items-center">
+                                <div className="col-span-12 md:col-span-3 rounded-md px-5 mb-auto mt-auto py-4 bg-theme-3 text-white">
+                                    <div className="items-center">
                                        
                                         {/* <a href="#!">
-                                            <button class="button xl:mt-auto mr-1 mb-2 bg-blue-600 text-white sm:w-full"> View Investigations <i class="fa fa-user-secret text-base text-white"></i></button>
+                                            <button className="button xl:mt-auto mr-1 mb-2 bg-blue-600 text-white sm:w-full"> View Investigations <i className="fa fa-user-secret text-base text-white"></i></button>
                                         </a> */}
                                         <a href="#!">
-                                            <button class=" bg-purple-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Challenges 
+                                            <button className=" bg-purple-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Challenges 
                                             <FaServer className="text-base text-white ml-3"  /></button>
                                         </a>
                                         <a href="#!">
-                                            <button class=" bg-yellow-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Your Profile <FaUser className="text-base text-white ml-3" /></button>
+                                            <button className=" bg-yellow-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Your Profile <FaUser className="text-base text-white ml-3" /></button>
                                         </a>
                                         <a href="#!">
-                                            <button class=" bg-yellow-700 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Highlight Badges &amp; Titles  <FaMedal  className="text-base text-white ml-3" /> </button>
+                                            <button className=" bg-yellow-700 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Highlight Badges &amp; Titles  <FaMedal  className="text-base text-white ml-3" /> </button>
                                         </a>
                                         <a href="#!">
-                                            <button class=" bg-green-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Redeem Code <FaMedal  className="text-base text-white ml-3" /></button>
+                                            <button className=" bg-green-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Redeem Code <FaMedal  className="text-base text-white ml-3" /></button>
                                         </a>
                                         <a href="#!">
-                                            <button class=" bg-red-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Help / FAQ <FaMedal  className="text-base text-white ml-3" /></button>
+                                            <button className=" bg-red-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Help / FAQ <FaMedal  className="text-base text-white ml-3" /></button>
                                         </a>
                                     </div>
                                 </div>
@@ -537,6 +543,148 @@ function PlatformIntrodduction(){
         </>
     )
 }
+
+
+function TeamRow(){
+    return (
+        <div className={"intro-y rounded text-gray-300  zoom-in" } style={{backgroundColor : "#3151bc"}} >
+                
+                <div className="px-4 py-4 mb-3 flex items-center  cursor-default rounded ">
+                    
+                        <div className="w-10 h-10 flex-none relative rounded-md overflow-hidden">
+                            <Image style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100 h-100 object-cover absolute w-100" src="/assets/img/6qTxel0AUuRfjCLGU22340QeWSUNNnI2td9BcGOs.png"  alt="Your Image"  layout="fill"
+        objectFit="cover"
+        objectPosition="center" />
+                        </div>
+                        <div className="ml-4 mr-auto">
+                            <div className="font-medium">
+                                <a className="flex items-center" href="#!">
+                                    jaalma
+                                </a>
+                            </div>
+                            <div className="font-base"><i>Peak</i></div>
+                            
+                        </div>
+                   
+                    <div className="py-1 px-2 rounded-full text-xs text-white bg-deep-indigo cursor-default font-medium">17 likes</div>
+                    <button linkurl="#!" className="view-writeup ml-2">
+                        <div className="p-2 rounded-full text-xs text-white bg-deep-indigo cursor-pointer font-medium">
+                            <FaExternalLinkAlt />
+                        </div>
+                    </button>
+                </div>
+          
+            </div>
+    )
+}
+
+
+
+function TopTeamsBlock(){
+    return (
+        <>
+            <div className="p-5 bg-deep-blue-violet rounded-lg">
+        <div className="intro-y flex items-center h-10">
+            <h2 className="text-lg font-medium truncate mr-5 text-gray-300" >
+                Highest Rated Write-ups <i className="text-xs">(rewards assigned daily)</i>
+            </h2>
+            
+        </div>
+        <div className="mt-5">
+                        
+            <TeamRow />
+            <TeamRow />
+            <TeamRow />
+            <TeamRow />
+            
+        </div>
+    </div>
+        </>
+    )
+}
+
+
+
+function PublicDemo(){
+    return (
+        <>
+        <div className="p-5 bg-deep-blue-violet rounded-lg mt-5 text-white">
+        <h2 className="font-medium text-xl ">
+                                   Public BTL1 Demo Course
+                                </h2>
+                                <div className="mt-2">
+                                    <p className="text-sm">Get hands-on with the content of BTL1 without
+                                        paying a penny. See if it's the right move for your career today!</p>
+                                </div>
+                                <div className="intro-y mt-6 mb-6">
+                                    <div className="news__preview image-stretch">
+                                        <Image alt="BTL1 " className="rounded-md" src="/assets/img/btl1_ad.png"   width={500} height={500}  />
+                                    </div>
+                                </div>
+                               
+                                <a href="#!" target="_BLANK">
+                                    <button className="bg-blue-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3"> Access Demo Now!</button>
+                                </a>
+        </div>
+            
+        </>
+    )
+}
+
+function NewsBlock(){
+    return (
+        <>
+            <div id="chimeraPanel" className="grid grid-cols-12 bg-deep-blue-violet rounded-lg mt-4">
+
+<div className="col-span-12 md:col-span-3 rounded-md px-5 mb-auto mt-auto py-4 bg-theme-3 text-white">
+    <div className="items-center">
+       
+        <div className="news__preview image-stretch">
+            <Image alt="Operation Chimera" className="rounded-md" src="/assets/img/OPChimera.png" width={500} height={500} />
+        </div>
+
+    </div>
+</div>
+
+<div className="col-span-12 md:col-span-7 rounded-md px-5 py-4 bg-theme-3 text-white">
+    <div className="flex items-center">
+        <div className="font-medium text-2xl">Operation Chimera - Coming <span  className="text-cerulean-blue">2023</span> !</div>
+    </div>
+    <div className="mt-3 text-base">
+        {
+            (<div>
+                Op Chimera is a <b>2-week</b> long event within the BTLO platform where players will work in teams or by themselves to complete a number of labs and challenges all taken from the same compromise, piecing together the actions the adversaries took by analysing logs, network traffic, security tooling, and performing incident response.
+                <br /><br />
+                <b>PRO</b> players can purchase an <b>'Operation Pass'</b> to gain access to the live event, and be eligible for physical rewards including the <b>one-time-only metal challenge coin</b>, and digital rewards including the <b>BTLO Op Chimera badge</b>, which will be displayed in a unique location on your profile. There will be a new scoreboard for both individuals and teams during the event.
+                <br /><br />
+                After the event has ended, all related content will be retired and can be accessed by <b>PRO players for no additional fee</b>.
+              </div>)
+        }
+    </div>
+</div>
+
+
+<div className="col-span-12 md:col-span-2 rounded-md px-5 mb-auto mt-auto py-4 bg-theme-3 text-white">
+    <div className="items-center">
+       
+        <p className="text-center"><b>Register your interest</b></p>
+        <br />
+
+                                                   
+            <button id="registerforchimera" className="bg-blue-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3"> Register Interest </button>
+        
+                                                
+    </div>
+</div>
+
+
+</div>
+        </>
+    )
+}
+
+
+
 
 function TopStatisticsData({userId , userName}){
     // console.debug(userName)
@@ -614,12 +762,21 @@ function TopStatisticsData({userId , userName}){
                     <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]}  />
                     <TeamPosition  team_position={team_position} total_teams={total_teams} />
                 </div>
-                <PlatformIntrodduction />
+                <PlatformIntroduction />
+                <NewsBlock />
+                <div className="grid grid-cols-12 gap-4 rounded-lg mt-4">
+                    <LabTimeChart />
+                    <InvestigationChart />
+                    <ChallengesChart />
+
+                </div>
             </div>
             <div className="w-full col-span-2">
                 <Discord />
                 <CareerBox />
-
+                <TopTeamsBlock />
+                <PublicDemo />
+                
             </div>
         </div>
             

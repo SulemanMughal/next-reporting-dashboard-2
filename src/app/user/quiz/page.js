@@ -6,6 +6,7 @@ import {  useSession } from "next-auth/react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import Image from 'next/image'
 
 
 import decrypt from "@/app/lib/decrypt"
@@ -43,13 +44,13 @@ const SearchInput = () => {
         <input
           type="text"
           placeholder="Search by name"
-          className="placeholder-gray-400 outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-500    text-white    w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-midnight-blue  rounded-md"
+          className="placeholder-columbia-blue outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-900    text-white    w-full  pl-2 py-2 mt-2 mr-0 mb-0 ml-0 text-base block bg-deep-indigo  rounded-md"
         />
         <button
           type="button"
-          className="absolute top-0 right-0 px-3 pt-5 text-gray-500 hover:text-blue-500"
+          className="w-4 h-4 absolute inset-y-0 mt-auto mb-auto mr-3 right-0 text-white"
         >
-            <BsSearch className="h-6 w-6 " />
+            <BsSearch className="h-4 w-4 " />
         </button>
       </div>
     );
@@ -60,11 +61,12 @@ const SearchInput = () => {
 const SelectField = ({ options, onChange }) => {
     return (
       <>
-      <label className="text-lg text-gray-400 block py-2">
+      <label className="text-sm text-gray-300 block p-0 mt-5">
         {"Sort By"}
       </label>
+      <div className="relative mt-2">
       <select
-        className="placeholder-gray-400 outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-500    text-white    w-full pt-4 pr-4 pb-4 pl-4 mt-2 mr-0 mb-0 ml-0 text-base block bg-midnight-blue  rounded-md"
+        className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-gray-400    w-full p-3 pl-4 pr-8   m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm"
         onChange={onChange}
       >
         {options.map((option) => (
@@ -73,6 +75,12 @@ const SelectField = ({ options, onChange }) => {
           </option>
         ))}
       </select>
+      <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+          <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+      </div>
+      </div>
       </>
     );
   };
@@ -86,14 +94,14 @@ const SelectField = ({ options, onChange }) => {
     };
   
     return (
-      <div className="py-3 text-gray-400">
+      <div className="py-3 text-gray-300 text-sm">
         <label className="">
             {text}
         </label>
         <div className="flex pt-2 flex-wrap">
         {options.map((option) => (
            
-          <label key={option.value} className="flex items-center mr-3">
+          <label key={option.value} className="flex items-center mr-3 text-sm">
             <input
               type="checkbox"
               value={option.value}
@@ -108,12 +116,43 @@ const SelectField = ({ options, onChange }) => {
       </div>
     );
   };
+
+
+  function DifficultyLevelCheckBox(){
+    const [selectedOption, setSelectedOption] = useState('');
+  
+    const handleCheckboxChange = (value) => {
+      setSelectedOption(value);
+    };
+    return (
+      <>
+        <div className="py-3 text-gray-300">
+                    <label className=" text-sm" >Difficulties</label>
+                    <div className="flex flex-col sm:flex-row mt-2">
+                        <label className="flex items-center text-white rounded mr-2 mt-2 sm:mt-0 bg-green-600 p-1 cursor-pointer select-none font-bold pr-2">
+                            <input type="radio"  value="easy" className="input border rounded-full mr-2 appearance-none" checked={selectedOption === "easy"}  onChange={() => handleCheckboxChange("easy")}/>
+                            Easy
+                        </label>
+                        <label className="flex items-center text-black rounded mr-2 mt-2 sm:mt-0 bg-hot-cinnamon p-1 cursor-pointer select-none font-bold pr-2">
+                            <input type="radio" className="input border rounded-full mr-2 appearance-none"  value="medium" checked={selectedOption === "medium"} onChange={() => handleCheckboxChange("medium")} />
+                            Medium
+                        </label>
+                        <label className="flex items-center text-black rounded mr-2 mt-2 sm:mt-0 bg-valencia-red p-1 cursor-pointer select-none font-bold pr-2">
+                            <input type="radio" className="input border rounded-full mr-2 appearance-none"  value="hard" checked={selectedOption === "hard"} onChange={() => handleCheckboxChange("hard")} />
+                            Hard
+                        </label>
+                    </div>
+                </div>
+      </>
+    )
+  }
+
   
   
   const ResetFilterBtn = () => {
     return (
         <>
-            <button className="theme-btn-bg-color  text-gray-300 my-2 py-2 px-4 rounded">
+            <button className="bg-deep-blue w-32 h-full text-white mr-5 text-sm  text-gray-300 my-2 py-2 px-4 rounded">
               Reset Filters
             </button>
 
@@ -121,6 +160,27 @@ const SelectField = ({ options, onChange }) => {
     )
   }
   
+
+
+  function UserChallengeProgress(){
+    return (
+      <>
+        <div className="text-lg w-full mr-5 text-gray-300">
+
+                    
+1 Challenges left to unlock <b style={{"color": "#2ecc71"}}>
+    Challenger I
+</b>
+
+<div className="w-full h-9 mt-2 bg-deep-indigo rounded">
+    <div style={{"width": "0%"}} className="h-full bg-theme-4 rounded text-center text-white">0%</div>
+</div>
+
+</div>
+<Image  width={"90"}  height={"90"} alt="image" className="rounded-full w-20 ml-3 ml-auto" src="/assets/img/bWwHTdsIEC1mQFPmnXnZ.png" />
+      </>
+    )
+  }
   
 
 const FiltersBtn = () => {
@@ -170,11 +230,15 @@ const FiltersBtn = () => {
     
     return (
         <>
-            <div  className="block  p-6 bg-card-custom  rounded-lg shadow ">
+        <div className="intro-y col-span-12 md:col-span-3 flex flex-wrap sm:flex-nowrap items-center pl-5 pr-5 pb-5 pt-5 mb-5 bg-deep-blue-violet ">
+          <UserChallengeProgress />
+        </div>
+            <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow ">
                     <SearchInput /> 
                     <SelectField options={options} onChange={handleSelectChange} />
                     <CheckboxGroup text={"Status"} options={options_2} />
-                    <CheckboxGroup text={"Difficulties"} options={options_3} />
+                    <DifficultyLevelCheckBox />
+                    {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
                     <CheckboxGroup text={"Categories"} options={options_4} />
                     <ResetFilterBtn />
                 </div>
@@ -239,26 +303,28 @@ import { AiFillEye } from "react-icons/ai"
 
 
 function QuizList({scenarios}){
+  // console.debug(scenarios)
 
     return (
         <>
             {   scenarios?.length ? [...Array(scenarios?.[0].length)].map((item, index) => (
                     <div className="component component-CerCheckBox" key={index}>
-                        <div className="w-full col-span-3 relative  pb-3 px-3 pt-0   rounded-lg   flex flex-col " key={index}>
-                            <div className="   bg-card-custom  rounded-lg shadow   ">
+                        <div className="w-full col-span-3 relative      rounded-lg   flex flex-col " key={index}>
+                            <div className="   bg-deep-blue-violet  rounded-lg shadow   ">
                                 <div className="p-5">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h5 className=" text-2xl font-bold tracking-tight whitespace-normal text-gray-300 ">{scenarios[1][index]}</h5>
+                                    <h5 className=" font-medium text-base tracking-tight whitespace-normal text-gray-300  text-center mb-1">{scenarios[1][index]}</h5>
+                                    <div className="text-gray-400 text-xs truncate text-center">
+                                        {scenarios[4][index]}
                                     </div>
-                                    <ExpandableText initialText={scenarios[4][index]}  maxLength={150} />
+                                    {/* <ExpandableText initialText={scenarios[4][index]}  maxLength={150} /> */}
                                     <div className=" pt-4 pb-2 text-center">
                                         <span className={getDifficultyColor(scenarios[7][index])}>{ scenarios[7][index] }</span>
-                                        <span className="px-1 py-1 text-md font-semibold bg-none text-blue-400 ">{ scenarios[3][index] }</span>
-                                        <span className="px-1 py-1 text-md font-semibold bg-none text-yellow-400 ">{ scenarios[5][index] +  " Points"}</span>
+                                        <span className="px-1 py-1 text-base font-bold bg-none text-blue-400 ">{ scenarios[3][index] }</span>
+                                        <span className="px-1 py-1 text-base font-bold bg-none text-yellow-400 ">{ scenarios[5][index] +  " Points"}</span>
                                     </div>
                                 </div>
                                 <div className=" pt-0 pb-4 flex justify-center">
-                                    <Link href={`/user/quiz/${scenarios[0][index]}`}  className="transition ease-in-out delay-150 hover:-translate-y-1    hover:bg-blue-300 hover:text-blue-800 cursor-pointer duration-300    btn-flag-submit text-gray-400  flex items-center   sm:text-sm  sm:w-8/12   2xl:w-7/12  h-full rounded-md px-4 py-2    font-semibold   mb-2 justify-center items-center  ">
+                                    <Link href={`/user/quiz/${scenarios[0][index]}`}  className=" cursor-pointer     bg-dark-navy-blue  flex justify-center items-center   text-white text-base    h-full rounded-md px-2 py-1       ">
                                         <span>{"Start Challenge" } </span> 
                                     </Link>
                                 </div>
@@ -300,18 +366,16 @@ export default function Page() {
     return (
         <>
             <CustomToaster />
-            <div className="mx-10 p-3 bg-midnight-blue rounded-3xl ">
-                <div className="p-4 grid  auto-rows-fr  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+            <div className="p-4 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                     <div className="w-full col-span-1 relative  p-0 border-none rounded-lg "  >
                         <FiltersBtn />
                     </div>
                     <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "  >
-                        <div className="grid    auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+                        <div className="grid   gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
                             {scenarios &&  <QuizList scenarios={scenarios} /> }
                         </div>
                     </div>
                 </div>
-            </div>
         </>
     )
 }

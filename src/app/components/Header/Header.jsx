@@ -41,7 +41,7 @@ export default function Header(){
   {
     session?.user ? (
       <>
-          <nav className={   "  sticky top-0 z-20  "  } style={{"borderBottom": "1px solid #1b1e3b"}} >
+          <nav  style={{"borderBottom": "1px solid #1b1e3b"}} >
               <div className="flex flex-wrap justify-between items-center  w-full px-10 py-2">
                 <Link href="/" className="flex items-center">
                   <Image

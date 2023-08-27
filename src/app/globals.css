@@ -694,3 +694,100 @@ input[type="checkbox"]:not(input[role="switch"]):not(input[role="terms"]):checke
 
 
 
+
+
+.zoom-in:hover {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  --tw-shadow: 0 20px 25px -5px rgba(0,0,0,0.1),0 10px 10px -5px rgba(0,0,0,0.04);
+  box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+}
+.zoom-in {
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  cursor: pointer;
+  transform: translateX(var(--tw-translate-x)) translateY(var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transition-duration: .15s;
+  transition-duration: .3s;
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,-webkit-backdrop-filter;
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter;
+  transition-property: background-color,border-color,color,fill,stroke,opacity,box-shadow,transform,filter,backdrop-filter,-webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+
+input[type=radio] {
+  padding: 0!important;
+  background-color: rgba(7,9,44,1) !important;
+  cursor: pointer;
+  height: 16px;
+  overflow: hidden;
+  position: relative;
+  width: 16px
+}
+
+
+
+input[type=radio]:before {
+  background-color: rgba(7,9,44,1) !important;
+  border-radius: 9999px  !important;
+  bottom: 0;
+  content: "";
+  height: 10px;
+  left: 0;
+  margin: auto;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transition: all .2s ease-in-out;
+  width: 10px
+}
+
+
+input[type=radio]:checked {
+  border-color: #07092c;
+}
+
+input[type=radio]:checked:before {
+  opacity: 1;
+  background-color: #35c2f1  !important;
+}
+
+.report-timeline .report-timeline__image:before, .report-timeline:before {
+  background-color: rgba(222,231,239,1);
+  content: "";
+  margin-left: 1.25rem;
+  margin-top: 1.25rem;
+  position: absolute;
+}
+
+.report-timeline:before {
+  height: 70%;
+  width: 1px;
+}
+
+
+.report-timeline .report-timeline__image:before, .report-timeline:before {
+  background-color: rgba(63,72,101,1);
+}
+
+.report-timeline .report-timeline__image:before {
+  height: 1px;
+  width: 2rem;
+}
+
+.report-timeline .report-timeline__image:before, .report-timeline:before {
+  content: "";
+  margin-left: 1.25rem;
+  margin-top: 1.25rem;
+  position: absolute;
+}
+
+.image-fit {
+  position: relative;
+}

@@ -39,6 +39,12 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                     team : {
                         select : {
                             id : true,
+                            name : true,
+                            users : {
+                                select : { 
+                                    name : true,
+                                }
+                            },
                             quiz : {
                                 select : {
                                     id : true,
@@ -56,7 +62,13 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                                                 select :{
                                                     submissionStatus : true,
                                                     submitAnswer : true,
-                                                    obtainedPoints : true
+                                                    obtainedPoints : true,
+                                                    submittedAt : true,
+                                                    user : {
+                                                        select : { 
+                                                            name : true,
+                                                        }
+                                                    }
                                                 }
                                             },
                                             title : true, 
@@ -72,7 +84,8 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                                                     category : true,
                                                     difficulty : true,
                                                     tags : true,
-                                                    files : true
+                                                    files : true,
+                                                    os_type : true,
                                                     
                                                 }
                                             }
