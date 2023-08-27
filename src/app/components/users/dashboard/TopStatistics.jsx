@@ -613,8 +613,7 @@ function PublicDemo(){
                                    Public BTL1 Demo Course
                                 </h2>
                                 <div className="mt-2">
-                                    <p className="text-sm">Get hands-on with the content of BTL1 without
-                                        paying a penny. See if it's the right move for your career today!</p>
+                                    <p className="text-sm">{"Get hands-on with the content of BTL1 without paying a penny. See if it's the right move for your career today!"}</p>
                                 </div>
                                 <div className="intro-y mt-6 mb-6">
                                     <div className="news__preview image-stretch">
@@ -653,11 +652,11 @@ function NewsBlock(){
     <div className="mt-3 text-base">
         {
             (<div>
-                Op Chimera is a <b>2-week</b> long event within the BTLO platform where players will work in teams or by themselves to complete a number of labs and challenges all taken from the same compromise, piecing together the actions the adversaries took by analysing logs, network traffic, security tooling, and performing incident response.
+                {"Op Chimera is a "}<b>{"2-week"}</b> {"long event within the BTLO platform where players will work in teams or by themselves to complete a number of labs and challenges all taken from the same compromise, piecing together the actions the adversaries took by analysing logs, network traffic, security tooling, and performing incident response."}
                 <br /><br />
-                <b>PRO</b> players can purchase an <b>'Operation Pass'</b> to gain access to the live event, and be eligible for physical rewards including the <b>one-time-only metal challenge coin</b>, and digital rewards including the <b>BTLO Op Chimera badge</b>, which will be displayed in a unique location on your profile. There will be a new scoreboard for both individuals and teams during the event.
+                <b>{"PRO"}</b> {"players can purchase an"} <b>{"'Operation Pass'"}</b> {"to gain access to the live event, and be eligible for physical rewards including the"} <b>{"one-time-only metal challenge coin"} </b>  <b>{", and digital rewards including the <b>BTLO Op Chimera badge"} </b> {", which will be displayed in a unique location on your profile. There will be a new scoreboard for both individuals and teams during the event."}
                 <br /><br />
-                After the event has ended, all related content will be retired and can be accessed by <b>PRO players for no additional fee</b>.
+                {"After the event has ended, all related content will be retired and can be accessed by "}<b>{"PRO players for no additional fee"}</b>.
               </div>)
         }
     </div>
