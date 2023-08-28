@@ -15,7 +15,7 @@ module.exports = {
         "deep-blue-violet" : "#101345", //boxes color  //bg-card-custom  // bg-theme-3
         "light-blue" : "#69c5ff",
         "columbia-blue" : "#7f9eb9",  //placeholder
-        "deep-blue" :  "#3151bc", //button-reset-filters , tags-bg- // bg-theme-4
+        "deep-blue" :  "#3151bc", //button-reset-filters , tags-bg- // bg-theme-4 // theme-btn-bg-color
         "valencia-red"  : "#e53e3e", // diificulty
         "hot-cinnamon" : "#dd6b20", //difficulty-medium
         "dark-imperial-blue" : "#313a55" // modal-background

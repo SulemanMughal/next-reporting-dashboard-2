@@ -1,19 +1,21 @@
 "use client"
-import SortDropDown from "@/app/components/admin/quiz/SortDropDown"
+
+// import SortDropDown from "@/app/components/admin/quiz/SortDropDown"
 import QuizList from "@/app/components/admin/quiz/QuizList"
 import AddQuizBtn from "@/app/components/admin/quiz/AddQuizBtn"
 
 
 
 export default function Page(){
+    
     return (
         <>
-            <div className="mx-10 mb-10 p-3 bg-midnight-blue rounded-3xl ">
-                <div className="flex items-center justify-between px-5 py-4 md:py-7 ">
+            <div className="">
+                <div className="flex items-center justify-between px-5  ">
                     <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white"> Quizes</h1>
-                        <div className="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-none  cursor-pointer rounded">
+                        <div className=" flex items-center text-sm font-medium leading-none text-gray-600 bg-none  cursor-pointer rounded">
                             <AddQuizBtn />
-                            <SortDropDown />
+                            {/* <SortDropDown /> */}
                             {/* <FilterBtn /> */}
                         </div>
                 </div>

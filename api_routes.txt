@@ -72,6 +72,7 @@ Scenarios
 GET     :   (Admin Use Only)            /api/sceanrio/                      ->  GET All Scenarios 
 POST    :   (Admin Use Only)            /api/sceanrio/                      ->  Create New Scenario
 PUT     :   (Admin Use Only)            /api/scenario/[id]                  ->  Update A Scenario
+GET     :   (Admin Use Only)            /admin/api/scenario/[id]                  ->  Get A Scenario Details
 
 ========
 QUIZ

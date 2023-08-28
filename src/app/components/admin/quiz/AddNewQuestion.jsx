@@ -247,8 +247,8 @@ export default function AddNewQuestion({quizId , setData}){
             {/* <CustomToaster /> */}
             {showModal && <CreateQuestion  setShowModal={setShowModal} quizId={quizId}  setData={setData} /> }
             <div className="relative inline-block text-left border-none ">
-                <button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color  px-3 py-2 text-lg border-none font-semibold text-white shadow-sm   items-center "  onClick={() => setShowModal(true)} >
-                    <BiAddToQueue  size={23} />   New Question
+                <button className="bg-deep-blue  h-full text-white  text-sm  text-gray-300 my-2 py-2 px-4 rounded flex items-center "  onClick={() => setShowModal(true)} >
+                    <BiAddToQueue  size={23} className="mr-2" />   New Question
                 </button>
             </div>
         </>

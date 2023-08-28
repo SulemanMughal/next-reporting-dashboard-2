@@ -9,24 +9,11 @@ import MenuBtn from "@/app/components/admin/quiz/MenuBtn"
 import TeamList from "./TeamList"
 import { useEffect , useState } from "react"
 import { FaPuzzlePiece } from "react-icons/fa"
-import { quizStatus, capitalizeFirstLetter , calcTotalPoints } from "@/app/lib/helpers"
-
+import { quizStatus, capitalizeFirstLetter , calcTotalPoints  , calcTotalScenarios} from "@/app/lib/helpers"
 import TeamAssignModal from "./TeamAssignModal"
 
 
-function calcTotalScenarios(quiz){
-    let new_array = []
-    if(quiz?.questions){
-        quiz?.questions.forEach(element => {
-            if(element?.scenario){
-                if(!new_array.includes(element?.scenario?.name)){
-                    new_array.push(element?.scenario?.name)
-                }
-            }
-        });    
-    }
-    return new_array.length 
-}
+
 
 
 export default function QuizCard({quiz , setData}){
@@ -38,14 +25,23 @@ export default function QuizCard({quiz , setData}){
             {showModal && <TeamList setShowModal={setShowModal} teams={quiz.teams.length ? quiz.teams : 0 } /> }
             {showTeamAssignModal &&  <TeamAssignModal setShowTeamAssignModal={setShowTeamAssignModal} quizId={quiz.id} setData={setData}  /> }
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full " data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
-                <div className="  mx-2 my-2 p-4 bg-card-custom border-none rounded-lg shadow  text-gray-400 ">
+                <div className="  m-0 p-0  bg-deep-blue-violet  border-none rounded-lg shadow  text-gray-300 ">
                         <div className="p-5">
+                            {/* quiz - title */}
                             <div className="flex justify-between items-center mb-4 ">
-                                <h5 className=" text-2xl font-bold tracking-tight whitespace-normal text-gray-500 ">{quiz.title}</h5>
+                                <h5 className=" font-medium text-base tracking-tight whitespace-normal text-gray-300  text-center mb-1 ">{quiz.title}</h5>
                                 <MenuBtn  setShowModal={setShowModal} showModal={showModal} setShowTeamAssignModal={setShowTeamAssignModal} />    
                             </div>
-                            <ul className="w-full ">
+                            <div className=" pt-4 pb-2 flex justify-between">
                                 
+                                <span className="py-1 text-base font-bold bg-none text-blue-400" >{  quiz.teams.length +  " Teams" }</span>
+                                <span className=" py-1 text-base font-bold bg-none text-yellow-400 ">{  calcTotalScenarios(quiz) +  " Challenges"}</span>
+                            </div>
+                            <div className=" pb-2 flex justify-between">
+                                <span className="py-1  text-base font-bold bg-none text-green-400">{quiz._count.questions + " Questions"}</span>
+                                <span className="py-1  text-base font-bold bg-none text-rose-400">{calcTotalPoints(quiz) + " Points"}</span>
+                            </div>
+                            {/* <ul className="w-full ">
                                 <li className="py-3 sm:pb-4">
                                     <div className="flex items-center space-x-4">
                                         <div className="flex-shrink-0">
@@ -91,12 +87,12 @@ export default function QuizCard({quiz , setData}){
                                         </div>
                                     </div>
                                 </li>
-                            </ul>
-                            <span className="py-2 text-lg font-bold bg-none text-green-600 block text-center">{calcTotalPoints(quiz) + " Points"}</span>
-                            <div className=" pt-4 pb-2 flex justify-center">
-                                <Link href={`/admin/quiz/${quiz.id}`}  className="transition ease-in-out delay-150 hover:-translate-y-1    hover:bg-blue-300 hover:text-blue-800 duration-300    btn-flag-submit text-gray-400  flex items-center  font-semibold  mr-2 mb-2 justify-center items-center   h-full rounded-lg px-0 py-1 text-lg   w-2/4    ">
+                            </ul> */}
+                            
+                            <div className=" pt-5 pb-2 flex justify-center">
+                                <Link href={`/admin/quiz/${quiz.id}`}  className="  cursor-pointer     bg-dark-navy-blue  flex justify-center items-center   text-white text-base    h-full rounded-md px-3 py-1    ">
                                     {/* <AiFillEye size={23} className=" mr-2 "  />  */}
-                                    <span>{"View Details" } </span> 
+                                    <span>{"Details" } </span> 
                                 </Link>
                             </div>
                         </div>

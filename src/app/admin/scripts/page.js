@@ -10,9 +10,7 @@ export default async  function Scripts() {
   return (
     <>
       <CustomToaster />
-      <div className="mx-10 mb-10 p-3 bg-midnight-blue rounded-3xl">
-        <ScriptList  data={data} />
-      </div>
+      <ScriptList  data={data} />
     </>
   )
 

@@ -241,7 +241,7 @@ export default   function Teams(){
                     removeTeamID={removeTeamID}
                     setTeams={setTeams}
                 /> : null}
-            <div className="mx-10 mb-10 p-3 bg-midnight-blue rounded-3xl">
+            <div >
                 <div className="sm:px-6 w-full h-full pb-10 ">
                     {/* Top Header */}
                     <div className="px-4 md:px-0 py-4 md:py-7">

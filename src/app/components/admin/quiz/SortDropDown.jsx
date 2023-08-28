@@ -17,7 +17,7 @@ export default function SortDropDown({list = ["Latest", "Oldest" ]}){
         <>
 <Menu as="div" className="relative inline-block text-left  mx-1 rounded-0">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-lg font-semibold text-white shadow-sm ">
+        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-deep-blue px-3 py-2 text-lg font-semibold text-white shadow-sm ">
         <MdSort className="-mr-1 h-7 w-7 text-white " aria-hidden="true" /> <span className='text-white ml-2 text-xl'>Sort</span>
           
         </Menu.Button>

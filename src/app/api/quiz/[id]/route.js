@@ -53,6 +53,7 @@ export async function GET(request , {params}){
                     //     id: 'desc',
                     // },
                     select : {
+                        
                         id     : true,
                         title : true,
                         Description : true,
@@ -72,7 +73,16 @@ export async function GET(request , {params}){
                             select : {
                                 submitAnswer : true
                             }
-                        }
+                        },
+                        scenario : {
+                            select : {
+                                id  : true,
+                                name : true,
+                                desc : true,
+                                difficulty : true,
+                                category : true,
+                            }
+                        },
                     } 
                 },
                 teams : {

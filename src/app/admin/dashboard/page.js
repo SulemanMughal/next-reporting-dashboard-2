@@ -33,9 +33,7 @@ export default async  function Page() {
   }
   return (
     <>
-     <div className="mx-10 mb-10 p-3 bg-dark-navy-blue rounded-3xl ">
-        {data && <Dashboard  data={data} /> }  
-     </div>
+     {data && <Dashboard  data={data} /> }  
     </>
   )
 }

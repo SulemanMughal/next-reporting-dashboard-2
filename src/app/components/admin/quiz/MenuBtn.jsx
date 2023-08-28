@@ -14,7 +14,7 @@ export default function MenuBtn({setShowModal, showModal , setShowTeamAssignModa
         <>
             <Menu as="div" className="relative inline-block text-left">
                 <div>
-                    <Menu.Button className="flex w-full justify-center border-none gap-x-1.5 rounded-md bg-none  ml-3 text-lg font-semibold text-gray-500 shadow-sm  items-center">
+                    <Menu.Button className="flex w-full justify-center border-none gap-x-1.5 rounded-md bg-none  ml-3 text-lg font-semibold text-gray-300 shadow-sm  items-center">
                         <BsThreeDotsVertical  size={23} />
                     </Menu.Button>
                 </div>

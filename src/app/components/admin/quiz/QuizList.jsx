@@ -1,27 +1,23 @@
 "use client"
 
+
+// !    ===============================
+// !    Deprecirated
+// !    ===============================
+
+// Quiz Cards for admin for "admin/quiz" page
+
 import axios from "axios"
 import { useState } from "react"
 import { useEffect } from "react"
 import QuizCard from "@/app/components/admin/quiz/QuizCard"
-
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { ThreeDots , Triangle } from 'react-loader-spinner'
-
-
 import decrypt from "@/app/lib/decrypt"
-
-
-
-
 import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
 
 
 export default function QuizList(){
-
-    
-
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -46,16 +42,6 @@ export default function QuizList(){
         {loading ? (
             <>
                 <div  className="col-span-4 ">
-                    {/* <Triangle
-                        height="300"
-                        width="300"
-                        color="#4fa94d"
-                        ariaLabel="triangle-loading"
-                        wrapperStyle={{}}
-                        wrapperClass={"flex justify-center"}
-                        visible={true}
-                        className={"flex justify-center"} 
-                    /> */}
                     <CustomTriangleLoader />
                 </div>
             </>

@@ -126,38 +126,38 @@ const UserNavBar = ({pathname}) => {
 const AdminNavBar = ({pathname}) => {
     return (
         <>
-            <nav className="bg-transparent text-gray-400 pt-4 pb-0" id="user_dashboard">
-                <div className="container mx-auto flex items-center justify-between">
+            <nav className="bg-transparent text-gray-400 pt-4 -mb-6" id="user_dashboard">
+                <div className="container ml-28">
                     
-                    <ul className="flex space-x-4 mb-0">
+                    <ul className="flex space-x-2 space-y-0 items-end place-items-end">
                     <li >
-                        <Link href={"/admin/dashboard"} className={classNames( checkAdminDashboardPath(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )} >
-                            <AiFillHome  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">Home</p>    
+                        <Link href={"/admin/dashboard"} className={classNames( checkAdminDashboardPath(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )} >
+                            <AiFillHome  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Home</p>    
                         </Link>
                     </li>
                     <li >
-                        <Link href={"/admin/quiz"} className={classNames( checkAdminQuizPath(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )}>
-                            <MdQuiz  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">Quizes</p>    
+                        <Link href={"/admin/quiz"} className={classNames( checkAdminQuizPath(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <MdQuiz  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Quizes</p>    
                         </Link>
                     </li>
                     <li >
-                        <Link href={"/admin/challenges"} className={classNames( checkAdminChallengesPage(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )}>
-                            <FaPuzzlePiece  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">Challenges</p>    
+                        <Link href={"/admin/challenges"} className={classNames( checkAdminChallengesPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <FaPuzzlePiece  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Challenges</p>    
                         </Link>
                     </li>
                     <li >
-                        <Link href={"/admin/scripts"} className={classNames( checkAdminScriptsPage(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )}>
-                            <VscTerminalBash  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">Scripts</p>    
+                        <Link href={"/admin/scripts"} className={classNames( checkAdminScriptsPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <VscTerminalBash  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Scripts</p>    
                         </Link>
                     </li>
                     <li >
-                        <Link href={"/admin/teams"} className={classNames( checkAdminTeamsPage(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )}>
-                            <MdGroups  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">Teams</p>    
+                        <Link href={"/admin/teams"} className={classNames( checkAdminTeamsPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <MdGroups  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Teams</p>    
                         </Link>
                     </li>
                     <li >
-                        <Link href={"/admin/board"} className={classNames( checkAdminLeaderBoardPage(pathname) ? 'active' : '', 'flex  items-center justify-start   p-3 px-5 rounded-3xl rounded-b-none' )}>
-                            <MdLeaderboard  size={30}/> <p className="pl-2 text-xl  pt-1 pb-0 my-0">ScoreBoard</p>    
+                        <Link href={"/admin/board"} className={classNames( checkAdminLeaderBoardPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <MdLeaderboard  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Leaderboard</p>    
                         </Link>
                     </li>
                     </ul>

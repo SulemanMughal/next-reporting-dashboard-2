@@ -326,3 +326,60 @@ export function getInitials(name) {
 }
 
 
+
+
+// // convert to uppercase first letter of each word   
+// function convertStringToTitleCase(string){
+//     return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+// }
+
+
+// calculate total points for a scenario by summing up points of all questions
+export function totalScenarioPoints(scenario){
+    let sum = 0
+    if(scenario && scenario.questions && scenario.questions.length){
+        scenario.questions.forEach((question) => {
+            sum = sum + question.points
+        })
+    }
+    return sum
+}
+
+
+// extract answer format from question description
+export function extractLastStrategyName(inputString) {
+    try {
+        const matches = inputString.match(/Format: ([^\)]*)/g);
+        if (matches && matches.length > 0) {
+            const lastMatch = matches[matches.length - 1];
+            return lastMatch.replace("Format: ", "");
+        } else {
+            return "* * * * * * "; // No match found
+        }
+    } catch (error) {
+        return "* * * * * * "; // in case of error
+
+    }
+}
+
+
+
+// calc total scenarios for a quiz
+export function calcTotalScenarios(quiz){
+    let new_array = []
+    try {
+        if(quiz?.questions){
+            quiz?.questions.forEach(element => {
+                if(element?.scenario){
+                    if(!new_array.includes(element?.scenario?.name)){
+                        new_array.push(element?.scenario?.name)
+                    }
+                }
+            });    
+        }
+        return new_array.length 
+    } catch (error) {
+        console.debug(error)
+        return 0
+    }
+}

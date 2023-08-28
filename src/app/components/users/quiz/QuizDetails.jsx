@@ -26,6 +26,10 @@ import { FaExclamationTriangle } from  "react-icons/fa"
 
 import Modal from './ReportingModal'
 
+import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
+import Link from "next/link";
+
 // import { useRouter } from 'next/router';
 
 
@@ -617,9 +621,7 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
 }
 
 
-import encrypt from "@/app/lib/encrypt"
-import decrypt from "@/app/lib/decrypt"
-import Link from "next/link";
+
 
 
 
