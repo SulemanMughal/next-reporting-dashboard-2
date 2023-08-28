@@ -326,7 +326,7 @@ function NewScenarioCard({scenarios}){
                                 </div>
                                 <div className=" pt-0 pb-4 flex justify-center">
                                     <Link href={`/admin/challenges/${item.id}`}  className=" cursor-pointer     bg-dark-navy-blue  flex justify-center items-center   text-white text-base    h-full rounded-md px-2 py-1       ">
-                                        <span>{"View Challenge" } </span> 
+                                        <span>{"Details" } </span> 
                                     </Link>
                                 </div>
                             </div>

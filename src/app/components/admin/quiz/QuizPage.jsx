@@ -21,7 +21,7 @@ import {FaPuzzlePiece} from "react-icons/fa"
 
 import { convertStringToTitleCase , calcTotalPointsScenario , getDifficultyColor} from "@/app/lib/helpers"
 
-
+import Link from "next/link";
 
 
 import encrypt from "@/app/lib/encrypt"
@@ -318,21 +318,21 @@ function getUniqueScenarios(questions) {
     .map(scenarioId => questions.find(question => question.scenario.id === scenarioId).scenario);
 
 
-  questions.forEach(question => {
-      const scenarioId = question.scenario.id;
-      if (!scenarioTotalPoints[scenarioId]) {
-          scenarioTotalPoints[scenarioId] = 0;
-      }
-      scenarioTotalPoints[scenarioId] += question.points;
-  });
+  // questions.forEach(question => {
+  //     const scenarioId = question.scenario.id;
+  //     if (!scenarioTotalPoints[scenarioId]) {
+  //         scenarioTotalPoints[scenarioId] = 0;
+  //     }
+  //     scenarioTotalPoints[scenarioId] += question.points;
+  // });
 
-  const scenariosWithTotalPoints = uniqueScenarios.map(scenario => ({
-    ...scenario,
-      totalPoints: scenarioTotalPoints[scenario.id] || 0
-  }));
+  // const scenariosWithTotalPoints = uniqueScenarios.map(scenario => ({
+  //   ...scenario,
+  //     totalPoints: scenarioTotalPoints[scenario.id] || 0
+  // }));
 
 
-  console.debug(scenariosWithTotalPoints)
+  // console.debug(scenariosWithTotalPoints)
 
     
   return uniqueScenarioObjects
@@ -359,7 +359,7 @@ export default function QuizPage({quizId}){
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}`)
         .then((res) => {
             const {...data } = decrypt(res.data.encryptedData)
-            console.debug(data)
+            // console.debug(data)
             setData(data)
             setScenarios(getUniqueScenarios(data?.results?.questions))
             setError(null);
@@ -417,7 +417,9 @@ export default function QuizPage({quizId}){
                       {(data && scenarios && scenarios.length) && (
                         
                         scenarios.map((scenario, index) => (
+
                           <>
+                          
                             <div className="component component-CerCheckBox" key={index}>
                               <div className="w-full col-span-3 relative      rounded-lg   flex flex-col " >
                                 <div className="   bg-deep-blue-violet  rounded-lg shadow   ">
@@ -433,8 +435,17 @@ export default function QuizPage({quizId}){
                                         <span className={getDifficultyColor(scenario.difficulty)}>{ convertStringToTitleCase(scenario.difficulty) }</span>
                                         {/* category */}
                                         <span className="px-1 py-1 text-base font-bold bg-none text-blue-400 ">{ convertStringToTitleCase(scenario.category) }</span>
-                                        <span className="px-1 py-1 text-base font-bold bg-none text-yellow-400 ">{   "0" +  " Points"}</span>
+                                        <span className="px-1 py-1 text-base font-bold bg-none text-yellow-400 ">{    calcTotalPointsScenario(scenario) +  " Points"}</span>
                                     </div>
+                                    <div className="  pb-2 text-center">
+                                      {/* total questions  */}
+                                        <span className="px-1 py-1 text-base font-bold bg-none text-rose-400 ">{   scenario?.questions?.length +  " Questions"}</span>
+                                    </div>
+                                    <div className=" pt-0 pt-2 flex justify-center">
+                                      <Link href={`/admin/challenges/${scenario.id}`}  className=" cursor-pointer     bg-dark-navy-blue  flex justify-center items-center   text-white text-base    h-full rounded-md px-2 py-1       ">
+                                          <span>{"Details" } </span> 
+                                      </Link>
+                                </div>
                                   </div>
                                 </div>
                               </div>

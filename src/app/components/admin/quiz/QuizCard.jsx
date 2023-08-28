@@ -35,11 +35,11 @@ export default function QuizCard({quiz , setData}){
                             <div className=" pt-4 pb-2 flex justify-between">
                                 
                                 <span className="py-1 text-base font-bold bg-none text-blue-400" >{  quiz.teams.length +  " Teams" }</span>
-                                <span className=" py-1 text-base font-bold bg-none text-yellow-400 ">{  calcTotalScenarios(quiz) +  " Challenges"}</span>
+                                <span className=" py-1 text-base font-bold bg-none text-green-400 ">{  calcTotalScenarios(quiz) +  " Challenges"}</span>
                             </div>
                             <div className=" pb-2 flex justify-between">
-                                <span className="py-1  text-base font-bold bg-none text-green-400">{quiz._count.questions + " Questions"}</span>
-                                <span className="py-1  text-base font-bold bg-none text-rose-400">{calcTotalPoints(quiz) + " Points"}</span>
+                                <span className="py-1  text-base font-bold bg-none text-rose-400">{quiz._count.questions + " Questions"}</span>
+                                <span className="py-1  text-base font-bold bg-none text-yellow-400">{calcTotalPoints(quiz) + " Points"}</span>
                             </div>
                             {/* <ul className="w-full ">
                                 <li className="py-3 sm:pb-4">

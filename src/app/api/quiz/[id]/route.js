@@ -81,6 +81,11 @@ export async function GET(request , {params}){
                                 desc : true,
                                 difficulty : true,
                                 category : true,
+                                questions  : {
+                                    select : {
+                                        points : true
+                                    }
+                                }
                             }
                         },
                     } 

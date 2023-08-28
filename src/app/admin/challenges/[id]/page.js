@@ -15,6 +15,82 @@ import { convertStringToArray , capitalizeFirstLetter , getDifficultyColor , con
 import SVGLoader from "@/app/components/SVGLoader";
 import Link from "next/link";
 import { FaFile } from "react-icons/fa";
+import encrypt from "@/app/lib/encrypt"
+
+
+
+// delay function
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+
+function AnswerComponent({question , index}){
+
+
+
+    const answer = useRef(null)
+    const [isSubmit, setIsSubmit] = useState(false)
+    useEffect(() => {
+        answer.current = question.original_answer
+    }, [])
+
+
+    const updateAnswerHandler = (questionID) => {
+        setIsSubmit(true)
+        if(answer.current === "" || answer.current === null){
+            toast.error("Answer cannot be empty")
+            setIsSubmit(false)
+            return
+        }
+        const encryptedData = encrypt({
+            "answer" : answer.current
+        })
+        axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/question/${questionID}`, {
+            encryptedData
+        })
+        .then(res => {
+            const {...data} = decrypt(res.data.encryptedData)
+            if(data.status === true){
+                toast.success("Answer updated successfully")
+                
+            } else{
+                toast.error("Sorry! There is an error while updating. Please try again later")
+            }
+        })
+        .catch(error => {
+            console.debug(error)
+            toast.error(`Sorry! There is an error while updating. Please try again later`)
+        }).finally(() => {
+            delay(1000).then(() => {
+                setIsSubmit(false)
+            })
+        })
+    }
+
+    return (
+        <>
+            {question && (
+                <div className="mt-6 text-lg text-gray-300" >
+                    <label>
+                        {`Question ${index+1} ) ${question.Description}`} <span className="text-xs text-gray-500 ml-2 italic">({question.points} points)</span>
+                    </label>
+                    <div className="flex flex-wrap -mx-3 mt-2">
+                        <div className="w-full  w-5/6 px-3 h-full">
+                            <input className=" placeholder-gray-400 outline-0  border border-2 border-deep-indigo focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-2 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm"  type="text" placeholder={extractLastStrategyName(question.Description)} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"}  defaultValue={question.original_answer}  onChange={(e) => (answer.current = e.target.value)} />
+                        </div>
+                        <div className="w-full md:w-1/6 px-3 h-full">
+                            {isSubmit ? 
+                                    <SVGLoader text={"  "} className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" /> : <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded"  onClick={() => updateAnswerHandler(question.id)} >Update </button> 
+                            }
+                            
+
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
+    )
+}
+
 
 export default function Page({ params }){
     const [scenario, setScenario] = useState(null)
@@ -58,6 +134,9 @@ export default function Page({ params }){
             console.debug(error)
         })
     }, [])
+
+
+    
     
     return (
         <>
@@ -170,25 +249,11 @@ export default function Page({ params }){
                             <h2 className="text-xl font-medium mr-auto text-gray-300">{"Challenge Submission"}</h2>
                             {
                                 (scenario?.questions && scenario?.questions.length) &&  scenario?.questions.map((question, index) =>    
-                                    <>
-                                        <div className="mt-6 text-lg text-gray-300" key={index}>
-                                            <label>
-                                                {`Question ${index+1} ) ${question.Description}`} <span className="text-xs text-gray-500 ml-2 italic">({question.points} points)</span>
-                                            </label>
-                                            <div className="flex flex-wrap -mx-3 mt-2">
-                                                <div className="w-full  px-3 h-full">
-                                                    <input className=" placeholder-gray-400 outline-0  border border-2 border-deep-indigo focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-2 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm"  type="text" placeholder={extractLastStrategyName(question.Description)} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"}  defaultValue={question.original_answer} />
-                                                </div>
-                                                {/* <div className="w-full md:w-1/6 px-3 h-full">
-                                                    {isSubmit ? 
-                                                        <SVGLoader text={"  "} /> : <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" >Submit</button> 
-                                                    }
-                                                    <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" >Update </button>
-
-                                                </div> */}
-                                            </div>
-                                        </div>
-                                    </>
+                                    (
+                                        <>
+                                            <AnswerComponent question={question} key={index} index={index} />
+                                        </>
+                                    )
                                 )
                             }
                         </div>

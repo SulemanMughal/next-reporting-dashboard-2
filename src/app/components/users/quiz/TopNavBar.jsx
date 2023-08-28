@@ -43,7 +43,7 @@ function checkQuizPath(pathname){
 }
 
 function checkAdminChallengesPage(pathname){
-    if(pathname === "/admin/challenges" ){
+    if(pathname === "/admin/challenges" || pathname.includes("/admin/challenges/") ){
         return true
     } else {
         return false

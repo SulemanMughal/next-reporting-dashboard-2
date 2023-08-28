@@ -28,6 +28,7 @@ export async function GET(request: Request , params : {params : {id : string}}){
                             id :params.params.id,   
                         }
                     },select : {
+                        id : true,
                         points : true,
                         Description  : true,
                         original_answer : true,
