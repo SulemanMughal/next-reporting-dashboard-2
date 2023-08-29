@@ -14,6 +14,7 @@ import ScriptCounter from "@/app/components/admin/dashboard/ScriptCounter"
 import LogsCounter from "@/app/components/admin/dashboard/LogsCounter"
 import QuizCounter from "@/app/components/admin/dashboard/QuizCounter"
 import { useEffect } from 'react';
+import CustomToaster from "@/app/components/CustomToaster"
 
 
 export default function Dashboard({data}){
@@ -22,6 +23,7 @@ export default function Dashboard({data}){
     })
     return (
         <>
+            <CustomToaster />
             <div className="p-4 grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                 <TeamCounter  total_teams={data.total_teams} />
                 <ScriptCounter total_scripts={data.total_scripts}  />

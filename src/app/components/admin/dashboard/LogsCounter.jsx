@@ -4,13 +4,59 @@
 import { useEffect, useState } from 'react';
 import CountUp from 'react-countup';
 import { BsFillRocketTakeoffFill } from "react-icons/bs"
+import axios from 'axios';
+
+import decrypt from "@/app/lib/decrypt"
+import { toast } from 'react-hot-toast';
+
 
 
 export default function LogsCounter({total_logs}){
     const [logCounter, setLogCounter] = useState(0)
-    useEffect(() => (
-        setLogCounter(total_logs)
-    ), [])
+    useEffect(() => {
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_counter`, {
+            headers: { 'Cache-Control': 'no-store' },
+            params: { timestamp: new Date().getTime() },
+            next: { revalidate: 10 }
+        }).then(res => {
+            const {...data } = decrypt(res.data.encryptedData)
+            if(data?.status === true){
+                // console.debug(data)
+                setLogCounter(data?.total_logs)
+            } else{
+                toast.error(`There is an while fetching the logs. Please try again later.`)
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            toast.error(`There is an while fetching the logs. Please try again later.`)
+        })
+
+        // var requestOptions = {
+        //     method: 'GET',
+        //   };
+          
+        // fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_counter`, requestOptions , { next: { revalidate: 10 } , params: { timestamp: new Date().getTime() } })
+        // .then(response => response.json())
+        // .then(result => {
+        //     // console.debug(result?.encryptedData)
+        //     const {...data } = decrypt(result.encryptedData)
+        //     if(data?.status === true){
+        //         setLogCounter(data?.total_logs)
+        //     } else{
+        //         toast.error(`There is an while fetching the logs. Please try again later.`)
+        //     }
+        // }
+            
+        // )
+        // .catch(error => {
+        //     console.error(error);
+        //     toast.error(`There is an while fetching the logs. Please try again later.`)
+        // });
+
+        
+
+    }, [logCounter])
     return (
         <>
             {/* <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
