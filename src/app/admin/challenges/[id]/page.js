@@ -18,30 +18,73 @@ import { FaFile } from "react-icons/fa";
 import encrypt from "@/app/lib/encrypt"
 
 
+import  {FaRegEdit}  from "react-icons/fa"
+
+
 
 // delay function
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
 
 function AnswerComponent({question , index}){
-
-
-
     const answer = useRef(null)
     const [isSubmit, setIsSubmit] = useState(false)
+    const [isEditing, setIsEditing] = useState(false);
+    const [editedText, setEditedText] = useState("");
+    const desc = useRef(null)
     useEffect(() => {
         answer.current = question.original_answer
+        desc.current = question.Description
+        setEditedText(question.Description)
     }, [])
 
 
-    const updateAnswerHandler = (questionID) => {
+    // const updateAnswerHandler = (questionID) => {
+    //     setIsSubmit(true)
+    //     if(answer.current === "" || answer.current === null){
+    //         toast.error("Answer cannot be empty")
+    //         setIsSubmit(false)
+    //         return
+    //     }
+    //     const encryptedData = encrypt({
+    //         "answer" : answer.current
+    //     })
+    //     axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/question/${questionID}`, {
+    //         encryptedData
+    //     })
+    //     .then(res => {
+    //         const {...data} = decrypt(res.data.encryptedData)
+    //         if(data.status === true){
+    //             toast.success("Answer updated successfully")
+                
+    //         } else{
+    //             toast.error("Sorry! There is an error while updating. Please try again later")
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.debug(error)
+    //         toast.error(`Sorry! There is an error while updating. Please try again later`)
+    //     }).finally(() => {
+    //         delay(1000).then(() => {
+    //             setIsSubmit(false)
+    //         })
+    //     })
+    // }
+
+
+    const updateQuestionHandler = (questionID) => {
         setIsSubmit(true)
-        if(answer.current === "" || answer.current === null){
+        if(desc.current === "" || desc.current === null){
+            toast.error("Description cannot be empty")
+            setIsSubmit(false)
+            return
+        } else  if(answer.current === "" || answer.current === null){
             toast.error("Answer cannot be empty")
             setIsSubmit(false)
             return
         }
         const encryptedData = encrypt({
+            "desc" : desc.current,
             "answer" : answer.current
         })
         axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/question/${questionID}`, {
@@ -50,7 +93,7 @@ function AnswerComponent({question , index}){
         .then(res => {
             const {...data} = decrypt(res.data.encryptedData)
             if(data.status === true){
-                toast.success("Answer updated successfully")
+                toast.success("Question has been updated successfully")
                 
             } else{
                 toast.error("Sorry! There is an error while updating. Please try again later")
@@ -62,29 +105,63 @@ function AnswerComponent({question , index}){
         }).finally(() => {
             delay(1000).then(() => {
                 setIsSubmit(false)
+                setIsEditing(false)
             })
         })
     }
+
+    const handleDescriptionChange = (e) => {
+        e.preventDefault()
+        setEditedText(e.target.value)
+        desc.current = e.target.value
+    }
+    
 
     return (
         <>
             {question && (
                 <div className="mt-6 text-lg text-gray-300" >
-                    <label>
-                        {`Question ${index+1} ) ${question.Description}`} <span className="text-xs text-gray-500 ml-2 italic">({question.points} points)</span>
-                    </label>
-                    <div className="flex flex-wrap -mx-3 mt-2">
-                        <div className="  w-5/6 px-3 h-full">
-                            <input className=" placeholder-gray-400 outline-0  border border-2 border-deep-indigo focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-2 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm"  type="text" placeholder={extractLastStrategyName(question.Description)} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"}  defaultValue={question.original_answer}  onChange={(e) => (answer.current = e.target.value)} />
-                        </div>
-                        <div className="w-1/6 px-3 h-full">
-                            {isSubmit ? 
-                                    <SVGLoader text={"  "} className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" /> : <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded"  onClick={() => updateAnswerHandler(question.id)} >Update </button> 
-                            }
+                    {isEditing ? (
+                        <>
+                        <div className="flex flex-wrap -mx-3 mt-2 items-end">
+                            <div className="px-3 h-full  w-10/12">
+                                <textarea  value={editedText} onChange={handleDescriptionChange} className=" w-full   placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-white     p-3 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm" spellCheck={"false"} rows={"6"}></textarea>
+                            </div>
                             
-
+                            <div className="w-1/6 px-3 h-full">
+                                {isSubmit ? 
+                                    <SVGLoader text={"  "} className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" /> : <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded"  onClick={() => updateQuestionHandler(question.id)} >Update </button> 
+                                }
+                            </div>
                         </div>
-                    </div>
+                        </>
+                    ) : (
+
+                        <>
+                        <label className="flex inline-flex items-start">
+                            <button>
+                                <FaRegEdit className="mr-2 text-deep-blue"  size={23} onClick={() => setIsEditing(true)} /> 
+                            </button>
+                            <p>
+                                <span>
+                                    {`Question ${index+1} )`}
+                                </span>
+                                {` ${editedText}`} 
+                                <span className="text-xs text-gray-500 ml-2 italic flex inline-flex justify-start items-end">({question.points} points) </span> 
+                            </p> 
+                        </label>
+                        <div className="flex flex-wrap -mx-3 mt-2">
+                            <div className="  w-5/6 px-3 h-full">
+                                <input className=" placeholder-gray-400 outline-0  border border-2 border-deep-indigo focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-2 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm"  type="text" placeholder={extractLastStrategyName(question.Description)} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"}  defaultValue={question.original_answer}  onChange={(e) => (answer.current = e.target.value)} />
+                            </div>
+                            <div className="w-1/6 px-3 h-full">
+                                {isSubmit ? 
+                                    <SVGLoader text={"  "} className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" /> : <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded"  onClick={() => updateQuestionHandler(question.id)} >Update </button> 
+                                }
+                            </div>
+                        </div>
+                        </>
+                    )}
                 </div>
             )}
         </>
@@ -113,22 +190,6 @@ export default function Page({ params }){
                 setScenario(null)
                 setFileSizes([])
             }
-            //     setQuestions(data?.questions?.team?.quiz?.questions)
-            //     if(data?.questions?.team?.quiz?.questions.length){
-            //         setScenario(data?.questions?.team?.quiz?.questions[0]?.scenario)
-            //         setTeam(data?.questions?.team?.id)
-            //         setTeamName(data?.questions?.team?.name)
-            //         setQuiz(data?.questions?.team?.quiz?.id)
-            //         setTopUser(findUserWithMostAnswersAndPoints(data?.questions))
-            //         // console.debug(getUsersWithSubmissionTime(data?.questions?.team?.quiz?.questions))
-            //         setRecentSolves(getUsersWithSubmissionTime(data?.questions?.team?.quiz?.questions))
-                    
-            //     }
-            // }
-            // else{
-            //     toast.error(`${data.error}`)
-            //     setTotalChallenges(0)
-            // }
         })
         .catch(error => {
             console.debug(error)

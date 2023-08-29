@@ -159,7 +159,7 @@ function CreateQuestion({setShowModal , quizId , setData}){
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
                     <h3 className="text-2xl font-semibold text-dark">
-                     Add New Question
+                      New Question
                     </h3>
                     {setShowModal && (<button
                     className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white"
@@ -246,11 +246,9 @@ export default function AddNewQuestion({quizId , setData}){
         <>
             {/* <CustomToaster /> */}
             {showModal && <CreateQuestion  setShowModal={setShowModal} quizId={quizId}  setData={setData} /> }
-            <div className="relative inline-block text-left border-none ">
-                <button className="bg-deep-blue  h-full text-white  text-sm  text-gray-300 my-2 py-2 px-4 rounded flex items-center "  onClick={() => setShowModal(true)} >
-                    <BiAddToQueue  size={23} className="mr-2" />   New Question
-                </button>
-            </div>
+            <button className="bg-deep-blue-violet text-white py-2  pr-4  pl-4 mt-2 h-full border border-1 border-deep-blue-violet rounded-md mb-0 ml-0 flex justify-start items-center "  onClick={() => setShowModal(true)} >
+                <BiAddToQueue  size={23} className="mr-2" />   New Question
+            </button>
         </>
     )
 }

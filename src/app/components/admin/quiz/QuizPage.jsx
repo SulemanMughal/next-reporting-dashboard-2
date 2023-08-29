@@ -24,8 +24,10 @@ import { convertStringToTitleCase , calcTotalPointsScenario , getDifficultyColor
 import Link from "next/link";
 
 
+import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
 import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
+import { toast } from "react-hot-toast";
 
 
 function removeDuplicates(array) {
@@ -169,9 +171,9 @@ const CheckboxGroup = ({ text, options }) => {
           {text}
       </label>
       <div className="flex pt-2 flex-wrap">
-      {options.map((option) => (
+      {options.map((option , index) => (
          
-        <label key={option.value} className="flex items-center mr-3 text-sm">
+        <label key={index} className="flex items-center mr-3 text-sm pb-2">
           <input
             type="checkbox"
             value={option.value}
@@ -210,6 +212,10 @@ function DifficultyLevelCheckBox(){
                           <input type="radio" className="input border rounded-full mr-2 appearance-none"  value="hard" checked={selectedOption === "hard"} onChange={() => handleCheckboxChange("hard")} />
                           Hard
                       </label>
+                      <label className="flex items-center text-black rounded mr-2 mt-2 sm:mt-0 bg-indigo-500 p-1 cursor-pointer select-none font-bold pr-2">
+                          <input type="radio" className="input border rounded-full mr-2 appearance-none "  value="all" checked={selectedOption === "all"} onChange={() => handleCheckboxChange("all")} />
+                          <span className="block pr-5">All</span>
+                      </label>
                   </div>
               </div>
     </>
@@ -228,121 +234,69 @@ const ResetFilterBtn = () => {
 }
   
 
-const FiltersBtn = () => {
-    const options = [
-        { value: '0', label: 'None' },
-        { value: '1', label: 'Newest to Oldest' },
-        { value: '2', label: 'Oldest to Newest' },
-        { value: '3', label: 'Alphabetical (a-z)' },
-        { value: '4', label: 'Alphabetical Inverted (z-a)' },
-        { value: '5', label: 'Easiest to Hardest' },
-        { value: '6', label: 'Hardest to Easiest' },
-      ];
-      const [selectedOption, setSelectedOption] = useState('');
-      const handleSelectChange = (e) => {
-        setSelectedOption(e.target.value);
-      };
+// const FiltersBtn = ({scenarios}) => {
+//   // console.debug(scenarios)
+//     const options = [
+//         { value: '0', label: 'None' },
+//         { value: '1', label: 'Newest to Oldest' },
+//         { value: '2', label: 'Oldest to Newest' },
+//         { value: '3', label: 'Alphabetical (a-z)' },
+//         { value: '4', label: 'Alphabetical Inverted (z-a)' },
+//         { value: '5', label: 'Easiest to Hardest' },
+//         { value: '6', label: 'Hardest to Easiest' },
+//       ];
+//       const [selectedOption, setSelectedOption] = useState('');
 
+//       const [categories, SetCategories] = useState(null)
 
-    //   status by completion
-      const options_2 = [
-        { value: '1', label: 'Completed' },
-        { value: '2', label: 'Not Completed' },
-        { value: '3', label: 'Both' },
-      ];
+//       useEffect(() => {
+        
+//         SetCategories( 
+//           [...new Set(scenarios.map(scenario => (
+//             { value: `${scenario.category}`, label: `${scenario.category}` }
+//           ))), { value: 'All', label: 'All' } ]
+//         )
+//       } , [])
 
-    //   difficulty level
-      const options_3 = [
-        { value: '1', label: 'Easy' },
-        { value: '2', label: 'Medium' },
-        { value: '3', label: 'Hard' },
-        { value: '4', label: 'All' },
-      ];
+//       const handleSelectChange = (e) => {
+//         setSelectedOption(e.target.value);
+//       };
 
-    //   categories
-      const options_4 = [
-        { value: '1', label: 'Incident Response' },
-        { value: '2', label: 'Digital Forensics' },
-        { value: '3', label: 'Security Operations' },
-        { value: '4', label: 'CTF-Like' },
-        { value: '5', label: 'Reverse Engineering' },
-        { value: '6', label: 'OSINT' },
-        { value: '7', label: 'Threat Hunting' },
-        { value: '8', label: 'Threat Intelligence' },
-        { value: '9', label: 'All' },
-      ];
-      
-    
-    return (
-        <>
-            <div  className="block  p-6 bg-card-custom  rounded-lg shadow ">
-              <SearchInput /> 
-              <SelectField options={options} onChange={handleSelectChange} />
-              <CheckboxGroup text={"Status"} options={options_2} />
-              <DifficultyLevelCheckBox />
-              {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
-              <CheckboxGroup text={"Categories"} options={options_4} />
-              <ResetFilterBtn />
-            </div>
-        </>
-    )
-}
-
-
-  
-
-import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
+//     return (
+//         <>
+//             <div  className="block  p-6 bg-card-custom  rounded-lg shadow ">
+//               <SearchInput /> 
+//               <SelectField options={options} onChange={handleSelectChange} />
+//               <DifficultyLevelCheckBox />
+//               {
+//                 categories && <CheckboxGroup text={"Categories"} options={categories} />
+//               }
+//               <ResetFilterBtn />
+//             </div>
+//         </>
+//     )
+// }
 
 
 function getUniqueScenarios(questions) {
-  // return scenarios.filter(
-  //   (scenario, index, self) =>
-  //     index === self.findIndex((s) => s.scenario.id === scenario.scenario.id)
-  // );
-  // return questions.map((item) => item.scenario)
   const  uniqueScenarioObjects = Array.from(new Set(questions.map(item => JSON.stringify(item.scenario))))
   .map(stringified => JSON.parse(stringified));
-
-
-  // const scenarioWithTotalPoints = uniqueScenarioObjects.map(scenarioObj => {
-  //   const totalPoints = questions
-  //     .filter(item => JSON.stringify(item.scenario) === JSON.stringify(scenarioObj))
-  //     .reduce((sum, item) => sum + item.points, 0);
-  // })
-
-  // console.debug(scenarioWithTotalPoints)
-
-  const scenarioTotalPoints = {};
-
-  const uniqueScenarios = Array.from(new Set(questions.map(question => question.scenario.id)))
-    .map(scenarioId => questions.find(question => question.scenario.id === scenarioId).scenario);
-
-
-  // questions.forEach(question => {
-  //     const scenarioId = question.scenario.id;
-  //     if (!scenarioTotalPoints[scenarioId]) {
-  //         scenarioTotalPoints[scenarioId] = 0;
-  //     }
-  //     scenarioTotalPoints[scenarioId] += question.points;
-  // });
-
-  // const scenariosWithTotalPoints = uniqueScenarios.map(scenario => ({
-  //   ...scenario,
-  //     totalPoints: scenarioTotalPoints[scenario.id] || 0
-  // }));
-
-
-  // console.debug(scenariosWithTotalPoints)
-
-    
   return uniqueScenarioObjects
 
 }
 
 
+function areObjectsEqual(obj1, obj2) {
+  return obj1.id === obj2.id; // Adjust the comparison logic as needed
+}
+
+
+function areCategoriesSame(obj1, obj2) {
+  // obj1 === existingcategory
+  return obj1.value === obj2; // Adjust the comparison logic as needed
+}
+
 export default function QuizPage({quizId}){
-    
-    
     const [data, setData] = useState(null)
     const [scenarios, setScenarios] = useState(null)
     const [loading, setLoading] = useState(true);
@@ -352,25 +306,68 @@ export default function QuizPage({quizId}){
     const [showScenario, setShowScenario] = useState(false)
     const [question, setQuestion] = useState(null)
 
-    
+
+    // filters states
+    const options = [
+      { value: '0', label: 'None' },
+      { value: '1', label: 'Newest to Oldest' },
+      { value: '2', label: 'Oldest to Newest' },
+      { value: '3', label: 'Alphabetical (a-z)' },
+      { value: '4', label: 'Alphabetical Inverted (z-a)' },
+      { value: '5', label: 'Easiest to Hardest' },
+      { value: '6', label: 'Hardest to Easiest' },
+    ];
+    const [selectedOption, setSelectedOption] = useState('');
+
+    const [categories, setCategories] = useState(null)
 
 
-    useEffect(() => {   
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}`)
+    const handleSelectChange = (e) => {
+      setSelectedOption(e.target.value);
+    };
+
+
+    const DateFetch = () => {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/quiz/${quizId}`)
         .then((res) => {
             const {...data } = decrypt(res.data.encryptedData)
-            // console.debug(data)
-            setData(data)
-            setScenarios(getUniqueScenarios(data?.results?.questions))
-            setError(null);
-            setLoading(false);
+            if(data?.status === true){
+              let uniqueCategories = [];
+              let isUnique = false;
+              setData(data)
+              setScenarios(getUniqueScenarios(data?.results?.questions))
+              setError(null);
+              getUniqueScenarios(data?.results?.questions).forEach(scenario => {
+                isUnique = !uniqueCategories.some(existingcategory => areCategoriesSame(existingcategory, scenario.category) );
+                if (isUnique) uniqueCategories.push({ 
+                  value: `${scenario.category}`, 
+                  label: `${scenario.category}` 
+                });
+              })
+              uniqueCategories.push({ 
+                value: `${"All"}`, 
+                label: `${"All"}` 
+              });
+              setCategories(uniqueCategories)
+            } else {
+              setError(data?.error);
+              setData(null)
+              setCategories(null)
+              toast.error(data?.error)
+            }
         })
         .catch((err) => {
             console.log(err)
             setError(error);
-            setLoading(false);
+            toast.error("There is an error while fetching data. Please try again later.")
+        }).finally(() => {
+          setLoading(false);
         })
+    }
+    useEffect(() => {   
+      DateFetch()
     }, [])
+
     return (
         <>
         <CustomToaster />
@@ -391,26 +388,26 @@ export default function QuizPage({quizId}){
                 {updateQuestion &&  <UpdateQuizQuestion question={question} setUpdateQuestion={setUpdateQuestion}  setData={setData} quizId={quizId}   setQuestion={setQuestion} setRemoveQuestion={setRemoveQuestion} /> }
                 {showScenario && <ScenarioDetailModal setShowScenario={setShowScenario} setData={setData} quizId={quizId} setQuestion={setQuestion} question={question}  /> }
 
-                <div className="flex items-center justify-between px-5 ">
-            <div className="inline-flex">
-                <h1 className="text-white text-2xl font-bold ">
-                    {data?.results.title}  
-                </h1>
-            </div>
-                <div className="py-3  flex items-center text-sm font-medium leading-none text-gray-600 bg-none  cursor-pointer rounded">
+                <div className="flex items-center justify-between p-5 pb-0 mb-5 ">
+                  <h1 className="text-white text-2xl font-bold ">
+                          {data?.results.title}  
+                  </h1>
+                <div className="flex justify-end items-center">
                     <AddNewScenario />
                     <AddNewQuestion  quizId={quizId} setData={setData}/>
-                    {/* {
-                        data?.results.questions.length ? 
-                            <GoToQuestionDropDown counter={data.results.questions.length} /> 
-                        : null 
-                    } */}
-                        {/* <SortDropDown  list={["Ascending", "Descending"]} /> */}
                 </div>
                 </div>
                 <div className="p-3 grid gap-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  ">
                 <div className="w-full col-span-1 relative  p-0 border-none rounded-lg "  >
-                    <FiltersBtn />
+                    <div  className="block  p-6 bg-card-custom  rounded-lg shadow ">
+                      <SearchInput /> 
+                      <SelectField options={options} onChange={handleSelectChange} />
+                      <DifficultyLevelCheckBox />
+                      {
+                        categories && <CheckboxGroup text={"Categories"} options={categories} />
+                      }
+                      <ResetFilterBtn />
+                    </div>
                 </div>
                 <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "  >
                     <div className="grid  gap-4  auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" >
@@ -453,22 +450,6 @@ export default function QuizPage({quizId}){
                           </>
                         ))
                       ) }
-                      
-                        {/* {data?.results.questions.length && 
-                            reverseArray(data?.results.questions).map((question, index) =>  
-                            <QuizQuestion 
-                                key={index} 
-                                question={question} 
-                                removeQuestion={removeQuestion} 
-                                setRemoveQuestion={setRemoveQuestion} 
-                                updateQuestion={updateQuestion} 
-                                setUpdateQuestion={setUpdateQuestion}  
-                                quizId={quizId} 
-                                setData={setData} 
-                                setQuestion={setQuestion}
-                                setShowScenario={setShowScenario}
-                            />  
-                        )} */}
                     </div>
                 </div>
                 

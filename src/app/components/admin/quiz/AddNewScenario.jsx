@@ -220,11 +220,9 @@ export default function AddNewScenario(){
     return (
         <>
             {showModal && <CreateScenario  setShowModal={setShowModal}  /> }
-            <div className="relative inline-block text-left border-none ">
-                <button className="bg-deep-blue  h-full text-white mr-2 text-sm  text-gray-300 my-2 py-2 px-4 rounded flex items-center  "    onClick={() => setShowModal(true)}  >
+            <button className="bg-deep-blue-violet text-white py-2  pr-4  pl-4 mt-2 h-full border border-1 border-deep-blue-violet rounded-md mb-0 ml-0 mr-2 flex justify-start items-center "    onClick={() => setShowModal(true)}  >
                  <FaPuzzlePiece  size={23} className="mr-2" />   New Challenge
-                </button>
-            </div>
+            </button>
         </>
     )
 }
