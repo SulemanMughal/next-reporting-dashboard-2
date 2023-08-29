@@ -86,7 +86,7 @@ export default function LogsCounter({total_logs}){
     }, [logCounter])
 
 
-    setInterval(DataFetch(), 3000 , ()=>{})
+    setInterval(() => DataFetch(), 3000 )
 
     return (
         <>

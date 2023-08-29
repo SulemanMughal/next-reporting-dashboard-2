@@ -67,7 +67,6 @@ export default function UserLogsTable(){
           params: { timestamp: new Date().getTime() },
           page : currentPage
         })
-        // console.debug(encryptedData)
         axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/db_logs`,{
           encryptedData
         })
