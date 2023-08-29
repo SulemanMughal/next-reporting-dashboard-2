@@ -445,7 +445,7 @@ function Discord(){
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300">
                 <div  className="block   p-6 bg-deep-blue-violet  rounded-lg shadow relative" data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
                             <h2 className="font-medium text-lg text-white">
-                                Join our BTLO discord server here!
+                                Join our A&D-Q discord server here!
                             </h2>
                             <a href="#!" target="_BLANK">
                                 <div className="intro-y mt-6">
@@ -489,7 +489,7 @@ function PlatformIntroduction(){
                         <div className="flex justify-between">
                             <div className="w-9/12">
                                 <h1 className="text-2xl mb-3">
-                                    <span className="text-white">Welcome to Blue Team Labs</span> <span style={{color : "#35c2f1"}}>Online !</span>
+                                    <span className="text-white">Welcome to Attack &</span> <span style={{color : "#35c2f1"}}>Defense - Q</span>
                                 </h1>
                                 <div>
                                     <p className="text-white text-md">
@@ -498,7 +498,7 @@ function PlatformIntroduction(){
                                 </div>
                                 <div className="my-5">
                                     <p className="text-white text-md ">
-                                        {"Our platform is the perfect place for established cyber defenders to practice in realistic scenarios and showcase their skills in a gamified and competitive environment. Paired with external training or self-study BTLO can develop your technical capability to investigate and defend against cyber attacks and intrusions."}
+                                        {"Our platform is the perfect place for established cyber defenders to practice in realistic scenarios and showcase their skills in a gamified and competitive environment. Paired with external training or self-study A&D-Q can develop your technical capability to investigate and defend against cyber attacks and intrusions."}
                                     </p>
                                 </div>
                                 <div>
@@ -610,14 +610,14 @@ function PublicDemo(){
         <>
         <div className="p-5 bg-deep-blue-violet rounded-lg mt-5 text-white">
         <h2 className="font-medium text-xl ">
-                                   Public BTL1 Demo Course
+                                   Public A&D-Q Demo Course
                                 </h2>
                                 <div className="mt-2">
-                                    <p className="text-sm">{"Get hands-on with the content of BTL1 without paying a penny. See if it's the right move for your career today!"}</p>
+                                    <p className="text-sm">{"Get hands-on with the content of A&D-Q without paying a penny. See if it's the right move for your career today!"}</p>
                                 </div>
-                                <div className="intro-y mt-6 mb-6">
+                                <div className="intro-y mt-6 mb-6 ">
                                     <div className="news__preview image-stretch">
-                                        <Image alt="BTL1 " className="rounded-md" src="/assets/img/btl1_ad.png"   width={500} height={500}  />
+                                        <Image alt="A&D-Q " className="rounded-md text-center mx-auto" src="/assets/img/data-security.png"   width={300} height={300}  />
                                     </div>
                                 </div>
                                
@@ -652,9 +652,9 @@ function NewsBlock(){
     <div className="mt-3 text-base">
         {
             (<div>
-                {"Op Chimera is a "}<b>{"2-week"}</b> {"long event within the BTLO platform where players will work in teams or by themselves to complete a number of labs and challenges all taken from the same compromise, piecing together the actions the adversaries took by analysing logs, network traffic, security tooling, and performing incident response."}
+                {"Op Chimera is a "}<b>{"2-week"}</b> {"long event within the A&D-Q platform where players will work in teams or by themselves to complete a number of labs and challenges all taken from the same compromise, piecing together the actions the adversaries took by analysing logs, network traffic, security tooling, and performing incident response."}
                 <br /><br />
-                <b>{"PRO"}</b> {"players can purchase an"} <b>{"'Operation Pass'"}</b> {"to gain access to the live event, and be eligible for physical rewards including the"} <b>{"one-time-only metal challenge coin"} </b>  <b>{", and digital rewards including the <b>BTLO Op Chimera badge"} </b> {", which will be displayed in a unique location on your profile. There will be a new scoreboard for both individuals and teams during the event."}
+                <b>{"PRO"}</b> {"players can purchase an"} <b>{"'Operation Pass'"}</b> {"to gain access to the live event, and be eligible for physical rewards including the"} <b>{"one-time-only metal challenge coin"} </b>  <b>{", and digital rewards including the <b>A&D-Q Op Chimera badge"} </b> {", which will be displayed in a unique location on your profile. There will be a new scoreboard for both individuals and teams during the event."}
                 <br /><br />
                 {"After the event has ended, all related content will be retired and can be accessed by "}<b>{"PRO players for no additional fee"}</b>.
               </div>)
