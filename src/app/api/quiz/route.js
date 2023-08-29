@@ -121,7 +121,7 @@ export async function GET(request ){
         // return new Response(JSON.stringify({status : true , results:results}))
     } catch (error) {
         console.debug(error)
-        const encryptedData = encrypt({status : false})
+        const encryptedData = encrypt({status : false , error : `There is an error while fetching quizes. Please try again after some time.`})
         return new Response(JSON.stringify({ encryptedData }))
         // return new Response(JSON.stringify({status : false}))
     }

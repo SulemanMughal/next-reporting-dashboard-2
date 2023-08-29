@@ -17,6 +17,7 @@ import TeamAssignModal from "./TeamAssignModal"
 
 
 export default function QuizCard({quiz , setData}){
+    // console.debug(quiz)
     const [showModal, setShowModal] = useState(false)
     const [showTeamAssignModal, setShowTeamAssignModal] = useState(false)
     

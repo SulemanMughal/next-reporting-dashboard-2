@@ -406,8 +406,8 @@ export default function Page(){
 
             <CustomToaster />
             <div >
-                <div className="flex items-center justify-between pl-5 py-4 md:py-7 ">
-                    <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white"> 
+                <div className="flex items-center justify-between p-4  ">
+                    <h1 className="text-white text-2xl font-bold"> 
                         Challenges
                     </h1>
                     

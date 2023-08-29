@@ -1,9 +1,6 @@
 "use client"
 
 
-// !    ===============================
-// !    Deprecirated
-// !    ===============================
 
 // Quiz Cards for admin for "admin/quiz" page
 
