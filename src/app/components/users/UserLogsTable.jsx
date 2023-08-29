@@ -138,7 +138,7 @@ export default function UserLogsTable(){
               </>
             ) : (
               <>
-                {logs && <Grid data={logs} columns={[ "Timestamp", "Src", "Dst", "Protocol", "Msg", "Team-ID" ]}   style={style}/>}
+                {logs && <Grid data={logs} columns={[ "Timestamp", "Src", "Dst", "Protocol", "Msg", "Response", "Team-ID" ]}   style={style}/>}
                 {
                   logs && (
                     <div className="mt-4 border-0" 
