@@ -23,6 +23,8 @@ function createDbConnection() {
 }
 
 
+
+// read in a table
 export const selectRows = () => {
   return new Promise((resolve, reject) => {
     const db = createDbConnection()
@@ -41,12 +43,17 @@ export const total_records = () => {
   return new Promise((resolve, reject) => {
     const db = createDbConnection()
     let result = []
-    db.each(`SELECT COUNT(*) as 'count' FROM logs`, (err, row) => {
-      if(err) { reject(err) }
-      result.push(Object.values(row))
-    }, () => {
+    try {
+      db.each(`SELECT COUNT(*) as 'count' FROM logs`, (err, row) => {
+        if(err) { reject(err) }
+          result.push(Object.values(row))
+      }, () => {
+        resolve(result)
+      })
+    } catch (error) {
+      console.debug(error)
       resolve(result)
-    })
+    }
   })
 }
 
@@ -108,24 +115,20 @@ export const ips_per_protocol = () => {
   })
 }
 
-// const selectRows = ({page}) => {
-//   return new Promise((resolve, reject) => {
-//     const db = createDbConnection()
-//     let result = []
-//     if(page === null ){
-//       db.each(`SELECT * FROM logs`, (err, row) => {
-//         if(err) { reject(err) }
-//         result.push(Object.values(row))
-//       }, () => {
-//         resolve(result)
-//       })
-//     }
-//     el
-    
-//   })
-// }
 
 
-
+// pagination
+export const selectRowsPaginated = (page=1, limit=30) => {
+  return new Promise((resolve, reject) => {
+    const db = createDbConnection()
+    let result = []
+    db.each(`SELECT * FROM logs LIMIT ${limit} OFFSET ${(page - 1) * limit}`, (err, row) => {
+      if(err) { reject(err) }
+      result.push(Object.values(row))
+    }, () => {
+      resolve(result)
+    })
+  })
+}
 
 

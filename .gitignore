@@ -48,3 +48,6 @@ old_code.js
 
 # remove credentials
 credentials.txt
+
+# remove data
+/src/app/lib/data/*

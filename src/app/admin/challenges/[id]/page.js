@@ -74,10 +74,10 @@ function AnswerComponent({question , index}){
                         {`Question ${index+1} ) ${question.Description}`} <span className="text-xs text-gray-500 ml-2 italic">({question.points} points)</span>
                     </label>
                     <div className="flex flex-wrap -mx-3 mt-2">
-                        <div className="w-full  w-5/6 px-3 h-full">
+                        <div className="  w-5/6 px-3 h-full">
                             <input className=" placeholder-gray-400 outline-0  border border-2 border-deep-indigo focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-2 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm"  type="text" placeholder={extractLastStrategyName(question.Description)} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"}  defaultValue={question.original_answer}  onChange={(e) => (answer.current = e.target.value)} />
                         </div>
-                        <div className="w-full md:w-1/6 px-3 h-full">
+                        <div className="w-1/6 px-3 h-full">
                             {isSubmit ? 
                                     <SVGLoader text={"  "} className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" /> : <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded"  onClick={() => updateAnswerHandler(question.id)} >Update </button> 
                             }
