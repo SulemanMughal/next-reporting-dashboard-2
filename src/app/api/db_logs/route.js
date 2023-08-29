@@ -7,6 +7,9 @@ import  {selectRows , selectRowsPaginated , total_records } from "@/app/lib/read
 import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
 
+export const dynamic = "force-dynamic"
+
+
 export async function GET(request ,{ params }){
     try{
         // console.debug({params})
