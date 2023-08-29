@@ -117,6 +117,6 @@ LOGS
 [x]GET		:		/api/jobs/[id]				->	Get JOb details (from attack-team DB)
 [x]POST	:		/api/ip_range				->	Create IP_Range instance at local-DB
 [x]GET		:		/api/ip_range				->	Get all IP_Ranges from local-DB
-GET		:		/api/db_logs				->	Get all logs from (attack-team DB)
+POST		:		/api/db_logs				->	Get all logs from (attack-team DB)
 [x]GET		:		/api/attack_scripts/			->	Get All attack-scripts from (attack-team DB)
 [x]POST	:		/api/attack_logs			->	Run a attack-script (attack-team DB)

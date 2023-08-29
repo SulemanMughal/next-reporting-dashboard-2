@@ -7,10 +7,10 @@ import  {selectRows , selectRowsPaginated , total_records } from "@/app/lib/read
 import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
 
-export const dynamic = "force-dynamic"
+// export const dynamic = "force-dynamic"
 
 
-export async function GET(request ,{ params }){
+export async function POST(request ){
     try{
         // console.debug({params})
         // const {page = "" } = params;
@@ -31,7 +31,10 @@ export async function GET(request ,{ params }){
 
 
         
-        const page = request.nextUrl.searchParams.get("page") || 1;
+        const body = await request.json();
+        // console.debug(body)
+        const {...data} = decrypt(body.encryptedData)
+        const page = data.page;
         const logs = await selectRowsPaginated(page)
         let nextPage = parseInt(page) + 1;
         let prevPage = parseInt(page) - 1;
