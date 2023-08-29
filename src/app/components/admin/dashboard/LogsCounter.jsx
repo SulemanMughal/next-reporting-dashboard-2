@@ -8,12 +8,15 @@ import axios from 'axios';
 
 import decrypt from "@/app/lib/decrypt"
 import { toast } from 'react-hot-toast';
-
+// export const revalidate = 0;
 
 
 export default function LogsCounter({total_logs}){
     const [logCounter, setLogCounter] = useState(0)
-    useEffect(() => {
+
+
+
+    const DataFetch =  () => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_counter`, {
             headers: { 'Cache-Control': 'no-store' },
             params: { timestamp: new Date().getTime() },
@@ -31,6 +34,30 @@ export default function LogsCounter({total_logs}){
             console.error(error);
             toast.error(`There is an while fetching the logs. Please try again later.`)
         })
+    }
+
+
+    useEffect(() => {
+        // axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_counter`, {
+        //     headers: { 'Cache-Control': 'no-store' },
+        //     params: { timestamp: new Date().getTime() },
+        //     next: { revalidate: 10 }
+        // }).then(res => {
+        //     const {...data } = decrypt(res.data.encryptedData)
+        //     if(data?.status === true){
+        //         // console.debug(data)
+        //         setLogCounter(data?.total_logs)
+        //     } else{
+        //         toast.error(`There is an while fetching the logs. Please try again later.`)
+        //     }
+        // })
+        // .catch(error => {
+        //     console.error(error);
+        //     toast.error(`There is an while fetching the logs. Please try again later.`)
+        // })
+
+
+        DataFetch()
 
         // var requestOptions = {
         //     method: 'GET',
@@ -57,6 +84,10 @@ export default function LogsCounter({total_logs}){
         
 
     }, [logCounter])
+
+
+    setInterval(DataFetch(), 3000 , ()=>{})
+
     return (
         <>
             {/* <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg">
@@ -100,7 +131,8 @@ export default function LogsCounter({total_logs}){
                             <div>
                                 <BsFillRocketTakeoffFill size={35}  className="text-light-blue mb-6" />
                                 <p className="font-bold  leading-8 text-white  text-3xl mb-2">
-                                    {logCounter && <CountUp end={logCounter}  duration={3} />     }  
+                                    {/* {logCounter && <CountUp end={logCounter}  duration={3} />     }   */}
+                                    {logCounter}
                                 </p>
                                 <h5 className="text-base text-gray-400">Total Logs</h5>
                             </div>
