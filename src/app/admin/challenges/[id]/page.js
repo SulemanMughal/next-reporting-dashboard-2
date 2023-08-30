@@ -3,23 +3,19 @@
 
 import axios from "axios";
 import { toast } from "react-hot-toast";
-
 import {  use, useEffect, useRef, useState } from "react";
 import CustomToaster from "@/app/components/CustomToaster"
-
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import decrypt from "@/app/lib/decrypt"
 import { convertStringToArray , capitalizeFirstLetter , getDifficultyColor , convertStringToTitleCase , totalScenarioPoints ,extractLastStrategyName } from "@/app/lib/helpers"
-
 import SVGLoader from "@/app/components/SVGLoader";
 import Link from "next/link";
 import { FaFile } from "react-icons/fa";
 import encrypt from "@/app/lib/encrypt"
-
-
 import  {FaRegEdit}  from "react-icons/fa"
-import { parse } from "path";
+import { MdModeEdit } from "react-icons/md"
+import { IoMdClose } from "react-icons/io"
 
 
 
@@ -34,7 +30,6 @@ function AnswerComponent({question , index}){
     const [editedText, setEditedText] = useState("");
     const desc = useRef(null)
     const points = useRef(null)
-    // const [points, setPoints] = useState('');
 
     const options = [
         { value: 1, label: '1' },
@@ -57,45 +52,7 @@ function AnswerComponent({question , index}){
         setEditedText(question.Description)
         setSelectedOption(parseInt(question.points))
         points.current = parseInt(question.points).toString()
-        // console.debug(question.points)
-        // console.debug(parseInt(question.points).toString())
-        
-        // setPoints( "points : " +  question.points  + " ")
     }, [])
-
-
-    // const updateAnswerHandler = (questionID) => {
-    //     setIsSubmit(true)
-    //     if(answer.current === "" || answer.current === null){
-    //         toast.error("Answer cannot be empty")
-    //         setIsSubmit(false)
-    //         return
-    //     }
-    //     const encryptedData = encrypt({
-    //         "answer" : answer.current
-    //     })
-    //     axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/question/${questionID}`, {
-    //         encryptedData
-    //     })
-    //     .then(res => {
-    //         const {...data} = decrypt(res.data.encryptedData)
-    //         if(data.status === true){
-    //             toast.success("Answer updated successfully")
-                
-    //         } else{
-    //             toast.error("Sorry! There is an error while updating. Please try again later")
-    //         }
-    //     })
-    //     .catch(error => {
-    //         console.debug(error)
-    //         toast.error(`Sorry! There is an error while updating. Please try again later`)
-    //     }).finally(() => {
-    //         delay(1000).then(() => {
-    //             setIsSubmit(false)
-    //         })
-    //     })
-    // }
-
 
     const updateQuestionHandler = (questionID) => {
         setIsSubmit(true)
@@ -148,32 +105,11 @@ function AnswerComponent({question , index}){
         setEditedText(question.Description)
     }
     
-
-    // const inputRef = useRef(null);
-
-    // const handleInputChange = (event) => {
-    //     const inputValue = event.target.value;
-    //     if(inputValue === "" || inputValue === null){
-    //         const numericValue = inputValue.replace(/\D/g, '') ;
-    //         setPoints(numericValue);
-    //     } else {
-    //         // Ensure only numbers are entered by using a regular expression
-    //     const numericValue = "points : " + inputValue.replace(/\D/g, '')  + " ";
-    //     setPoints(numericValue);
-    //     }
-    //     // inputRef.current.focus();
-        
-    //   };
-
-
-    // select tag : points
     const handleSelectChange = (event, questionID) => {
         setSelectedOption(event.target.value);
         points.current = event.target.value
         updateQuestionHandler(questionID)
     };
-
-    // const selectedLabel = options.find(option => option.value === selectedOption)?.label || '';
     
 
     return (
@@ -209,7 +145,7 @@ function AnswerComponent({question , index}){
                             </button>
                             <p >
                                 <span>
-                                    {`Question ${index+1} )`} {` ${editedText}`} <select  className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-sm text-gray-400 italic   px-2  m-0  text-base inline-block bg-deep-indigo  rounded-md shadow-sm" defaultValue={points.current}
+                                    {`Question ${index+1} )`} {` ${editedText}`} <select  className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-sm text-yellow-400 italic   px-2  m-0  text-base inline-block bg-deep-indigo  rounded-md shadow-sm" defaultValue={points.current}
                                     onChange={(e) => handleSelectChange(e, question.id)}
                                     >
                                     <option  value={selectedOption}   >
@@ -227,9 +163,6 @@ function AnswerComponent({question , index}){
                                     
                                 </select>
                                 </span>
-                                 
-                                {/* <span className="text-xs text-gray-500 ml-2 italic ">({question.points} points) </span> */}
-                                {/* <input value={points} onChange={handleInputChange}   className="placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-white  text-xs  inline-block w-full p-2  m-0 mt-2  bg-deep-indigo  rounded-md shadow-sm" />  */}
                                 
                             </p> 
                         </label>
@@ -257,19 +190,22 @@ export default function Page({ params }){
     const [totalPoints, setTotalPoints] = useState(0) 
     const [fileSizes, setFileSizes] = useState([])
 
+    // const [showNameUpdateIcon, setShowNameUpdateIcon] = useState(false)
 
-    useEffect(() => {
-        AOS.init();
+    const [challengeName, setChallengeName] = useState("")
+
+    const DateFetch = () => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/scenario/${params.id}`)
         .then(res => {
             const {...data } = decrypt(res.data.encryptedData)
-            // console.debug(data?.result?.result)
             if(data.status === true){
                 setScenario(data?.result)
+                setChallengeName(data?.result?.name)
                 setTotalPoints(totalScenarioPoints(data?.result))
                 setFileSizes(data?.fileSizes)
             } else{
                 toast.error(`${data.error}`)
+                setChallengeName("")
                 setScenario(null)
                 setFileSizes([])
             }
@@ -277,9 +213,53 @@ export default function Page({ params }){
         .catch(error => {
             console.debug(error)
         })
+    }
+
+
+    useEffect(() => {
+        AOS.init();
+        DateFetch()
+        
     }, [])
 
+    const handleChallengeNameChange = (e) => {
+        e.preventDefault()
+        setChallengeName(e.target.value)
+    }
 
+    const updateName = (e) => {
+        e.preventDefault()
+        // console.debug("update Name : " , challengeName)
+
+        // setShowNameUpdateIcon(true)
+        const encryptedData = encrypt({
+            "name" : challengeName
+        })
+        axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/scenario/${params.id}`, {
+            encryptedData
+        })
+        .then(res => {
+            const {...data } = decrypt(res.data.encryptedData)
+            if(data.status === true){
+                toast.success("Challenge name has been updated successfully")
+                // setShowNameUpdateIcon(false)
+                DateFetch()
+            } else{
+                toast.error(`${data.error}`)
+            }
+        })
+        .catch(error => {
+            console.debug(error)
+            toast.error(`Sorry! There is an error while updating challenge.Please try again later.`)
+        })
+    }
+
+    const cancelUpdate = (e) => {
+        console.debug("cencel update name")
+        e.preventDefault()
+        // setShowNameUpdateIcon(false)
+        setChallengeName(scenario.name)
+    }
     
     
     return (
@@ -291,7 +271,41 @@ export default function Page({ params }){
                     {/* Left Side */}
                     <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="700" data-aos-delay="500">
                         <div  className="block  p-6 bg-deep-blue-violet rounded-lg shadow ">
-                                <h5 className="block font-medium text-3xl text-blue-600">{scenario.name}</h5>
+                            <div className="relative " 
+                                >
+                                <input
+                                    type="text"
+                                    placeholder="Challenge Title"
+                                    className="placeholder-columbia-blue outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-900  bg-deep-indigo text-white  focus:text-blue-600 pl-2   w-full  pl-0  py-2 mt-2 pr-20 mr-0 mb-0 ml-0 text-3xl block bg-deep-blue-violet  rounded-md flex justify-between items-center"
+                                    value={challengeName}
+                                    onChange={(e) => handleChallengeNameChange(e)}
+                                    
+                                    
+                                />
+                                <div >
+                                    <button
+                                        type="button"
+                                        className="w-4 h-4 absolute inset-y-0 mt-5 mb-auto mr-4  right-0 text-white"
+                                        style={{"zIndex": "9999"}}
+                                        onClick={(e) => updateName(e)}
+                                        
+                                        >
+                                            <MdModeEdit className="h-5 w-5 text-green-500  z-50"   />
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="w-5 h-5 absolute inset-y-0 mt-5 mb-auto mr-12  right-0 text-white"
+                                        onClick={(e) => cancelUpdate(e)}
+                                        style={{"zIndex": "9999"}}
+                                        
+                                        >
+                                            <IoMdClose className="h-5 w-5 text-red-500 z-50"   />
+                                    </button>
+                                </div>
+                                
+                            </div>
+                                {/* <h5 className="block font-medium text-3xl text-blue-600">{scenario.name}</h5> */}
+                                
                                 <p className=" text-gray-300 mt-2 text-lg">
                                     {scenario.desc}    
                                 </p>

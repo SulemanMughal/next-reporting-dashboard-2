@@ -1,5 +1,6 @@
 import prisma from "@/app/lib/prisma";
 import encrypt from "@/app/lib/encrypt"
+import decrypt from "@/app/lib/decrypt"
 import { calcFileSize } from "@/app/lib/helpers";
 
 interface RequestBody{
@@ -47,6 +48,32 @@ export async function GET(request: Request , params : {params : {id : string}}){
     } catch (error) {
         console.debug(error)
         const encryptedData = encrypt({status : false, error : "Sorry! There is an error while fetching challenge.Please try again later"})
+        return new Response(JSON.stringify({ encryptedData }))
+    }
+}
+
+
+export async function PUT(request: Request , params : {params : {id : string}}){
+    try {
+        const {...body} = await request.json() as RequestBody
+        const {...data} = decrypt(body.encryptedData)
+        // console.debug(data)
+
+        const result = await prisma.scenario.update({
+            where : {
+                id : params.params.id
+            },
+            data : {
+                name : data.name,
+            }
+        })
+
+        const encryptedData = encrypt({status : true })
+        return new Response(JSON.stringify({ encryptedData }))
+        
+    } catch (error) {
+        console.debug(error)
+        const encryptedData = encrypt({status : false, error : "Sorry! There is an error while updating challenge.Please try again later."})
         return new Response(JSON.stringify({ encryptedData }))
     }
 }
