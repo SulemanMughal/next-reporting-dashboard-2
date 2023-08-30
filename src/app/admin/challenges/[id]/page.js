@@ -16,6 +16,7 @@ import encrypt from "@/app/lib/encrypt"
 import  {FaRegEdit}  from "react-icons/fa"
 import { MdModeEdit } from "react-icons/md"
 import { IoMdClose } from "react-icons/io"
+import { el } from "date-fns/locale";
 
 
 
@@ -189,10 +190,8 @@ export default function Page({ params }){
     const [scenario, setScenario] = useState(null)
     const [totalPoints, setTotalPoints] = useState(0) 
     const [fileSizes, setFileSizes] = useState([])
-
-    // const [showNameUpdateIcon, setShowNameUpdateIcon] = useState(false)
-
     const [challengeName, setChallengeName] = useState("")
+    const [challengeDesc, setChallengeDesc] = useState("")
 
     const DateFetch = () => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/scenario/${params.id}`)
@@ -200,6 +199,7 @@ export default function Page({ params }){
             const {...data } = decrypt(res.data.encryptedData)
             if(data.status === true){
                 setScenario(data?.result)
+                setChallengeDesc(data?.result?.desc)
                 setChallengeName(data?.result?.name)
                 setTotalPoints(totalScenarioPoints(data?.result))
                 setFileSizes(data?.fileSizes)
@@ -216,6 +216,48 @@ export default function Page({ params }){
     }
 
 
+    const UpdateData = () => {
+        if(challengeName === "" || challengeName === null){
+            toast.error("Challenge name cannot be empty")
+            return
+        } else if(challengeName.length < 3){
+            toast.error("Challenge name must be atleast 3 characters long")
+            return
+        } else if(challengeName.length > 50){  
+            toast.error("Challenge name must be less than 50 characters long")
+            return
+        } else if(challengeDesc === "" || challengeDesc === null){
+            toast.error("Challenge description cannot be empty")
+            return
+        } else if(challengeDesc.length < 3){
+            toast.error("Challenge description must be atleast 3 characters long")
+            return
+        } else if(challengeDesc.length > 500){
+            toast.error("Challenge description must be less than 500 characters long")
+            return
+        }
+        const encryptedData = encrypt({
+            "name" : challengeName,
+            "desc" : challengeDesc
+        })
+        axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/scenario/${params.id}`, {
+            encryptedData
+        })
+        .then(res => {
+            const {...data } = decrypt(res.data.encryptedData)
+            if(data.status === true){
+                toast.success("Challenge name has been updated successfully")
+                DateFetch()
+            } else{
+                toast.error(`${data.error}`)
+            }
+        })
+        .catch(error => {
+            console.debug(error)
+            toast.error(`Sorry! There is an error while updating challenge.Please try again later.`)
+        })
+    }
+
     useEffect(() => {
         AOS.init();
         DateFetch()
@@ -229,36 +271,30 @@ export default function Page({ params }){
 
     const updateName = (e) => {
         e.preventDefault()
-        // console.debug("update Name : " , challengeName)
-
-        // setShowNameUpdateIcon(true)
-        const encryptedData = encrypt({
-            "name" : challengeName
-        })
-        axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/scenario/${params.id}`, {
-            encryptedData
-        })
-        .then(res => {
-            const {...data } = decrypt(res.data.encryptedData)
-            if(data.status === true){
-                toast.success("Challenge name has been updated successfully")
-                // setShowNameUpdateIcon(false)
-                DateFetch()
-            } else{
-                toast.error(`${data.error}`)
-            }
-        })
-        .catch(error => {
-            console.debug(error)
-            toast.error(`Sorry! There is an error while updating challenge.Please try again later.`)
-        })
+        UpdateData()
+        
     }
 
     const cancelUpdate = (e) => {
         console.debug("cencel update name")
         e.preventDefault()
-        // setShowNameUpdateIcon(false)
         setChallengeName(scenario.name)
+    }
+
+
+    const handleChallengeDescChange = (e) => {
+        e.preventDefault()
+        setChallengeDesc(e.target.value)
+    }
+
+    const updateDesc = (e) => {
+        e.preventDefault()
+        UpdateData()
+    }
+
+    const cancelDescUpdate = (e) => {
+        e.preventDefault()
+        setChallengeDesc(scenario.desc)
     }
     
     
@@ -285,7 +321,7 @@ export default function Page({ params }){
                                 <div >
                                     <button
                                         type="button"
-                                        className="w-4 h-4 absolute inset-y-0 mt-5 mb-auto mr-4  right-0 text-white"
+                                        className="w-4 h-4 absolute inset-y-0 mt-5 mb-auto mr-4  right-0 text-white transition ease-in-out delay-75  hover:scale-150  duration-300"
                                         style={{"zIndex": "9999"}}
                                         onClick={(e) => updateName(e)}
                                         
@@ -294,7 +330,7 @@ export default function Page({ params }){
                                     </button>
                                     <button
                                         type="button"
-                                        className="w-5 h-5 absolute inset-y-0 mt-5 mb-auto mr-12  right-0 text-white"
+                                        className="w-5 h-5 absolute inset-y-0 mt-5 mb-auto mr-12  right-0 text-white  transition ease-in-out delay-75  hover:scale-150  duration-300"
                                         onClick={(e) => cancelUpdate(e)}
                                         style={{"zIndex": "9999"}}
                                         
@@ -306,9 +342,31 @@ export default function Page({ params }){
                             </div>
                                 {/* <h5 className="block font-medium text-3xl text-blue-600">{scenario.name}</h5> */}
                                 
-                                <p className=" text-gray-300 mt-2 text-lg">
+                                
+                                <div className="relative">
+                                <textarea  
+                                    value={challengeDesc} 
+                                    onChange={(e) => handleChallengeDescChange(e)} 
+                                    className=" w-full   placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-white focus:text-blue-600    p-3 px-4 pr-12  m-0 mt-2 text-base block focus:bg-deep-indigo  bg-transparent rounded-md shadow-sm focus:overflow-y-auto" spellCheck={"false"} rows={"10"}></textarea>
+                                    <div className="flex flex-wrap">
+                                        <button 
+                                        onClick={(e) => updateDesc(e)}
+                                        className="absolute top-2 right-2 w-4 h-4 absolute inset-y-0 mt-5 mb-auto mr-4  right-0 text-white transition ease-in-out delay-75  hover:scale-150  duration-300" 
+                                        
+                                        >
+                                            <MdModeEdit className="h-5 w-5 text-green-500  z-50"   />
+                                        </button>
+                                        <button 
+                                            onClick={(e) => cancelDescUpdate(e)}
+                                        className="absolute top-10 right-2 w-4 h-4 absolute inset-y-0 mt-5 mb-auto mr-4  right-0 text-white transition ease-in-out delay-75  hover:scale-150  duration-300">
+                                            <IoMdClose className="h-5 w-5 text-red-500 z-50"   />
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* <p className=" text-gray-300 mt-2 text-lg">
                                     {scenario.desc}    
-                                </p>
+                                </p> */}
                                 <div className="mt-5">
                                     {
                                         convertStringToArray(scenario.tags)?.map((tag, index) => {
