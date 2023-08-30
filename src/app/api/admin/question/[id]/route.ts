@@ -23,7 +23,8 @@ export async function PUT(request: Request , params : {params : {id : string}}){
             data : {
                 
                 original_answer : data.answer,
-                Description : data.desc
+                Description : data.desc,
+                points : parseInt(data.points),
             }
         })
         // const result = await prisma.scenario.findUnique({

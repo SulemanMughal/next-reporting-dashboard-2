@@ -19,6 +19,7 @@ import encrypt from "@/app/lib/encrypt"
 
 
 import  {FaRegEdit}  from "react-icons/fa"
+import { parse } from "path";
 
 
 
@@ -32,10 +33,34 @@ function AnswerComponent({question , index}){
     const [isEditing, setIsEditing] = useState(false);
     const [editedText, setEditedText] = useState("");
     const desc = useRef(null)
+    const points = useRef(null)
+    // const [points, setPoints] = useState('');
+
+    const options = [
+        { value: 1, label: '1' },
+        { value: 2, label: '2' },
+        { value: 3, label: '3' },
+        { value: 4, label: '4' },
+        { value: 5, label: '5' },
+        { value: 6, label: '6' },
+        { value: 7, label: '7' },
+        { value: 8, label: '8' },
+        { value: 9, label: '9' },
+        { value: 10, label: '10' },
+    ];
+
+    const [selectedOption, setSelectedOption] = useState(0);
+
     useEffect(() => {
         answer.current = question.original_answer
         desc.current = question.Description
         setEditedText(question.Description)
+        setSelectedOption(parseInt(question.points))
+        points.current = parseInt(question.points).toString()
+        // console.debug(question.points)
+        // console.debug(parseInt(question.points).toString())
+        
+        // setPoints( "points : " +  question.points  + " ")
     }, [])
 
 
@@ -85,7 +110,8 @@ function AnswerComponent({question , index}){
         }
         const encryptedData = encrypt({
             "desc" : desc.current,
-            "answer" : answer.current
+            "answer" : answer.current,
+            "points" : points.current
         })
         axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/question/${questionID}`, {
             encryptedData
@@ -115,6 +141,39 @@ function AnswerComponent({question , index}){
         setEditedText(e.target.value)
         desc.current = e.target.value
     }
+
+
+    const handleCancelUpdate = () => {
+        setIsEditing(false)
+        setEditedText(question.Description)
+    }
+    
+
+    // const inputRef = useRef(null);
+
+    // const handleInputChange = (event) => {
+    //     const inputValue = event.target.value;
+    //     if(inputValue === "" || inputValue === null){
+    //         const numericValue = inputValue.replace(/\D/g, '') ;
+    //         setPoints(numericValue);
+    //     } else {
+    //         // Ensure only numbers are entered by using a regular expression
+    //     const numericValue = "points : " + inputValue.replace(/\D/g, '')  + " ";
+    //     setPoints(numericValue);
+    //     }
+    //     // inputRef.current.focus();
+        
+    //   };
+
+
+    // select tag : points
+    const handleSelectChange = (event, questionID) => {
+        setSelectedOption(event.target.value);
+        points.current = event.target.value
+        updateQuestionHandler(questionID)
+    };
+
+    // const selectedLabel = options.find(option => option.value === selectedOption)?.label || '';
     
 
     return (
@@ -130,7 +189,13 @@ function AnswerComponent({question , index}){
                             
                             <div className="w-1/6 px-3 h-full">
                                 {isSubmit ? 
-                                    <SVGLoader text={"  "} className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" /> : <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded"  onClick={() => updateQuestionHandler(question.id)} >Update </button> 
+                                    <SVGLoader text={"  "} className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" /> : (
+                                        <div>
+                                            <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded"  onClick={() => updateQuestionHandler(question.id)} >Update </button> 
+                                            <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded"  onClick={handleCancelUpdate}  >Cancel </button> 
+                                            
+                                        </div>
+                                    )
                                 }
                             </div>
                         </div>
@@ -142,12 +207,30 @@ function AnswerComponent({question , index}){
                             <button>
                                 <FaRegEdit className="mr-2 text-deep-blue"  size={23} onClick={() => setIsEditing(true)} /> 
                             </button>
-                            <p>
+                            <p >
                                 <span>
-                                    {`Question ${index+1} )`}
+                                    {`Question ${index+1} )`} {` ${editedText}`} <select  className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-sm text-gray-400 italic   px-2  m-0  text-base inline-block bg-deep-indigo  rounded-md shadow-sm" defaultValue={points.current}
+                                    onChange={(e) => handleSelectChange(e, question.id)}
+                                    >
+                                    <option  value={selectedOption}   >
+                                            {selectedOption + " Points"}
+                                    </option>
+
+                                    {options.map(option => (
+                                        selectedOption == option.value ?  null  : 
+                                        (
+                                            <option key={option.value} value={option.value}   >
+                                                {option.label}
+                                            </option>
+                                        )
+                                    ))}
+                                    
+                                </select>
                                 </span>
-                                {` ${editedText}`} 
-                                <span className="text-xs text-gray-500 ml-2 italic flex inline-flex justify-start items-end">({question.points} points) </span> 
+                                 
+                                {/* <span className="text-xs text-gray-500 ml-2 italic ">({question.points} points) </span> */}
+                                {/* <input value={points} onChange={handleInputChange}   className="placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-white  text-xs  inline-block w-full p-2  m-0 mt-2  bg-deep-indigo  rounded-md shadow-sm" />  */}
+                                
                             </p> 
                         </label>
                         <div className="flex flex-wrap -mx-3 mt-2">
