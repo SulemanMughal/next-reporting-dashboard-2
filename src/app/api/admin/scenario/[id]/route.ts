@@ -66,6 +66,7 @@ export async function PUT(request: Request , params : {params : {id : string}}){
             data : {
                 name : data.name,
                 desc : data.desc,
+                tags : data.tags,
             }
         })
 

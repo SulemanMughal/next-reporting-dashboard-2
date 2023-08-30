@@ -192,6 +192,9 @@ export default function Page({ params }){
     const [fileSizes, setFileSizes] = useState([])
     const [challengeName, setChallengeName] = useState("")
     const [challengeDesc, setChallengeDesc] = useState("")
+    // const [tags, setTags] = useState(null)
+
+    let tagsArray = useRef([])
 
     const DateFetch = () => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/scenario/${params.id}`)
@@ -203,11 +206,15 @@ export default function Page({ params }){
                 setChallengeName(data?.result?.name)
                 setTotalPoints(totalScenarioPoints(data?.result))
                 setFileSizes(data?.fileSizes)
+                // setTags(convertStringToArray(data?.result?.tags))
+                tagsArray.current = convertStringToArray(data?.result?.tags)
             } else{
                 toast.error(`${data.error}`)
                 setChallengeName("")
                 setScenario(null)
                 setFileSizes([])
+                // setTags([])
+                tagsArray.current= []
             }
         })
         .catch(error => {
@@ -217,6 +224,9 @@ export default function Page({ params }){
 
 
     const UpdateData = () => {
+
+        // console.debug("Siubmissoin")
+
         if(challengeName === "" || challengeName === null){
             toast.error("Challenge name cannot be empty")
             return
@@ -238,14 +248,15 @@ export default function Page({ params }){
         }
         const encryptedData = encrypt({
             "name" : challengeName,
-            "desc" : challengeDesc
+            "desc" : challengeDesc,
+            "tags" : tagsArray.current.join(', ')
         })
         axios.put(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/scenario/${params.id}`, {
             encryptedData
         })
         .then(res => {
-            const {...data } = decrypt(res.data.encryptedData)
-            if(data.status === true){
+            const {...data_2 } = decrypt(res.data.encryptedData)
+            if(data_2?.status === true){
                 toast.success("Challenge name has been updated successfully")
                 DateFetch()
             } else{
@@ -296,6 +307,83 @@ export default function Page({ params }){
         e.preventDefault()
         setChallengeDesc(scenario.desc)
     }
+
+
+    // delay functoin
+    const delay = ms => new Promise(res => setTimeout(res, ms));
+
+
+    // function removeValue(value, index, arr) {
+    //     // If the value at the current array index matches the specified value (2)
+    //     if (value === 2) {
+    //     // Removes the value from the original array
+    //         arr.splice(index, 1);
+    //         return true;
+    //     }
+    //     return false;
+    // }
+
+
+    const removeTag = (event, tagToRemove) => {
+        // console.debug(tags => tags.filter(tag => tag !== tagToRemove))
+        // // setTags(tags => tags.filter(tag => tag !== tagToRemove));
+        // console.debug(tags)
+
+        // tags.removeValue(tagToRemove)
+        // console.debug(tags)
+        // tags = 
+
+        // console.debug(tagToRemove)
+
+        // console.debug(tags.filter(item => item !== tagToRemove))
+        // tags = tags.filter(item => item !== tagToRemove)
+        // setTags(newArray);
+        tagsArray.current = tagsArray.current.filter(item => item !== tagToRemove)
+        // console.debug(tagsArray.current)
+        UpdateData()
+
+        // console.debug(tags)
+
+      };
+
+    // const removeTag = ( event,tag) => {
+    //     event.preventDefault()
+        
+    //     // console.debug("remove tag", tags , tag)
+    //     // const newArray  = tags.filter(item => (item !== tag))
+
+    //     // // console.debug(newArray)
+
+    //     // // console.debug(tags.filter(item => item.trim().toLowerCase() !== tag.trim().toLowerCase()))
+        
+        
+    //     // // UpdateData()
+    //     // setTags(newArray)
+
+    //     // // setTags(newArray)
+
+
+    //     // console.debug(tags)
+
+    //     console.debug((tags => tags.filter(item => item !== tag)))
+    //     // setTags(tags => tags.filter(item => item !== tag));
+    //     // UpdateData()
+
+        
+    //     // delay(1000).then(() => {
+            
+    //     //     console.debug(tags)
+    //     // })
+        
+    //     // const encryptedData = encrypt({
+    //     //     "name" : challengeName,
+    //     //     "desc" : challengeDesc,
+    //     //     "tags" : tags.join(', ')
+    //     // })
+        
+        
+
+    // }
     
     
     return (
@@ -367,15 +455,24 @@ export default function Page({ params }){
                                 {/* <p className=" text-gray-300 mt-2 text-lg">
                                     {scenario.desc}    
                                 </p> */}
-                                <div className="mt-5">
+                                {tagsArray.current && tagsArray.current.length > 0 && (
+                                    <div className="mt-5">
                                     {
-                                        convertStringToArray(scenario.tags)?.map((tag, index) => {
+                                        tagsArray.current?.map((tag, index) => {
                                             return (
-                                                <span className="px-2 py-1 rounded-full bg-deep-blue text-white mr-1 font-sm " key={index}>{convertStringToTitleCase(tag)}</span>
+                                                <div className="px-2 py-1 rounded-full bg-deep-blue text-white mr-1 font-sm  inline-block group hover:cursor-pointer" onClick={(event) => removeTag(event,tag)} key={index}>
+                                                    <div className="flex items-center justify-end">
+                                                    <span>{convertStringToTitleCase(tag)}</span>
+                                                        <button className="text-white hidden group-hover:inline-block ml-2  transition ease-in-out delay-75  group-hover:scale-150  duration-300 font-bold" 
+                                                        ><IoMdClose className="h-4 w-4 text-blue-200"   /></button>
+                                                    </div>
+                                                </div>
                                             )
                                         })
                                     }
                                 </div>
+                                )}
+                                
                                 <div className="intro-y flex relative  pt-16 sm:pt-6 items-center">
             
                         <div className="absolute sm:relative -mt-12 sm:mt-0 w-full flex  text-gray-400 text-xs sm:text-sm">
