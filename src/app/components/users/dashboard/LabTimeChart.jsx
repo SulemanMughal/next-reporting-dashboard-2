@@ -170,7 +170,7 @@ export default function LabTimeChart(){
 
     return (
         <>
-            <div  className='col-span-6'>
+            <div  className='col-span-8'>
         <div className="intro-y block sm:flex items-center h-10  py-10">
             <h2 className="text-lg font-medium truncate mr-5 text-white">
                 Lab Time

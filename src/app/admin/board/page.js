@@ -23,8 +23,8 @@ function CountryOptions(){
     return (
       <>
         {countries.map(country => (
-          <option key={country} value={country}>
-            {country}
+          <option key={country.code} value={country.code}>
+            {country.name}
           </option>
         ))}
       </>

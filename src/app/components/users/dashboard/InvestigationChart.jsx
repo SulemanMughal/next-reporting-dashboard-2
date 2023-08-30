@@ -19,26 +19,58 @@ export const data = {
     ],
     datasets: [
         {
-            data: [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            ],
+            data: Array.from({ length: 10 }, () => Math.floor(Math.random() * 50)),
             backgroundColor: [
                 "#2ecc71",
                 "#3498db",
                 "#e74c3c",
                 "#9b59b6",
-                "#f1c40f",
-                "#cf6a87",
-                "#c7ecee",
-                null
-            ],
+                "#f39c12",
+                "#d35400",
+                "#16a085",
+                "#27ae60",
+                "#2980b9",
+                "#8e44ad",
+                "#2c3e50",
+                "#7f8c8d",
+                "#c0392b",
+                "#1abc9c",
+                "#2ecc71",
+                "#3498db",
+                "#f39c12",
+                "#d35400",
+                "#16a085",
+                "#27ae60",
+                "#2980b9",
+                "#8e44ad",
+                "#2c3e50",
+                "#7f8c8d",
+                "#c0392b",
+                "#1abc9c",
+                "#2ecc71",
+                "#3498db",
+                "#f39c12",
+                "#d35400",
+                "#16a085",
+                "#27ae60",
+                "#2980b9",
+                "#8e44ad",
+                "#2c3e50",
+                "#7f8c8d",
+                "#c0392b",
+                "#1abc9c",
+                "#2ecc71",
+                "#3498db",
+                "#f39c12",
+                "#d35400",
+                "#16a085",
+                "#27ae60",
+                "#2980b9",
+                "#8e44ad",
+                "#2c3e50",
+                "#7f8c8d",
+                "#c0392b",
+              ],
             hoverBackgroundColor: [
                 "#2ecc71",
                 "#3498db",
@@ -54,12 +86,32 @@ export const data = {
         },
     ],
   };
+
+
+//   const MyCard = ({ backgroundColor }) => {
+//     const cardStyle = {
+//       backgroundColor: backgroundColor,
+//       padding: '1rem',
+//       borderRadius: '0.5rem',
+//       boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+//       color: 'white',
+//     };
+  
+//     return (
+//       <div style={cardStyle}>
+//         <h1 style={{ fontSize: '1.25rem', fontWeight: 'bold' }}>Card Title</h1>
+//         <p style={{ marginTop: '0.5rem' }}>This is the content of the card.</p>
+//       </div>
+//     );
+// };
   
 
 export default function InvestigationChart(){
     return (
         <>
+        
             <div  className='col-span-3'>
+            
     <div className="intro-y flex items-center h-10 mt-5">
         <h2 className="text-lg font-medium truncate mr-5 text-white">
             Investigations

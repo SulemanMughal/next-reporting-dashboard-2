@@ -141,6 +141,10 @@ const SelectField = ({ options, onChange }) => {
                             <input type="radio" className="input border rounded-full mr-2 appearance-none"  value="hard" checked={selectedOption === "hard"} onChange={() => handleCheckboxChange("hard")} />
                             Hard
                         </label>
+                        <label className="flex items-center text-black rounded mr-2 mt-2 sm:mt-0 bg-indigo-500 p-1 cursor-pointer select-none font-bold pr-2">
+                          <input type="radio" className="input border rounded-full mr-2 appearance-none "  value="all" checked={selectedOption === "all"} onChange={() => handleCheckboxChange("all")} />
+                          <span className="block pr-5">All</span>
+                      </label>
                     </div>
                 </div>
       </>
@@ -166,18 +170,15 @@ const SelectField = ({ options, onChange }) => {
     return (
       <>
         <div className="text-lg w-full mr-5 text-gray-300">
+          <b style={{"color": "#2ecc71"}}>
+              Team Progress
+          </b>
 
-                    
-1 Challenges left to unlock <b style={{"color": "#2ecc71"}}>
-    Challenger I
-</b>
-
-<div className="w-full h-9 mt-2 bg-deep-indigo rounded">
-    <div style={{"width": "0%"}} className="h-full bg-theme-4 rounded text-center text-white">0%</div>
-</div>
-
-</div>
-<Image  width={"90"}  height={"90"} alt="image" className="rounded-full w-20 ml-3 ml-auto" src="/assets/img/bWwHTdsIEC1mQFPmnXnZ.png" />
+          <div className="w-full h-9 mt-2 bg-deep-indigo rounded">
+              <div style={{"width": "0%"}} className="h-full bg-theme-4 rounded text-center text-white">0%</div>
+          </div>
+        </div>
+        <Image  width={"90"}  height={"90"} alt="image" className="rounded-full w-20 ml-3 ml-auto" src="/assets/img/bWwHTdsIEC1mQFPmnXnZ.png" />
       </>
     )
   }

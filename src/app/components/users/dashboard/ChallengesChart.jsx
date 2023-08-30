@@ -6,6 +6,9 @@ import { Pie } from 'react-chartjs-2';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
+// array of random numbers of size 7
+// const data = Array.from({ length: 7 }, () => Math.floor(Math.random() * 50));
+
 
 export const data = {
     labels: [
@@ -19,16 +22,7 @@ export const data = {
     ],
     datasets: [
         {
-            data: [
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-            ],
+            data: Array.from({ length: 7 }, () => Math.floor(Math.random() * 50)),
             backgroundColor: [
                 "#2ecc71",
                 "#3498db",
@@ -59,7 +53,7 @@ export const data = {
 export default function ChallengesChart(){
     return (
         <>
-            <div  className='col-span-3'>
+            <div  className='col-span-4'>
     <div className="intro-y flex items-center h-10 mt-5">
         <h2 className="text-lg font-medium truncate mr-5 text-white">
             Challenges

@@ -189,7 +189,6 @@ function QuizList({scenarios}){
 
 
 function calculateTotalObtainedPoints(data, userId) {
-    // console.debug(data, userId)
     try{
         const totalObtainedPoints = data.reduce((total, obj) => {
             const userAnswers = obj.answers.filter(answer => answer.user.id === userId);
@@ -202,7 +201,7 @@ function calculateTotalObtainedPoints(data, userId) {
         console.debug(error)
         return 0;
     }
-  }
+}
 
 
 function UserObtainedPoints({totalObtainedPointsUser, overall_points}){
@@ -482,25 +481,31 @@ function CareerBox(){
     )
 }
 
-function PlatformIntroduction(){
+function PlatformIntroduction({userId}){
     return (
         <>
             <div className="w-full col-span-7 bg-deep-blue-violet  rounded-lg shadow   p-6 mt-10 " data-aos="fade-down" data-aos-duration="500" data-aos-delay="800">
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center">
                             <div className="w-9/12">
                                 <h1 className="text-2xl mb-3">
                                     <span className="text-white">Welcome to Attack &</span> <span style={{color : "#35c2f1"}}>Defense - Q</span>
                                 </h1>
                                 <div>
                                     <p className="text-white text-md">
-                                        {"Please familiarise yourself with our Platform Rules. This will ensure you're aware of our restrictions regarding publishing writeups, sharing answers, and other activities."}
+                                        {" We invite you to discover a realm where cyber defenders of all levels can immerse themselves in authentic and competitive scenarios, honing their skills to face the ever-evolving landscape of cyber threats. By participating in our platform, you'll gain the opportunity to engage in gamified challenges that put your technical prowess to the test while maintaining the highest standards of ethical conduct."}
                                     </p>
                                 </div>
                                 <div className="my-5">
                                     <p className="text-white text-md ">
-                                        {"Our platform is the perfect place for established cyber defenders to practice in realistic scenarios and showcase their skills in a gamified and competitive environment. Paired with external training or self-study A&D-Q can develop your technical capability to investigate and defend against cyber attacks and intrusions."}
+                                        {"Familiarize yourself with our platform's rules and guidelines, which have been carefully designed to ensure fair play, prevent the sharing of answers and writeups, and create a level playing field for all participants. Attack & Defense - Q is not just a platform - it's a dynamic arena where seasoned defenders can further their expertise through realistic experiences, leveraging external training and self-study to fortify their abilities in investigating and mitigating cyber attacks and intrusions."}
                                     </p>
                                 </div>
+                                <div className="my-5">
+                                    <p className="text-white text-md ">
+                                        {" We extend our best wishes to all Defenders embarking on this journey. Your dedication to enhancing your skills will undoubtedly contribute to a safer digital world. Good luck, and may your cyber defenses remain steadfast!"}
+                                    </p>
+                                </div>
+                               
                                 <div>
                                     <p className="text-white text-md">
                                         {"Good luck Defenders!"}
@@ -519,13 +524,20 @@ function PlatformIntroduction(){
                                         {/* <a href="#!">
                                             <button className="button xl:mt-auto mr-1 mb-2 bg-blue-600 text-white sm:w-full"> View Investigations <i className="fa fa-user-secret text-base text-white"></i></button>
                                         </a> */}
-                                        <a href="#!">
+                                        <Link href={"/user/quiz"}>
                                             <button className=" bg-purple-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Challenges 
-                                            <FaServer className="text-base text-white ml-3"  /></button>
-                                        </a>
-                                        <a href="#!">
+                                                <FaServer className="text-base text-white ml-3"  />
+                                            </button>
+                                        </Link>
+
+                                        <Link href={`/user/${userId}`}>
                                             <button className=" bg-yellow-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Your Profile <FaUser className="text-base text-white ml-3" /></button>
-                                        </a>
+                                        </Link>
+                                        
+                                        
+                                        {/* <a href="#!">
+                                            <button className=" bg-yellow-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Your Profile <FaUser className="text-base text-white ml-3" /></button>
+                                        </a> */}
                                         <a href="#!">
                                             <button className=" bg-yellow-700 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Highlight Badges &amp; Titles  <FaMedal  className="text-base text-white ml-3" /> </button>
                                         </a>
@@ -639,7 +651,7 @@ function NewsBlock(){
     <div className="items-center">
        
         <div className="news__preview image-stretch">
-            <Image alt="Operation Chimera" className="rounded-md" src="/assets/img/OPChimera.png" width={500} height={500} />
+            <Image alt="Operation Chimera" className="rounded-md" src="/assets/img/hackathon.png" width={500} height={500} />
         </div>
 
     </div>
@@ -647,16 +659,15 @@ function NewsBlock(){
 
 <div className="col-span-12 md:col-span-7 rounded-md px-5 py-4 bg-theme-3 text-white">
     <div className="flex items-center">
-        <div className="font-medium text-2xl">Operation Chimera - Coming <span  className="text-cerulean-blue">2023</span> !</div>
+        <div className="font-medium text-2xl">Hackathon - Coming <span  className="text-cerulean-blue">2023</span> !</div>
     </div>
     <div className="mt-3 text-base">
         {
             (<div>
-                {"Op Chimera is a "}<b>{"2-week"}</b> {"long event within the A&D-Q platform where players will work in teams or by themselves to complete a number of labs and challenges all taken from the same compromise, piecing together the actions the adversaries took by analysing logs, network traffic, security tooling, and performing incident response."}
+                {"A hackathon is an immersive event that brings together creative minds from diverse backgrounds to collaboratively tackle complex problems and create innovative solutions. Typically spanning a condensed timeframe, often ranging from hours to a few days, hackathons foster an environment of intense ideation and rapid development. Participants, known as hackers, often include programmers, designers, and domain experts who collaborate in teams to build functional prototypes, applications, or hardware projects."}
                 <br /><br />
-                <b>{"PRO"}</b> {"players can purchase an"} <b>{"'Operation Pass'"}</b> {"to gain access to the live event, and be eligible for physical rewards including the"} <b>{"one-time-only metal challenge coin"} </b>  <b>{", and digital rewards including the <b>A&D-Q Op Chimera badge"} </b> {", which will be displayed in a unique location on your profile. There will be a new scoreboard for both individuals and teams during the event."}
-                <br /><br />
-                {"After the event has ended, all related content will be retired and can be accessed by "}<b>{"PRO players for no additional fee"}</b>.
+                
+                {"Hackathons provide a unique opportunity for participants to showcase their skills, experiment with new technologies, and transform abstract ideas into tangible projects. These events often focus on specific themes or challenges, from social impact to technological breakthroughs, encouraging participants to think outside the box and push their creative boundaries. At the heart of a hackathon lies the spirit of innovation, learning, and collaboration, as hackers not only compete for recognition but also share knowledge and experiences, contributing to a dynamic and vibrant community of problem solvers."}
               </div>)
         }
     </div>
@@ -702,50 +713,62 @@ function TopStatisticsData({userId , userName}){
     
 
     // const [total_questions, setTotalQuestions] = useState(0)
+
+
+
+
+
     let data ;
-    useEffect(() => {
-        AOS.init();
+
+
+    const DataFetch = () => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userId}`)
             .then(res => {
                 const {...data_2 } = decrypt(res.data.encryptedData)
-                if(data_2.status === true){
-                    // console.debug(data_2.total_teams)
-                    if(data_2.user?.team?.quiz?.questions?.length) {
-                        data = data_2?.user?.team?.quiz?.questions
-                        // console.debug(data)
-                        // setTotalQuestions(data.length)
-                        setTotalTeams(data_2.total_teams)
-                        setTeamPosition(data_2.team_position)
-                        setScenarios(checkScenarios(data))
-                        // setTotalChallenges(data?.length)
-                        // setTotalSubmissions(countSubmitAnswers(data))
-                        setTotalPoints(calcTotalPoints(data))
-                        setTotalObtainedPointsUser(calculateTotalObtainedPoints(data, userId))
-                        // console.debug(checkEqualNumberOfQuestionsAndAnswers(data))
-                        setTotalSolvedChallenges(checkEqualNumberOfQuestionsAndAnswers(data))
+            if(data_2.status === true){
+                // console.debug(data_2.total_teams)
+                if(data_2.user?.team?.quiz?.questions?.length) {
+                    data = data_2?.user?.team?.quiz?.questions
+                    // console.debug(data)
+                    // setTotalQuestions(data.length)
+                    setTotalTeams(data_2.total_teams)
+                    setTeamPosition(data_2.team_position)
+                    setScenarios(checkScenarios(data))
+                    // setTotalChallenges(data?.length)
+                    // setTotalSubmissions(countSubmitAnswers(data))
+                    setTotalPoints(calcTotalPoints(data))
+                    setTotalObtainedPointsUser(calculateTotalObtainedPoints(data, userId))
+                    // console.debug(checkEqualNumberOfQuestionsAndAnswers(data))
+                    setTotalSolvedChallenges(checkEqualNumberOfQuestionsAndAnswers(data))
 
-                        // console.debug(checkScenarios(data)?.[0]?.length)
-                        setTotalChallenges(checkScenarios(data)?.[0]?.length)
+                    // console.debug(checkScenarios(data)?.[0]?.length)
+                    setTotalChallenges(checkScenarios(data)?.[0]?.length)
 
-                        // console.debug(getGroupedAnswersWithTotalQuestions(data, userId))
-                        setUserAnswersCategory(calculateScenarioStats(data, userId))
+                    // console.debug(getGroupedAnswersWithTotalQuestions(data, userId))
+                    setUserAnswersCategory(calculateScenarioStats(data, userId))
 
-                        // console.debug(scenarios)
+                    // console.debug(scenarios)
 
-                        // setTotalTrueQuestions(checkTotalStatus(data)[0])
-                        // setTotalFalseQuestions(checkTotalStatus(data)[1])
-                    } else{
-                        // setTotalChallenges(0)
-                    }
-                }
-                else{
-                    toast.error(`${data_2.error}`)
+                    // setTotalTrueQuestions(checkTotalStatus(data)[0])
+                    // setTotalFalseQuestions(checkTotalStatus(data)[1])
+                } else{
                     // setTotalChallenges(0)
                 }
-            })
-            .catch(error => {
-                console.debug(error)
-            })
+            }
+            else{
+                toast.error(`${data_2.error}`)
+                // setTotalChallenges(0)
+            }
+        })
+        .catch(error => {
+            console.debug(error)
+        })
+    }
+
+    useEffect(() => {
+        AOS.init();
+        DataFetch()
+        
     }, [])
 
     // const percentage = 66;
@@ -756,16 +779,18 @@ function TopStatisticsData({userId , userName}){
         <div className="p-4 grid gap-3 auto-rows-fr grid-cols-9">
             <div className="w-full col-span-7">
                 <div className=" grid gap-6 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " >
+                    {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="600" */}
                     <TotalChallenges  totalChallenges={totalChallenges} totalSolvedChallenges={totalSolvedChallenges}    />
+                    
                     <UserObtainedPoints totalObtainedPointsUser={totalObtainedPointsUser} overall_points={scenarios[6]}  />
                     <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]}  />
                     <TeamPosition  team_position={team_position} total_teams={total_teams} />
                 </div>
-                <PlatformIntroduction />
+                <PlatformIntroduction userId={userId} />
                 <NewsBlock />
                 <div className="grid grid-cols-12 gap-4 rounded-lg mt-4">
                     <LabTimeChart />
-                    <InvestigationChart />
+                    {/* <InvestigationChart /> */}
                     <ChallengesChart />
 
                 </div>
@@ -787,7 +812,7 @@ export default function TopStatistics(){
     const { data: session } = useSession();  
     return (
         <>
-            {session &&  <TopStatisticsData userId={session?.user.id}  userName={session?.user?.name || "Undefined"} /> }
+            {(session  && session?.user) &&  <TopStatisticsData userId={session?.user.id}  userName={session?.user?.name || "Undefined"} /> }
         </>
     )
 }
