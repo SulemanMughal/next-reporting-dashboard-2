@@ -19,7 +19,7 @@ export default function LogsCounter({total_logs}){
 
 
     const DataFetch =  () => {
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_counter`, {
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/logs_counter/${new Date().getTime()}`, {
             headers: { 'Cache-Control': 'no-store' },
             params: { timestamp: new Date().getTime() },
             next: { revalidate: 10 }
