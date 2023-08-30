@@ -35,9 +35,9 @@ import 'aos/dist/aos.css';
 function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMemberModalHandler , setShowTeamDetailsModalHandler}){
     return (
         <>
-            <div className="bg-card-custom  py-4 md:py-7 px-4 md:px-8 xl:px-10 mb-14" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+            <div className="bg-deep-blue-violet rounded-lg   p-5 mx-5" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                 
-                <div className="mt-7   ">
+                <div className="mt-5   ">
                     <table className="w-full whitespace-nowrap ">
                         <thead>
                             <tr className="focus:outline-none h-16 border-none rounded text-gray-400">
@@ -110,7 +110,7 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
 function TeamGridView({teams, removeTeam}){
     return (
         <>
-            <div className="p-4 grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+            <div className=" grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg h-full " >
                 <div className="  mx-2 my-2 p-4 bg-card-custom border-none rounded-lg shadow  text-gray-400 ">
                         <div className="p-5">
@@ -242,14 +242,14 @@ export default   function Teams(){
                     setTeams={setTeams}
                 /> : null}
             <div >
-                <div className="sm:px-6 w-full h-full pb-10 ">
+                
                     {/* Top Header */}
-                    <div className="px-4 md:px-0 py-4 md:py-7">
-                        <div className="flex items-center justify-between">
-                        <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white"> Teams</h1>
-                            <div className="py-3 px-4 flex items-center text-sm font-medium leading-none  cursor-pointer rounded">
-                                <button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color  px-3 py-2 text-lg border-none font-semibold text-white shadow-sm   items-center mx-1"  onClick={modelHandler} >
-                                    <MdGroups  size={28} className="mr-2" />   Create New Team
+                    <div className="">
+                        <div className="flex items-center justify-between p-5 pb-0 mb-5 ">
+                        <h1 className="text-white text-2xl font-bold"> Teams</h1>
+                            <div className="py-3  flex items-center text-sm font-medium leading-none  cursor-pointer rounded">
+                                <button className="bg-deep-blue-violet text-white py-2  pr-4  pl-4 mt-2 h-full border border-1 border-deep-blue-violet rounded-md mb-0 ml-0 flex justify-start items-center"  onClick={modelHandler} >
+                                    <MdGroups  size={23} className="mr-2" />   Create New Team
                                 </button>
                                 <SortDropDown />
                                 {/* <button
@@ -300,7 +300,7 @@ export default   function Teams(){
             </>
         )}
                     
-                </div>
+               
             </div>
             
         </>

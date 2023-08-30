@@ -41,15 +41,15 @@ export default function ScriptList({data}) {
   return (
     <>
       {showModal ? <CreateScriptModal setShowModal={setShowModal} updateScripts={setScripts} /> : null}
-      <div className="px-5 py-4 md:py-7">
-            <div className="flex items-center justify-between">
-            <h1 className="focus:outline-none text-base sm:text-lg md:text-xl lg:text-5xl font-bold leading-normal text-white"> Attack Scripts</h1>
-                <div className="py-3 px-4 flex items-center text-sm font-medium leading-none text-gray-600 bg-none  cursor-pointer rounded">
+      <div className="">
+            <div className="flex items-center justify-between p-5 px-3 pb-0 mb-5">
+            <h1 className="text-white text-2xl font-bold"> Attack Scripts</h1>
+                <div className="flex justify-end items-center">
                     <SortBtn  />
                     <FilterBtn />
                 </div>
             </div>
-            <div className="py-4 px-0 grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
+            <div className="pb-5 px-0 grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4">
               <CreateScriptCard modelHandler={modelHandler} />
               {scripts && scripts.map((script, index) => (
                 <>

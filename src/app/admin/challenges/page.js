@@ -19,6 +19,8 @@ import { BsFillDatabaseFill } from "react-icons/bs"
 import ExpandableText from "@/app/components/ExpandableText"
 import { BsSearch } from "react-icons/bs"
 import Link from "next/link";
+import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
+import { toast } from "react-hot-toast";
 
 
 
@@ -82,9 +84,9 @@ const SelectField = ({ options, onChange }) => {
             {text}
         </label>
         <div className="flex pt-2 flex-wrap">
-        {options.map((option) => (
+        {options.map((option , index) => (
            
-          <label key={option.value} className="flex items-center mr-3 text-sm">
+          <label key={index} className="flex items-center mr-3 text-sm pb-2">
             <input
               type="checkbox"
               value={option.value}
@@ -134,6 +136,10 @@ const SelectField = ({ options, onChange }) => {
                             <input type="radio" className="input border rounded-full mr-2 appearance-none"  value="hard" checked={selectedOption === "hard"} onChange={() => handleCheckboxChange("hard")} />
                             Hard
                         </label>
+                        <label className="flex items-center text-black rounded mr-2 mt-2 sm:mt-0 bg-indigo-500 p-1 cursor-pointer select-none font-bold pr-2">
+                          <input type="radio" className="input border rounded-full mr-2 appearance-none "  value="all" checked={selectedOption === "all"} onChange={() => handleCheckboxChange("all")} />
+                          <span className="block pr-5">All</span>
+                      </label>
                     </div>
                 </div>
       </>
@@ -143,162 +149,8 @@ const SelectField = ({ options, onChange }) => {
 
 
 
-const FiltersBtn = () => {
-    const options = [
-        { value: '0', label: 'None' },
-        { value: '1', label: 'Newest to Oldest' },
-        { value: '2', label: 'Oldest to Newest' },
-        { value: '3', label: 'Alphabetical (a-z)' },
-        { value: '4', label: 'Alphabetical Inverted (z-a)' },
-        { value: '5', label: 'Easiest to Hardest' },
-        { value: '6', label: 'Hardest to Easiest' },
-      ];
-      const [selectedOption, setSelectedOption] = useState('');
-      const handleSelectChange = (e) => {
-        setSelectedOption(e.target.value);
-      };
-
-
-    //   status by completion
-      const options_2 = [
-        { value: '1', label: 'Completed' },
-        { value: '2', label: 'Not Completed' },
-        { value: '3', label: 'Both' },
-      ];
-
-    //   difficulty level
-      const options_3 = [
-        { value: '1', label: 'Easy' },
-        { value: '2', label: 'Medium' },
-        { value: '3', label: 'Hard' },
-        { value: '4', label: 'All' },
-      ];
-
-    //   categories
-      const options_4 = [
-        { value: '1', label: 'Incident Response' },
-        { value: '2', label: 'Digital Forensics' },
-        { value: '3', label: 'Security Operations' },
-        { value: '4', label: 'CTF-Like' },
-        { value: '5', label: 'Reverse Engineering' },
-        { value: '6', label: 'OSINT' },
-        { value: '7', label: 'Threat Hunting' },
-        { value: '8', label: 'Threat Intelligence' },
-        { value: '9', label: 'All' },
-      ];
-      
-    
-    return (
-        <>
-            <div  className="block  p-6 bg-card-custom  rounded-lg shadow ">
-                    <SearchInput /> 
-                    <SelectField options={options} onChange={handleSelectChange} />
-                    <CheckboxGroup text={"Status"} options={options_2} />
-                    <DifficultyLevelCheckBox />
-                    {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
-                    <CheckboxGroup text={"Categories"} options={options_4} />
-                    <ResetFilterBtn />
-                </div>
-        </>
-    )
-}
-
-
-
-
-// function ScenarioCard({scenario}) {
-//     return (
-//         <>
-//             <div className="w-full col-span-1 h-full " data-aos="zoom-in" data-aos-duration="500" data-aos-delay="200">
-//                 <div className="w-full col-span-2  h-full p-4 bg-card-custom border-none rounded-lg shadow sm:p-8  ">
-//                     {/* name */}
-//                     <div className="flex justify-between items-center  mb-4">
-//                         <div className=" flex items-center  " >
-//                             <span className='rounded-full   text-lg font-semibold bg-none text-gray-400 '>
-//                                 {convertStringToTitleCase(scenario.name) || "Undefined"}
-//                             </span>
-//                         </div>
-//                     </div>
-//                     {/* tags */}
-//                     <div className='flex justify-start flex-wrap items-center my-3'>
-//                         {convertStringToArray(scenario.tags)?.map((tag, index) => {
-//                             return (
-//                                 <span className="inline-block  rounded-full px-2   py-1 text-sm  bg-indigo-600 text-indigo-100 mr-2 my-2" key={tag}>{convertStringToTitleCase(tag)}</span>
-//                             )
-//                         })}
-//                     </div>
-//                     {/* category */}
-//                     <div className=" flex items-center  justify-center text-center px-0 mx-0 my-3 flex-wrap" >
-//                         <span className="px-1 py-1 text-md font-semibold bg-none text-blue-400">{convertStringToTitleCase(scenario.category)}</span>
-//                         <span className={getDifficultyColor(convertStringToTitleCase(scenario.difficulty)) + " mx-2"}>
-//                             {convertStringToTitleCase(scenario.difficulty)}
-//                         </span>
-//                         <span className='px-1 py-1 text-md font-semibold bg-none text-yellow-400'>
-//                             {calcTotalPointsScenario(scenario)} {"Points"} 
-//                         </span>
-//                         <span className='px-1 py-1 text-md font-semibold bg-none text-rose-400  '>
-//                             {scenario.questions.length} {"Questions"} 
-//                         </span>
-//                     </div>
-//                     {/* {Files} */}
-//                     {scenario.files?.length ? (
-//                         <>
-//                             {scenario.files.map((file, index) => (
-                                
-//                                 <div className=" flex items-center  justify-center  px-0 mx-0 my-3 flex-wrap" key={file.filename} >
-//                                     <div className="flex justify-start items-center">
-//                                         <AiFillFile  size={23} className="text-blue-500"/>
-//                                         <span className="px-1 py-1 text-md font-semibold bg-none text-blue-400">
-//                                             {convertStringToTitleCase(file.filename)}
-//                                         </span>
-//                                     </div>
-//                                     <div className="flex justify-start items-center mx-3">
-//                                         <FaKey  size={23} className="text-green-500"/>
-//                                         <span className="px-2 py-1 text-md font-semibold bg-none text-blue-400">
-//                                             {convertStringToTitleCase(file.password)}
-//                                         </span>
-//                                     </div>
-//                                     {/* <div className="flex justify-start items-center mx-3">
-//                                         <BsFillDatabaseFill  size={23} className="text-cyan-600"/>
-//                                         <span className="px-2 py-1 text-md font-semibold bg-none text-blue-400">
-//                                             {getFileSize(`${process.env.NEXT_PUBLIC_BASE_URL}${file?.filepath}`)  }
-                                            
-//                                         </span>
-//                                     </div> */}
-//                                     {/* <span className={getDifficultyColor(convertStringToTitleCase(scenario.difficulty)) + " mx-2"}>
-//                                         {convertStringToTitleCase(scenario.difficulty)}
-//                                     </span>
-//                                     <span className='px-1 py-1 text-md font-semibold bg-none text-yellow-400'>
-//                                         {calcTotalPointsScenario(scenario)} {"Points"} 
-//                                     </span>
-//                                     <span className='px-1 py-1 text-md font-semibold bg-none text-rose-400  '>
-//                                         {scenario.questions.length} {"Questions"} 
-//                                     </span> */}
-//                                 </div>           
-//                             ))}
-//                         </>
-//                     ) : null}
-//                     {scenario?.desc?.length ? (
-//                         <div className="flow-root">
-//                             <ExpandableText initialText={scenario?.desc} maxLength={150} />
-//                         </div>
-//                     ) : null}
-                     
-                    
-//                 </div>
-//             </div>
-//         </>
-//     )
-// }
-
-
-
-
-
 
 function NewScenarioCard({scenarios}){
-
-    // console.debug(scenarios)
 
     return (
         <>
@@ -338,68 +190,113 @@ function NewScenarioCard({scenarios}){
     )
 }
 
-import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
 
-
-// function checkScenarios(data){
-//     let ids = [];
-//     let names = [];
-//     let status_list = [];
-//     let category_list=  [];
-//     let description_list = [];
-//     let total_points = []
-//     let difficulty_list = []
-//     let overall_points = 0;
-//     if(data.length){
-//         data.forEach((item) => {
-//             if(item.scenario){
-//                 if(ids.includes(item.scenario.id) !== true){
-//                     ids.push(item.scenario.id)
-//                     names.push(item.scenario.name)
-//                     status_list.push(item.scenario.status)
-//                     category_list.push(item.scenario.category)
-//                     description_list.push(item.scenario.desc)
-//                     difficulty_list.push(item.scenario.difficulty)
-//                     total_points.push(calcScenarioPoints(item.scenario.questions))
-//                     overall_points = overall_points + calcScenarioPoints(item.scenario.questions)
-//                 }
-//             }
-//         })
-//     }
-//     return [ids, names , status_list, category_list , description_list , total_points , overall_points , difficulty_list];
-// }
+function getUniqueScenarios(scenarios) {
+  
+  
+  let  uniqueScenarioObjects = Array.from(new Set(scenarios.map(item => item.category)))
+  .map(stringified => (
+    { 
+      value: `${stringified}`, 
+      label: `${stringified}` 
+    }
+  ) );
+  uniqueScenarioObjects.push({value: "all", label: "All"})
+  return uniqueScenarioObjects
+}
 
 export default function Page(){
     // const [showModal, setShowModal] = useState(false)
     const [scenarios, setScenarios] = useState([])  
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+
+    // categories filter
+    const [categories, setCategories] = useState(null)
+
+
+
+  // filters
+  const options = [
+    { value: '0', label: 'None' },
+    { value: '1', label: 'Newest to Oldest' },
+    { value: '2', label: 'Oldest to Newest' },
+    { value: '3', label: 'Alphabetical (a-z)' },
+    { value: '4', label: 'Alphabetical Inverted (z-a)' },
+    { value: '5', label: 'Easiest to Hardest' },
+    { value: '6', label: 'Hardest to Easiest' },
+  ];
+  const [selectedOption, setSelectedOption] = useState('');
+  const handleSelectChange = (e) => {
+    setSelectedOption(e.target.value);
+  };
+
+  const options_4 = [
+    { value: '1', label: 'Incident Response' },
+    { value: '2', label: 'Digital Forensics' },
+    { value: '3', label: 'Security Operations' },
+    { value: '4', label: 'CTF-Like' },
+    { value: '5', label: 'Reverse Engineering' },
+    { value: '6', label: 'OSINT' },
+    { value: '7', label: 'Threat Hunting' },
+    { value: '8', label: 'Threat Intelligence' },
+    { value: '9', label: 'All' },
+  ];
+
+
+    const DataFetch = () => {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario/`)
+        .then(res => {
+          const {...data } = decrypt(res.data.encryptedData)
+          if(data.status === true){
+            if(data.scenarios?.length) {
+              // console.debug(data)
+              // let uniqueCategories = [];
+              // let isUnique = false;
+              setScenarios(data?.scenarios)
+              setError(null);
+              // getUniqueScenarios(data?.scenarios).forEach((item) => {
+              //   // console.debug(item)
+              //   if(uniqueCategories.length === 0){
+              //     uniqueCategories.push(item.category)
+              //   }
+              //   else{
+              //     isUnique = false;
+              //     uniqueCategories.forEach((category) => {
+              //       if(category === item.category){
+              //         isUnique = true;
+              //       }
+              //     })
+              //     if(!isUnique){
+              //       uniqueCategories.push(item.category)
+              //     }
+              //   }
+              // })
+              setCategories(getUniqueScenarios(data?.scenarios))
+              // console.debug(getUniqueScenarios(data?.scenarios))
+
+            } else {
+              setScenarios([])
+              setError(null);
+              toast.error("Sorry! There is an error while fethcing challenges.Please try again later")
+            }
+          } else{
+            setScenarios([])
+            setError(`${data.error}`);
+            toast.error("Sorry! There is an error while fethcing challenges.Please try again later")
+          }
+        }).catch((err) => {
+          console.log(err)
+          setError(`toast.error("Sorry! There is an error while fethcing challenges.Please try again later")`)
+          toast.error("Sorry! There is an error while fethcing challenges.Please try again later")
+        }).finally(() => {
+          setLoading(false);
+        })
+    }
+
     useEffect(()=>{
         AOS.init();
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario/`)
-        .then(res => {
-            const {...data } = decrypt(res.data.encryptedData)
-            // console.log(data)
-            if(data.status === true){
-                if(data.scenarios?.length) {
-                    setScenarios(data?.scenarios)
-                    setError(null);
-                } else {
-                    setScenarios([])
-                    setError(null);
-                }
-            } else{
-                setScenarios([])
-                setError(`${data.error}`);
-                // toast.error(`${data.error}`)
-            }
-        }).catch((err) => {
-            console.log(err)
-            // toast.error("Something went wrong")
-            setError(`Something went wrong`)
-        }).finally(() => {
-            setLoading(false);
-        })
+        DataFetch();
     }, [])
     return (
         <>
@@ -419,23 +316,25 @@ export default function Page(){
                 </div>
                 <div className="p-4 grid gap-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  ">
                     <div className="w-full col-span-1 relative  p-0 border-none rounded-lg " data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500" >
-                        <FiltersBtn />
+                        {/* <FiltersBtn /> */}
+                        <div  className="block  p-6 bg-card-custom  rounded-lg shadow ">
+                            <SearchInput /> 
+                            <SelectField options={options} onChange={handleSelectChange} />
+                            {/* <CheckboxGroup text={"Status"} options={options_2} /> */}
+                            <DifficultyLevelCheckBox />
+                            {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
+                            {/* <CheckboxGroup text={"Categories"} options={options_4} /> */}
+                            {
+                              categories && <CheckboxGroup text={"Categories"} options={categories} />
+                            }
+                            <ResetFilterBtn />
+                        </div>
                     </div>
                 
                 
                 {loading ? (
                     <>
                         <div className="w-full col-span-3 relative  p-0 border-none rounded-lg">
-                        {/* <Triangle
-                            height="300"
-                            width="300"
-                            color="#4fa94d"
-                            ariaLabel="triangle-loading"
-                            wrapperStyle={{}}
-                            wrapperClass={"flex justify-center"}
-                            visible={true}
-                            className={"flex "} 
-                        /> */}
                         <CustomTriangleLoader />
                         </div>
                     </>
@@ -448,14 +347,9 @@ export default function Page(){
                 ) : (
                     <>
                     <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "   >
-                        <div className=" grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
-                                {/* {scenarios.map((scenario, index) => (
-                                    <>
-                                        <ScenarioCard scenario={scenario} key={scenario.id} />
-                                    </>
-                                ))} */}
-                                {scenarios && <NewScenarioCard scenarios={scenarios}  /> }
-                            </div>
+                      <div className=" grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
+                        {scenarios && <NewScenarioCard scenarios={scenarios}  /> }
+                      </div>
                     </div>
                     </>
                 )}

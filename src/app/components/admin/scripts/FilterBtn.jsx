@@ -21,8 +21,8 @@ export default function FilterBtn(){
         <>
 <Menu as="div" className="relative inline-block text-left ">
       <div>
-        <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-lg font-semibold text-white shadow-sm">
-            <FiFilter className="-mr-1 h-7 w-7 text-dark  " aria-hidden="true" /> <span className='text-dark ml-2 text-xl'>Filter</span>
+        <Menu.Button className="bg-deep-blue-violet text-white py-2  pr-4  pl-4 mt-2 h-full border border-1 border-deep-blue-violet rounded-md mb-0 ml-0 flex justify-start items-center">
+            <FiFilter size={23} className="mr-2" /> <span className=''>Filter</span>
         </Menu.Button>
       </div>
 
