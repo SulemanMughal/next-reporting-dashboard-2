@@ -122,7 +122,7 @@ export const selectRowsPaginated = (page=1, limit=30) => {
   return new Promise((resolve, reject) => {
     const db = createDbConnection()
     let result = []
-    db.each(`SELECT * FROM logs LIMIT ${limit} OFFSET ${(page - 1) * limit} ORDER BY datetime DESC`, (err, row) => {
+    db.each(`SELECT * FROM logs ORDER BY datetime DESC LIMIT ${limit} OFFSET ${(page - 1) * limit} `, (err, row) => {
       if(err) { reject(err) }
       result.push(Object.values(row))
     }, () => {
