@@ -142,7 +142,7 @@ const AdminNavBar = ({pathname}) => {
                     </li>
                     <li >
                         <Link href={"/admin/challenges"} className={classNames( checkAdminChallengesPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
-                            <FaPuzzlePiece  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Challenges</p>    
+                            <FaServer  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Challenges</p>    
                         </Link>
                     </li>
                     <li >

@@ -171,7 +171,7 @@ const DataRow = ({index , item}) =>{
 function TopScoreHeaderRow(){
     return (
         <div className="mb-10 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
-            <div className="intro-y col-span-1 flex flex-wrap sm:flex-nowrap items-center mt-2 pl-5 pr-5 pb-5 pt-5 bg-deep-blue-violet rounded box ">
+            {/* <div className="intro-y col-span-1 flex flex-wrap sm:flex-nowrap items-center mt-2 pl-5 pr-5 pb-5 pt-5 bg-deep-blue-violet rounded box ">
                 <div className="mr-auto col-span-3 text-lg text-gray-300 w-full">
                         252 points left to <b style={{"color":"#55E6C1"}}>
                         Defender
@@ -183,8 +183,8 @@ function TopScoreHeaderRow(){
                     
                 </div>
                 <Image  width={"90"}  height={"90"} className="rounded-full w-16 ml-3" src="/assets/img/RaM4kXNrsL0Nx38H3zmi.png" alt="asdas" />
-            </div>
-            <div className="intro-y col-span-3 flex flex-wrap items-center mt-2 pl-5 pb-5 pt-5 bg-deep-blue-violet rounded box text-gray-300" style={{"zIndex":"20"}}>     
+            </div> */}
+            <div className="intro-y col-span-4 flex flex-wrap items-center mt-2 pl-5 pb-5 pt-5 bg-deep-blue-violet rounded box text-gray-300" style={{"zIndex":"20"}}>     
            
     
             
@@ -613,12 +613,153 @@ function UserProgressHeader(){
     )
 }
 
+const PaginationBlock = () => {
+    return (
+        <>
+            <div className="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-5 mb-14"  data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+            <div>
+            
+        <nav role="navigation" aria-label="Pagination Navigation" className="flex items-center justify-between">
+            <div className="flex justify-between flex-1 sm:hidden">
+                <span>
+                                            <span className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-md select-none">
+                            « Previous
+                        </span>
+                                    </span>
+
+                <span>
+                                            <button type="button"  dusk="nextPage.before" className="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                            Next »
+                        </button>
+                                    </span>
+            </div>
+
+            <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <p className="text-sm text-gray-700 leading-5">
+                        <span>Showing</span>
+                        <span className="font-medium mx-2">1</span>
+                        <span>to</span>
+                        <span className="font-medium">10</span>
+                        <span>of</span>
+                        <span className="font-medium mx-2">19630</span>
+                        <span className="mr-3">results</span>
+                    </p>
+                </div>
+
+                <div>
+                    <span className="relative z-0 inline-flex rounded-md shadow-sm">
+                        <span>
+                            
+                                                            <span aria-disabled="true" aria-label="&amp;laquo; Previous">
+                                    <span className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5" aria-hidden="true">
+                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                                                    </span>
+
+                        
+                                                    
+                            
+                            
+                                                                                                <span key="paginator-page-1-page1">
+                                                                                    <span aria-current="page">
+                                                <span className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 select-none">1</span>
+                                            </span>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page2">
+                                                                                    <button type="button" className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 2">
+                                                2
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page3">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 3">
+                                                3
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page4">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 4">
+                                                4
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page5">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 5">
+                                                5
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page6">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 6">
+                                                6
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page7">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 7">
+                                                7
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page8">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 8">
+                                                8
+                                            </button>
+                                                                            </span>
+                                                                    <span> 
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 9">
+                                                9
+                                            </button>
+                                                                            </span>
+                                                                    <span>
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 10">
+                                                10
+                                            </button>
+                                                                            </span>
+                                                                                                                
+                                                            <span aria-disabled="true">
+                                    <span className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 cursor-default leading-5 select-none">...</span>
+                                </span>
+                            
+                            
+                                                                                
+                            
+                            
+                                                                                                <span key="paginator-page-1-page1962">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 1962">
+                                                1962
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page1963">
+                                                                                    <button type="button" className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 1963">
+                                                1963
+                                            </button>
+                                                                            </span>
+                                                                                    
+                        <span>
+                            
+                                                            <button type="button"  dusk="nextPage.after" rel="next" className="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Next &amp;raquo;">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                                                    </span>
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+            
+        </div>
+        </>
+    )
+}
+
 function TableTr({index , item}){
     // console.debug(item)
     const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
     return (
         <>
-            <tr className="intro-x " style={{"zIndex": "40 !important"}}>
+            <tr className="intro-x " style={{"zIndex": "40 !important"}} data-aos="zoom-in" data-aos-duration="1000" data-aos-delay={350}>
                 <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
                     <h3>{index}</h3>
                 </td>
@@ -721,8 +862,8 @@ function LeaderBoardTable({data}){
     return (
         <>
             <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-400">
-                <table className="table table-report -mt-2">
-                <thead>
+                <table className="table table-report -mt-2" >
+                <thead data-aos="zoom-in" data-aos-duration="1000" data-aos-delay={500}>
                     <tr className="text-white ">
                         <th className="text-center whitespace-nowrap" style={{"width":"0.5%", "border":"0px", "padding":"0px", "paddingLeft":"20px"}}>#</th>
                         <th className="whitespace-nowrap" style={{"width":"1%"}}></th>
@@ -801,9 +942,10 @@ export default function Page(){
                 {/* Top Score Header Row */}
                 <TopScoreHeaderRow />
                 {/* <UserProgress /> */}
-                <UserProgressHeader />
+                {/* <UserProgressHeader /> */}
                 {data && <LeaderBoardTable data={data} /> }
                 
+                <PaginationBlock />
                 {/* <DataRowHeader />
                 {
                     data && data.map((item, index) => (

@@ -120,11 +120,152 @@ const DataRowHeader = () =>{
 
 
 
+const PaginationBlock = () => {
+    return (
+        <>
+            <div className="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center mt-5 mb-14"  data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+            <div>
+            
+        <nav role="navigation" aria-label="Pagination Navigation" className="flex items-center justify-between">
+            <div className="flex justify-between flex-1 sm:hidden">
+                <span>
+                                            <span className="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 rounded-md select-none">
+                            « Previous
+                        </span>
+                                    </span>
+
+                <span>
+                                            <button type="button"  dusk="nextPage.before" className="relative inline-flex items-center px-4 py-2 ml-3 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 rounded-md hover:text-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150">
+                            Next »
+                        </button>
+                                    </span>
+            </div>
+
+            <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <p className="text-sm text-gray-700 leading-5">
+                        <span>Showing</span>
+                        <span className="font-medium mx-2">1</span>
+                        <span>to</span>
+                        <span className="font-medium">10</span>
+                        <span>of</span>
+                        <span className="font-medium mx-2">19630</span>
+                        <span className="mr-3">results</span>
+                    </p>
+                </div>
+
+                <div>
+                    <span className="relative z-0 inline-flex rounded-md shadow-sm">
+                        <span>
+                            
+                                                            <span aria-disabled="true" aria-label="&amp;laquo; Previous">
+                                    <span className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5" aria-hidden="true">
+                                        <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </span>
+                                </span>
+                                                    </span>
+
+                        
+                                                    
+                            
+                            
+                                                                                                <span key="paginator-page-1-page1">
+                                                                                    <span aria-current="page">
+                                                <span className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default leading-5 select-none">1</span>
+                                            </span>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page2">
+                                                                                    <button type="button" className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 2">
+                                                2
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page3">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 3">
+                                                3
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page4">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 4">
+                                                4
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page5">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 5">
+                                                5
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page6">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 6">
+                                                6
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page7">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 7">
+                                                7
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page8">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 8">
+                                                8
+                                            </button>
+                                                                            </span>
+                                                                    <span> 
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 9">
+                                                9
+                                            </button>
+                                                                            </span>
+                                                                    <span>
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 10">
+                                                10
+                                            </button>
+                                                                            </span>
+                                                                                                                
+                                                            <span aria-disabled="true">
+                                    <span className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 cursor-default leading-5 select-none">...</span>
+                                </span>
+                            
+                            
+                                                                                
+                            
+                            
+                                                                                                <span key="paginator-page-1-page1962">
+                                                                                    <button type="button"  className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 1962">
+                                                1962
+                                            </button>
+                                                                            </span>
+                                                                    <span key="paginator-page-1-page1963">
+                                                                                    <button type="button" className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700 transition ease-in-out duration-150" aria-label="Go to page 1963">
+                                                1963
+                                            </button>
+                                                                            </span>
+                                                                                    
+                        <span>
+                            
+                                                            <button type="button"  dusk="nextPage.after" rel="next" className="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Next &amp;raquo;">
+                                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </button>
+                                                    </span>
+                    </span>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+            
+        </div>
+        </>
+    )
+}
+
 
 const DataRow = ({index , item}) =>{
     // console.debug(item)
     const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
-    console.debug(item)
+    // console.debug(item)
     return (
         <>
             <div className="grid gap-3 auto-rows-fr  grid-cols-5  py-5 px-7 text-xl bg-card-custom text-white rounded-xl place-items-center mb-5" data-aos="fade-left" data-aos-duration="500" data-aos-delay={index * 100}>
@@ -479,7 +620,7 @@ function UserProgress(){
 function UserProgressHeader(){
     return (
         <>
-        <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-300 mb-8">
+        <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-300 mb-8" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
             <table className="table table-report table-auto -mt-2 ">
                 <thead>
                     {/* <tr>
@@ -617,102 +758,99 @@ function TableTr({index , item}){
     // console.debug(item)
     const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
     return (
-        <>
-            <tr className="intro-x " style={{"zIndex": "40 !important"}}>
-                <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
-                    <h3>{index}</h3>
-                </td>
-                <td className="">
-                    <div className="flex">
-                        <div className="w-10 h-10 image-fit zoom-in">
-                            <Image style={{"border":"2px solid #c90076"}} alt="asdasd" width={40} height={40} className="rounded-full border-opacity-100" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
-                        </div>
+        <tr className="intro-x " style={{"zIndex": "40 !important"}} data-aos="zoom-in" data-aos-duration="1000" data-aos-delay={350}>
+            <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
+                <h3>{index}</h3>
+            </td>
+            <td className="">
+                <div className="flex">
+                    <div className="w-10 h-10 image-fit zoom-in">
+                        <Image style={{"border":"2px solid #c90076"}} alt="asdasd" width={40} height={40} className="rounded-full border-opacity-100" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
                     </div>
-                </td>
-                <td className="pl-0" style={{"paddingLeft":"0px"}}>
-                    <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{(item.user.name)}</a>
-                    {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
-                </td>
-                <td className="table-report__action text-center place-content-center">
-                    <div  className="relative z-50 inline-flex">
-                        <div  className="cursor-pointer w-16 h-14 image-fit zoom-in">
-                            <Image width={"65"} height={48} className="ml-auto mr-auto" src="/assets/img/US.png"   alt="asdasd" />
-                        </div>
-                        <div className="relative"  style={{"display": "none"}}>
-                            <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
-                                United States
-                            </div>
-                            <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-                                <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-                            </svg>
-                        </div>
+                </div>
+            </td>
+            <td className="pl-0" style={{"paddingLeft":"0px"}}>
+                <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{(item.user.name)}</a>
+                {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
+            </td>
+            <td className="table-report__action text-center place-content-center">
+                <div  className="relative z-50 inline-flex">
+                    <div  className="cursor-pointer w-16 h-14 image-fit zoom-in">
+                        <Image width={"65"} height={48} className="ml-auto mr-auto" src="/assets/img/US.png"   alt="asdasd" />
                     </div>
-                </td>
-                {/* rank */}
-                {/* <td className="table-report__action text-center">
-                    <p style={{"color":"#EAB543"}} className="text-base">Guardian
-                    </p>
-                </td> */}
-                {/* badges */}
-                <td className="w-40 table-report__action">
-                    <div className="flex mt-2 mb-2">
-                        <div  className="relative z-50 inline-flex items-center">
-                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5 ">
-                                    <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" />
-                                    
-                                </div>
-                                <p className="ml-5">{item.team.name}</p>
-                                <div className="relative"  style={{"display": "none"}}>
-                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-                                    {item.team.name}
-                                    </div>
-                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-                                    </svg>
-                                </div>
-                            </div>
-                            {/* <div  className="relative z-50 inline-flex">
-                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-                                    <Image className="border-0" title="Complete 20 reverse engineering investigations" tooltip-content="Complete 20 reverse engineering investigations" src="/assets/img/kydjwswcmhagkadmazux.png" width={64} height={64} alt="sadas"  />
-                                </div>
-                                <div className="relative"  style={{"display": "none"}}>
-                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-                                        Complete 20 reverse engineering investigations
-                                    </div>
-                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div  className="relative z-50 inline-flex">
-                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-                                    <Image className="border-0" title="Got First-Blood on a Challenge or Investigation" tooltip-content="Got First-Blood on a Challenge or Investigation" src="/assets/img/dj8ndasiJSDi2jsiJSAOD.png" width={64} height={64} alt="sadas"  />
-                                </div>
-                                <div className="relative"  style={{"display": "none"}}>
-                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-                                        Got First-Blood on a Challenge or Investigation
-                                    </div>
-                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-                                    </svg>
-                                </div>
-                            </div> */}
-                                                        </div>
-                </td>
-                <td className="text-center table-report__action text-lg text-yellow-400">{totalPoints}</td>
-                <td className="text-center table-report__action text-base">
-                    <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{item.question?.scenario?.category || null}</a>
-                    <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${item.obtainedPoints}` + " Points"}</div>
-                </td>
-                <td className="table-report__action w-56">
-                    <div className="flex justify-center items-center">
-                        <a className="flex items-center mr-3 text-gray-300" href="#!">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLineJoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a>
+                    <div className="relative"  style={{"display": "none"}}>
+                        <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
+                            United States
+                        </div>
+                        <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                            <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
+                        </svg>
                     </div>
-                </td>
-            </tr>
-            
-        </>
+                </div>
+            </td>
+            {/* rank */}
+            {/* <td className="table-report__action text-center">
+                <p style={{"color":"#EAB543"}} className="text-base">Guardian
+                </p>
+            </td> */}
+            {/* badges */}
+            <td className="w-40 table-report__action">
+                <div className="flex mt-2 mb-2">
+                    <div  className="relative z-50 inline-flex items-center">
+                            <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5 ">
+                                <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" />
+                                
+                            </div>
+                            <p className="ml-5">{item.team.name}</p>
+                            <div className="relative"  style={{"display": "none"}}>
+                                <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
+                                {item.team.name}
+                                </div>
+                                <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                                    <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
+                                </svg>
+                            </div>
+                        </div>
+                        {/* <div  className="relative z-50 inline-flex">
+                            <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
+                                <Image className="border-0" title="Complete 20 reverse engineering investigations" tooltip-content="Complete 20 reverse engineering investigations" src="/assets/img/kydjwswcmhagkadmazux.png" width={64} height={64} alt="sadas"  />
+                            </div>
+                            <div className="relative"  style={{"display": "none"}}>
+                                <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
+                                    Complete 20 reverse engineering investigations
+                                </div>
+                                <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                                    <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
+                                </svg>
+                            </div>
+                        </div>
+                        <div  className="relative z-50 inline-flex">
+                            <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
+                                <Image className="border-0" title="Got First-Blood on a Challenge or Investigation" tooltip-content="Got First-Blood on a Challenge or Investigation" src="/assets/img/dj8ndasiJSDi2jsiJSAOD.png" width={64} height={64} alt="sadas"  />
+                            </div>
+                            <div className="relative"  style={{"display": "none"}}>
+                                <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
+                                    Got First-Blood on a Challenge or Investigation
+                                </div>
+                                <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                                    <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
+                                </svg>
+                            </div>
+                        </div> */}
+                                                    </div>
+            </td>
+            <td className="text-center table-report__action text-lg text-yellow-400">{totalPoints}</td>
+            <td className="text-center table-report__action text-base">
+                <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{item.question?.scenario?.category || null}</a>
+                <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${item.obtainedPoints}` + " Points"}</div>
+            </td>
+            <td className="table-report__action w-56">
+                <div className="flex justify-center items-center">
+                    <a className="flex items-center mr-3 text-gray-300" href="#!">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLineJoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a>
+                </div>
+            </td>
+        </tr>
     )
 }
 
@@ -720,9 +858,9 @@ function TableTr({index , item}){
 function LeaderBoardTable({data}){
     return (
         <>
-            <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-400">
+            <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-400" >
                 <table className="table table-report -mt-2">
-                <thead>
+                <thead data-aos="zoom-in" data-aos-duration="1000" data-aos-delay={500}>
                     <tr className="text-white ">
                         <th className="text-center whitespace-nowrap" style={{"width":"0.5%", "border":"0px", "padding":"0px", "paddingLeft":"20px"}}>#</th>
                         <th className="whitespace-nowrap" style={{"width":"1%"}}></th>
@@ -740,6 +878,7 @@ function LeaderBoardTable({data}){
                         data && data.map((item, index) => (
                             <TableTr  key={index} index={index+1} item={item}/>
                         ))
+                        
                     }
                     
                 </tbody>
@@ -784,7 +923,7 @@ export default function Page(){
     return (
         <>
             <CustomToaster />
-            <div  className="p-4 ">
+            <div  className="p-4 mb-15">
                 <div className="flex justify-between items-center mb-5 ">
                     <h1 className="text-white text-2xl font-bold">
                         Global Leaderboard
@@ -802,7 +941,15 @@ export default function Page(){
                 <TopScoreHeaderRow />
                 {/* <UserProgress /> */}
                 <UserProgressHeader />
-                {data && <LeaderBoardTable data={data} /> }
+                {data && (
+                    <>
+                        <LeaderBoardTable data={data} />  
+                        
+                    </>
+                ) }
+                <PaginationBlock />
+
+                
                 
                 {/* <DataRowHeader />
                 {

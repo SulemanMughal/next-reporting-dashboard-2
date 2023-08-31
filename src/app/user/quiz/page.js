@@ -101,7 +101,7 @@ const SelectField = ({ options, onChange }) => {
         <div className="flex pt-2 flex-wrap">
         {options.map((option) => (
            
-          <label key={option.value} className="flex items-center mr-3 text-sm">
+          <label key={option.value} className="flex items-center mr-3 text-sm pb-2">
             <input
               type="checkbox"
               value={option.value}
@@ -184,68 +184,77 @@ const SelectField = ({ options, onChange }) => {
   }
   
 
-const FiltersBtn = () => {
-    const options = [
-        { value: '0', label: 'None' },
-        { value: '1', label: 'Newest to Oldest' },
-        { value: '2', label: 'Oldest to Newest' },
-        { value: '3', label: 'Alphabetical (a-z)' },
-        { value: '4', label: 'Alphabetical Inverted (z-a)' },
-        { value: '5', label: 'Easiest to Hardest' },
-        { value: '6', label: 'Hardest to Easiest' },
-      ];
-      const [selectedOption, setSelectedOption] = useState('');
-      const handleSelectChange = (e) => {
-        setSelectedOption(e.target.value);
-      };
+// const FiltersBtn = ({quizTotalPoints , teamTotalPoints}) => {
+//     const options = [
+//         { value: '0', label: 'None' },
+//         { value: '1', label: 'Newest to Oldest' },
+//         { value: '2', label: 'Oldest to Newest' },
+//         { value: '3', label: 'Alphabetical (a-z)' },
+//         { value: '4', label: 'Alphabetical Inverted (z-a)' },
+//         { value: '5', label: 'Easiest to Hardest' },
+//         { value: '6', label: 'Hardest to Easiest' },
+//       ];
+//       const [selectedOption, setSelectedOption] = useState('');
+//       const handleSelectChange = (e) => {
+//         setSelectedOption(e.target.value);
+//       };
 
 
-    //   status by completion
-      const options_2 = [
-        { value: '1', label: 'Completed' },
-        { value: '2', label: 'Not Completed' },
-        { value: '3', label: 'Both' },
-      ];
+//     //   status by completion
+//       const options_2 = [
+//         { value: '1', label: 'Completed' },
+//         { value: '2', label: 'Not Completed' },
+//         { value: '3', label: 'Both' },
+//       ];
 
-    //   difficulty level
-      const options_3 = [
-        { value: '1', label: 'Easy' },
-        { value: '2', label: 'Medium' },
-        { value: '3', label: 'Hard' },
-        { value: '4', label: 'All' },
-      ];
+//     //   difficulty level
+//       const options_3 = [
+//         { value: '1', label: 'Easy' },
+//         { value: '2', label: 'Medium' },
+//         { value: '3', label: 'Hard' },
+//         { value: '4', label: 'All' },
+//       ];
 
-    //   categories
-      const options_4 = [
-        { value: '1', label: 'Incident Response' },
-        { value: '2', label: 'Digital Forensics' },
-        { value: '3', label: 'Security Operations' },
-        { value: '4', label: 'CTF-Like' },
-        { value: '5', label: 'Reverse Engineering' },
-        { value: '6', label: 'OSINT' },
-        { value: '7', label: 'Threat Hunting' },
-        { value: '8', label: 'Threat Intelligence' },
-        { value: '9', label: 'All' },
-      ];
+//     //   categories
+//       const options_4 = [
+//         { value: '1', label: 'Incident Response' },
+//         { value: '2', label: 'Digital Forensics' },
+//         { value: '3', label: 'Security Operations' },
+//         { value: '4', label: 'CTF-Like' },
+//         { value: '5', label: 'Reverse Engineering' },
+//         { value: '6', label: 'OSINT' },
+//         { value: '7', label: 'Threat Hunting' },
+//         { value: '8', label: 'Threat Intelligence' },
+//         { value: '9', label: 'All' },
+//       ];
       
     
-    return (
-        <>
-        <div className="intro-y col-span-12 md:col-span-3 flex flex-wrap sm:flex-nowrap items-center pl-5 pr-5 pb-5 pt-5 mb-5 bg-deep-blue-violet ">
-          <UserChallengeProgress />
-        </div>
-            <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow ">
-                    <SearchInput /> 
-                    <SelectField options={options} onChange={handleSelectChange} />
-                    <CheckboxGroup text={"Status"} options={options_2} />
-                    <DifficultyLevelCheckBox />
-                    {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
-                    <CheckboxGroup text={"Categories"} options={options_4} />
-                    <ResetFilterBtn />
-                </div>
-        </>
-    )
-}
+//     return (
+//         <>
+//         <div className="intro-y col-span-12 md:col-span-3 flex flex-wrap sm:flex-nowrap items-center pl-5 pr-5 pb-5 pt-5 mb-5 bg-deep-blue-violet ">
+//           <div className="text-lg w-full mr-5 text-gray-300">
+//             <b style={{"color": "#2ecc71"}}>
+//                 Team Progress
+//             </b>
+
+//             <div className="w-full h-9 mt-2 bg-deep-indigo rounded">
+//                 <div style={{"width": `${parseInt((teamTotalPoints/quizTotalPoints)*100)}%`}} className="h-full bg-deep-blue rounded text-center text-white">{parseInt((teamTotalPoints/quizTotalPoints)*100)}%</div>
+//             </div>
+//           </div>
+//           <Image  width={"90"}  height={"90"} alt="image" className="rounded-full w-20 ml-3 ml-auto" src="/assets/img/bWwHTdsIEC1mQFPmnXnZ.png" />
+//         </div>
+//         <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow ">
+//         <SearchInput /> 
+//         <SelectField options={options} onChange={handleSelectChange} />
+//         <CheckboxGroup text={"Status"} options={options_2} />
+//         <DifficultyLevelCheckBox />
+//         {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
+//         <CheckboxGroup text={"Categories"} options={options_4} />
+//         <ResetFilterBtn />
+//         </div>
+//         </>
+//     )
+// }
 
 function calcScenarioPoints(items){
     let points = 0
@@ -338,30 +347,151 @@ function QuizList({scenarios}){
     )
 }
 
+function calculateTotalObtainedPoints(questions) {
+  console.debug(questions)
+  let totalObtainedPoints = 0;
+
+  questions.forEach(item => {
+      item.answers.forEach(answer => {
+          totalObtainedPoints += answer.obtainedPoints;
+      });
+  });
+
+  return totalObtainedPoints;
+}
+
+
+function getUniqueScenarios(scenarios) {
+  
+  
+  let  uniqueScenarioObjects = Array.from(new Set(scenarios.map(item => item.category)))
+  .map(stringified => (
+    { 
+      value: `${stringified}`, 
+      label: `${stringified}` 
+    }
+  ) );
+  uniqueScenarioObjects.push({value: "all", label: "All"})
+  return uniqueScenarioObjects
+}
+
 export default function Page() {
     const { data: session } = useSession();
-    const [scenarios, setScenarios] = useState([])  
+    const [scenarios, setScenarios] = useState([])
+    const [quizTotalPoints, setQuizTotalPoints] = useState(0)
+    const [teamTotalPoints, setTeamTotalPoints] = useState(0)
     let data ;
+    let arrSceanrios = [];
+
+
+    const [categories, setCategories] = useState(null)
+
+
+
+    // --------------------
+    // filters options
+
+
+    const options = [
+      { value: '0', label: 'None' },
+      { value: '1', label: 'Newest to Oldest' },
+      { value: '2', label: 'Oldest to Newest' },
+      { value: '3', label: 'Alphabetical (a-z)' },
+      { value: '4', label: 'Alphabetical Inverted (z-a)' },
+      { value: '5', label: 'Easiest to Hardest' },
+      { value: '6', label: 'Hardest to Easiest' },
+    ];
+    const [selectedOption, setSelectedOption] = useState('');
+    const handleSelectChange = (e) => {
+      setSelectedOption(e.target.value);
+    };
+
+
+  //   status by completion
+    const options_2 = [
+      { value: '1', label: 'Completed' },
+      { value: '2', label: 'Not Completed' },
+      { value: '3', label: 'Both' },
+    ];
+
+  //   difficulty level
+    const options_3 = [
+      { value: '1', label: 'Easy' },
+      { value: '2', label: 'Medium' },
+      { value: '3', label: 'Hard' },
+      { value: '4', label: 'All' },
+    ];
+
+  //   categories
+    const options_4 = [
+      { value: '1', label: 'Incident Response' },
+      { value: '2', label: 'Digital Forensics' },
+      { value: '3', label: 'Security Operations' },
+      { value: '4', label: 'CTF-Like' },
+      { value: '5', label: 'Reverse Engineering' },
+      { value: '6', label: 'OSINT' },
+      { value: '7', label: 'Threat Hunting' },
+      { value: '8', label: 'Threat Intelligence' },
+      { value: '9', label: 'All' },
+    ];
+    
+
+
+
+
+    const DataFetch = () => {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}`)
+      .then(res => {
+          const {...data_2 } = decrypt(res.data.encryptedData)
+          // console.log(data)
+          if(data_2.status === true){
+              if(data_2.user?.team?.quiz?.questions?.length) {
+                  data = data_2?.user?.team?.quiz?.questions;
+                  arrSceanrios = checkScenarios(data)
+                  setScenarios(arrSceanrios)
+                  setQuizTotalPoints(arrSceanrios[arrSceanrios.length - 2])
+                  setTeamTotalPoints(calculateTotalObtainedPoints(data))
+
+                  // console.debug(arrSceanrios)
+                
+                  let  uniqueScenarioObjects = Array.from(new Set(arrSceanrios[3].map(item => item)))
+                  .map(stringified => (
+                    { 
+                      value: `${stringified}`, 
+                      label: `${stringified}` 
+                    }
+                  ) );
+                  uniqueScenarioObjects.push({value: "all", label: "All"})
+                    
+
+
+                  setCategories(uniqueScenarioObjects)
+
+                  // console.debug(setCategories(getUniqueScenarios(data?.scenarios)))
+                  // console.debug(arrSceanrios)
+                  // console.debug(checkScenarios(data))
+                  // console.debug(data)
+                  // console.debug(arrSceanrios[arrSceanrios.length - 2])
+              } else {
+                  setScenarios([])
+              }
+          } else {
+              setScenarios([])
+          }
+      }
+      )
+      .catch(err => console.log(err))
+    }
+
+
+
+  // ----------------
+
+
     useEffect(() => {
         AOS.init();
         if (session){
-            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}`)
-            .then(res => {
-                const {...data_2 } = decrypt(res.data.encryptedData)
-                // console.log(data)
-                if(data_2.status === true){
-                    if(data_2.user?.team?.quiz?.questions?.length) {
-                        data = data_2?.user?.team?.quiz?.questions;
-                        setScenarios(checkScenarios(data))
-                    } else {
-                        setScenarios([])
-                    }
-                } else {
-                    setScenarios([])
-                }
-            }
-            )
-            .catch(err => console.log(err))
+          DataFetch()
         }
     }, [session])
     return (
@@ -369,7 +499,31 @@ export default function Page() {
             <CustomToaster />
             <div className="p-4 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                     <div className="w-full col-span-1 relative  p-0 border-none rounded-lg "  >
-                        <FiltersBtn />
+                        {/* <FiltersBtn quizTotalPoints={quizTotalPoints}  teamTotalPoints={teamTotalPoints} /> */}
+                        <div className="intro-y col-span-12 md:col-span-3 flex flex-wrap sm:flex-nowrap items-center pl-5 pr-5 pb-5 pt-5 mb-5 bg-deep-blue-violet ">
+                          <div className="text-lg w-full mr-5 text-gray-300">
+                            <b style={{"color": "#2ecc71"}}>
+                                Team Progress
+                            </b>
+
+                            <div className="w-full h-9 mt-2 bg-deep-indigo rounded">
+                                <div style={{"width": `${parseInt((teamTotalPoints/quizTotalPoints)*100)}%`}} className="h-full bg-deep-blue rounded text-center text-white">{parseInt((teamTotalPoints/quizTotalPoints)*100)}%</div>
+                            </div>
+                          </div>
+                          <Image  width={"90"}  height={"90"} alt="image" className="rounded-full w-20 ml-3 ml-auto" src="/assets/img/bWwHTdsIEC1mQFPmnXnZ.png" />
+                        </div>
+                        <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow ">
+                        <SearchInput /> 
+                        <SelectField options={options} onChange={handleSelectChange} />
+                        <CheckboxGroup text={"Status"} options={options_2} />
+                        <DifficultyLevelCheckBox />
+                        {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
+                        {/* <CheckboxGroup text={"Categories"} options={options_4} /> */}
+                        {
+                          categories && <CheckboxGroup text={"Categories"} options={categories} />
+                        }
+                        <ResetFilterBtn />
+                        </div>
                     </div>
                     <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "  >
                         <div className="grid   gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
