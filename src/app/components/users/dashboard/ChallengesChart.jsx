@@ -53,7 +53,7 @@ export const data = {
 export default function ChallengesChart(){
     return (
         <>
-            <div  className='col-span-4'>
+            <div  className='col-span-4' data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
     <div className="intro-y flex items-center h-10 mt-5">
         <h2 className="text-lg font-medium truncate mr-5 text-white">
             Challenges

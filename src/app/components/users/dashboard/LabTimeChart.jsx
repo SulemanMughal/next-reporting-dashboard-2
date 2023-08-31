@@ -170,7 +170,7 @@ export default function LabTimeChart(){
 
     return (
         <>
-            <div  className='col-span-8'>
+            <div  className='col-span-8' data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
         <div className="intro-y block sm:flex items-center h-10  py-10">
             <h2 className="text-lg font-medium truncate mr-5 text-white">
                 Lab Time

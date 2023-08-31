@@ -4,20 +4,34 @@ import CustomToaster from "@/app/components/CustomToaster"
 import axios from "axios";
 import { BsSearch } from "react-icons/bs"
 import decrypt from "@/app/lib/decrypt"
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import { countries } from "@/app/lib/helpers"
-
+import { useSession } from "next-auth/react";
 
 import Image from "next/image"
+
+
+
+import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
+import Link from "next/link";
 
 const getInitials = (name) => {
     return name.charAt(0).toUpperCase() + name.charAt(1).toUpperCase()
 }
 
+
+function calculateTotalObtainedPoints(answers) {
+    return answers.reduce((total, answer) => total + answer.obtainedPoints, 0);
+}
+
+function LastSubmitAnswerCategory(answers) {
+    let sortedAnswers = answers.sort((a, b) => new Date(a.submittedAt) - new Date(b.submittedAt))
+    return sortedAnswers[0] || "N/A"
+}
 
 function CountryOptions(){
     return (
@@ -31,6 +45,9 @@ function CountryOptions(){
       
     )
 }
+
+
+
   
 
   const SearchInput = () => {
@@ -72,7 +89,7 @@ function FilterByCountry(){
               </select>
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                 <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path strokeLinecap="round" strokeLineJoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </div>
             </div>
@@ -161,7 +178,7 @@ const PaginationBlock = () => {
                                                             <span aria-disabled="true" aria-label="&amp;laquo; Previous">
                                     <span className="relative inline-flex items-center px-2 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 cursor-default rounded-l-md leading-5" aria-hidden="true">
                                         <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                            <path fillRule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clipRule="evenodd"></path>
                                         </svg>
                                     </span>
                                 </span>
@@ -245,7 +262,7 @@ const PaginationBlock = () => {
                             
                                                             <button type="button"  dusk="nextPage.after" rel="next" className="relative inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-r-md leading-5 hover:text-gray-400 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-500 transition ease-in-out duration-150" aria-label="Next &amp;raquo;">
                                     <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                                        <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd"></path>
                                     </svg>
                                 </button>
                                                     </span>
@@ -617,7 +634,9 @@ function UserProgress(){
 }
 
 
-function UserProgressHeader(){
+function UserProgressHeader({userData}){
+
+    // console.debug(userData)
     return (
         <>
         <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-300 mb-8" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
@@ -650,7 +669,7 @@ function UserProgressHeader(){
                 <tbody className="py-5 px-7">
 <tr className="intro-x " style={{"zIndex": "40 !important"}}>
                 <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
-                    <h3>{"18415"}</h3>
+                    <h3>{"  "}</h3>
                 </td>
                 <td className="">
                     {/* <div className="flex">
@@ -659,19 +678,22 @@ function UserProgressHeader(){
                         </div>
                     </div> */}
                     <div className="flex">
-                                    <div className="w-10 h-10 image-fit zoom-in">
-                                        <Image width={40} height={40} style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100" src="/assets/img/download.png" alt="asdasd" />
-                                    </div>
-                                </div>
+                    <div className="w-10 h-10 image-fit zoom-in">
+                        {/* <Image width={40} height={40} style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100" src="/assets/img/download.png" alt="asdasd" /> */}
+                        <button className="bg-white  text-columbia-blue  text-md p-2 rounded-full border border-4 border-double border-blue-500">
+                                {getInitials(userData?.name)}
+                        </button>
+                    </div>
+                </div>
                 </td>
                 <td className="pl-0" style={{"paddingLeft":"0px"}}>
-                    <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{"User_1"}</a>
+                    <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{userData?.name}</a>
                     {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
                 </td>
                 <td className="table-report__action text-center place-content-center">
                     <div  className="relative z-50 inline-flex">
                         <div  className="cursor-pointer w-16 h-14 image-fit zoom-in">
-                            <Image width={"65"} height={48} className="ml-auto mr-auto" src="/assets/img/US.png"   alt="asdasd" />
+                            <Image width={"65"} height={48} className="ml-auto mr-auto" src={`/assets/img/flags/${userData?.country || "PK"}.png`}   alt="asdasd" />
                         </div>
                         <div className="relative"  style={{"display": "none"}}>
                             <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
@@ -696,7 +718,7 @@ function UserProgressHeader(){
                                     <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" />
                                     
                                 </div>
-                                <p className="ml-5">{"Team-1"}</p>
+                                <p className="ml-5">{userData?.team.name}</p>
                                 <div className="relative"  style={{"display": "none"}}>
                                     <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
                                     {"Team-1"}
@@ -705,44 +727,23 @@ function UserProgressHeader(){
                                         <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
                                     </svg>
                                 </div>
-                            </div>
-                            {/* <div  className="relative z-50 inline-flex">
-                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-                                    <Image className="border-0" title="Complete 20 reverse engineering investigations" tooltip-content="Complete 20 reverse engineering investigations" src="/assets/img/kydjwswcmhagkadmazux.png" width={64} height={64} alt="sadas"  />
-                                </div>
-                                <div className="relative"  style={{"display": "none"}}>
-                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-                                        Complete 20 reverse engineering investigations
-                                    </div>
-                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-                                    </svg>
-                                </div>
-                            </div>
-                            <div  className="relative z-50 inline-flex">
-                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-                                    <Image className="border-0" title="Got First-Blood on a Challenge or Investigation" tooltip-content="Got First-Blood on a Challenge or Investigation" src="/assets/img/dj8ndasiJSDi2jsiJSAOD.png" width={64} height={64} alt="sadas"  />
-                                </div>
-                                <div className="relative"  style={{"display": "none"}}>
-                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-                                        Got First-Blood on a Challenge or Investigation
-                                    </div>
-                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-                                    </svg>
-                                </div>
-                            </div> */}
-                                                        </div>
+                            </div>    
+                        </div>
                 </td>
-                <td className="text-center table-report__action text-lg text-yellow-400">{"asd"}</td>
+
+                {/* total obtainedPoints for a team */}
+                <td className="text-center table-report__action text-lg text-yellow-400">{calculateTotalObtainedPoints(userData?.answers)}</td>
                 <td className="text-center table-report__action text-base">
-                    <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{"Security Operations" || null}</a>
-                    <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${"1231"}` + " Points"}</div>
+                    {/* Last Submission CAtegory */}
+                    <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{LastSubmitAnswerCategory(userData?.answers)?.question?.scenario?.category || "N/A"}</a>
+                    <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${LastSubmitAnswerCategory(userData?.answers)?.obtainedPoints || 0}` + " Points"}</div>
                 </td>
                 <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
-                        <a className="flex items-center mr-3 text-gray-300" href="#!">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a>
+                        <Link className="flex items-center mr-3 text-gray-300" href={`/user/${userData?.id}`}>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                            View Profile 
+                        </Link>
                     </div>
                 </td>
             </tr>
@@ -847,7 +848,7 @@ function TableTr({index , item}){
             <td className="table-report__action w-56">
                 <div className="flex justify-center items-center">
                     <a className="flex items-center mr-3 text-gray-300" href="#!">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLineJoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a>
                 </div>
             </td>
         </tr>
@@ -892,37 +893,99 @@ function LeaderBoardTable({data}){
 
 export default function Page(){
     const [data, setData] = useState([])
-    useEffect(() => {
-        AOS.init();
-      try {
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/submissions/`)
-        .then((res) => {
-            const {...data_2} = decrypt(res.data.encryptedData)
-            if(data_2.status === true){
-                setData(data_2.submissions)
-            } else {
-                toast.error(`Something went wrong! Please try again later.`)    
-                setData([])
-            }
+    const { data: session } = useSession();
 
-        }).catch((err) => {
-            console.log(err);
+    const [userData, setUserData] = useState(null)
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+
+    const DataFetch = () => {
+        try {
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/submissions/`)
+            .then((res) => {
+                const {...data_2} = decrypt(res.data.encryptedData)
+                if(data_2.status === true){
+                    setData(data_2.submissions)
+                    // setError(null);
+                    
+                    
+                } else {
+                    toast.error(`Something went wrong! Please try again later.`)    
+                    setData([])
+                    // setError(null);
+                }
+    
+            }).catch((err) => {
+                console.log(err);
+                toast.error(`Something went wrong! Please try again later.`)
+                setData([])
+                
+            }).finally(() => {
+                 setLoading(false);
+                //  setError(null);
+            });
+          } catch (error) {
+            console.error(error)
             toast.error(`Something went wrong! Please try again later.`)
             setData([])
-        });
-      } catch (error) {
-        console.error(error)
-        toast.error(`Something went wrong! Please try again later.`)
-        setData([])
-      }
+            // setError(null);
+          }
+    }
 
+    const getUserData = ({userID}) => {
+        try {
+            // console.debug(userID)
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/board/${userID}/`)
+            .then((res) => {
+                const {...data_3} = decrypt(res.data.encryptedData)
+                if(data_3?.status === true){
+                    // console.debug(data_3)
+                    setUserData(data_3?.result)
+                    
+                } else {
+                    toast.error("Sorry! There is an error while fetching data.Please try again later")    
+                    setUserData(null)
+                }
     
-      
-    }, [])
+            }).catch((err) => {
+                console.log(err);
+                toast.error("Sorry! There is an error while fetching data.Please try again later")
+                setUserData(null)
+            });
+        } catch (error) {
+            console.debug(error)
+            toast.error("Sorry! There is an error while fetching data.Please try again later")
+            setUserData(null)
+        }
+    }
+
+    // delay function
+    // const delay = ms => new Promise(res => setTimeout(res, ms));
+
+    useEffect(() => {
+        AOS.init();
+        DataFetch()
+        if(session){
+            getUserData({userID: session?.user?.id})
+        }
+    }, [loading])
     
     return (
         <>
             <CustomToaster />
+            {loading ? (
+            <>
+                <div>
+                   <CustomTriangleLoader
+height="400"
+width="400"
+className="flex justify-center items-center xl:my-32"
+color="#3151bc"
+/>
+                </div>
+            </>
+        ) : (
             <div  className="p-4 mb-15">
                 <div className="flex justify-between items-center mb-5 ">
                     <h1 className="text-white text-2xl font-bold">
@@ -940,8 +1003,9 @@ export default function Page(){
                 {/* Top Score Header Row */}
                 <TopScoreHeaderRow />
                 {/* <UserProgress /> */}
-                <UserProgressHeader />
-                {data && (
+                {/* {  (session && session?.user  && userData.length )  && (<UserProgressHeader userData={userData} />) } */}
+                {userData && (<UserProgressHeader userData={userData} />) }
+                { data && (
                     <>
                         <LeaderBoardTable data={data} />  
                         
@@ -961,6 +1025,8 @@ export default function Page(){
                 
                 
             </div>
+        )}
+            
         </>
     )
 }

@@ -37,6 +37,8 @@ import LabTimeChart from "./LabTimeChart"
 import InvestigationChart from "./InvestigationChart"
 import ChallengesChart from "./ChallengesChart"
 
+import { TfiTwitterAlt } from "react-icons/tfi"
+
 // import styles from "./Dashboard.module.css"
 
 
@@ -465,16 +467,25 @@ function CareerBox(){
             <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300 my-5">
                 <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow relative" data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
                             <h2 className="font-medium text-lg text-white ">
-                            Cysec Careers Has Launched!
+                            Follow A&D-Q on Twitter here!
                             </h2>
-                            <p className="text-white text-xs mt-2">The platform to help you find your next cybersecurity career!</p>
+                            <div className="my-5 flex items-center justify-start mx-5 ">
+                                <span className="h-full inline-block ">
+                                    <TfiTwitterAlt  className="h-20 w-20" style={{"color" : "#7188d9"}}/>
+                                </span>
+                                <p className="text-5xl font-bold mx-4 font-extrabold" style={{"color" : "#7188d9"}}>
+                                    Twitter
+                                </p>
+                            </div>
+                            {/* <p className="text-white text-xs mt-2">The platform to help you find your next cybersecurity career!</p>
                             <a href="#!" target="_BLANK">
                                 <div className="intro-y mt-6">
                                     <div className="news__preview image-stretch">
                                         <Image alt="DISCORD " className="rounded-md" width={500} height={500} src="/assets/img/cysec_careers_released.png" />
                                     </div>
                                 </div>
-                            </a>
+                            </a> */}
+
                         </div>
                 </div>
         </>
@@ -484,7 +495,7 @@ function CareerBox(){
 function PlatformIntroduction({userId}){
     return (
         <>
-            <div className="w-full col-span-7 bg-deep-blue-violet  rounded-lg shadow   p-6 mt-10 " data-aos="fade-down" data-aos-duration="500" data-aos-delay="800">
+            <div className="w-full col-span-7 bg-deep-blue-violet  rounded-lg shadow   p-6 mt-10 " data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
                         <div className="flex justify-between items-center">
                             <div className="w-9/12">
                                 <h1 className="text-2xl mb-3">
@@ -571,19 +582,19 @@ function TeamRow(){
                         <div className="ml-4 mr-auto">
                             <div className="font-medium">
                                 <a className="flex items-center" href="#!">
-                                    jaalma
+                                    Team - 1
                                 </a>
                             </div>
-                            <div className="font-base"><i>Peak</i></div>
+                            <div className="font-base"><i>User-1</i></div>
                             
                         </div>
                    
-                    <div className="py-1 px-2 rounded-full text-xs text-white bg-deep-indigo cursor-default font-medium">17 likes</div>
-                    <button linkurl="#!" className="view-writeup ml-2">
+                    <div className="py-1 px-2 rounded-full text-xs text-white bg-deep-indigo cursor-default font-medium">150 Points</div>
+                    {/* <button linkurl="#!" className="view-writeup ml-2">
                         <div className="p-2 rounded-full text-xs text-white bg-deep-indigo cursor-pointer font-medium">
                             <FaExternalLinkAlt />
                         </div>
-                    </button>
+                    </button> */}
                 </div>
           
             </div>
@@ -598,7 +609,7 @@ function TopTeamsBlock(){
             <div className="p-5 bg-deep-blue-violet rounded-lg">
         <div className="intro-y flex items-center h-10">
             <h2 className="text-lg font-medium truncate mr-5 text-gray-300" >
-                Highest Rated Write-ups <i className="text-xs">(rewards assigned daily)</i>
+                Top Highest Team <i className="text-xs">(rewards assigned daily)</i>
             </h2>
             
         </div>
@@ -622,7 +633,7 @@ function PublicDemo(){
         <>
         <div className="p-5 bg-deep-blue-violet rounded-lg mt-5 text-white">
         <h2 className="font-medium text-xl ">
-                                   Public A&D-Q Demo Course
+                                   Public A&D-Q Demo 
                                 </h2>
                                 <div className="mt-2">
                                     <p className="text-sm">{"Get hands-on with the content of A&D-Q without paying a penny. See if it's the right move for your career today!"}</p>
@@ -645,7 +656,7 @@ function PublicDemo(){
 function NewsBlock(){
     return (
         <>
-            <div id="chimeraPanel" className="grid grid-cols-12 bg-deep-blue-violet rounded-lg mt-4">
+            <div id="chimeraPanel" className="grid grid-cols-12 bg-deep-blue-violet rounded-lg mt-4" data-aos="fade-down" data-aos-duration="500" data-aos-delay="400">
 
 <div className="col-span-12 md:col-span-3 rounded-md px-5 mb-auto mt-auto py-4 bg-theme-3 text-white">
     <div className="items-center">
@@ -786,16 +797,20 @@ function TopStatisticsData({userId , userName}){
                     <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]}  />
                     <TeamPosition  team_position={team_position} total_teams={total_teams} />
                 </div>
+                {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
                 <PlatformIntroduction userId={userId} />
+                {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="1000" */}
                 <NewsBlock />
                 <div className="grid grid-cols-12 gap-4 rounded-lg mt-4">
+                    {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
                     <LabTimeChart />
                     {/* <InvestigationChart /> */}
+                    {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
                     <ChallengesChart />
 
                 </div>
             </div>
-            <div className="w-full col-span-2">
+            <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
                 <Discord />
                 <CareerBox />
                 <TopTeamsBlock />
