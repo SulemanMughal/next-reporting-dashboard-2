@@ -25,11 +25,20 @@ export async function GET(request: Request, {params} : {params : {id : string}})
                 team : {
                     select : {
                         name : true,
-                        // answers : {
-                        //     select : {
-                        //         obtainedPoints : true,
-                        //     }
-                        // }
+                        quiz : {
+                            select : {
+                                questions : {
+                                    select : {
+                                        points : true,
+                                    }
+                                }
+                            }
+                        },
+                        answers : {
+                            select : {
+                                obtainedPoints : true,
+                            }
+                        }
                     }
                 },
                 answers : {

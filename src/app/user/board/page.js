@@ -33,6 +33,10 @@ function LastSubmitAnswerCategory(answers) {
     return sortedAnswers[0] || "N/A"
 }
 
+function calculateTotalPoints(questions){
+    return questions.reduce((total, item) => total + item.points, 0)
+}
+
 function CountryOptions(){
     return (
       <>
@@ -326,17 +330,17 @@ const DataRow = ({index , item}) =>{
 }
 
 
-function TopScoreHeaderRow(){
+function TopScoreHeaderRow({totalPoints , teamTotalObtainedPoints}){
     return (
         <div className="mb-10 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
             <div className="intro-y col-span-1 flex flex-wrap sm:flex-nowrap items-center mt-2 pl-5 pr-5 pb-5 pt-5 bg-deep-blue-violet rounded box ">
                 <div className="mr-auto col-span-3 text-lg text-gray-300 w-full">
-                        252 points left to <b style={{"color":"#55E6C1"}}>
+                        {totalPoints-teamTotalObtainedPoints} points left to <b style={{"color":"#55E6C1"}}>
                         Defender
                     </b>
 
                     <div className="w-full h-9 mt-2 bg-deep-indigo border-deep-indigo rounded">
-                        <div style={{"width":"2%"}} className="h-full bg-deep-blue rounded text-center text-white">2%</div>
+                        <div style={{"width":`${teamTotalObtainedPoints/totalPoints*100}%`}} className="h-full bg-deep-blue rounded text-center text-white">{parseInt(teamTotalObtainedPoints/totalPoints*100)}%</div>
                     </div>
                     
                 </div>
@@ -756,8 +760,8 @@ function UserProgressHeader({userData}){
 }
 
 function TableTr({index , item}){
-    // console.debug(item)
-    const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
+    console.debug(item , "TableTr")
+    // const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
     return (
         <tr className="intro-x " style={{"zIndex": "40 !important"}} data-aos="zoom-in" data-aos-duration="1000" data-aos-delay={350}>
             <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
@@ -771,13 +775,15 @@ function TableTr({index , item}){
                 </div>
             </td>
             <td className="pl-0" style={{"paddingLeft":"0px"}}>
-                <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{(item.user.name)}</a>
+                <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{item?.name}</a>
                 {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
             </td>
+
+            {/* Country Image */}
             <td className="table-report__action text-center place-content-center">
                 <div  className="relative z-50 inline-flex">
                     <div  className="cursor-pointer w-16 h-14 image-fit zoom-in">
-                        <Image width={"65"} height={48} className="ml-auto mr-auto" src="/assets/img/US.png"   alt="asdasd" />
+                        <Image width={"65"} height={48} className="ml-auto mr-auto" src={`/assets/img/flags/${item?.country || "PK"}.png`}   alt="asdasd" />
                     </div>
                     <div className="relative"  style={{"display": "none"}}>
                         <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
@@ -802,10 +808,10 @@ function TableTr({index , item}){
                                 <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" />
                                 
                             </div>
-                            <p className="ml-5">{item.team.name}</p>
+                            <p className="ml-5">{"sadasdsa"}</p>
                             <div className="relative"  style={{"display": "none"}}>
                                 <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-                                {item.team.name}
+                                {item?.team?.name}
                                 </div>
                                 <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
                                     <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
@@ -840,10 +846,10 @@ function TableTr({index , item}){
                         </div> */}
                                                     </div>
             </td>
-            <td className="text-center table-report__action text-lg text-yellow-400">{totalPoints}</td>
+            <td className="text-center table-report__action text-lg text-yellow-400">{ "0 poitns"}</td>
             <td className="text-center table-report__action text-base">
-                <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{item.question?.scenario?.category || null}</a>
-                <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${item.obtainedPoints}` + " Points"}</div>
+                <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{ null}</a>
+                <div className="text-green-600 text-xs whitespace-nowrap">{"+" +  + " Points"}</div>
             </td>
             <td className="table-report__action w-56">
                 <div className="flex justify-center items-center">
@@ -899,14 +905,18 @@ export default function Page(){
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+    const [totalPoints, setTotalPoints] = useState(0)
+    const [teamTotalObtainedPoints, setTeamTotalObtainedPoints] = useState(0)
+
 
     const DataFetch = () => {
         try {
-            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/submissions/`)
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/board/`)
             .then((res) => {
                 const {...data_2} = decrypt(res.data.encryptedData)
                 if(data_2.status === true){
-                    setData(data_2.submissions)
+                    console.debug(data_2?.results)
+                    setData(data_2.results)
                     // setError(null);
                     
                     
@@ -942,6 +952,9 @@ export default function Page(){
                 if(data_3?.status === true){
                     // console.debug(data_3)
                     setUserData(data_3?.result)
+                    // console.debug(calculateTotalPoints(data_3?.result?.team?.quiz?.questions))
+                    setTotalPoints(calculateTotalPoints(data_3?.result?.team?.quiz?.questions))
+                    setTeamTotalObtainedPoints(calculateTotalObtainedPoints(data_3?.result?.team?.answers))
                     
                 } else {
                     toast.error("Sorry! There is an error while fetching data.Please try again later")    
@@ -1001,16 +1014,11 @@ color="#3151bc"
                     </div>
                 </div>
                 {/* Top Score Header Row */}
-                <TopScoreHeaderRow />
+                {totalPoints && <TopScoreHeaderRow totalPoints={totalPoints} teamTotalObtainedPoints={teamTotalObtainedPoints} /> }
                 {/* <UserProgress /> */}
                 {/* {  (session && session?.user  && userData.length )  && (<UserProgressHeader userData={userData} />) } */}
                 {userData && (<UserProgressHeader userData={userData} />) }
-                { data && (
-                    <>
-                        <LeaderBoardTable data={data} />  
-                        
-                    </>
-                ) }
+                { data && ( <LeaderBoardTable data={data} /> ) }
                 <PaginationBlock />
 
                 
