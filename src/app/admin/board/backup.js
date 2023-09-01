@@ -205,34 +205,8 @@ const DataRow = ({index , item}) =>{
     )
 }
 
-function CountryDefendersCounter({country}){
-    // console.debug({country})
-    return (
-        <>
-            {
-                country.country !== null ? (
-                    <>
-                        <div className="intro-x items-center m-auto w-48 lg:w-1/6 text-gray-300 mb-5">
-                            <div className="box px-2 flex items-center zoom-in ">
-                                <div className="w-10 h-10 flex-none image-fit overflow-hidden">
-                                    <Image  width={40} height={40}  alt="United States" src={`/assets/img/flags/${country?.country || "PK"}.png`} />
-                                </div>
-                                <div className="ml-4 mr-auto">
-                                    <div className="font-medium">{country.country === "" ? "Pakistan" : country.country}</div>
-                                    <div className="text-gray-400 text-xs">{country._count.email} Defenders</div>
-                                </div>
-                            </div>
-                        </div>
-                    </>
-                ) : null
-            }
-        </>
-    )
-}
 
-
-
-function TopScoreHeaderRow({usersGroupedByCountry}){
+function TopScoreHeaderRow(){
     return (
         <div className="mb-10 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
             {/* <div className="intro-y col-span-1 flex flex-wrap sm:flex-nowrap items-center mt-2 pl-5 pr-5 pb-5 pt-5 bg-deep-blue-violet rounded box ">
@@ -248,7 +222,7 @@ function TopScoreHeaderRow({usersGroupedByCountry}){
                 </div>
                 <Image  width={"90"}  height={"90"} className="rounded-full w-16 ml-3" src="/assets/img/RaM4kXNrsL0Nx38H3zmi.png" alt="asdas" />
             </div> */}
-            {/* <div className="intro-y col-span-4 flex flex-wrap items-center mt-2 pl-5 pb-5 pt-5 bg-deep-blue-violet rounded box text-gray-300" style={{"zIndex":"20"}}>     
+            <div className="intro-y col-span-4 flex flex-wrap items-center mt-2 pl-5 pb-5 pt-5 bg-deep-blue-violet rounded box text-gray-300" style={{"zIndex":"20"}}>     
            
     
             
@@ -409,12 +383,7 @@ function TopScoreHeaderRow({usersGroupedByCountry}){
                 </div>
 
                         
-            </div> */}
-            <div className="intro-y col-span-4 flex flex-wrap items-center mt-2 pl-5 pb-5 pt-5 bg-deep-blue-violet rounded box text-gray-300" style={{"zIndex":"20"}}>
-                {usersGroupedByCountry && usersGroupedByCountry.map((country , index) => (
-                    <CountryDefendersCounter country={country} key={index} />
-                ))}
-            </div>
+        </div>
         </div>
     )
 }
@@ -545,156 +514,30 @@ function UserProgress(){
 }
 
 
-// function UserProgressHeader(){
-//     return (
-//         <>
-//         <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-300 mb-8">
-//             <table className="table table-report table-auto -mt-2 ">
-//                 <thead>
-//                     {/* <tr>
-//                         <th className="text-center whitespace-nowrap" style={{"width":"0.5%" , "border":"0px", "padding":"0px", "paddingLeft":"20px"}}></th>
-//                         <th className="whitespace-nowrap" style={{"width":"1%"}}></th>
-//                         <th className="whitespace-nowrap pl-0" style={{"paddingLeft":"0px"}}></th>
-//                         <th className="whitespace-nowrap w-1/12 text-center"></th>
-//                         <th className="whitespace-nowrap w-1/12 text-center"></th>
-//                         <th className="whitespace-nowrap w-1/6 text-center"></th>
-                        
-//                         <th className="text-center whitespace-nowrap w-1/12"></th>
-//                         <th className="text-center whitespace-nowrap w-1/6"></th>
-//                         <th className="text-center whitespace-nowrap"></th>
-//                     </tr> */}
-//                     <tr className="text-white ">
-//                         <th className="text-center whitespace-nowrap" style={{"width":"0.5%", "border":"0px", "padding":"0px", "paddingLeft":"20px"}}></th>
-//                         <th className="whitespace-nowrap" style={{"width":"1%"}}></th>
-//                         <th className="whitespace-nowrap pl-0 text-start" style={{"paddingLeft":"0px"}}></th>
-//                         <th className="whitespace-nowrap w-1/12 text-center"></th>
-//                         {/* <th className="whitespace-nowrap w-1/12 text-center">Rank</th> */}
-//                         <th className="whitespace-nowrap w-1/6 text-center"></th>
-//                         <th className="text-center whitespace-nowrap w-1/12"></th>
-//                         <th className="text-center whitespace-nowrap w-1/6"></th>
-//                         <th className="text-center whitespace-nowrap"></th>
-//                     </tr>
-//                 </thead>
-//                 <tbody className="py-5 px-7">
-// <tr className="intro-x " style={{"zIndex": "40 !important"}}>
-//                 <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
-//                     <h3>{"18415"}</h3>
-//                 </td>
-//                 <td className="">
-//                     {/* <div className="flex">
-//                         <div className="w-10 h-10 image-fit zoom-in">
-//                             <Image style={{"border":"2px solid #c90076"}} alt="asdasd" width={40} height={40} className="rounded-full border-opacity-100" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
-//                         </div>
-//                     </div> */}
-//                     <div className="flex">
-//                                     <div className="w-10 h-10 image-fit zoom-in">
-//                                         <Image width={40} height={40} style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100" src="/assets/img/download.png" alt="asdasd" />
-//                                     </div>
-//                                 </div>
-//                 </td>
-//                 <td className="pl-0" style={{"paddingLeft":"0px"}}>
-//                     <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{"User_1"}</a>
-//                     {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
-//                 </td>
-//                 <td className="table-report__action text-center place-content-center">
-//                     <div  className="relative z-50 inline-flex">
-//                         <div  className="cursor-pointer w-16 h-14 image-fit zoom-in">
-//                             <Image width={"65"} height={48} className="ml-auto mr-auto" src="/assets/img/US.png"   alt="asdasd" />
-//                         </div>
-//                         <div className="relative"  style={{"display": "none"}}>
-//                             <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
-//                                 United States
-//                             </div>
-//                             <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-//                                 <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-//                             </svg>
-//                         </div>
-//                     </div>
-//                 </td>
-//                 {/* rank */}
-//                 {/* <td className="table-report__action text-center">
-//                     <p style={{"color":"#EAB543"}} className="text-base">Guardian
-//                     </p>
-//                 </td> */}
-//                 {/* badges */}
-//                 <td className="w-40 table-report__action">
-//                     <div className="flex mt-2 mb-2">
-//                         <div  className="relative z-50 inline-flex items-center">
-//                                 <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5 ">
-//                                     <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" />
-                                    
-//                                 </div>
-//                                 <p className="ml-5">{"Team-1"}</p>
-//                                 <div className="relative"  style={{"display": "none"}}>
-//                                     <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-//                                     {"Team-1"}
-//                                     </div>
-//                                     <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-//                                         <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-//                                     </svg>
-//                                 </div>
-//                             </div>
-//                             {/* <div  className="relative z-50 inline-flex">
-//                                 <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-//                                     <Image className="border-0" title="Complete 20 reverse engineering investigations" tooltip-content="Complete 20 reverse engineering investigations" src="/assets/img/kydjwswcmhagkadmazux.png" width={64} height={64} alt="sadas"  />
-//                                 </div>
-//                                 <div className="relative"  style={{"display": "none"}}>
-//                                     <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-//                                         Complete 20 reverse engineering investigations
-//                                     </div>
-//                                     <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-//                                         <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-//                                     </svg>
-//                                 </div>
-//                             </div>
-//                             <div  className="relative z-50 inline-flex">
-//                                 <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-//                                     <Image className="border-0" title="Got First-Blood on a Challenge or Investigation" tooltip-content="Got First-Blood on a Challenge or Investigation" src="/assets/img/dj8ndasiJSDi2jsiJSAOD.png" width={64} height={64} alt="sadas"  />
-//                                 </div>
-//                                 <div className="relative"  style={{"display": "none"}}>
-//                                     <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-//                                         Got First-Blood on a Challenge or Investigation
-//                                     </div>
-//                                     <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-//                                         <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-//                                     </svg>
-//                                 </div>
-//                             </div> */}
-//                                                         </div>
-//                 </td>
-//                 <td className="text-center table-report__action text-lg text-yellow-400">{"asd"}</td>
-//                 <td className="text-center table-report__action text-base">
-//                     <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{"Security Operations" || null}</a>
-//                     <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${"1231"}` + " Points"}</div>
-//                 </td>
-//                 <td className="table-report__action w-56">
-//                     <div className="flex justify-center items-center">
-//                         <a className="flex items-center mr-3 text-gray-300" href="#!">
-//                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a>
-//                     </div>
-//                 </td>
-//             </tr>
-//                 </tbody>
-//             </table>
-//         </div>
-            
-//         </>
-//     )
-// }
-
-function UserProgressHeader({userData}){
-
-    // console.debug(userData)
+function UserProgressHeader(){
     return (
         <>
-        <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-300 mb-8" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+        <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-300 mb-8">
             <table className="table table-report table-auto -mt-2 ">
                 <thead>
+                    {/* <tr>
+                        <th className="text-center whitespace-nowrap" style={{"width":"0.5%" , "border":"0px", "padding":"0px", "paddingLeft":"20px"}}></th>
+                        <th className="whitespace-nowrap" style={{"width":"1%"}}></th>
+                        <th className="whitespace-nowrap pl-0" style={{"paddingLeft":"0px"}}></th>
+                        <th className="whitespace-nowrap w-1/12 text-center"></th>
+                        <th className="whitespace-nowrap w-1/12 text-center"></th>
+                        <th className="whitespace-nowrap w-1/6 text-center"></th>
+                        
+                        <th className="text-center whitespace-nowrap w-1/12"></th>
+                        <th className="text-center whitespace-nowrap w-1/6"></th>
+                        <th className="text-center whitespace-nowrap"></th>
+                    </tr> */}
                     <tr className="text-white ">
                         <th className="text-center whitespace-nowrap" style={{"width":"0.5%", "border":"0px", "padding":"0px", "paddingLeft":"20px"}}></th>
                         <th className="whitespace-nowrap" style={{"width":"1%"}}></th>
                         <th className="whitespace-nowrap pl-0 text-start" style={{"paddingLeft":"0px"}}></th>
                         <th className="whitespace-nowrap w-1/12 text-center"></th>
+                        {/* <th className="whitespace-nowrap w-1/12 text-center">Rank</th> */}
                         <th className="whitespace-nowrap w-1/6 text-center"></th>
                         <th className="text-center whitespace-nowrap w-1/12"></th>
                         <th className="text-center whitespace-nowrap w-1/6"></th>
@@ -702,9 +545,9 @@ function UserProgressHeader({userData}){
                     </tr>
                 </thead>
                 <tbody className="py-5 px-7">
-                <tr className="intro-x " style={{"zIndex": "40 !important"}}>
+<tr className="intro-x " style={{"zIndex": "40 !important"}}>
                 <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
-                    <h3>{" "}</h3>
+                    <h3>{"18415"}</h3>
                 </td>
                 <td className="">
                     {/* <div className="flex">
@@ -713,31 +556,28 @@ function UserProgressHeader({userData}){
                         </div>
                     </div> */}
                     <div className="flex">
-                    <div className="w-10 h-10 image-fit zoom-in">
-                        {/* <Image width={40} height={40} style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100" src="/assets/img/download.png" alt="asdasd" /> */}
-                        <button className="bg-white  text-columbia-blue  text-md p-2 rounded-full border border-4 border-double border-blue-500">
-                                {getInitials(userData?.name)}
-                        </button>
-                    </div>
-                </div>
+                                    <div className="w-10 h-10 image-fit zoom-in">
+                                        <Image width={40} height={40} style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100" src="/assets/img/download.png" alt="asdasd" />
+                                    </div>
+                                </div>
                 </td>
                 <td className="pl-0" style={{"paddingLeft":"0px"}}>
-                    <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{userData?.name}</a>
+                    <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{"User_1"}</a>
                     {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
                 </td>
                 <td className="table-report__action text-center place-content-center">
                     <div  className="relative z-50 inline-flex">
-                        <div  className=" w-16 h-14 image-fit zoom-in">
-                            <Image width={"65"} height={48} className="ml-auto mr-auto" src={`/assets/img/flags/${userData?.country || "PK"}.png`}   alt="asdasd" />
+                        <div  className="cursor-pointer w-16 h-14 image-fit zoom-in">
+                            <Image width={"65"} height={48} className="ml-auto mr-auto" src="/assets/img/US.png"   alt="asdasd" />
                         </div>
-                        {/* <div className="relative"  style={{"display": "none"}}>
+                        <div className="relative"  style={{"display": "none"}}>
                             <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
                                 United States
                             </div>
                             <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
                                 <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
                             </svg>
-                        </div> */}
+                        </div>
                     </div>
                 </td>
                 {/* rank */}
@@ -745,42 +585,61 @@ function UserProgressHeader({userData}){
                     <p style={{"color":"#EAB543"}} className="text-base">Guardian
                     </p>
                 </td> */}
-                
-
-                {/* Team Name */}
+                {/* badges */}
                 <td className="w-40 table-report__action">
                     <div className="flex mt-2 mb-2">
                         <div  className="relative z-50 inline-flex items-center">
                                 <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5 ">
-                                    {/* <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" /> */}
+                                    <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" />
                                     
                                 </div>
-                                <p className="ml-5">{userData?.team.name}</p>
-                                {/* <div className="relative"  style={{"display": "none"}}>
+                                <p className="ml-5">{"Team-1"}</p>
+                                <div className="relative"  style={{"display": "none"}}>
                                     <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
                                     {"Team-1"}
                                     </div>
                                     <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
                                         <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
                                     </svg>
-                                </div> */}
-                            </div>    
-                        </div>
+                                </div>
+                            </div>
+                            {/* <div  className="relative z-50 inline-flex">
+                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
+                                    <Image className="border-0" title="Complete 20 reverse engineering investigations" tooltip-content="Complete 20 reverse engineering investigations" src="/assets/img/kydjwswcmhagkadmazux.png" width={64} height={64} alt="sadas"  />
+                                </div>
+                                <div className="relative"  style={{"display": "none"}}>
+                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
+                                        Complete 20 reverse engineering investigations
+                                    </div>
+                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div  className="relative z-50 inline-flex">
+                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
+                                    <Image className="border-0" title="Got First-Blood on a Challenge or Investigation" tooltip-content="Got First-Blood on a Challenge or Investigation" src="/assets/img/dj8ndasiJSDi2jsiJSAOD.png" width={64} height={64} alt="sadas"  />
+                                </div>
+                                <div className="relative"  style={{"display": "none"}}>
+                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
+                                        Got First-Blood on a Challenge or Investigation
+                                    </div>
+                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
+                                    </svg>
+                                </div>
+                            </div> */}
+                                                        </div>
                 </td>
-
-                {/* total obtainedPoints for a user */}
-                <td className="text-center table-report__action text-lg text-yellow-400">{calculateTotalObtainedPoints(userData?.answers)}</td>
+                <td className="text-center table-report__action text-lg text-yellow-400">{"asd"}</td>
                 <td className="text-center table-report__action text-base">
-                    {/* Last Submission CAtegory */}
-                    <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{LastSubmitAnswerCategory(userData?.answers)?.question?.scenario?.category || "N/A"}</a>
-                    <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${LastSubmitAnswerCategory(userData?.answers)?.obtainedPoints || 0}` + " Points"}</div>
+                    <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{"Security Operations" || null}</a>
+                    <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${"1231"}` + " Points"}</div>
                 </td>
                 <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
-                        <Link className="flex items-center mr-3 text-gray-300" href={`/user/${userData?.id}`}>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                            View Profile 
-                        </Link>
+                        <a className="flex items-center mr-3 text-gray-300" href="#!">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a>
                     </div>
                 </td>
             </tr>
@@ -933,222 +792,106 @@ const PaginationBlock = () => {
     )
 }
 
-// Admin Original Data
-// function TableTr({index , item}){
-//     console.debug(item)
-//     const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
-//     return (
-//         <>
-//             <tr className="intro-x " style={{"zIndex": "40 !important"}} data-aos="zoom-in" data-aos-duration="1000" data-aos-delay={350}>
-//                 <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
-//                     <h3>{index}</h3>
-//                 </td>
-//                 <td className="">
-//                     <div className="flex">
-//                         <div className="w-10 h-10 image-fit zoom-in">
-//                             <Image style={{"border":"2px solid #c90076"}} alt="asdasd" width={40} height={40} className="rounded-full border-opacity-100" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
-//                         </div>
-//                     </div>
-//                 </td>
-//                 <td className="pl-0" style={{"paddingLeft":"0px"}}>
-//                     <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{(item.user.name)}</a>
-//                     {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
-//                 </td>
-//                 <td className="table-report__action text-center place-content-center">
-//                     <div  className="relative z-50 inline-flex">
-//                         <div  className="cursor-pointer w-16 h-14 image-fit zoom-in">
-//                             <Image width={"65"} height={48} className="ml-auto mr-auto" src="/assets/img/US.png"   alt="asdasd" />
-//                         </div>
-//                         <div className="relative"  style={{"display": "none"}}>
-//                             <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
-//                                 United States
-//                             </div>
-//                             <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-//                                 <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-//                             </svg>
-//                         </div>
-//                     </div>
-//                 </td>
-//                 {/* rank */}
-//                 {/* <td className="table-report__action text-center">
-//                     <p style={{"color":"#EAB543"}} className="text-base">Guardian
-//                     </p>
-//                 </td> */}
-//                 {/* badges */}
-//                 <td className="w-40 table-report__action">
-//                     <div className="flex mt-2 mb-2">
-//                         <div  className="relative z-50 inline-flex items-center">
-//                                 <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5 ">
-//                                     <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" />
-                                    
-//                                 </div>
-//                                 <p className="ml-5">{item.team.name}</p>
-//                                 <div className="relative"  style={{"display": "none"}}>
-//                                     <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-//                                     {item.team.name}
-//                                     </div>
-//                                     <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-//                                         <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-//                                     </svg>
-//                                 </div>
-//                             </div>
-//                             {/* <div  className="relative z-50 inline-flex">
-//                                 <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-//                                     <Image className="border-0" title="Complete 20 reverse engineering investigations" tooltip-content="Complete 20 reverse engineering investigations" src="/assets/img/kydjwswcmhagkadmazux.png" width={64} height={64} alt="sadas"  />
-//                                 </div>
-//                                 <div className="relative"  style={{"display": "none"}}>
-//                                     <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-//                                         Complete 20 reverse engineering investigations
-//                                     </div>
-//                                     <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-//                                         <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-//                                     </svg>
-//                                 </div>
-//                             </div>
-//                             <div  className="relative z-50 inline-flex">
-//                                 <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-//                                     <Image className="border-0" title="Got First-Blood on a Challenge or Investigation" tooltip-content="Got First-Blood on a Challenge or Investigation" src="/assets/img/dj8ndasiJSDi2jsiJSAOD.png" width={64} height={64} alt="sadas"  />
-//                                 </div>
-//                                 <div className="relative"  style={{"display": "none"}}>
-//                                     <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-//                                         Got First-Blood on a Challenge or Investigation
-//                                     </div>
-//                                     <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-//                                         <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-//                                     </svg>
-//                                 </div>
-//                             </div> */}
-//                                                         </div>
-//                 </td>
-//                 <td className="text-center table-report__action text-lg text-yellow-400">{totalPoints}</td>
-//                 <td className="text-center table-report__action text-base">
-//                     <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{item.question?.scenario?.category || null}</a>
-//                     <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${item.obtainedPoints}` + " Points"}</div>
-//                 </td>
-//                 <td className="table-report__action w-56">
-//                     <div className="flex justify-center items-center">
-//                         <a className="flex items-center mr-3 text-gray-300" href="#!">
-//                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a>
-//                     </div>
-//                 </td>
-//             </tr>
-            
-//         </>
-//     )
-// }
-
-
-
-
-
 function TableTr({index , item}){
-    // console.debug(item , "TableTr")
-    // const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
-
+    // console.debug(item)
+    const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
     return (
-        
-        
-        (<tr className="intro-x " style={{"zIndex": "40 !important"}} data-aos="zoom-in" data-aos-duration="1000" data-aos-delay={350}>
-            <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
-                <h3>{ "  "}</h3>
-            </td>
-            <td className="">
-                {/* <div className="flex">
-                    <div className="w-10 h-10 image-fit zoom-in">
-                        <Image style={{"border":"2px solid #c90076"}} alt="asdasd" width={40} height={40} className="rounded-full border-opacity-100" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
-                    </div>
-                </div> */}
-            </td>
-            <td className="pl-0" style={{"paddingLeft":"0px"}}>
-                <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{item?.name}</a>
-                {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
-            </td>
-
-            {/* Country Image */}
-            <td className="table-report__action text-center place-content-center">
-                <div  className="relative z-50 inline-flex">
-                    <div  className=" w-16 h-14 image-fit zoom-in">
-                        <Image width={"65"} height={48} className="ml-auto mr-auto" src={`/assets/img/flags/${item?.country || "PK"}.png`}   alt="asdasd" />
-                    </div>
-                    {/* <div className="relative"  style={{"display": "none"}}>
-                        <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
-                            United States
+        <>
+            <tr className="intro-x " style={{"zIndex": "40 !important"}} data-aos="zoom-in" data-aos-duration="1000" data-aos-delay={350}>
+                <td className="text-center" style={{"border":"0px", "paddingLeft":"20px", "paddingRight":"0px"}}>
+                    <h3>{index}</h3>
+                </td>
+                <td className="">
+                    <div className="flex">
+                        <div className="w-10 h-10 image-fit zoom-in">
+                            <Image style={{"border":"2px solid #c90076"}} alt="asdasd" width={40} height={40} className="rounded-full border-opacity-100" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
                         </div>
-                        <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-                            <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-                        </svg>
-                    </div> */}
-                </div>
-            </td>
-            {/* rank */}
-            {/* <td className="table-report__action text-center">
-                <p style={{"color":"#EAB543"}} className="text-base">Guardian
-                </p>
-            </td> */}
-            
-
-            {/* Team name */}
-            <td className="w-40 table-report__action">
-                <div className="flex mt-2 mb-2 justify-center">
-                    <div  className="relative z-50 inline-flex items-center text-center">
-                        {/* <div  className=" w-16 h-16 image-fit zoom-in ml-5 ">
-                            <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" /> 
-                        </div> */}
-                        <p className="text-center">{item?.team?.name}</p>
-                        {/* <div className="relative"  style={{"display": "none"}}>
-                            <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-                            {item?.team?.name}
+                    </div>
+                </td>
+                <td className="pl-0" style={{"paddingLeft":"0px"}}>
+                    <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{(item.user.name)}</a>
+                    {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
+                </td>
+                <td className="table-report__action text-center place-content-center">
+                    <div  className="relative z-50 inline-flex">
+                        <div  className="cursor-pointer w-16 h-14 image-fit zoom-in">
+                            <Image width={"65"} height={48} className="ml-auto mr-auto" src="/assets/img/US.png"   alt="asdasd" />
+                        </div>
+                        <div className="relative"  style={{"display": "none"}}>
+                            <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
+                                United States
                             </div>
                             <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
                                 <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
                             </svg>
-                        </div> */}
-                    </div>
-                        {/* <div  className="relative z-50 inline-flex">
-                            <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-                                <Image className="border-0" title="Complete 20 reverse engineering investigations" tooltip-content="Complete 20 reverse engineering investigations" src="/assets/img/kydjwswcmhagkadmazux.png" width={64} height={64} alt="sadas"  />
-                            </div>
-                            <div className="relative"  style={{"display": "none"}}>
-                                <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-                                    Complete 20 reverse engineering investigations
-                                </div>
-                                <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-                                    <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-                                </svg>
-                            </div>
                         </div>
-                        <div  className="relative z-50 inline-flex">
-                            <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
-                                <Image className="border-0" title="Got First-Blood on a Challenge or Investigation" tooltip-content="Got First-Blood on a Challenge or Investigation" src="/assets/img/dj8ndasiJSDi2jsiJSAOD.png" width={64} height={64} alt="sadas"  />
-                            </div>
-                            <div className="relative"  style={{"display": "none"}}>
-                                <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
-                                    Got First-Blood on a Challenge or Investigation
+                    </div>
+                </td>
+                {/* rank */}
+                {/* <td className="table-report__action text-center">
+                    <p style={{"color":"#EAB543"}} className="text-base">Guardian
+                    </p>
+                </td> */}
+                {/* badges */}
+                <td className="w-40 table-report__action">
+                    <div className="flex mt-2 mb-2">
+                        <div  className="relative z-50 inline-flex items-center">
+                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5 ">
+                                    <Image className="border-0" title="Complete 10 reverse engineering investigations" tooltip-content="Complete 10 reverse engineering investigations" src="/assets/img/trmosfctekjabzffgvip.png" width={64} height={64} alt="asdas" />
+                                    
                                 </div>
-                                <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
-                                    <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
-                                </svg>
+                                <p className="ml-5">{item.team.name}</p>
+                                <div className="relative"  style={{"display": "none"}}>
+                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
+                                    {item.team.name}
+                                    </div>
+                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
+                                    </svg>
+                                </div>
                             </div>
-                        </div> */}
-                                                    </div>
-            </td>
-            <td className="text-center table-report__action text-lg text-yellow-400">{calculateTotalObtainedPoints(item?.answers)}</td>
-            <td className="text-center table-report__action text-base">
-                <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{ LastSubmitAnswerCategory(item?.answers)?.question?.scenario?.category || ""}</a>
-                <div className="text-green-600 text-xs whitespace-nowrap">{ LastSubmitAnswerCategory(item?.answers)?.obtainedPoints ?  "+" + ` ${LastSubmitAnswerCategory(item?.answers)?.obtainedPoints || 0}` + " Points" : ""}</div>
-            </td>
-            <td className="table-report__action w-56">
-                <div className="flex justify-center items-center">
-                    {/* <a className="flex items-center mr-3 text-gray-300" href="#!">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a> */}
-                    <Link className="flex items-center mr-3 text-gray-300" href={`/user/${item?.id}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                        View Profile 
-                    </Link>
-                </div>
-            </td>
-        </tr>) 
-        
+                            {/* <div  className="relative z-50 inline-flex">
+                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
+                                    <Image className="border-0" title="Complete 20 reverse engineering investigations" tooltip-content="Complete 20 reverse engineering investigations" src="/assets/img/kydjwswcmhagkadmazux.png" width={64} height={64} alt="sadas"  />
+                                </div>
+                                <div className="relative"  style={{"display": "none"}}>
+                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
+                                        Complete 20 reverse engineering investigations
+                                    </div>
+                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div  className="relative z-50 inline-flex">
+                                <div  className="cursor-pointer w-16 h-16 image-fit zoom-in ml-5">
+                                    <Image className="border-0" title="Got First-Blood on a Challenge or Investigation" tooltip-content="Got First-Blood on a Challenge or Investigation" src="/assets/img/dj8ndasiJSDi2jsiJSAOD.png" width={64} height={64} alt="sadas"  />
+                                </div>
+                                <div className="relative"  style={{"display": "none"}}>
+                                    <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%", "zIndex":"100"}}>
+                                        Got First-Blood on a Challenge or Investigation
+                                    </div>
+                                    <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
+                                        <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
+                                    </svg>
+                                </div>
+                            </div> */}
+                                                        </div>
+                </td>
+                <td className="text-center table-report__action text-lg text-yellow-400">{totalPoints}</td>
+                <td className="text-center table-report__action text-base">
+                    <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{item.question?.scenario?.category || null}</a>
+                    <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${item.obtainedPoints}` + " Points"}</div>
+                </td>
+                <td className="table-report__action w-56">
+                    <div className="flex justify-center items-center">
+                        <a className="flex items-center mr-3 text-gray-300" href="#!">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a>
+                    </div>
+                </td>
+            </tr>
+            
+        </>
     )
 }
 
@@ -1232,110 +975,41 @@ export default function Page(){
 
 
 
-    const DataFetch = () => {
-        try {
-            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/board/`)
-            .then((res) => {
-                const {...data_2} = decrypt(res.data.encryptedData)
-                if(data_2.status === true){
-                    // console.debug(data_2?.results)
-                    setData(data_2.results)
-                    // setError(null);
-                    setUsersGroupedByCountry(data_2.usersGroupedByCountry)
-
-                    
-                    
-                } else {
-                    toast.error(`Something went wrong! Please try again later.`)    
-                    setData([])
-                    // setError(null);
-                }
-    
-            }).catch((err) => {
-                console.log(err);
-                toast.error(`Something went wrong! Please try again later.`)
-                setData([])
-                
-            }).finally(() => {
-                 setLoading(false);
-                //  setError(null);
-            });
-          } catch (error) {
-            console.error(error)
-            toast.error(`Something went wrong! Please try again later.`)
-            setData([])
-            // setError(null);
-          }
-    }
-
-
-    useEffect(() => {
-        AOS.init();
-        DataFetch()
-        // if(session){
-        //     getUserData({userID: session?.user?.id})
-        // }
-    }, [])
-
-
-
     
     return (
         <>
             <CustomToaster />
-
-
-            {loading ? (
-            <>
-                <div>
-                   <CustomTriangleLoader
-height="400"
-width="400"
-className="flex justify-center items-center xl:my-32"
-color="#3151bc"
-/>
-                </div>
-            </>
-        ) : (
-            <>
-                <div  className="p-4 ">
-                    <div className="flex justify-between items-center mb-5 ">
-                        <h1 className="text-white text-2xl font-bold">
-                            Global Leaderboard
-                        </h1>
-                        <div className="flex justify-end items-center ">
-                            {/* <button className="theme-btn-bg-color  text-gray-300 py-2  pr-4  pl-4 mt-2 mr-3 rounded-md mb-0 ml-0 ">
-                                Reset Filters
-                            </button> */}
-                            {/* <FilterResetBtn /> */}
-                            {/* <SearchInput /> */}
-                            {/* <FilterByCountry /> */}
-                        </div>
+            <div  className="p-4 ">
+                <div className="flex justify-between items-center mb-5 ">
+                    <h1 className="text-white text-2xl font-bold">
+                        Global Leaderboard
+                    </h1>
+                    <div className="flex justify-end items-center ">
+                        {/* <button className="theme-btn-bg-color  text-gray-300 py-2  pr-4  pl-4 mt-2 mr-3 rounded-md mb-0 ml-0 ">
+                            Reset Filters
+                        </button> */}
+                        {/* <FilterResetBtn /> */}
+                        {/* <SearchInput /> */}
+                        {/* <FilterByCountry /> */}
                     </div>
-                    {/* Top Score Header Row */}
-                    <TopScoreHeaderRow  usersGroupedByCountry={usersGroupedByCountry} />
-                    { data && ( <LeaderBoardTable data={data}   /> ) }
-                    {/* <UserProgress /> */}
-                    {/* <UserProgressHeader /> */}
-                    {/* {userData && (<UserProgressHeader userData={userData} />) } */}
-                    {/* {data && <LeaderBoardTable data={data} /> } */}
-                    
-                    {/* <PaginationBlock /> */}
-                    {/* <DataRowHeader />
-                    {
-                        data && data.map((item, index) => (
-                            <DataRow  key={index}  index={index+1} item={item} />
-                        ))
-                    } */}
-
-                    
-                    
                 </div>
-            </>
-        )
-        }
+                {/* Top Score Header Row */}
+                <TopScoreHeaderRow />
+                {/* <UserProgress /> */}
+                {/* <UserProgressHeader /> */}
+                {/* {data && <LeaderBoardTable data={data} /> } */}
+                
+                <PaginationBlock />
+                {/* <DataRowHeader />
+                {
+                    data && data.map((item, index) => (
+                        <DataRow  key={index}  index={index+1} item={item} />
+                    ))
+                } */}
 
-            
+                
+                
+            </div>
         </>
     )
 }

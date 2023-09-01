@@ -549,15 +549,15 @@ function PlatformIntroduction({userId}){
                                         {/* <a href="#!">
                                             <button className=" bg-yellow-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">View Your Profile <FaUser className="text-base text-white ml-3" /></button>
                                         </a> */}
-                                        <a href="#!">
+                                        {/* <a href="#!">
                                             <button className=" bg-yellow-700 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Highlight Badges &amp; Titles  <FaMedal  className="text-base text-white ml-3" /> </button>
-                                        </a>
+                                        </a> */}
                                         {/* <a href="#!">
                                             <button className=" bg-green-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Redeem Code <FaMedal  className="text-base text-white ml-3" /></button>
                                         </a> */}
-                                        <a href="#!">
+                                        {/* <a href="#!">
                                             <button className=" bg-red-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3">Help / FAQ <FaMedal  className="text-base text-white ml-3" /></button>
-                                        </a>
+                                        </a> */}
                                     </div>
                                 </div>
                             </div>
@@ -692,7 +692,7 @@ function NewsBlock(){
         <br />
 
                                                    
-            <button id="registerforchimera" className="bg-blue-600 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3"> Register Interest </button>
+            <button id="registerforchimera" className="bg-gray-500 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3 disabled" > Register Interest </button>
         
                                                 
     </div>
@@ -803,18 +803,18 @@ function TopStatisticsData({userId , userName}){
                 <NewsBlock />
                 <div className="grid grid-cols-12 gap-4 rounded-lg mt-4">
                     {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
-                    <LabTimeChart />
+                    
                     {/* <InvestigationChart /> */}
                     {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
-                    <ChallengesChart />
-
+                    {/* <ChallengesChart /> */}
+                    {/* <LabTimeChart /> */}
                 </div>
             </div>
             <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
                 <Discord />
                 <CareerBox />
-                <TopTeamsBlock />
-                <PublicDemo />
+                {/* <TopTeamsBlock /> */}
+                {/* <PublicDemo /> */}
                 
             </div>
         </div>

@@ -209,19 +209,11 @@ export default function Page({ params }){
                                     </div>
                                     <div className="ml-5 w-full">
                                         <div className="w-full sm:whitespace-normal font-medium text-2xl text-gray-300">{data?.name}
-                                        
                                             <span className="ml-3">
-
                                                 <Image className="h-10 inline tooltip" src={`/assets/img/flags/${data?.country || "PK"}.png`} alt="AD-Q"  height={40}  width={40}/>
-
                                             </span>
-
-                                            
-
-                                            
-                                        
                                         </div>
-                                        <div className="text-base text-gray-300">Rank: <span style={{"color":"#55E6C1"}}>Initiate</span></div>
+                                        {/* <div className="text-base text-gray-300">Rank: <span style={{"color":"#55E6C1"}}>Initiate</span></div> */}
                                         
                                                                 
                                             
@@ -245,26 +237,30 @@ export default function Page({ params }){
                                 </div>
                                 
                                 <div className="mt-6 lg:w-1/3 lg:mt-0 flex-1 flex items-center justify-center px-5 border-gray-200 pt-5 lg:pt-0">
-                                    <div className="text-center rounded-md w-20 grid grid-rows-2 mr-3">
+                                    
+                                    {/* Global Position */}
+                                    {/* <div className="text-center rounded-md w-20 grid grid-rows-2 mr-3">
                                         <div className="font-semibold text-3xl text-yellow-400">
                                             <CountUp end={18476}  duration={3} />
                                         </div>
                                         <div className="text-gray-600 text-sm">Global Position</div>
-                                    </div>
-                                    <div className="text-center rounded-md w-24 grid grid-rows-2 ml-5">
+                                    </div> */}
+
+                                    {/* Country Position */}
+                                    {/* <div className="text-center rounded-md w-24 grid grid-rows-2 ml-5">
                                         <div className="font-semibold text-3xl text-yellow-400">
                                             <CountUp end={134}  duration={3} />
                                         </div>
                                         <div className="text-gray-600 text-sm">Country Position</div>
-                                    </div>
+                                    </div> */}
                                     <div className="text-center rounded-md w-20 grid grid-rows-2">
-                                        <div className="font-semibold text-3xl text-yellow-500">
+                                        <div className="font-semibold text-4xl text-yellow-500">
                                             {totalObtainedPointsUser &&  (<CountUp end={totalObtainedPointsUser}  duration={3} />) } 
                                         </div>
                                         <div className="text-gray-600 text-sm">Points <span className="opacity-0">Lorem</span></div>
                                     </div>
                                     <div className="text-center rounded-md w-20 grid grid-rows-2">
-                                        <div className="font-semibold text-green-400 text-3xl">
+                                        <div className="font-semibold text-green-400 text-4xl">
                                            {solveChallengesCounter &&  (<CountUp end={solveChallengesCounter}  duration={3} />) }  
                                         </div>
                                         <div className="text-gray-600 text-sm">Challenges <span className="opacity-0">Lorem</span></div>
@@ -290,123 +286,8 @@ export default function Page({ params }){
             <div className="tab-content__pane active" id="profile">
                 <div className="grid grid-cols-12 gap-6">
                     {/* badges */}
-                    <div className="intro-y box col-span-12 lg:col-span-6 bg-deep-blue-violet rounded-lg">
-                        <div className="flex items-center px-5 py-5 sm:py-3 border-b border-gray-500 ">
-                            <h2 className="font-medium text-base mr-auto pt-2 pb-2 text-gray-300">
-                                Recent Badges
-                            </h2>
-                            <div className="dropdown ml-auto sm:hidden">
-                                <a className="dropdown-toggle w-5 h-5 block" href="#!"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-more-horizontal w-5 h-5 text-gray-700 "><circle cx="12" cy="12" r="1"></circle><circle cx="19" cy="12" r="1"></circle><circle cx="5" cy="12" r="1"></circle></svg> </a>
-                                <div className="dropdown-box w-40">
-                                    <div className="dropdown-box__content box  p-2"> <a href="#!" className="block p-2 transition duration-300 ease-in-out bg-white  hover:bg-gray-200  rounded-md">Show All</a> </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div className="pl-5 pr-5 pb-5">
+                    {/* User Profile Badges PlaceHolder */}
 
-                                {/* 1 Week Streak */}  
-                                {/* <div className="flex items-center mt-5">
-                                    <div className="file"> 
-                                        <Image className="w-12"  src="/assets/img/badges/ps59WyC0wCeNnWcnO20x.png" height={48}  alt="AD-Q" width={48} />
-                                    </div>
-                                    <div className="ml-4">
-                                        <a className="font-medium text-base text-gray-300" href="">1 Week Streak</a> 
-                                        <div className="text-gray-600 text-xs">Login every day for 7 days</div>
-                                    </div>
-                                    <div className="dropdown ml-auto ">
-                                        <a className="dropdown-toggle w-20 block" href="#!"> <i className="w-5 h-5 text-gray-600 text-xs"> 28/08/2023</i> </a>
-                                    </div>
-                                </div> */}
-
-                                                            
-                                <div className="flex items-center mt-5">
-                                    <div className="file"> 
-                                        <Image className="w-12" src="/assets/img/badges/RdLpiHsY7YbqjRhMlY3K.png" alt="AD-Q"  height={48}  width={48}/>
-                                    </div>
-                                    <div className="ml-4">
-                                        <a className="font-medium text-base text-gray-300" href="">Initiate</a> 
-                                        <div className="text-gray-600 text-xs">Initiate Rank</div>
-                                    </div>
-                                    <div className="dropdown ml-auto">
-                                        <a className="dropdown-toggle w-20 block" href="#!"> <i className="w-5 h-5 text-gray-600 text-xs"> 06/08/2023</i> </a>
-                                    </div>
-                                </div>
-
-                                                            
-                                <div className="flex items-center mt-5">
-                                    <div className="file"> 
-                                        <Image className="w-12" src="/assets/img/badges/exJXDvClNDTdZVf7hPJM.png" alt="AD-Q" height={48}  width={48} />
-                                    </div>
-                                    <div className="ml-4">
-                                        <a className="font-medium text-base text-gray-300" href="">New Member</a> 
-                                        <div className="text-gray-600 text-xs">Welcome to A&D-Q!</div>
-                                    </div>
-                                    <div className="dropdown ml-auto">
-                                        <a className="dropdown-toggle w-20 block" href="#!"> <i className="w-5 h-5 text-gray-600 text-xs"> 06/08/2023</i> </a>
-                                    </div>
-                                </div>
-
-                                {/* Top 10 Global */}
-                                <div className="flex items-center mt-5">
-                                    <div className="file"> 
-                                        <Image className="w-12" src="/assets/img/badges/1m3THSseLShffXMTieGj.png" alt="AD-Q" height={48}  width={48} />
-                                    </div>
-                                    <div className="ml-4">
-                                        <a className="font-medium text-base text-gray-300" href="">Top 10 Global</a> 
-                                        <div className="text-gray-600 text-xs">Top 10 Global</div>
-                                    </div>
-                                    <div className="dropdown ml-auto">
-                                        <a className="dropdown-toggle w-20 block" href="#!"> <i className="w-5 h-5 text-gray-600 text-xs"> 06/08/2023</i> </a>
-                                    </div>
-                                </div>
-
-                                {/* Intel Analyst I */}
-                                <div className="flex items-center mt-5">
-                                    <div className="file"> 
-                                        <Image className="w-12" src="/assets/img/badges/analyst_1.png" alt="AD-Q" height={48}  width={48} />
-                                    </div>
-                                    <div className="ml-4">
-                                        <a className="font-medium text-base text-gray-300" href="">Intel Analyst I</a> 
-                                        <div className="text-gray-600 text-xs">Intel Analyst I</div>
-                                    </div>
-                                    <div className="dropdown ml-auto">
-                                        <a className="dropdown-toggle w-20 block" href="#!"> <i className="w-5 h-5 text-gray-600 text-xs"> 06/08/2023</i> </a>
-                                    </div>
-                                </div>
-                                {/* Threat Hunter II */}
-                                <div className="flex items-center mt-5">
-                                    <div className="file"> 
-                                        <Image className="w-12" src="/assets/img/badges/S6UIxb9tjmSfqTGOb956.png" alt="AD-Q" height={48}  width={48} />
-                                    </div>
-                                    <div className="ml-4">
-                                        <a className="font-medium text-base text-gray-300" href="">Threat Hunter II</a> 
-                                        <div className="text-gray-600 text-xs">Threat Hunter II</div>
-                                    </div>
-                                    <div className="dropdown ml-auto">
-                                        <a className="dropdown-toggle w-20 block" href="#!"> <i className="w-5 h-5 text-gray-600 text-xs"> 06/08/2023</i> </a>
-                                    </div>
-                                </div>
-
-                                {/* Guardian */}
-                                <div className="flex items-center mt-5">
-                                    <div className="file"> 
-                                        <Image className="w-12" src="/assets/img/badges/lkoheEGCQkZbZnqFXq4H.png" alt="AD-Q" height={48}  width={48} />
-                                    </div>
-                                    <div className="ml-4">
-                                        <a className="font-medium text-base text-gray-300" href="">Guardian</a> 
-                                        <div className="text-gray-600 text-xs">Guardian</div>
-                                    </div>
-                                    <div className="dropdown ml-auto">
-                                        <a className="dropdown-toggle w-20 block" href="#!"> <i className="w-5 h-5 text-gray-600 text-xs"> 06/08/2023</i> </a>
-                                    </div>
-                                </div>
-
-
-
-                            
-                        </div>
-                    </div>
                     {/* Progress */}
                     <div className="intro-y box col-span-12 lg:col-span-6 bg-deep-blue-violet rounded-lg">
                         <div className="flex items-center px-5 py-5 sm:py-0 border-b border-gray-500 ">
@@ -427,9 +308,9 @@ export default function Page({ params }){
                                             
                                             <div className="flex items-center">
                                                 {/* <FaSearchPlus  className="mr-2 text-base "/> */}
-                                                <span className="mr-2 text-base">
+                                                {/* <span className="mr-2 text-base">
                                                     {cybersecurityIcons[category] || cybersecurityIcons["Default"]}
-                                                </span>
+                                                </span> */}
                                                 <div className="text-gray-300 mr-auto text-sm">{category}</div>
                                                 <div className="font-medium">{categoryStats.answerCount} / <span className="text-gray-600">{categoryStats.questionCount}</span></div>
                                             </div>

@@ -619,7 +619,7 @@ function UserProgressHeader({userData}){
 }
 
 function TableTr({index , item}){
-    console.debug(item , "TableTr")
+    // console.debug(item , "TableTr")
     // const totalPoints = item?.team?.answers.reduce((sum, obj) => sum + obj.obtainedPoints, 0);
 
     return (
