@@ -1141,7 +1141,7 @@ function TableTr({index , item}){
                 <div className="flex justify-center items-center">
                     {/* <a className="flex items-center mr-3 text-gray-300" href="#!">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg> View Profile </a> */}
-                    <Link className="flex items-center mr-3 text-gray-300" href={`/user/${item?.id}`}>
+                    <Link className="flex items-center mr-3 text-gray-300" href={`/admin/board/user/${item?.id}`}>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="feather feather-eye w-4 h-4 mr-1"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                         View Profile 
                     </Link>
