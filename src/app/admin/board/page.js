@@ -1272,9 +1272,6 @@ export default function Page(){
     useEffect(() => {
         AOS.init();
         DataFetch()
-        // if(session){
-        //     getUserData({userID: session?.user?.id})
-        // }
     }, [])
 
 

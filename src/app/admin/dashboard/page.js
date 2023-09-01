@@ -1,5 +1,5 @@
 import Dashboard from "@/app/components/admin/dashboard/Dashboard"
-import { getTotalTeam , getTotalScripts , getTotalLogs , getTotalQuizes, getLogsPerHour , getTeamsPerAttack , getLogsPerProtocol, getIPsPerProtocol , getTopTeams, getLatestScripts , getAttackHistoryLogs } from "@/app/lib/admin/dashboard"
+import { getTotalTeam , getTotalScripts , getTotalLogs , getTotalQuizes, getLogsPerHour , getTeamsPerAttack , getLogsPerProtocol, getIPsPerProtocol , getTopTeams, getLatestScripts , getAttackHistoryLogs  , logs_by_datetime} from "@/app/lib/admin/dashboard"
 
 export const revalidate = 0;
 

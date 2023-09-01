@@ -71,6 +71,19 @@ export const logs_by_hour_count = () => {
   })
 }
 
+export const logs_by_datetime = () => {
+  return new Promise((resolve, reject) => {
+    const db = createDbConnection()
+    let result = []
+    db.each(`SELECT COUNT(*), datetime FROM logs GROUP BY datetime`, (err, row) => {
+      if(err) { reject(err) }
+      result.push(Object.values(row))
+    }, () => {
+      resolve(result)
+    })
+  })
+}
+
 export const teams_per_attack = () => {
   let query = `SELECT  COUNT(DISTINCT team), protocol, COUNT(*) FROM logs GROUP BY protocol`
   return new Promise((resolve, reject) => {
