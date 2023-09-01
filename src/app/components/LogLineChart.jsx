@@ -216,7 +216,7 @@ export default function LogLineChart({logs_by_hour }){
       //     },
       //   }],
       // })
-    }, []);
+    }, [logs]);
 
 
     
