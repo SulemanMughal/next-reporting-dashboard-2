@@ -128,7 +128,7 @@ function getLogValues(arr){
 
 
 
-export default function LogLineChart({logs_by_hour}){
+export default function LogLineChart({logs_by_hour }){
 
   const [selectedOption, setSelectedOption] = useState(null);
 
@@ -183,17 +183,18 @@ export default function LogLineChart({logs_by_hour}){
         //     },
         //   }],
         // })
-  
-        setLogs((prevData) => ({
-          ...prevData,
-          // labels: [...prevData.labels, newLabel],
+
+        const newData = {
+          ...logs,
           datasets: [
             {
-              ...prevData.datasets[0],
-              data: [...prevData.datasets[0].data, getLogValues(logs_by_hour)],
+              ...logs.datasets[0],
+              data: [...logs.datasets[0].data, getLogValues(logs_by_hour)], // Random data for demonstration
             },
           ],
-        }));
+        };
+  
+        setLogs(newData);
       }, 2000); // Update every 2 seconds
   
       return () => clearInterval(interval);

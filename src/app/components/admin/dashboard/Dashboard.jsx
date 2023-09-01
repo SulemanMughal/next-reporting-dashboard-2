@@ -31,7 +31,7 @@ export default function Dashboard({data}){
                 <QuizCounter  total_quizes={data.total_quizes} />
             </div>
             <div className="p-4 grid  grid-cols-1 gap-4 place-items-center" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="500">
-                <LogLineChart  logs_by_hour={data.logs_by_hour} />
+                <LogLineChart  logs_by_hour={data.logs_by_hour}  />
             </div>
             <div className="p-4 grid md:grid-cols-9 grid-cols-1 gap-4 place-items-start h-100" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="500">
                 <TeamsPerAttack teams_per_attack_logs={data.teams_per_attack_logs} />
