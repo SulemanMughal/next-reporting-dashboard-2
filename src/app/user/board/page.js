@@ -374,7 +374,7 @@ function TopScoreHeaderRow({totalPoints , teamTotalObtainedPoints ,usersGroupedB
             </div>
             <div className="intro-y col-span-3 flex flex-wrap items-center mt-2 pl-5 pb-5 pt-5 bg-deep-blue-violet rounded box text-gray-300" style={{"zIndex":"20"}}>
                 {usersGroupedByCountry && usersGroupedByCountry.map((country , index) => (
-                    <CountryDefendersCounter country={country} />
+                    <CountryDefendersCounter country={country} key={index} />
                 ))}
             </div>
             
