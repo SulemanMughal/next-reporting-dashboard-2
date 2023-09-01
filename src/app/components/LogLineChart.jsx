@@ -105,118 +105,49 @@ function getLogValues(arr){
 }
 
 
-// function ChartOptionButton({changeHandler}){
-//   return (
-//     <>
-//       <div className='relative flex justify-between items-center'>
-//       <select name="signupfrom" id="signupfrom" className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-gray-400     p-3 pl-4 pr-8   m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm"  onChange={() => changeHandler}  >
-//       <option  value="1">All</option>
-//       <option value="2">Live</option>
-//       </select>
-//       <div className="absolute inset-y-0  mt-2 right-0 flex items-center pr-3 pointer-events-none">
-//         <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-//           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
-//         </svg>
-//       </div>
-//       </div>
-//     </>
-//   )
-// }
+function ChartOptionButton(){
+  return (
+    <>
+      <div className='relative flex justify-between items-center'>
+      <select name="signupfrom" id="signupfrom" className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-gray-400     p-3 pl-4 pr-8   m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm" defaultValue={"1"}>
+      <option  value="1">All</option>
+      <option value="2">Live</option>
+      </select>
+      <div className="absolute inset-y-0  mt-2 right-0 flex items-center pr-3 pointer-events-none">
+        <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </div>
+      </div>
+    </>
+  )
+}
 
 
 
 
 
 
-export default function LogLineChart({logs_by_hour }){
-
-  const [selectedOption, setSelectedOption] = useState(null);
-
-
-
-
-  // const changeHandler = (e) => {
-  //   console.debug(e.target.value)
-  //   setSelectedOption(e.target.value);
-  // }
-
-
-    const [logs, setLogs] = useState({
-      labels,
-      datasets: [{
-        fill: true,
-        label: 'Logs # ',
-        data:getLogValues(logs_by_hour),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: (context) => {
-          const ctx = context.chart.ctx;
-          const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-          gradient.addColorStop(0, 'rgba(255, 99, 132, 0.55)'); 
-          gradient.addColorStop(1, 'rgba(255, 99, 132, 0.0)');
-          return gradient;
-        },
-      }],
-    });
+export default function LogLineChart({logs_by_hour}){
+    const [logs, setLogs] = useState(null);
     useEffect(() => {
-
-
-
-
-      const interval = setInterval(() => {
-        // Simulate fetching new data
-        // const newLabel = new Date().toLocaleTimeString();
-        // const newData = Math.random() * 100;
-
-        // setLogs({
-        //   labels,
-        //   datasets: [{
-        //     fill: true,
-        //     label: 'Logs # ',
-        //     data:getLogValues(logs_by_hour),
-        //     borderColor: 'rgb(255, 99, 132)',
-        //     backgroundColor: (context) => {
-        //       const ctx = context.chart.ctx;
-        //       const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-        //       gradient.addColorStop(0, 'rgba(255, 99, 132, 0.55)'); 
-        //       gradient.addColorStop(1, 'rgba(255, 99, 132, 0.0)');
-        //       return gradient;
-        //     },
-        //   }],
-        // })
-
-        const newData = {
-          ...logs,
-          datasets: [
-            {
-              ...logs.datasets[0],
-              data: [...logs.datasets[0].data, getLogValues(logs_by_hour)], // Random data for demonstration
-            },
-          ],
-        };
-  
-        setLogs(newData);
-      }, 2000); // Update every 2 seconds
-  
-      return () => clearInterval(interval);
-
-      // // setSelectedOption("1")
-      // setLogs({
-      //   labels,
-      //   datasets: [{
-      //     fill: true,
-      //     label: 'Logs # ',
-      //     data:getLogValues(logs_by_hour),
-      //     borderColor: 'rgb(255, 99, 132)',
-      //     backgroundColor: (context) => {
-      //       const ctx = context.chart.ctx;
-      //       const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-      //       gradient.addColorStop(0, 'rgba(255, 99, 132, 0.55)'); 
-      //       gradient.addColorStop(1, 'rgba(255, 99, 132, 0.0)');
-      //       return gradient;
-      //     },
-      //   }],
-      // })
-    }, [logs]);
+      setLogs({
+        labels,
+        datasets: [{
+          fill: true,
+          label: 'Logs # ',
+          data:getLogValues(logs_by_hour),
+          borderColor: 'rgb(255, 99, 132)',
+          backgroundColor: (context) => {
+            const ctx = context.chart.ctx;
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(255, 99, 132, 0.55)'); 
+            gradient.addColorStop(1, 'rgba(255, 99, 132, 0.0)');
+            return gradient;
+          },
+        }],
+      })
+    }, []);
 
 
     
@@ -227,15 +158,10 @@ export default function LogLineChart({logs_by_hour }){
           <div className="w-full col-span-1 relative   h-[60vh]  m-auto  p-8 pb-20  border-none  rounded-lg  bg-card-custom" >
             <div className='flex justify-between'>
               <h1 className="text-2xl text-white">Logs Timeline</h1>
-              {/* <ChartOptionButton   changeHandler={changeHandler} /> */}
+              {/* <ChartOptionButton /> */}
             </div>
             <hr className="my-5 h-0.5 border-t-0 bg-white opacity-30" />
-            {  logs &&     <Line options={options} data={logs}   height={400} /> }
-            
-              {/* (
-                selectedOption === "2" ? null : ( <Line options={options} data={logs}   height={350} /> )
-              )
-            } */}
+            {  logs &&    <Line options={options} data={logs}   height={350} /> }
           </div>
         </>
     )
