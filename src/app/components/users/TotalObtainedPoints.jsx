@@ -41,7 +41,7 @@ export default function TotalObtainedPoints({totalPoints , overall_points }){
                             <p className="font-bold  leading-8 text-white  text-3xl mb-2">
                                 {totalPoints && <CountUp end={totalPoints}  duration={3} />} / {totalPoints && <CountUp end={overall_points}  duration={3} />}  
                             </p>
-                            <h5 className="text-md text-gray-400">Team Points / Total</h5>
+                            <h5 className="text-xs 2xl:text-base text-gray-400">Team Points / Total</h5>
                         </div>
                         <span>
                         </span>

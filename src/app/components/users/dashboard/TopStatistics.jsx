@@ -220,7 +220,7 @@ function UserObtainedPoints({totalObtainedPointsUser, overall_points}){
                             <p className="font-bold  leading-8 text-white  text-3xl mb-2">
                                 {totalObtainedPointsUser && <CountUp end={totalObtainedPointsUser}  duration={3} />} / {overall_points && <CountUp end={overall_points}  duration={3} />}  
                             </p>
-                            <h5 className="text-base text-gray-400">Your Points / Total</h5>
+                            <h5 className="text-xs 2xl:text-base text-gray-400">Your Points / Total</h5>
                         </div>
                         <span>
                         </span>
@@ -246,7 +246,7 @@ function TeamPosition({team_position = 0, total_teams = 0}){
                             <p className="font-bold  leading-8 text-white  text-3xl mb-2">
                                 {team_position && <CountUp end={team_position}  duration={3} />} / {total_teams && <CountUp end={total_teams}  duration={3} />}  
                             </p>
-                            <h5 className="text-md text-gray-400">Team Position / Total Teams</h5>
+                            <h5 className="text-xs 2xl:text-base text-gray-400">Team Position / Total Teams</h5>
                         </div>
                         <span>
                         </span>
@@ -464,16 +464,16 @@ function Discord(){
 function CareerBox(){
     return (
         <>
-            <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300 my-5">
-                <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow relative" data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
+            <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300 my-5" data-aos="fade-down" data-aos-duration="500" data-aos-delay="500">
+                <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow relative" >
                             <h2 className="font-medium text-lg text-white ">
                             Follow A&D-Q on Twitter here!
                             </h2>
                             <div className="my-5 flex items-center justify-start mx-5 ">
                                 <span className="h-full inline-block ">
-                                    <TfiTwitterAlt  className="h-20 w-20" style={{"color" : "#7188d9"}}/>
+                                    <TfiTwitterAlt  className=" h-12 w-12 2xl:h-20 2xl:w-20" style={{"color" : "#7188d9"}}/>
                                 </span>
-                                <p className="text-5xl font-bold mx-4 font-extrabold" style={{"color" : "#7188d9"}}>
+                                <p className=" text-3xl 2xl:text-5xl font-bold mx-4 font-extrabold" style={{"color" : "#7188d9"}}>
                                     Twitter
                                 </p>
                             </div>
@@ -688,11 +688,11 @@ function NewsBlock(){
 <div className="col-span-12 md:col-span-2 rounded-md px-5 mb-auto mt-auto py-4 bg-theme-3 text-white">
     <div className="items-center">
        
-        <p className="text-center"><b>Register your interest</b></p>
+        {/* <p className="text-center"><b>Register your interest</b></p> */}
         <br />
 
                                                    
-            <button id="registerforchimera" className="bg-gray-500 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white sm:w-full rounded-md cursor-pointer font-medium py-2 px-3 disabled" > Register Interest </button>
+            <button id="registerforchimera" className="bg-gray-500 flex  justify-center items-center  xl:mt-auto mr-1 mb-2  text-white whitespace-nowrap w-full rounded-md cursor-pointer font-medium  py-1 px-3 text-sm 2xl:text-base 2xl:py-2 2xl:px-3 disabled" > Register Interest </button>
         
                                                 
     </div>

@@ -18,7 +18,7 @@ export default function TotalChallenges({totalChallenges, totalSolvedChallenges 
                             <p className="font-bold  leading-8 text-white  text-3xl mb-2">
                             {totalSolvedChallenges && <CountUp end={totalSolvedChallenges}  duration={3} />     } / {totalChallenges && (<CountUp end={totalChallenges}  duration={3} /> ) }  
                             </p>
-                            <h5 className="text-base text-gray-400">Challenges Completed / Total</h5>
+                            <h5 className=" text-xs 2xl:text-base text-gray-400">Challenges Completed / Total</h5>
                         </div>
                         <span>
                         </span>
