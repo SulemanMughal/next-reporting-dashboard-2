@@ -127,21 +127,21 @@ const SelectField = ({ options, onChange }) => {
     return (
       <>
         <div className="py-3 text-gray-300">
-                    <label className=" text-sm" >Difficulties</label>
-                    <div className="flex flex-col sm:flex-row mt-2">
-                        <label className="flex items-center text-white rounded mr-2 mt-2 sm:mt-0 bg-green-600 p-1 cursor-pointer select-none font-bold pr-2">
+                    <label className=" text-sm mb-3" >Difficulties</label>
+                    <div className="flex  flex-wrap  mt-2">
+                        <label className="flex items-center text-white rounded mr-2 my-2 sm:mt-0 bg-green-600 p-1 cursor-pointer select-none font-bold pr-2">
                             <input type="radio"  value="easy" className="input border rounded-full mr-2 appearance-none" checked={selectedOption === "easy"}  onChange={() => handleCheckboxChange("easy")}/>
                             Easy
                         </label>
-                        <label className="flex items-center text-black rounded mr-2 mt-2 sm:mt-0 bg-hot-cinnamon p-1 cursor-pointer select-none font-bold pr-2">
+                        <label className="flex items-center text-black rounded mr-2 my-2 sm:mt-0 bg-hot-cinnamon p-1 cursor-pointer select-none font-bold pr-2">
                             <input type="radio" className="input border rounded-full mr-2 appearance-none"  value="medium" checked={selectedOption === "medium"} onChange={() => handleCheckboxChange("medium")} />
                             Medium
                         </label>
-                        <label className="flex items-center text-black rounded mr-2 mt-2 sm:mt-0 bg-valencia-red p-1 cursor-pointer select-none font-bold pr-2">
+                        <label className="flex items-center text-black rounded mr-2 my-2 sm:mt-0 bg-valencia-red p-1 cursor-pointer select-none font-bold pr-2">
                             <input type="radio" className="input border rounded-full mr-2 appearance-none"  value="hard" checked={selectedOption === "hard"} onChange={() => handleCheckboxChange("hard")} />
                             Hard
                         </label>
-                        <label className="flex items-center text-black rounded mr-2 mt-2 sm:mt-0 bg-indigo-500 p-1 cursor-pointer select-none font-bold pr-2">
+                        <label className="flex items-center text-black rounded mr-2 my-2 sm:mt-0 bg-indigo-500 p-1 cursor-pointer select-none font-bold pr-2">
                           <input type="radio" className="input border rounded-full mr-2 appearance-none "  value="all" checked={selectedOption === "all"} onChange={() => handleCheckboxChange("all")} />
                           <span className="block pr-5">All</span>
                       </label>
@@ -318,30 +318,31 @@ function QuizList({scenarios}){
     return (
         <>
             {   scenarios?.length ? [...Array(scenarios?.[0].length)].map((item, index) => (
-                    <div className="component component-CerCheckBox" key={index}>
-                        <div className="w-full col-span-3 relative      rounded-lg   flex flex-col " key={index}>
-                            <div className="   bg-deep-blue-violet  rounded-lg shadow   ">
-                                <div className="p-5">
-                                    <h5 className=" font-medium text-base tracking-tight whitespace-normal text-gray-300  text-center mb-1">{scenarios[1][index]}</h5>
-                                    <div className="text-gray-400 text-xs truncate text-center">
-                                        {scenarios[4][index]}
-                                    </div>
-                                    {/* <ExpandableText initialText={scenarios[4][index]}  maxLength={150} /> */}
-                                    <div className=" pt-4 pb-2 text-center">
-                                        <span className={getDifficultyColor(scenarios[7][index])}>{ scenarios[7][index] }</span>
-                                        <span className="px-1 py-1 text-base font-bold bg-none text-blue-400 ">{ scenarios[3][index] }</span>
-                                        <span className="px-1 py-1 text-base font-bold bg-none text-yellow-400 ">{ scenarios[5][index] +  " Points"}</span>
-                                    </div>
-                                </div>
-                                <div className=" pt-0 pb-4 flex justify-center">
-                                    <Link href={`/user/quiz/${scenarios[0][index]}`}  className=" cursor-pointer     bg-dark-navy-blue  flex justify-center items-center   text-white text-base    h-full rounded-md px-2 py-1       ">
-                                        <span>{"Start Challenge" } </span> 
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )) : null
+              <div className="component component-CerCheckBox" key={index} data-aos="fade-up" data-aos-duration="400" data-aos-delay={"100"}>
+                  <div className="w-full col-span-3 relative      rounded-lg   flex flex-col  h-full" key={index}>
+                      <div className="   bg-deep-blue-violet  rounded-lg shadow    h-full">
+                          <div className="p-5">
+                              <h5 className=" font-medium text-base tracking-tight whitespace-normal text-gray-300  text-center mb-1">{scenarios[1][index]}</h5>
+                              <div className="text-gray-400 text-xs truncate text-center">
+                                  {scenarios[4][index]}
+                              </div>
+                              {/* <ExpandableText initialText={scenarios[4][index]}  maxLength={150} /> */}
+                              <div className="flex flex-wrap justify-center items-center pt-4 pb-2">
+                                <span className={getDifficultyColor(scenarios[7][index])}>{ scenarios[7][index] }</span>
+                                <span className="px-1 py-1 text-sm  2xl:text-base font-bold bg-none text-blue-400 ">{ scenarios[3][index] }</span>
+                                <span className="px-1 py-1 text-sm  2xl:text-base font-bold bg-none text-yellow-400 ">{ scenarios[5][index] +  " Points"}</span>
+                              </div>
+                              
+                          </div>
+                          <div className=" pt-0 pb-4 flex justify-center">
+                              <Link href={`/user/quiz/${scenarios[0][index]}`}  className=" cursor-pointer     bg-dark-navy-blue  flex justify-center items-center   text-white text-base    h-full rounded-md px-2 py-1       ">
+                                  <span>{"Start Challenge" } </span> 
+                              </Link>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              )) : null
             }
         </>
     )
