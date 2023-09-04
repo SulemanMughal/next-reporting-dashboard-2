@@ -60,7 +60,7 @@ function TableTr({ script , index}) {
       <>
         <tr tabIndex={0} className="focus:outline-none h-16 border border-t-0 border-l-0 border-r-0 border-gray-100 rounded" key={script.id}>
           <td className="text-start">
-            <p className="text-base font-medium leading-none text-slate-500 mr-2">{script.name}</p>
+            <p className="text-base font-medium leading-none text-gray-300 mr-2">{script.name}</p>
           </td>
         </tr>
         <tr className="h-3"></tr>
@@ -83,7 +83,7 @@ export default function AttakScriptTable({latest_scripts}){
                     <table className="w-full whitespace-nowrap">
                     <thead>
                         <tr className="focus:outline-none h-16 border-0 rounded">
-                        <th className="text-slate-500">
+                        <th className="text-gray-400">
                             Name
                         </th>
                         </tr>

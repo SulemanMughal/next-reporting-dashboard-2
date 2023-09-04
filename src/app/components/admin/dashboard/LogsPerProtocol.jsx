@@ -74,10 +74,10 @@ useEffect(() => {
     
 }, [])
     return (
-      <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border-none rounded-lg bg-card-custom text-white overflow-hidden">
+      <div className="w-full col-span-3 relative  h-full 2xl:h-[60vh]    p-8 pb-20 border-none rounded-lg bg-deep-blue-violet text-white overflow-hidden">
         <h1 className="text-2xl ">Logs Per Protocol</h1>
         <hr className="mt-5 h-0.5 border-t-0 bg-white opacity-30" />
-          <Bar  data={chartData} options={chartOptions} height={200} width={200}  />
+        <Bar  data={chartData} options={chartOptions}  height={"350"}/>
       </div>
     )
 }

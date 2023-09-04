@@ -18,14 +18,16 @@ const style = {
     },
     th: {
       'background-color': 'rgba(0, 0, 0, 0.1)',
-      'color': '#94a3b8',
+      'color': '#9ca3af',
+      'font-size': '14px',
       'border-bottom': '1px solid #64748b',
       'text-align': 'center',
       'border-top' : "0px"
     },
     td: {
       'text-align': 'start',
-      'color': '#64748b',
+      'color': '#d1d5db',
+      'font-size': '14px',
     'background-color': 'rgba(16,19,69, 97%)',
     "border" : "0"  ,
     "border-bottom" : "1px solid #64748b",
@@ -121,7 +123,7 @@ export default function UserLogsTable(){
     
     return (
         <>
-            <div className="w-full col-span-3 relative   p-8 border-none rounded-lg bg-card-custom h-100">
+            <div className="w-full col-span-3 relative   p-8 border-none rounded-lg bg-deep-blue-violet h-100">
             <h1 className="text-2xl text-white">Logs Details</h1>
             <hr className="my-5 h-0.5 border-t-0 bg-white opacity-30" />
             {loading ? (

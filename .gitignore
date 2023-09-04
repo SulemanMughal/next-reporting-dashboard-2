@@ -51,3 +51,10 @@ credentials.txt
 
 # remove data
 /src/app/lib/data/*
+
+
+# remove
+api_routes.txt
+
+# remove
+commands.txt

@@ -69,10 +69,12 @@ export default function TeamsPerAttack({teams_per_attack_logs}){
         })
     }, [])
     return (
-        <div className="w-full col-span-3 relative  h-[60vh]   p-8 pb-20 border-none rounded-lg bg-card-custom  overflow-hidden text-white">
+        <div className="w-full col-span-3 relative   h-full 2xl:h-[60vh]   p-8 pb-20 border-none rounded-lg bg-deep-blue-violet  overflow-hidden text-white">
             <h1 className="text-2xl ">Teams Per Attack</h1>
             <hr className="mt-5 h-0.5 border-t-0 bg-white opacity-30" />
-                <Pie  data={chartData} options={chartOptions} height={200} width={200}  />
+                <div className="flex flex-col justify-center items-center f-full my-5">
+                    <Pie  data={chartData} options={chartOptions}  />
+                </div>
         </div>
     )
 }

@@ -98,7 +98,7 @@ const UserNavBar = ({pathname}) => {
     return (
         <>
             <nav className="bg-transparent text-gray-400 pt-4 -mb-6" id="user_dashboard">
-                <div className="container ml-28">
+                <div className="container pl-28">
                     
                     <ul className="flex space-x-2 space-y-0 items-end place-items-end">
                     <li className="" >
@@ -127,7 +127,7 @@ const AdminNavBar = ({pathname}) => {
     return (
         <>
             <nav className="bg-transparent text-gray-400 pt-4 -mb-6" id="user_dashboard">
-                <div className="container ml-28">
+                <div className="container pl-28">
                     
                     <ul className="flex space-x-2 space-y-0 items-end place-items-end">
                     <li >

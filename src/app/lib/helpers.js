@@ -458,13 +458,13 @@ export function arrayToString(array){
 export function getDifficultyColor(difficulty){
     // console.debug(difficulty)
     if(difficulty === "Easy"){
-        return " py-1 text-base font-bold bg-none text-green-600"
+        return "  text-sm  2xl:text-base  py-1  font-bold bg-none text-green-600"
     } else if(difficulty === "Medium"){
-        return "  py-1 text-base font-bold bg-none text-hot-cinnamon"
+        return "   text-sm  2xl:text-base  py-1  font-bold bg-none text-hot-cinnamon"
     } else if(difficulty === "Hard"){
-        return "  py-1 text-base font-bold bg-none text-valencia-red"
+        return "   text-sm  2xl:text-base  py-1  font-bold bg-none text-valencia-red"
     } else {
-        return "  py-1 text-base font-bold bg-none text-gray-400"
+        return "   text-sm  2xl:text-base  py-1  font-bold bg-none text-gray-400"
     }
 }
 
