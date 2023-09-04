@@ -145,8 +145,8 @@ function AnswerComponent({question , index}){
                                 <FaRegEdit className="mr-2 text-deep-blue"  size={23} onClick={() => setIsEditing(true)} /> 
                             </button>
                             <p >
-                                <span>
-                                    {`Question ${index+1} )`} {` ${editedText}`} <select  className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-sm text-yellow-400 italic   px-2  m-0  text-base inline-block bg-deep-indigo  rounded-md shadow-sm" defaultValue={points.current}
+                                <span className=" text-sm 2xl:text-base">
+                                    {`Question ${index+1} )`} {` ${editedText}`} <select  className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-sm text-yellow-400 italic   px-2  m-0   inline-block bg-deep-indigo  rounded-md shadow-sm" defaultValue={points.current}
                                     onChange={(e) => handleSelectChange(e, question.id)}
                                     >
                                     <option  value={selectedOption}   >
@@ -512,26 +512,26 @@ export default function Page({ params }){
                                         <div className="flex items-center mt-5">
                                                     <div className="file">
                                                         <a href="" className="w-12 file__icon file__icon--file">
-                                                            <FaFile  className="text-3xl text-white"/>
+                                                            <FaFile  className=" text-lg 2xl:text-3xl text-white"/>
                                                         </a>
                                                     </div>
                                                     {/* File Sizes */}
-                                                    <div className="ml-4">
-                                                        <a className="font-medium text-gray-300" href="">{file.filename}</a> 
+                                                    <div className="ml-1  2xl:ml-4">
+                                                        <a className="font-medium text-gray-300 text-xs" href="">{file.filename}</a> 
                                                         <div className="text-gray-400 text-xs">
                                                             {fileSizes[index]}
                                                         </div>
                                                     </div>
 
                                                     <div className="ml-auto">
-                                                        <a className="font-medium text-gray-300" href="">Password</a> 
+                                                        <a className="font-medium text-gray-300 text-xs" href="">Password</a> 
                                                         <div className="text-gray-400 text-xs">
                                                             {file.password}
                                                         </div>
                                                     </div>
                                                     
                                                     <div className="ml-auto">
-                                                        <Link  href={`${file.filepath}`}  className="w-full my-5 block bg-dark-navy-blue  text-white font-medium font-xs py-2 px-4 border-none rounded" target="_blank" rel="noopener noreferrer">
+                                                        <Link  href={`${file.filepath}`}  className="w-full my-5 block bg-dark-navy-blue  text-white font-medium font-xs   py-1 px-2  text-xs 2xl:py-2 2xl:px-4   border-none rounded " target="_blank" rel="noopener noreferrer">
                                                             Download File
                                                         </Link>
                                                     </div>
