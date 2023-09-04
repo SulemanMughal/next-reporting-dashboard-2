@@ -259,8 +259,8 @@ function FileDownloadButton({ file }) {
                 </div> */}
 
 
-            <div className="ml-4">
-                <a className="font-medium text-gray-300" href="">{file.filename}</a> 
+            <div className="ml-1  2xl:ml-4">
+                <a className="font-medium text-gray-300 text-xs" href="">{file.filename}</a> 
                 <div className="text-gray-400 text-xs">
                     {fileSize}
                 </div>
@@ -316,20 +316,20 @@ function QuizFileInfo({files}){
                 <div className="flex items-center mt-5">
                             <div className="file">
                                 <a href="" className="w-12 file__icon file__icon--file">
-                                    <FaFile  className="text-3xl text-white"/>
+                                    <FaFile  className="text-lg 2xl:text-3xl text-white"/>
                                 </a>
                             </div>
                             <FileSize  file={file} />
 
-                                <div className="ml-auto">
-                                    <a className="font-medium text-gray-300" href="">Password</a> 
+                                <div className="ml-auto  2xl:ml-4">
+                                    <a className="font-medium text-gray-300 text-xs" href="">Password</a> 
                                     <div className="text-gray-400 text-xs">
                                     {file.password}
                                     </div>
                                 </div>
                             
-                            <div className="ml-auto">
-                                <Link  href={`${file.filepath}`}  className="w-full my-5 block bg-dark-navy-blue  text-white font-medium font-xs py-2 px-4 border-none rounded" target="_blank" rel="noopener noreferrer">
+                            <div className="ml-auto  2xl:ml-4">
+                                <Link  href={`${file.filepath}`}  className="w-full my-5 block bg-dark-navy-blue  text-white font-medium font-xs   py-1 px-2  text-xs 2xl:py-2 2xl:px-4   border-none rounded " target="_blank" rel="noopener noreferrer">
                                     Download File
                                 </Link>
                             </div>
@@ -427,17 +427,17 @@ function QuizInfoList({questions , scenario}){
         <>
         <div className="intro-y flex relative  pt-16 sm:pt-6 items-center">
 
-        <div className="absolute sm:relative -mt-12 sm:mt-0 w-full flex  text-gray-400 text-xs sm:text-sm">
+        <div className="absolute sm:relative -mt-12 sm:mt-0 w-full flex  text-gray-400 sm:text-sm text-xs ">
             
             <div className="intro-x sm:mr-3 ">
-                <span className="font-medium text-gray-400  ">{"Team Points"} / {"Total"}</span>
+                <span className="font-medium text-gray-400 text-xs 2xl:text-sm ">{"Team Points"} / {"Total"}</span>
                  <br />
                 <span className="font-bold text-yellow-500 text-lg">{totalObtainedPoints} / {totalPoints}</span> 
                 <br />
                 
             </div>
             <div className="intro-x sm:mr-3 ml-auto">
-                <span className="font-medium text-gray-400  ">{"Solved Questions / Total"}</span>
+                <span className="font-medium text-gray-400 text-xs 2xl:text-sm ">{"Solved Questions / Total"}</span>
                 
                 <br />
                 <span className="font-bold text-emerald-500 text-lg">
@@ -445,13 +445,13 @@ function QuizInfoList({questions , scenario}){
                 </span> 
             </div>
             <div className="intro-x sm:mr-3 ml-auto">Difficulty<br />
-                <span className={" text-sm " +  getDifficultyColor(capitalizeFirstLetter(scenario.difficulty)) } >
+                <span className={" text-xs 2xl:text-sm" +  getDifficultyColor(capitalizeFirstLetter(scenario.difficulty)) } >
                     {capitalizeFirstLetter(scenario.difficulty)}
                 </span> 
             </div>
             
             <div className="intro-x sm:mr-3 ml-auto">OS<br />
-                <span className="text-sm  text-emerald-500 py-1 ">
+                <span className="text-xs 2xl:text-sm text-emerald-500 py-1 ">
                     {scenario.os_type}
                 </span> 
             </div>
@@ -605,7 +605,7 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
                 <>
                     <div className="flex flex-wrap -mx-3 mt-2">
                         <div className="w-full md:w-5/6 px-3 h-full">
-                            <input className=" placeholder-gray-400 outline-0  border border-2 border-deep-indigo focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-2 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm" id="grid-first-name" type="text" placeholder={format} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
+                            <input className=" placeholder-gray-400 outline-0  border border-2 border-deep-indigo focus:border focus:border-2 focus:border-blue-900  text-white    w-full  p-1 px-3 2xl:p-2 2xl:px-4  m-0 mt-2 text-sm 2xl:text-base block bg-deep-indigo  rounded-md shadow-sm " id="grid-first-name" type="text" placeholder={format} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
                         </div>
                         <div className="w-full md:w-1/6 px-3 h-full">
                             <SubmitBtn  isSubmit={isSubmit} submitHandler={submitHandler}/>
@@ -744,7 +744,7 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
 
     return (
         <>
-            <div className="mt-6 text-lg text-gray-300">
+            <div className="mt-6 text-sm 2xl:text-base text-gray-300">
                 <label>
                     {`Question ${index} ) ${question.Description}`} <span className="text-xs text-gray-500 ml-2 italic">({question.points} points)</span>
                 </label>
@@ -977,7 +977,7 @@ function Details({scenario , questions , top_user , team_name , recentSolves}){
         <>
             <div  className="block  p-6 bg-deep-blue-violet rounded-lg shadow ">
                 <h5 className="block font-medium text-3xl text-blue-600">{scenario.name}</h5>
-                <p className=" text-gray-300 mt-2 text-lg">
+                <p className=" text-gray-300 mt-2  text-base 2xl:text-lg">
                     {scenario.desc}    
                 </p>
                 <QuizTags tags={scenario.tags}/>
