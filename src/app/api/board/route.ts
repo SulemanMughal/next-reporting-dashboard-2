@@ -140,7 +140,6 @@ export async function GET(request: Request){
         // ============
         // Total number of users (OverAll)
         const total_users = await prisma.user.count({})
-        // console.debug(total_users)
         // ============
 
         // ====================
@@ -148,24 +147,13 @@ export async function GET(request: Request){
         const total_number_of_users_per_page = parseInt(url.searchParams.get("recordsPerPrage") || "50");
         const totalResults = users.length;
         const totalPages = Math.ceil(totalResults / total_number_of_users_per_page);
-        // const totalPages = 10;
-        // console.debug(total_pages)
         let currentPage =  parseInt(url.searchParams.get("page") || "1");
-        // const nextPage = (currentPage) + 1;
-        // const prevPage = (currentPage) - 1;
         if (currentPage > totalPages){
             currentPage = totalPages
         }
         const startIndex = (((currentPage) - 1) * total_number_of_users_per_page) + 1;
         const endIndex = (currentPage) * total_number_of_users_per_page;
         const usersPerPage = users.slice(startIndex - 1, endIndex);
-        // console.debug(usersPerPage)
-        
-        // console.debug(total_results)
-        // console.debug(current_page, nextPage, prevPage)
-        // console.debug(startIndex, endIndex)
-
-
         const paginationData = {
             startIndex,
             endIndex,

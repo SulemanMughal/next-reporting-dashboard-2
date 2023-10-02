@@ -1490,7 +1490,7 @@ function TableTr({ item, index}){
 }
 
 
-function LeaderBoardTable({data , startIndex , endIndex}){
+function LeaderBoardTable({data , startIndex }){
     return (
         <>
             <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-400">
@@ -1525,61 +1525,12 @@ function LeaderBoardTable({data , startIndex , endIndex}){
 
 
 export default function Page(){
-    // const [data, setData] = useState([])
-    // useEffect(() => {
-    //     AOS.init();
-    //   try {
-    //     axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/submissions/`)
-    //     .then((res) => {
-    //         const {...data_2} = decrypt(res.data.encryptedData)
-    //         if(data_2.status === true){
-    //             setData(data_2.submissions)
-    //         } else {
-    //             toast.error(`Something went wrong! Please try again later.`)    
-    //             setData([])
-    //         }
-
-    //     }).catch((err) => {
-    //         console.log(err);
-    //         toast.error(`Something went wrong! Please try again later.`)
-    //         setData([])
-    //     });
-    //   } catch (error) {
-    //     console.error(error)
-    //     toast.error(`Something went wrong! Please try again later.`)
-    //     setData([])
-    //   }
-
-    
-      
-    // }, [])
-
-
-    // const [data, setData] = useState([])
-    // const { data: session } = useSession();
-
-    // const [userData, setUserData] = useState(null)
     const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(null);
-
-    // const [totalPoints, setTotalPoints] = useState(0)
-    // const [teamTotalObtainedPoints, setTeamTotalObtainedPoints] = useState(0)
-
-
-    // Grouped Users By Country
-    // const [usersGroupedByCountry, setUsersGroupedByCountry] = useState(null)
-
-
     const [topUsers, setTopUsers] = useState(null);
     const [totalUsers, setTotalUsers] = useState(0);
-
     const [paginationData, setPaginationData] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
     const [recordsPerPrage, setRecordsPerPage] = useState(50);
-    
-
-
-
     const DataFetch = () => {
         try {
             axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/board/`, {
@@ -1592,32 +1543,24 @@ export default function Page(){
                 const {...data_2} = decrypt(res.data.encryptedData)
                 if(data_2.status === true){
                     setTopUsers(data_2?.top_users)
-                    // console.debug(data_2.users)
-                    // setData(data_2.users)
                     setTotalUsers(data_2?.total_users)
-                    // console.debug(data_2.paginationData)
                     setPaginationData(data_2.paginationData)
-                    // setCurrentPage(data_2.paginationData.currentPage)
-                    // setRecordsPerPage(data_2.paginationData.total_number_of_users_per_page)
                 } else {
                     toast.error(`Something went wrong! Please try again later.`)    
-                    // setData([])
                     setTopUsers(null)
                     setTotalUsers(0)
                 }
             }).catch((err) => {
                 console.log(err);
                 toast.error(`Something went wrong! Please try again later.`)
-                // setData([])
                 setTopUsers(null)
                 setTotalUsers(0)
             }).finally(() => {
-                 setLoading(false);
+                    setLoading(false);
             });
           } catch (error) {
             console.error(error)
             toast.error(`Something went wrong! Please try again later.`)
-            // setData([])
           }
     }
     useEffect(() => {
@@ -1654,10 +1597,8 @@ export default function Page(){
     }
 
     const handleRecordsPerPage = (recordsPerPrage) => {
-        // console.debug(recordsPerPrage)
         setLoading(true)
         delay(500).then(() => {
-        //     // setCurrentPage(page+1)          
             setRecordsPerPage(recordsPerPrage)
         })
     }

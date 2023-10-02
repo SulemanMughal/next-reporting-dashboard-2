@@ -150,7 +150,7 @@ async function submit_answers(){
         all_users.map((item, index) => {  
             answer_submission({user_id : item.id, team_id : item.teamId , question_id : "3fbda051-b8f6-45e4-b0d4-8c35839190ab", answer : "gamma"}).then((res) => { console.debug(`Submitted : ${item.name} `)}).catch(error => {console.debug(error)})
                 // await new Promise(resolve => setTimeout(resolve, 150));
-                // submission_logs({ action_by : item.id, message : `Account ${item.name} (Team-ID : ${item.teamId}) Successfully Submit Answer to Question-ID : "3fbda051-b8f6-45e4-b0d4-8c35839190ab"` }).then((res) => {console.debug(`Added`)}).catch(error => {console.debug(error)})
+                // submission_logs({ action_by : item.name, message : `Account ${item.name} (Team-ID : ${item.teamId}) Successfully Submit Answer to Question-ID : "3fbda051-b8f6-45e4-b0d4-8c35839190ab"` }).then((res) => {console.debug(`Added`)}).catch(error => {console.debug(error)})
         })
 
         // await new Promise(resolve => setTimeout(resolve, 150));
