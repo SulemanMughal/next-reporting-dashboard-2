@@ -246,7 +246,7 @@ function TeamPosition({team_position = 0, total_teams = 0}){
                             <p className="font-bold  leading-8 text-white  text-3xl mb-2">
                                 {team_position && <CountUp end={team_position}  duration={3} />} / {total_teams && <CountUp end={total_teams}  duration={3} />}  
                             </p>
-                            <h5 className="text-xs 2xl:text-base text-gray-400">Team Position / Total Teams</h5>
+                            <h5 className="text-xs 2xl:text-base text-gray-400">Team Position / Total</h5>
                         </div>
                         <span>
                         </span>
@@ -708,6 +708,9 @@ function NewsBlock(){
 
 
 function TopStatisticsData({userId , userName}){
+
+    // console.debug(userId)
+
     // console.debug(userName)
     const [totalChallenges, setTotalChallenges] = useState(0)
     const [totalSolvedChallenges, setTotalSolvedChallenges] = useState(0)
@@ -806,15 +809,15 @@ function TopStatisticsData({userId , userName}){
                     
                     {/* <InvestigationChart /> */}
                     {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
-                    {/* <ChallengesChart /> */}
+                    <ChallengesChart userId={userId} />
                     {/* <LabTimeChart /> */}
                 </div>
             </div>
             <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
                 <Discord />
                 <CareerBox />
-                {/* <TopTeamsBlock /> */}
-                {/* <PublicDemo /> */}
+                <TopTeamsBlock />
+                <PublicDemo />
                 
             </div>
         </div>

@@ -208,10 +208,11 @@ export default function Page({ params }){
                                         <button className="bg-white   text-6xl p-2 rounded-full border border-4 border-double border-blue-500 w-full h-full" style={{"color" : "#7F9CF5" , "backgroundColor" : "#EBF4FF" }}>{getInitials(data?.name)}</button>
                                     </div>
                                     <div className="ml-5 w-full">
-                                        <div className="w-full sm:whitespace-normal font-medium text-2xl text-gray-300">{data?.name}
-                                            <span className="ml-3">
+                                        <div className="w-full sm:whitespace-normal font-medium text-2xl text-gray-300">
+                                            {data?.name}
+                                            {/* <span className="ml-3">
                                                 <Image className="h-10 inline tooltip" src={`/assets/img/flags/${data?.country || "PK"}.png`} alt="AD-Q"  height={40}  width={40}/>
-                                            </span>
+                                            </span> */}
                                         </div>
                                         {/* <div className="text-base text-gray-300">Rank: <span style={{"color":"#55E6C1"}}>Initiate</span></div> */}
                                         

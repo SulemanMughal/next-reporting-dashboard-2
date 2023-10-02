@@ -2,15 +2,17 @@
 
 import Link from "next/link"
 import { AiFillHome } from "react-icons/ai"
-import { FaPuzzlePiece } from "react-icons/fa"
+// import { FaPuzzlePiece } from "react-icons/fa"
 import { MdLeaderboard } from "react-icons/md"
 import { usePathname } from 'next/navigation'
 import { useSession } from "next-auth/react";
 import  { MdQuiz } from "react-icons/md"
-import { VscTerminalBash } from "react-icons/vsc"
+// import { VscTerminalBash } from "react-icons/vsc"
 import  { MdGroups } from "react-icons/md"
-import { GiSpy } from "react-icons/gi"
+// import { GiSpy } from "react-icons/gi"
 import { FaServer } from "react-icons/fa"
+import {HiUserGroup} from "react-icons/hi"
+import { LuActivity } from "react-icons/lu"
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -93,6 +95,16 @@ function checkAdminLeaderBoardPage(pathname){
     }
 }
 
+function checkAdminActivityPage(pathname){
+    if(pathname === "/admin/activity" ){
+        return true
+    } else {
+        return false
+    }
+}
+
+
+
 
 const UserNavBar = ({pathname}) => {
     return (
@@ -145,19 +157,25 @@ const AdminNavBar = ({pathname}) => {
                             <FaServer  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Challenges</p>    
                         </Link>
                     </li>
-                    <li >
+                    {/* Removed Attacking Scripts Tab */}
+                    {/* <li >
                         <Link href={"/admin/scripts"} className={classNames( checkAdminScriptsPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <VscTerminalBash  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Scripts</p>    
                         </Link>
-                    </li>
+                    </li> */}
                     <li >
                         <Link href={"/admin/teams"} className={classNames( checkAdminTeamsPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
-                            <MdGroups  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Teams</p>    
+                            <HiUserGroup  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Teams</p>    
                         </Link>
                     </li>
                     <li >
                         <Link href={"/admin/board"} className={classNames( checkAdminLeaderBoardPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <MdLeaderboard  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Leaderboard</p>    
+                        </Link>
+                    </li>
+                    <li >
+                        <Link href={"/admin/activity"} className={classNames( checkAdminActivityPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <LuActivity  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Activities</p>    
                         </Link>
                     </li>
                     </ul>

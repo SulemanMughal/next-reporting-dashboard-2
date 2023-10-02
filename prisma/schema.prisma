@@ -2,10 +2,16 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator dbml {
+  provider = "prisma-dbml-generator"
+}
+
 datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+
 
 model Quiz{
   id   String  @id @default(uuid())
@@ -43,7 +49,7 @@ model User {
   name  String?
   role  String?  @default("user")
   password  String
-  answers Answer[]
+  answers Answer[]  // How many submissions made by respective user
   team Team? @relation(fields: [teamId], references: [id])
   teamId String?
   country String? @default("")
@@ -122,6 +128,18 @@ model Answer{
   teamId String?
   user User? @relation(fields: [userId], references: [id])
   userId String?
+}
+
+model LogEntry{
+  id    String  @id @default(uuid())
+  action_name String @default("")
+  createdAt     DateTime  @default(now())
+  action_by     String  @default("")
+  message String @default("")
+  level String @default("info")
+  // team_no String
+  // script_name String
+  // job_number Int
 }
 
 

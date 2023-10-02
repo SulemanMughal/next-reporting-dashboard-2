@@ -1,5 +1,5 @@
 import Dashboard from "@/app/components/admin/dashboard/Dashboard"
-import { getTotalTeam , getTotalScripts , getTotalLogs , getTotalQuizes, getLogsPerHour , getTeamsPerAttack , getLogsPerProtocol, getIPsPerProtocol , getTopTeams, getLatestScripts , getAttackHistoryLogs  , logs_by_datetime} from "@/app/lib/admin/dashboard"
+import { getTotalTeam , getTotalScripts , getTotalLogs , getTotalQuizes, getLogsPerHour , getTeamsPerAttack , getLogsPerProtocol, getIPsPerProtocol , getTopTeams, getLatestScripts , getAttackHistoryLogs  , logs_by_datetime , getTotalUsers , getTotalChallenges } from "@/app/lib/admin/dashboard"
 
 export const revalidate = 0;
 
@@ -18,6 +18,8 @@ export default async  function Page() {
   const top_teams = await getTopTeams()
   const latest_scripts = await getLatestScripts()
   // const attack_history_logs = await getAttackHistoryLogs()
+  const total_users = await getTotalUsers()
+  const total_challenges = await getTotalChallenges()
 
 
   const data={
@@ -31,6 +33,8 @@ export default async  function Page() {
     ips_per_protocol_logs,
     top_teams,
     latest_scripts,
+    total_users,
+    total_challenges
     // attack_history_logs
   }
   return (

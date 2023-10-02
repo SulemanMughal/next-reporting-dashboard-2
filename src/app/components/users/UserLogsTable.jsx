@@ -75,18 +75,17 @@ export default function UserLogsTable(){
         .then(res => {
           const {...data } = decrypt(res.data.encryptedData)
             if(data?.status === true){
-              
               setLogs(data.logs);
-                setTotalLogs(data.total_results);
-                setTotalPages(data.total_pages);
-                setCurrentPage(data.currentPage);
-                setNextPage(data.nextPage);
-                setPrevPage(data.prevPage);
-                setStartIndex(data.startIndex);
-                setEndIndex(data.endIndex);
-                setError(null);  
+              setTotalLogs(data.total_results);
+              setTotalPages(data.total_pages);
+              setCurrentPage(data.currentPage);
+              setNextPage(data.nextPage);
+              setPrevPage(data.prevPage);
+              setStartIndex(data.startIndex);
+              setEndIndex(data.endIndex);
+              setError(null);  
             }  else { 
-               toast.error(`There is an while fetching the logs. Please try again later.`)
+              toast.error(`There is an while fetching the logs. Please try again later.`)
             }
         })
         .catch(error => {
@@ -236,7 +235,62 @@ export default function UserLogsTable(){
                                     ))
                                 }   
                                 </>
-                              ) : (null)
+                              ) : (
+                                <>
+                                    {
+                                    (currentPage === 1  ) ? ( 
+                                        <>
+                                            <button  tabIndex="0" role="button" className="gridjs-currentPage" title={"Page " + currentPage} aria-label={"Page " + currentPage}>{currentPage}</button>
+                                            <button onClick={() => handleCurrentPageChange(currentPage+1)} tabIndex="0" role="button" className="" title={"Page " + (currentPage+1)} aria-label={"Page " + currentPage+1}>{currentPage+1}</button>
+                                            <button onClick={() => handleCurrentPageChange(currentPage+2)} tabIndex="0" role="button" className="" title={"Page " + (currentPage+2)} aria-label={"Page " + currentPage+2}>{currentPage+2}</button>
+                                            <button onClick={() => handleCurrentPageChange(currentPage+3)} tabIndex="0" role="button" className="" title={"Page " + (currentPage+3)} aria-label={"Page " + currentPage+3}>{currentPage+3}</button>
+                                            {/* <button   tabIndex="-1" className="gridjs-spread">...</button> */}
+                                            {/* <button tabIndex="0" role="button" title={`Page ${totalPages}`} aria-label={`Page ${totalPages}`} onClick={() => handleCurrentPageChange(totalPages)}  >{totalPages}</button> */}
+                                            <button  onClick={() => handleNextPage(currentPage)} tabIndex="0" role="button" disabled="" title="Next" aria-label="Next" className=""  >Next</button>
+                                        </>
+                                    ) : (
+                                        ( currentPage === 2) ? (
+                                        <>
+                                            <button tabIndex="0" role="button" disabled="" title="Previous" aria-label="Previous" className="" onClick={() => handlePreviousPage(currentPage)}  >Previous</button>
+                                            <button onClick={() => handleCurrentPageChange(currentPage-1)} tabIndex="0" role="button" className="" title={"Page " + (currentPage - 1)} aria-label={"Page " + currentPage-1}>{currentPage-1}</button>
+                                            <button  tabIndex="0" role="button" className="gridjs-currentPage" title={"Page " + currentPage} aria-label={"Page " + currentPage}>{currentPage}</button>
+                                            <button onClick={() => handleCurrentPageChange(currentPage+1)} tabIndex="0" role="button" className="" title={"Page " + (currentPage+1)} aria-label={"Page " + currentPage+1}>{currentPage+1}</button>
+                                            <button onClick={() => handleCurrentPageChange(currentPage+2)} tabIndex="0" role="button" className="" title={"Page " + (currentPage+2)} aria-label={"Page " + currentPage+2}>{currentPage+2}</button>
+                                            
+                                            
+                                            {/* <button   tabIndex="-1" className="gridjs-spread">...</button> */}
+                                            {/* <button tabIndex="0"  onClick={() => handleCurrentPageChange(totalPages)} role="button" title={`Page ${totalPages}`} aria-label={`Page ${totalPages}`}  >{totalPages}</button> */}
+                                            <button  onClick={() => handleNextPage(currentPage)} tabIndex="0" role="button" disabled="" title="Next" aria-label="Next" className=""  >Next</button>
+                                        </>
+                                        ) : (
+                                        (( currentPage === 3) ? (
+                                            <>
+                                                <button tabIndex="0" role="button" disabled="" title="Previous" aria-label="Previous" className="" onClick={() => handlePreviousPage(currentPage)}  >Previous</button>
+                                                <button onClick={() => handleCurrentPageChange(1)} tabIndex="0" role="button" className="" title={"Page " + 1} aria-label={"Page " + 1}>{1}</button>
+                                                {/* <button   tabIndex="-1" className="gridjs-spread">...</button> */}
+                                                <button onClick={() => handleCurrentPageChange(currentPage-1)} tabIndex="0" role="button" className="" title={("Page " + (currentPage-1)) || "Page - "} aria-label={"Page " + currentPage-1}>{currentPage-1}</button>
+                                                <button  tabIndex="0" role="button" className="gridjs-currentPage" title={"Page " + currentPage} aria-label={"Page " + currentPage}>{currentPage}</button>
+                                                <button onClick={() => handleCurrentPageChange(currentPage+1)} tabIndex="0" role="button" className="" title={"Page " + (currentPage + 1)} aria-label={"Page " + currentPage+1}>{currentPage+1}</button>
+                                                {/* <button   tabIndex="-1" className="gridjs-spread">...</button> */}
+                                                {/* <button tabIndex="0" role="button" title={`Page ${totalPages}`} aria-label={`Page ${totalPages}`} onClick={() => handleCurrentPageChange(totalPages)}  >{totalPages}</button> */}
+                                                <button  onClick={() => handleNextPage(currentPage)} tabIndex="0" role="button" disabled="" title="Next" aria-label="Next" className=""  >Next</button>
+                                            </>
+                                        ) : ((currentPage === totalPages) ? ( 
+                                            <>
+                                            <button tabIndex="0" role="button" disabled="" title="Previous" aria-label="Previous" className="" onClick={() => handlePreviousPage(currentPage)}  >Previous</button>
+                                            <button onClick={() => handleCurrentPageChange(1)} tabIndex="0" role="button" className="" title={"Page " + 1} aria-label={"Page " + 1}>{1}</button>
+                                            {/* <button   tabIndex="-1" className="gridjs-spread">...</button> */}
+                                            <button onClick={() => handleCurrentPageChange(currentPage-2)} tabIndex="0" role="button" className="" title={"Page " + (currentPage-2)} aria-label={"Page " + currentPage-2}>{currentPage-2}</button>
+                                            <button onClick={() => handleCurrentPageChange(currentPage-1)} tabIndex="0" role="button" className="" title={"Page " + (currentPage-1)} aria-label={"Page " + currentPage-1}>{currentPage-1}</button>
+                                            <button  tabIndex="0" role="button" className="gridjs-currentPage" title={"Page " + currentPage} aria-label={"Page " + currentPage}>{currentPage}</button>
+                                            </>
+                                        ) : null
+                                        )
+                                        )
+                                        ))
+                                    }   
+                                    </>
+                              )
                             }
                             
                             

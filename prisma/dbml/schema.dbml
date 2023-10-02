@@ -1,0 +1,124 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table Quiz {
+  id String [pk]
+  title String [unique, not null]
+  startAt DateTime [default: `now()`, not null]
+  endAt DateTime [default: `now()`, not null]
+  questions Question [not null]
+  teams Team [not null]
+}
+
+Table AttackLogs {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  team_no String [not null]
+  script_name String [not null]
+  job_number Int [not null]
+}
+
+Table Team {
+  id String [pk]
+  name String [unique, not null]
+  quiz Quiz
+  quizId String
+  answers Answer [not null]
+  users User [not null]
+}
+
+Table User {
+  id String [pk]
+  email String [unique, not null]
+  name String
+  role String [default: 'user']
+  password String [not null]
+  answers Answer [not null]
+  team Team
+  teamId String
+  country String [default: '']
+}
+
+Table AttackScript {
+  id String [pk]
+  name String [not null]
+  script_category String [not null]
+  desc String [not null, default: '']
+  addedAt DateTime [default: `now()`, not null]
+}
+
+Table Scenario {
+  id String [pk]
+  name String [not null]
+  addedAt DateTime [default: `now()`, not null]
+  questions Question [not null]
+  status String [not null, default: 'In Progress']
+  category String [not null, default: 'Security Operations']
+  desc String [not null, default: '']
+  difficulty String [not null, default: 'Easy']
+  tags String [not null, default: '']
+  files File [not null]
+  os_type String [default: 'Linux']
+}
+
+Table File {
+  id String [pk]
+  filename String [not null, default: '']
+  filepath String [not null, default: '']
+  password String [not null, default: '']
+  scenario Scenario
+  scenarioId String
+}
+
+Table Question {
+  id String [pk]
+  title String [not null, default: '']
+  Description String [not null, default: '']
+  points Int [not null, default: 50]
+  original_answer String [not null, default: '']
+  quiz Quiz
+  quizId String
+  answers Answer [not null]
+  scenario Scenario
+  scenarioId String
+}
+
+Table Answer {
+  id String [pk]
+  submitAnswer String [not null, default: '']
+  obtainedPoints Int [not null, default: 0]
+  submissionStatus Boolean [not null, default: false]
+  submittedAt DateTime [default: `now()`, not null]
+  question Question
+  questionId String
+  team Team
+  teamId String
+  user User
+  userId String
+}
+
+Table LogEntry {
+  id String [pk]
+  action_name String [not null, default: '']
+  createdAt DateTime [default: `now()`, not null]
+  action_by String [not null, default: '']
+  message String [not null, default: '']
+  level String [not null, default: 'info']
+}
+
+Ref: Team.quizId > Quiz.id
+
+Ref: User.teamId > Team.id
+
+Ref: File.scenarioId > Scenario.id
+
+Ref: Question.quizId > Quiz.id
+
+Ref: Question.scenarioId > Scenario.id
+
+Ref: Answer.questionId > Question.id
+
+Ref: Answer.teamId > Team.id
+
+Ref: Answer.userId > User.id

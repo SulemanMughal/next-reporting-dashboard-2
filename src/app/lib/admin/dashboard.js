@@ -1,6 +1,20 @@
 import prisma from "@/app/lib/prisma";
 import { total_records , logs_by_hour_count , teams_per_attack, logs_per_protocol , ips_per_protocol , selectRows } from "@/app/lib/read_db"
 
+
+// Calculate Overall Total Number of Users
+export async function getTotalUsers() {
+    const total_users = await prisma.user.count()
+    return total_users
+}
+
+// Calculate Overall total challenges
+export async function getTotalChallenges() {
+    const total_challenges = await prisma.scenario.count()
+    return total_challenges
+}
+
+
 export async function getTotalTeam() {
     const total_teams = await prisma.team.count()
     return total_teams

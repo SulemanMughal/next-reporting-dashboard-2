@@ -642,21 +642,21 @@ function TableTr({index , item}){
             </td>
 
             {/* Country Image */}
-            <td className="table-report__action text-center place-content-center">
+            {/* <td className="table-report__action text-center place-content-center">
                 <div  className="relative z-50 inline-flex">
                     <div  className=" w-16 h-14 image-fit zoom-in">
                         <Image width={"65"} height={48} className="ml-auto mr-auto" src={`/assets/img/flags/${item?.country || "PK"}.png`}   alt="asdasd" />
                     </div>
-                    {/* <div className="relative"  style={{"display": "none"}}>
+                    <div className="relative"  style={{"display": "none"}}>
                         <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
                             United States
                         </div>
                         <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
                             <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
                         </svg>
-                    </div> */}
+                    </div>
                 </div>
-            </td>
+            </td> */}
             {/* rank */}
             {/* <td className="table-report__action text-center">
                 <p style={{"color":"#EAB543"}} className="text-base">Guardian
@@ -740,7 +740,7 @@ function LeaderBoardTable({data , userData }){
                         <th className="text-center whitespace-nowrap" style={{"width":"0.5%", "border":"0px", "padding":"0px", "paddingLeft":"20px"}}> </th>
                         <th className="whitespace-nowrap" style={{"width":"1%"}}></th>
                         <th className="whitespace-nowrap pl-0 text-start" style={{"paddingLeft":"0px"}}>PROFILE</th>
-                        <th className="whitespace-nowrap w-1/12 text-center">Country</th>
+                        {/* <th className="whitespace-nowrap w-1/12 text-center">Country</th> */}
                         {/* <th className="whitespace-nowrap w-1/12 text-center">Rank</th> */}
                         <th className="whitespace-nowrap w-1/6 text-center">Team</th>
                         <th className="text-center whitespace-nowrap w-1/12">POINTS</th>

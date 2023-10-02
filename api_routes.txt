@@ -18,6 +18,13 @@ data.user.role === "admin"
 
 
 
+==================
+
+GET :   /api/board/     ->  Get Data For ScoreBoard Page (Only Admin)
+GET :   /api/activities/     ->  Get Data For Activities Logging Page (Only Admin)
+
+==================
+
 
 
 ==========
@@ -26,6 +33,7 @@ Get :   /api/admin/logs_counter ->  Get Total number of logs from attacker saved
 Get :   /api/admin/quiz_counter ->  Get Total number of quizes
 GET :   /api/admin/logs_by_hour_counter ->Get logs  by hour counter
 GET :   /api/admin/teams_per_attack -> get logs counter for (teams per attack)
+
 ==========
 
 =================

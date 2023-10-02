@@ -158,7 +158,7 @@ export default function LogLineChart({logs_by_hour}){
           <div className="w-full col-span-1 relative   h-[60vh]  m-auto  p-8 pb-20  border-none  rounded-lg  bg-card-custom" >
             <div className='flex justify-between'>
               <h1 className="text-2xl text-white">Logs Timeline</h1>
-              {/* <ChartOptionButton /> */}
+              <ChartOptionButton />
             </div>
             <hr className="my-5 h-0.5 border-t-0 bg-white opacity-30" />
             {  logs &&    <Line options={options} data={logs}   height={350} /> }
