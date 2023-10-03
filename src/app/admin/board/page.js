@@ -1630,8 +1630,8 @@ export default function Page(){
                             {/* <button className="theme-btn-bg-color  text-gray-300 py-2  pr-4  pl-4 mt-2 mr-3 rounded-md mb-0 ml-0 ">
                                 Reset Filters
                             </button> */}
-                            <FilterResetBtn />
-                            <SearchInput />
+                                <FilterResetBtn />
+                                <SearchInput />
                             {/* <FilterByCountry /> */}
                         </div>
                     </div>

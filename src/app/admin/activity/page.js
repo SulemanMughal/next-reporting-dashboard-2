@@ -577,33 +577,35 @@ export default function Page(){
                     </>
                 ) : (
                     <>
+                    {
                         data && ( 
-                        <>
-                            <TopHeader  total_logs={data?.activitiesList?.length}  normalLogsCounter={data.normalLevelLogs} mediumLogsCounter={data.mediumLevelLogs} highLogsCounter={data.highLevelLogs} />
-                            {/* <ActivitiesTable  data={data.activitiesList} /> */}
+                            <>
+                                <TopHeader  total_logs={data?.activitiesList?.length}  normalLogsCounter={data.normalLevelLogs} mediumLogsCounter={data.mediumLevelLogs} highLogsCounter={data.highLevelLogs} />
+                                {/* <ActivitiesTable  data={data.activitiesList} /> */}
     
-                            { paginationData && ( 
-                                <>
-                                    <ActivitiesTable data={paginationData?.activitiesPerPage}  startIndex={paginationData.startIndex}     /> 
-                                    <PaginationBlock  
-                                        currentPage={paginationData.currentPage} 
-                                        totalPages={paginationData.totalPages}  
-                                        startIndex={paginationData.startIndex}  
-                                        endIndex={paginationData.endIndex}
-                                        totalResults={paginationData.totalResults}
-                                        total_number_records_per_page={paginationData.total_number_records_per_page}
-                                        handleCurrentPageChange={handleCurrentPageChange}
-                                        handlePreviousPage={handlePreviousPage}
-                                        handleNextPage={handleNextPage}
-                                        handleRecordsPerPage={handleRecordsPerPage}
-                                    />
-                                </>
-                            ) }
+                                { paginationData && ( 
+                                    <>
+                                        <ActivitiesTable data={paginationData?.activitiesPerPage}  startIndex={paginationData.startIndex}     /> 
+                                        <PaginationBlock  
+                                            currentPage={paginationData.currentPage} 
+                                            totalPages={paginationData.totalPages}  
+                                            startIndex={paginationData.startIndex}  
+                                            endIndex={paginationData.endIndex}
+                                            totalResults={paginationData.totalResults}
+                                            total_number_records_per_page={paginationData.total_number_records_per_page}
+                                            handleCurrentPageChange={handleCurrentPageChange}
+                                            handlePreviousPage={handlePreviousPage}
+                                            handleNextPage={handleNextPage}
+                                            handleRecordsPerPage={handleRecordsPerPage}
+                                        />
+                                    </>
+                                ) }
     
-                            
+                                
     
-                        </>
-                     )
+                            </>
+                        )
+                    }
                     </>
                 )}
                 
