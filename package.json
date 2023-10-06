@@ -13,6 +13,8 @@
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
     "@prisma/client": "^5.2.0",
+    "ag-grid-community": "^30.2.0",
+    "ag-grid-react": "^30.2.0",
     "aos": "^2.3.4",
     "apexcharts": "^3.41.0",
     "autoprefixer": "10.4.14",

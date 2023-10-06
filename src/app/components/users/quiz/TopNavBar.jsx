@@ -125,7 +125,7 @@ function checkAdminStatsPage(pathname){
 // Check : Admin Management Page
 
 function checkAdminManagementPage(pathname){
-    if(pathname === "/admin/management" ){
+    if(pathname === "/admin/management" || pathname.includes("/admin/management") ){
         return true
     } else {
         return false

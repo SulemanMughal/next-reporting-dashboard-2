@@ -18,10 +18,8 @@ model Quiz{
   title String @unique
   startAt DateTime  @default(now())
   endAt DateTime  @default(now())
-  // status String  @default("Draft") // Draft, Publish
   questions Question[]
   teams Team[]
-  // activeIndex Int @default(1)
 }
 
 model AttackLogs{
@@ -35,8 +33,6 @@ model AttackLogs{
 model Team {
   id   String  @id @default(uuid())
   name String  @unique
-  // api_key String? 
-  // team_number Int? 
   quiz Quiz? @relation(fields: [quizId], references: [id])
   quizId String?
   answers Answer[]
@@ -49,10 +45,11 @@ model User {
   name  String?
   role  String?  @default("user")
   password  String
-  answers Answer[]  // How many submissions made by respective user
+  answers Answer[] 
   team Team? @relation(fields: [teamId], references: [id])
   teamId String?
   country String? @default("")
+  joinedDate DateTime  @default(now())
   
 }
 

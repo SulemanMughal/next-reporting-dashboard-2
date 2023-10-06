@@ -1,0 +1,14 @@
+.ag-theme-alpine {
+    --ag-foreground-color: #c6c9d2;
+    --ag-background-color: transparent;
+    --ag-header-foreground-color: #fbfbfc;
+    --ag-header-background-color: transparent;
+    --ag-odd-row-background-color: rgb(0, 0, 0, 0.03);
+    --ag-header-column-resize-handle-color: #c6c9d2;
+    --ag-border-color :  transparent ;
+    --ag-row-border-color : transparent;
+    
+
+    --ag-font-size: 17px;
+    --ag-font-family: monospace;
+}

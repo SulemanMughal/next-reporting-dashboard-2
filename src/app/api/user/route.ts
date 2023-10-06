@@ -42,7 +42,8 @@ export async function POST(request: Request){
     }
 }
 
-
+// Get All users
+// Usage : User Management Page
 export async function GET(request: Request){
     try {
         const users = await prisma.user.findMany({
@@ -55,6 +56,9 @@ export async function GET(request: Request){
                 id : true,
                 name : true,
                 email : true, 
+                role : true,
+                country : true,
+                joinedDate:true,
                 team : {
                     select : {
                         id : true,
@@ -72,7 +76,6 @@ export async function GET(request: Request){
                 }
             }
         })
-        // return new Response(JSON.stringify({status : true, users}))
         const encryptedData = encrypt({status : true, users})
         return new Response(JSON.stringify({ encryptedData }))
         
@@ -80,7 +83,6 @@ export async function GET(request: Request){
         console.debug(error)
         const encryptedData = encrypt({status : false, error : 'Sorry! There is an error while fetching users. Please try again after some time'})
         return new Response(JSON.stringify({ encryptedData }))
-        // return new Response(JSON.stringify({status : false, error : 'Sorry! There is an error while fetching users. Please try again after some time'}))
     }
 }
 

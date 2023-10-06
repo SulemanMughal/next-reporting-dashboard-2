@@ -38,6 +38,7 @@ Table User {
   team Team
   teamId String
   country String [default: '']
+  joinedDate DateTime [default: `now()`, not null]
 }
 
 Table AttackScript {
