@@ -2,14 +2,9 @@
 
 import Link from "next/link"
 import { AiFillHome } from "react-icons/ai"
-// import { FaPuzzlePiece } from "react-icons/fa"
-import { MdLeaderboard } from "react-icons/md"
+import { MdLeaderboard, MdQuiz , MdMiscellaneousServices } from "react-icons/md"
 import { usePathname } from 'next/navigation'
 import { useSession } from "next-auth/react";
-import  { MdQuiz } from "react-icons/md"
-// import { VscTerminalBash } from "react-icons/vsc"
-import  { MdGroups } from "react-icons/md"
-// import { GiSpy } from "react-icons/gi"
 import { FaServer } from "react-icons/fa"
 import {HiUserGroup} from "react-icons/hi"
 import { LuActivity } from "react-icons/lu"
@@ -127,6 +122,16 @@ function checkAdminStatsPage(pathname){
     }
 }
 
+// Check : Admin Management Page
+
+function checkAdminManagementPage(pathname){
+    if(pathname === "/admin/management" ){
+        return true
+    } else {
+        return false
+    }
+}
+
 
 
 
@@ -171,11 +176,11 @@ const AdminNavBar = ({pathname}) => {
                             <AiFillHome  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Home</p>    
                         </Link>
                     </li>
-                    <li >
-                        <Link href={"/admin/quiz"} className={classNames( checkAdminQuizPath(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                    {/* <li >
+                        <Link href={"#!"} className={classNames( checkAdminQuizPath(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <MdQuiz  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Quizes</p>    
                         </Link>
-                    </li>
+                    </li> */}
                     <li >
                         <Link href={"/admin/challenges"} className={classNames( checkAdminChallengesPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <FaServer  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Challenges</p>    
@@ -212,6 +217,12 @@ const AdminNavBar = ({pathname}) => {
                     <li >
                         <Link href={"/admin/stats"} className={classNames( checkAdminStatsPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <ImStatsDots  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Stats</p>    
+                        </Link>
+                    </li>
+                    {/* Management Panel */}
+                    <li >
+                        <Link href={"/admin/management"} className={classNames( checkAdminManagementPage(pathname) ? 'active' : '', 'flex    items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <MdMiscellaneousServices  size={23}  className="text-white"/> <p className="pl-2   pt-1 pb-0 my-0">Manegement</p>    
                         </Link>
                     </li>
                     </ul>
