@@ -23,7 +23,7 @@ function DropDownMenu() {
         <>
             <Menu as="div" className="relative inline-block text-left">
                 <div>
-                <Menu.Button className="inline-flex w-full justify-center border-none gap-x-1.5 rounded-md theme-btn-bg-color px-3 py-2 text-sm font-bold text-white shadow-sm  " >
+                <Menu.Button className="inline-flex w-full bg-deep-blue-violet text-white py-2  pr-4  pl-4 mt-2  h-full border border-1 border-deep-blue-violet rounded-md mb-0 ml-0 " >
                     <BsThreeDotsVertical  size={23} />
                 </Menu.Button>
                 </div>

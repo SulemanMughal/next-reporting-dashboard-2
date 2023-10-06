@@ -14,6 +14,7 @@ import { FaServer } from "react-icons/fa"
 import {HiUserGroup} from "react-icons/hi"
 import { LuActivity } from "react-icons/lu"
 import { GiLightningHelix } from "react-icons/gi"
+import { ImStatsDots } from "react-icons/im"
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -113,6 +114,17 @@ function checkAdminScoreBoardPage(pathname){
     } else {
         return false
     }
+
+}
+
+// Check : Admin Stats Page
+
+function checkAdminStatsPage(pathname){
+    if(pathname === "/admin/stats" ){
+        return true
+    } else {
+        return false
+    }
 }
 
 
@@ -194,6 +206,12 @@ const AdminNavBar = ({pathname}) => {
                     <li >
                         <Link href={"/admin/scoreboard"} className={classNames( checkAdminScoreBoardPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <GiLightningHelix  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Scoreboard</p>    
+                        </Link>
+                    </li>
+                    {/* Stats */}
+                    <li >
+                        <Link href={"/admin/stats"} className={classNames( checkAdminStatsPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
+                            <ImStatsDots  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Stats</p>    
                         </Link>
                     </li>
                     </ul>

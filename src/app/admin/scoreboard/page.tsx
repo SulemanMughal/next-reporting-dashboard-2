@@ -499,7 +499,7 @@ export default   function Page(){
     useEffect(() => {
         AOS.init();
         DataFetch()
-    }, [currentPage, recordsPerPrage])  
+    }, [currentPage , recordsPerPrage])  
 
 
     const handleCurrentPageChange = (page) => {
