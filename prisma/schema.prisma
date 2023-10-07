@@ -22,13 +22,13 @@ model Quiz{
   teams Team[]
 }
 
-model AttackLogs{
-  id    String  @id @default(uuid())
-  createdAt          DateTime  @default(now()) 
-  team_no String
-  script_name String
-  job_number Int 
-}
+// model AttackLogs{
+//   id    String  @id @default(uuid())
+//   createdAt          DateTime  @default(now()) 
+//   team_no String
+//   script_name String
+//   job_number Int 
+// }
 
 model Team {
   id   String  @id @default(uuid())
@@ -50,6 +50,8 @@ model User {
   teamId String?
   country String? @default("")
   joinedDate DateTime  @default(now())
+  lastLogin DateTime  @default(now())
+  active Boolean @default(true)
   
 }
 
@@ -134,17 +136,4 @@ model LogEntry{
   action_by     String  @default("")
   message String @default("")
   level String @default("info")
-  // team_no String
-  // script_name String
-  // job_number Int
 }
-
-
-  // model Logs {
-  //   id                  String      @id @default(uuid())
-  //   action_by           String      @default("")
-  //   action_related_to   String      @default("")
-  //   message             String      @default("")
-  //   level               String      @default("info")
-  //   timestamp           DateTime    @default(now())
-  // }

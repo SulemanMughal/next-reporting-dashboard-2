@@ -39,6 +39,8 @@ Table User {
   teamId String
   country String [default: '']
   joinedDate DateTime [default: `now()`, not null]
+  lastLogin DateTime [default: `now()`, not null]
+  active Boolean [not null, default: true]
 }
 
 Table AttackScript {
