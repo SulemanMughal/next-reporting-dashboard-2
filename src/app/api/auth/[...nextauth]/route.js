@@ -2,6 +2,7 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import decrypt from "@/app/lib/decrypt"
 import prisma  from "@/app/lib/prisma";
+import { INFO_LEVEL } from "@/app/helpers/constants";
 
 const handler  = NextAuth({
     providers : [
@@ -25,16 +26,25 @@ const handler  = NextAuth({
               })
               const user = await res.json();
               if (user) {
-                prisma.logEntry.create({
-                  data : {
+                await prisma.logEntry.create({
+                data : {
                     action_name : "UserLogon",
                     action_by : user?.name,
                     message : `Acccount ${user?.name} has been logged-in.`,
-                    level : "INFO"
+                    level : INFO_LEVEL
                   }
                 })
+                
                 return user
               } else {
+                await prisma.logEntry.create({
+                  data : {
+                    action_name : "UserLogon",
+                    action_by : data?.username,
+                    message : `FAILED : Login attempt for ${data?.username}`,
+                    level : INFO_LEVEL
+                  }
+                })
                 return null
               }
             }

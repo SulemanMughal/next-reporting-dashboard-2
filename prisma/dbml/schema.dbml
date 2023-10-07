@@ -11,14 +11,6 @@ Table Quiz {
   teams Team [not null]
 }
 
-Table AttackLogs {
-  id String [pk]
-  createdAt DateTime [default: `now()`, not null]
-  team_no String [not null]
-  script_name String [not null]
-  job_number Int [not null]
-}
-
 Table Team {
   id String [pk]
   name String [unique, not null]
@@ -26,6 +18,7 @@ Table Team {
   quizId String
   answers Answer [not null]
   users User [not null]
+  createdAt DateTime [default: `now()`, not null]
 }
 
 Table User {

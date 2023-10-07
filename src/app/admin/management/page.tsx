@@ -32,7 +32,7 @@ function TeamManagementCard() {
                 <HiUserGroup size={80} className=" w-full text-center block"  style={{"color" : "#00FF00"}}/>
                 <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 text-white my-3">Teams</h5>
                 <div className=" py-4 flex justify-center">
-                    <Link href={`#!`}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
+                    <Link href={`/admin/management/teams`}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
                         <span>{"Manage Teams" } </span> 
                     </Link>
                 </div>

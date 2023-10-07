@@ -37,6 +37,7 @@ model Team {
   quizId String?
   answers Answer[]
   users  User[]
+  createdAt DateTime  @default(now())
 }
 
 model User {
