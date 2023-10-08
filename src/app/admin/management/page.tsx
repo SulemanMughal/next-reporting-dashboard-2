@@ -5,6 +5,7 @@ import { FaServer } from "react-icons/fa"
 import { LuActivity } from "react-icons/lu"
 import { AiOutlineSolution } from "react-icons/ai"
 import { GiFiles } from "react-icons/gi"
+import { GiPuzzle } from "react-icons/gi"
 
 
 const URL_PATTERNS = {
@@ -12,6 +13,8 @@ const URL_PATTERNS = {
     TEAMS : "/admin/management/teams",
     CHALLENGES : "/admin/management/challenges",
     SUBMISSIONS : "/admin/management/submissions",
+    // ACTIVITIES : "/admin/management/activities",
+    FILES : "/admin/management/files",
 }
 
 
@@ -100,6 +103,23 @@ function ActivitiesManagementCard() {
     )
 }
 
+// Questions Management Card
+function QuestionsManagementCard() {
+    return (
+        <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300">
+            <div className="w-full col-span-1  p-6 bg-deep-blue-violet  rounded-lg shadow text-center">
+                <GiPuzzle size={80} className=" w-full text-center block" style={{"color" : "#FF6B6B"}} />
+                <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 text-white my-3">Questions</h5>
+                <div className=" py-4 flex justify-center">
+                    <Link href={`#!`}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
+                        <span>{"Questions Activities" } </span> 
+                    </Link>
+                </div>
+            </div>
+        </div>
+    )
+}
+
 // Files Mangement Card
 function FilesManagementCard() {
     return (
@@ -108,7 +128,7 @@ function FilesManagementCard() {
                 <GiFiles size={80} className=" w-full text-center block" style={{"color" : "#F7DD72"}} />
                 <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 text-white my-3">Files</h5>
                 <div className=" py-4 flex justify-center">
-                    <Link href={`#!`}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
+                    <Link href={URL_PATTERNS.FILES}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
                         <span>{"Manage Files" } </span> 
                     </Link>
                 </div>
@@ -131,7 +151,7 @@ export default function Page() {
                 <TeamManagementCard />
                 <ChallengesManagementCard />
                 <SubmissionsManagementCard />
-                <ActivitiesManagementCard />
+                <QuestionsManagementCard />
                 <FilesManagementCard />
             </div>
         </div>

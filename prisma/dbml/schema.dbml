@@ -65,6 +65,7 @@ Table File {
   password String [not null, default: '']
   scenario Scenario
   scenarioId String
+  createdAt DateTime [default: `now()`, not null]
 }
 
 Table Question {
