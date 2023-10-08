@@ -69,7 +69,7 @@ model Scenario{
   name String 
   addedAt DateTime  @default(now())
   questions Question[]
-  status String  @default("In Progress")    
+  status String  @default("Publish")            // Draft, Publish
   category String @default("Security Operations") 
   desc   String @default("")
   difficulty String @default("Easy")

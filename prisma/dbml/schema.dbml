@@ -49,7 +49,7 @@ Table Scenario {
   name String [not null]
   addedAt DateTime [default: `now()`, not null]
   questions Question [not null]
-  status String [not null, default: 'In Progress']
+  status String [not null, default: 'Publish']
   category String [not null, default: 'Security Operations']
   desc String [not null, default: '']
   difficulty String [not null, default: 'Easy']

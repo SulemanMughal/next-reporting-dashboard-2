@@ -7,6 +7,13 @@ import { AiOutlineSolution } from "react-icons/ai"
 import { GiFiles } from "react-icons/gi"
 
 
+const URL_PATTERNS = {
+    USERS : "/admin/management/users",
+    TEAMS : "/admin/management/teams",
+    CHALLENGES : "/admin/management/challenges",
+}
+
+
 // User Management Card
 function UserManagementCard() {
     return (
@@ -15,7 +22,7 @@ function UserManagementCard() {
                 <PiUsersThreeFill size={80} className=" w-full text-center block" style={{"color" : "#FFA500"}} />
                 <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 text-white my-3">Users</h5>
                 <div className=" py-4 flex justify-center">
-                    <Link href={`/admin/management/users`}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
+                    <Link href={URL_PATTERNS.USERS}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
                         <span>{"Manage Users" } </span> 
                     </Link>
                 </div>
@@ -32,7 +39,7 @@ function TeamManagementCard() {
                 <HiUserGroup size={80} className=" w-full text-center block"  style={{"color" : "#00FF00"}}/>
                 <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 text-white my-3">Teams</h5>
                 <div className=" py-4 flex justify-center">
-                    <Link href={`/admin/management/teams`}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
+                    <Link href={URL_PATTERNS.TEAMS}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
                         <span>{"Manage Teams" } </span> 
                     </Link>
                 </div>
@@ -49,7 +56,7 @@ function ChallengesManagementCard() {
                 <FaServer size={80} className=" w-full text-center block" style={{"color" : "#FF4081"}} />
                 <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 text-white my-3">Challenges</h5>
                 <div className=" py-4 flex justify-center">
-                    <Link href={`#!`}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
+                    <Link href={URL_PATTERNS.CHALLENGES}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
                         <span>{"Manage Challenges" } </span> 
                     </Link>
                 </div>
