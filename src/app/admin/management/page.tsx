@@ -11,6 +11,7 @@ const URL_PATTERNS = {
     USERS : "/admin/management/users",
     TEAMS : "/admin/management/teams",
     CHALLENGES : "/admin/management/challenges",
+    SUBMISSIONS : "/admin/management/submissions",
 }
 
 
@@ -73,7 +74,7 @@ function SubmissionsManagementCard() {
                 <AiOutlineSolution size={80} className=" w-full text-center block" style={{"color" : "#FFFF00"}} />
                 <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 text-white my-3">Submissions</h5>
                 <div className=" py-4 flex justify-center">
-                    <Link href={`#!`}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
+                    <Link href={URL_PATTERNS.SUBMISSIONS}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
                         <span>{"Manage Submissions" } </span> 
                     </Link>
                 </div>
