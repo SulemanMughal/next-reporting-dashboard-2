@@ -219,7 +219,6 @@ export default function Page(){
             {/* Toast Message */}
             <CustomToaster />
             {/* Add New User Modal Form */}
-
             {showModal ? <NewUserModalForm setShowModal={setShowModal} refresh_data={DataFetch}   /> : null}
             <div  className="p-4 mb-16">
                 {/* Header */}

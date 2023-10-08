@@ -1,6 +1,15 @@
 import prisma from "@/app/lib/prisma";
 import encrypt from "@/app/lib/encrypt";
 import decrypt from "@/app/lib/decrypt"
+import { ADMIN_USER_TYPE , INFO_LEVEL } from "@/app/helpers/constants"
+
+// import { getSession } from "next-auth/client";
+// import { Session } from 'next-auth';
+// import { getServerSession } from "next-auth/next"
+// import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+
+
+
 
 
 interface RequestBody{
@@ -9,6 +18,20 @@ interface RequestBody{
 
 
 export async function POST(request: Request){
+
+    // console.debug(request)
+    // const session = await getSession({ request });
+    // const session = await getSession({ req: request });
+
+    // console.d
+
+    // console.debug(Session)
+    // const session = await getServerSession(req: request, res:response, authOptions)
+
+    // const session = await getServerSession(authOptions);
+    // console.log(session);
+
+
     const body : RequestBody = await request.json()
     const {...data } = decrypt(body.data)
     const team = await prisma.team.findUnique({
@@ -23,6 +46,15 @@ export async function POST(request: Request){
                     name : data.name
     
                 }
+            })
+            
+            await prisma.logEntry.create({
+                data : {
+                    action_name : "TeamRegistration",
+                    action_by : ADMIN_USER_TYPE,
+                    message : `Acccount ${ADMIN_USER_TYPE} has registered a new "${data.name}" Team.`,
+                    level : INFO_LEVEL
+                  }
             })
             const encryptedData = encrypt({status : true, team});
             return new Response(JSON.stringify({ encryptedData }))

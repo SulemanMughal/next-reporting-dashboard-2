@@ -19,9 +19,9 @@ export async function GET(request : Request){
                 },
             }
         })
-        // console.debug(teams)
-        const encryptedData = encrypt({status : true, teams});
         // const encryptedData = ({status : true, teams});
+        // console.debug(encryptedData)
+        const encryptedData = encrypt({status : true, teams});
         return new Response(JSON.stringify({ encryptedData }))
     } catch (error) {
         console.debug(error)
