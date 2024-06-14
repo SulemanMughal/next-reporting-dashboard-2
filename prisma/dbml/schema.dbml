@@ -79,6 +79,7 @@ Table Question {
   answers Answer [not null]
   scenario Scenario
   scenarioId String
+  createdAt DateTime [default: `now()`, not null]
 }
 
 Table Answer {

@@ -32,7 +32,7 @@ const admin = [
     [
         "/admin/scripts",
         <VscTerminalBash size={25} key={156} />,
-        "Scripts"
+        "Officerrs"
     ]
 ]
 

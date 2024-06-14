@@ -111,6 +111,7 @@ model Question{
   answers Answer[]
   scenario Scenario? @relation(fields: [scenarioId], references: [id])
   scenarioId String?
+  createdAt DateTime  @default(now()) 
   
 }
 

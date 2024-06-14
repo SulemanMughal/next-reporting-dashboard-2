@@ -13,7 +13,7 @@ const URL_PATTERNS = {
     TEAMS : "/admin/management/teams",
     CHALLENGES : "/admin/management/challenges",
     SUBMISSIONS : "/admin/management/submissions",
-    // ACTIVITIES : "/admin/management/activities",
+    QUESTIONS : "/admin/management/questions",
     FILES : "/admin/management/files",
 }
 
@@ -111,8 +111,8 @@ function QuestionsManagementCard() {
                 <GiPuzzle size={80} className=" w-full text-center block" style={{"color" : "#FF6B6B"}} />
                 <h5 className="mb-2 text-2xl font-semibold tracking-tight text-gray-900 text-white my-3">Questions</h5>
                 <div className=" py-4 flex justify-center">
-                    <Link href={`#!`}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
-                        <span>{"Questions Activities" } </span> 
+                    <Link href={URL_PATTERNS.QUESTIONS}  className="cursor-pointer bg-dark-navy-blue flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md p-2">
+                        <span>{"Manage Questions" } </span> 
                     </Link>
                 </div>
             </div>
