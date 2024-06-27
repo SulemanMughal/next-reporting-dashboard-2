@@ -36,7 +36,16 @@ yarn-error.log*
 next-env.d.ts
 
 prisma/migrations/*
+
+prisma/dbml
+prisma/dbml/*
+prisma/migrations
+
 dev.db
+
+*.db
+
+
 
 
 # ignore media files
@@ -72,3 +81,7 @@ schema.dbml
 /ip_addr
 
 API_DOCS.md
+
+dbml
+
+dev.db-journal

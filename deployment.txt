@@ -1,0 +1,39 @@
+=========================================
+Env Variables
+=========================================
+
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_SECRET=lsdkmlskdmflksdkskmsdnkj
+NEXTAUTH_URL=http://192.168.18.44:3005
+
+SECRET_KEY=eefeijfkskjhfuhudhfudd
+ADMIN_SECRET_KEY=mYAdminT3@k3y
+
+API_KEY_URL=http://192.168.18.44:3005
+API_KEY=3fd619ade60769bbfb20f1c3722c059e
+LOCAL_API=http://192.168.18.44:3004
+NEXT_PUBLIC_BASE_URL=http://192.168.18.44:3005
+LOGS_DATABASE_FILEPATH="/home/kali/DVWA-Automation/data1.db"
+BASE_PATH = "./public"
+
+
+===============================
+Make Prisma Migrations
+===============================
+
+    npx prisma migrate dev --name init
+
+
+========================================
+Register User
+========================================
+    
+    node ./src/app/lib/user/register_user.js <email> <username> <password> <role> 
+
+
+========================================
+Update User Password
+========================================
+    
+    node ./src/app/lib/user/update_password.js <email> <password>
+
