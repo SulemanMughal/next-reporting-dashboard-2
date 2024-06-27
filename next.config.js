@@ -1,7 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['blueteamlabs.online', /* other domains */],
+      remotePatterns: [
+        // 'blueteamlabs.online', /* other domains */
+        {
+          protocol: "https",
+          hostname: "blueteamlabs.online",
+        },
+    ],
       },
 }
 

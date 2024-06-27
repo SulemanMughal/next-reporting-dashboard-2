@@ -36,12 +36,7 @@ const SubmitBtn = ({ isSubmit, submitHandler }) => {
 
 function LeftImage() {
   return (
-    <>
-        <Image src={"/assets/img/new_logo.svg"} alt="me" width={400} height={400} />
-      {/* <div className="flex flex-col items-start justify-center w-full h-full relative lg:pr-10">
-      </div> */}
-
-    </>
+    <Image src={"/assets/img/new_logo.svg"} alt="me" width={400} height={400} />
   )
 }
 

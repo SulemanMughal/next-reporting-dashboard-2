@@ -1,6 +1,7 @@
 const URL_PATTERNS = {
     REGISTER  : '/register',
     LOGIN : '/login',
+    HOME : '/',
 }
 
 

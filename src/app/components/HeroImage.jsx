@@ -11,6 +11,7 @@ export default function HeroImage() {
             height={460}
             alt="Picture of the author"
             data-aos="zoom-out" 
+            unoptimized={true}
         />
         
     )

@@ -18,9 +18,10 @@ const inter = Inter({ subsets: ['latin'] })
 // import NextTopLoader from 'nextjs-toploader';
 
 import TopLoader from "@/app/components/TopLoader"
+import WebIcon from "@/app/components/WebIcon"
 
 
-import './vendor/remixicons/remixicon.css'
+// import './vendor/remixicons/remixicon.css'
 import 'aos/dist/aos.css';
 
 
@@ -30,11 +31,11 @@ export const metadata = {
 }
 
 
-const WebIcon = () => {
-  return (
-    <link rel="icon" href={"/assets/img/new_logo.ico"} sizes="any" />
-  )
-}
+// const WebIcon = () => {
+//   return (
+//     <link rel="icon" href={"/assets/img/new_logo.ico"} sizes="any" />
+//   )
+// }
 
 
 
