@@ -1,5 +1,7 @@
 import {Animation} from "@/app/lib/Animation"
 
+// Animation();
+
 // data-aos="zoom-out"
 
 

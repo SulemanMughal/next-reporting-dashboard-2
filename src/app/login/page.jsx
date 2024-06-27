@@ -144,9 +144,9 @@ export default function Login() {
                             <input type="checkbox" className="input border mr-2" id="input-remember-me" />
                             <label className="cursor-pointer select-none" htmlFor="input-remember-me">Remember me</label>
                           </div>
-                          <a href="#!">
+                          {/* <a href="#!">
                             Forgot your password?
-                          </a>
+                          </a> */}
                         </div>
                       </div>
                       <div className="relative mt-5" data-aos="zoom-out"  >
