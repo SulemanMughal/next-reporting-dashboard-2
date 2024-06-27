@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<svg width="6395" height="1080" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+ <defs>
+  <clipPath id="clip-path">
+   <rect data-name="Rectangle 73" fill="#fff" height="1079" id="Rectangle_73" transform="translate(-5391)" width="6395"/>
+  </clipPath>
+  <clipPath id="clip-Web_1920_1">
+   <rect height="1080" id="svg_1" width="6395"/>
+  </clipPath>
+ </defs>
+ <g class="layer">
+  <title>Layer 1</title>
+  <g clip-path="url(#clip-Web_1920_1)" data-name="Web 1920 – 1" id="Web_1920_1">
+   <g clip-path="url(#clip-path)" data-name="Mask Group 1" id="Mask_Group_1" transform="translate(5391)">
+    <g data-name="Group 118" id="Group_118" transform="translate(-419.333 -1.126)">
+     <path d="m6271.73,-6.18s-222.47,187.81 -55.34,583.26c44.95,106.37 81.51,205.96 84.52,277c8.16,192.76 -156.05,268.56 -156.05,268.56l-653.53,-26.8l-16.27,-1117.47l796.67,15.45z" data-name="Path 142" fill="#0b121f" id="Path_142" transform="translate(-4876.383)"/>
+     <path d="m-2631.1,1081.8l0,-1.6l-5599.8,0l0,-1080.18l5599.8,0l0,-0.02l759.7,0s-187.84,197.45 -91.63,488.84c49.17,148.9 96.31,256.29 104.69,362.12c7.98,100.85 -57.98,201.71 -168.65,254.29c-65.85,31.29 -144.55,42.38 -223.02,42.38c-191.19,0 -381.09,-65.83 -381.09,-65.83z" data-name="Union 6" fill="#0b121f" id="Union_6" transform="translate(3259.524 0.803)"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

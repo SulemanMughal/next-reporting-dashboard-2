@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation'
 import styles from "./Header.module.css"
 import { useSession } from "next-auth/react";
 
-
+import Logo from "@/app/components/Logo"
 
 function checkLoginPath(pathname){
   if(pathname === "/login" || pathname === "/register"){
@@ -62,24 +62,19 @@ export default function Header(){
               </div>
           </nav>  
           {/* JavaScript Script */}
-          <Script id="show-banner">
+          {/* <Script id="show-banner">
             {`document.getElementsByTagName('body')[0].classList.remove('theme-color')
               document.getElementsByTagName('body')[0].classList.add('bg-deep-indigo')`}
-        </Script>
+          </Script> */}
       </>
       
     ) : 
     (
-      <nav className={  checkLoginPath ?  (   "  sticky top-0 z-20"    ) :  styles.stickyMenu + "  sticky top-0 z-20"  } >
+      <nav className={  styles.stickyMenu} >
             <div className="container mx-auto ">
               <div className="flex flex-wrap justify-between items-center  w-full px-4 py-2">
-                <Link href="/" className="flex items-center">
-                  <Image
-                      src="/assets/img/data-security.png"
-                      width={50}
-                      height={50}
-                      alt="Picture of the author"
-                  />
+                <Link href={"/"} className="flex items-center">
+                  <Logo />
                   {checkHomePage(pathname) ? null :  (<span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white pl-3 " >Attack & <span className="text-cerulean-blue">Defense -  Q</span></span>)}
                 </Link>
                 {checkLoginPath(pathname) ? null :  (

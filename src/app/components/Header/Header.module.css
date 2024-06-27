@@ -1,4 +1,4 @@
 .stickyMenu{
-    border-bottom: 1px solid #1b1e3b;
-    background: #06092c;
+    border-bottom: 1px solid var(--color-1);
+    background: var(--color-1);
 }

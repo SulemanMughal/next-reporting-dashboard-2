@@ -12,24 +12,23 @@ import Link from "next/link";
 import { useSession } from "next-auth/react";
 import { usePathname } from 'next/navigation'
 import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
-import AOS from 'aos';
-import 'aos/dist/aos.css';
 import SVGLoader from "@/app/components/SVGLoader"
-// import  styles from "./login.module.css"
-
+import {Animation} from "@/app/lib/Animation"
+import URL_PATTERNS from "@/app/lib/urlpatterns"
 
 const SubmitBtn = ({ isSubmit, submitHandler }) => {
   return (
     <>
       <div className="mt-8">
-        {isSubmit ? <SVGLoader text={"Login"} /> : 
+        {isSubmit ? <SVGLoader text={"Login"} className="submit-btn" /> : 
           <>
-            <button className="w-full xl:w-32  xl:mr-3 align-top inline-block  py-3 px-4  font-medium text-base text-center  rounded-lg transition duration-200  ease   text-white bg-deep-blue-violet" onClick={submitHandler}>Login</button>
-            <p className="text-white py-3">
-              or  <Link href={"/register"} className="hover:cursor-pointer pl-1 text-white"> Sign Up Here </Link>
-            </p>
+            <button className="submit-btn" onClick={submitHandler}>{`Login`}</button>
+            
           </>
         }
+        <p className="text-white py-3">
+          or  <Link href={URL_PATTERNS?.REGISTER} className="hover:cursor-pointer pl-1 text-white"> {`Sign Up Here`} </Link>
+        </p>
       </div>
     </>
   )
@@ -38,9 +37,9 @@ const SubmitBtn = ({ isSubmit, submitHandler }) => {
 function LeftImage() {
   return (
     <>
-      <div className="flex flex-col items-start justify-center w-full h-full relative lg:pr-10">
-        <Image src="/assets/img/data-security.png" alt="me" width={400} height={400} />
-      </div>
+        <Image src={"/assets/img/new_logo.svg"} alt="me" width={400} height={400} />
+      {/* <div className="flex flex-col items-start justify-center w-full h-full relative lg:pr-10">
+      </div> */}
 
     </>
   )
@@ -58,7 +57,8 @@ export default function Login() {
   const pathname = usePathname()
 
   useEffect(() => {
-    AOS.init();
+    // AOS.init();
+    Animation()
     if (session !== undefined && session?.user !== null) {
       if (session?.user?.role === "admin") {
         push("/admin/dashboard")
@@ -125,24 +125,25 @@ export default function Login() {
             <div className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-0 mr-auto mb-0 ml-auto max-w-7xl
                 xl:px-5 lg:flex-row ">
               <div className="flex flex-col justify-between items-center w-full pt-5 pr-10 pb-20 pl-10 lg:pt-15 lg:flex-row ">
-                <div className="w-full bg-cover relative max-w-md lg:max-w-2xl lg:w-7/12" data-aos="fade-right" data-aos-duration="600" >
+                <div className="w-full bg-cover relative max-w-md lg:max-w-2xl lg:w-7/12  " data-aos="zoom-out"  >
                   <LeftImage />
-                  <div className="text-4xl text-white font-medium mt-10">
-                    Welcome back Defender. <br />
-                    Keep those skills sharp!
-                  </div>
+                  {/* <div className="text-4xl text-white font-medium mt-10  text-color-6 mx-20">
+                    <p>
+                      {`Welcome back`} 
+                    </p>
+                  </div> */}
                 </div>
                 <div className="w-full mt-20 mr-0 mb-0 ml-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12" >
                   <div className="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-transparent  rounded-xl relative z-10">
-                    <p className="w-full text-2xl xl:text-3xl font-bold text-left leading-snug  text-white" data-aos="fade-left" data-aos-duration="600">Sign In</p>
+                    <p className="w-full text-xl xl:text-2xl font-bold text-left leading-snug  text-white" data-aos="zoom-out" >{`Sign in`}</p>
                     <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-4">
-                      <div className="relative" data-aos="fade-left" data-aos-duration="600" data-aos-delay="100">
-                        <input placeholder="Email" onChange={(e) => (userName.current = e.target.value)} type="text" className=" placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-3 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm" />
+                      <div className="relative" data-aos="zoom-out"  >
+                        <input placeholder="Email" onChange={(e) => (userName.current = e.target.value)} type="text" className="custom-form-control" />
                       </div>
-                      <div className="relative" data-aos="fade-left" data-aos-duration="600" data-aos-delay="200">
-                        <input placeholder="Password" onChange={(e) => (pass.current = e.target.value)} type="password" className=" placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900    text-white    w-full p-3  px-4  m-0 text-base block bg-deep-indigo  rounded-md shadow-sm " />
+                      <div className="relative" data-aos="zoom-out"  >
+                        <input placeholder="Password" onChange={(e) => (pass.current = e.target.value)} type="password" className="custom-form-control" />
                       </div>
-                      <div className="relative" data-aos="fade-left" data-aos-duration="600" data-aos-delay="400">
+                      <div className="relative" data-aos="zoom-out"  >
                         <div className="intro-x flex text-gray-700 dark:text-gray-400 text-xs sm:text-sm mt-4">
                           <div className="flex items-center mr-auto">
                             <input type="checkbox" className="input border mr-2" id="input-remember-me" />
@@ -153,7 +154,7 @@ export default function Login() {
                           </a>
                         </div>
                       </div>
-                      <div className="relative mt-5" data-aos="fade-left" data-aos-duration="600" data-aos-delay="300">
+                      <div className="relative mt-5" data-aos="zoom-out"  >
                         <SubmitBtn isSubmit={isSubmit} submitHandler={submitHandler} />
                       </div>
                     </div>

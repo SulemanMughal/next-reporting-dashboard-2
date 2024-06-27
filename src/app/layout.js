@@ -15,10 +15,13 @@ import Header from './components/Header/Header'
 const inter = Inter({ subsets: ['latin'] })
 
 
-import NextTopLoader from 'nextjs-toploader';
+// import NextTopLoader from 'nextjs-toploader';
+
+import TopLoader from "@/app/components/TopLoader"
 
 
 import './vendor/remixicons/remixicon.css'
+import 'aos/dist/aos.css';
 
 
 export const metadata = {
@@ -27,32 +30,25 @@ export const metadata = {
 }
 
 
+const WebIcon = () => {
+  return (
+    <link rel="icon" href={"/assets/img/new_logo.ico"} sizes="any" />
+  )
+}
+
+
+
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en"  >
-      <link rel="icon" href="/assets/img/logo_new.ico" sizes="any" />
+      <WebIcon />
       <body className={inter.className  + "  theme-color "}>
         <Providers >
-          
-        <NextTopLoader
-  color="#ec4899"
-  initialPosition={0.08}
-  crawlSpeed={200}
-  height={7}
-  crawl={true}
-  showSpinner={false}
-  easing="ease"
-  speed={200}
-  shadow="0 0 10px #be123c,0 0 5px #be123c"
-/>
-          
-          
+          <TopLoader />
           <main className=' min-h-screen  ' >
-            
-              <Header />
-                {children}
-              
+            <Header />
+            {children}
           </main>
         </Providers>
         </body>
