@@ -512,7 +512,7 @@ export default function Page() {
                                 <div style={{"width": `${parseInt((teamTotalPoints/quizTotalPoints)*100)}%`}} className="h-full bg-color-2 rounded text-center text-color-4 font-bold">{parseInt((teamTotalPoints/quizTotalPoints)*100)}%</div>
                             </div>
                           </div>
-                          <Image  width={"90"}  height={"90"} alt="image" className="rounded-full w-20 ml-3 ml-auto" src="/assets/img/bWwHTdsIEC1mQFPmnXnZ.png" />
+                          <Image  width={"100"}  height={"100"} alt="image" className="rounded-full  ml-3 ml-auto" src="/assets/img/hacker.svg" />
                         </div>
                         <div  className="block  p-6 bg-color-1  rounded-lg shadow ">
                         <SearchInput /> 
