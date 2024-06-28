@@ -104,7 +104,7 @@ export default function Login() {
   return (
     <>
       <CustomToaster />
-      {loading ? (<CustomTriangleLoader height="400" width="400" className="flex justify-center items-center xl:my-32" color="#3151bc" />
+      {loading ? (<CustomTriangleLoader height="400" width="400" className="flex justify-center items-center xl:my-32"  />
       ) : error ? (
         <div>
           <p className="text-lg text-white">

@@ -190,7 +190,7 @@ export default function Page({ params }){
                     height="400"
                     width="400"
                     className="flex justify-center items-center xl:my-32"
-                    color="#3151bc"
+                    
                 />
             ) : error ? (
                 <p className="text-lg text-white">

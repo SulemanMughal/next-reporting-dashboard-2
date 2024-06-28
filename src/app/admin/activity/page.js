@@ -572,7 +572,7 @@ export default function Page(){
                             height="400"
                             width="400"
                             className="flex justify-center items-center xl:my-32"
-                            color="#3151bc"
+                            
                         />
                     </>
                 ) : (

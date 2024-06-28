@@ -9,7 +9,7 @@ const Avatar = ({seed}) => {
         seed: seed,
         radius : 50,
         backgroundType: ["gradientLinear","solid"],
-        backgroundColor: ["486de8", "018977", "e07f9d"],
+        backgroundColor: ["141d2b"],
         size: 40
     });
       
