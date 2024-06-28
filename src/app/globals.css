@@ -49,9 +49,18 @@ html, body{
 }
 
 
+.text-color-4{
+  color: var(--color-1) !important;
+
+}
+
 .text-color-10{
   color: var(--color-10) !important;
 
+}
+
+.bg-color-2{
+  background-color: var(--color-2) !important;
 }
 
 .bg-color-1{
@@ -64,6 +73,11 @@ html, body{
 
 .bg-color-3{
   background-color: var(--color-3) !important;
+}
+
+.bg-color-6{
+  background-color: var(--color-6) !important;
+
 }
 
 .bg-color-8{
@@ -1011,7 +1025,7 @@ transition-timing-function: linear;
   background: var(--color-1);
 }
 
-.back-btn{
+.back-btn, .reset-filter-btn{
   background: var(--color-2);
   padding-top : 10px;
   padding-bottom : 10px;
@@ -1022,7 +1036,23 @@ transition-timing-function: linear;
   font-weight: 700;
 }
 
-.back-btn:hover{
+.back-btn:hover, .reset-filter-btn:hover{
   background: var(--color-5);
   color: var(--color-4);
 }
+/* 
+.reset-filter-btn{
+  background: var(--color-2);
+  padding-top : 10px;
+  padding-bottom : 10px;
+  padding-left: 10px;
+  padding-right : 10px;
+  border-radius: 0.375rem;
+  color: var(--color-1);
+  font-weight: 700;
+}
+
+.reset-filter-btn:hover{
+  background: var(--color-5);
+  color: var(--color-4);
+} */

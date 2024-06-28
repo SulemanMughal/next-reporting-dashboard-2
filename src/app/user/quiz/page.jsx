@@ -24,17 +24,17 @@ import {getDifficultyColor} from "@/app/lib/helpers"
 
 import Link from 'next/link'
 
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
+// import { Fragment } from 'react'
+// import { Menu, Transition } from '@headlessui/react'
 
-import  { MdSort } from "react-icons/md"
+// import  { MdSort } from "react-icons/md"
 import axios from "axios";
-import ExpandableText from "@/app/components/ExpandableText";
+// import ExpandableText from "@/app/components/ExpandableText";
 
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+// function classNames(...classes) {
+//     return classes.filter(Boolean).join(' ')
+// }
 
 
 
@@ -44,7 +44,7 @@ const SearchInput = () => {
         <input
           type="text"
           placeholder="Search by name"
-          className="placeholder-columbia-blue outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-900    text-white    w-full  pl-2 py-2 mt-2 mr-0 mb-0 ml-0 text-base block bg-deep-indigo  rounded-md"
+          className="custom-form-control"
         />
         <button
           type="button"
@@ -66,7 +66,7 @@ const SelectField = ({ options, onChange }) => {
       </label>
       <div className="relative mt-2">
       <select
-        className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-gray-400    w-full p-3 pl-4 pr-8   m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm"
+        className="appearance-none custom-form-control"
         onChange={onChange}
       >
         {options.map((option) => (
@@ -156,7 +156,7 @@ const SelectField = ({ options, onChange }) => {
   const ResetFilterBtn = () => {
     return (
         <>
-            <button className="bg-deep-blue w-32 h-full text-white mr-5 text-sm  text-gray-300 my-2 py-2 px-4 rounded">
+            <button className="reset-filter-btn">
               Reset Filters
             </button>
 
@@ -320,7 +320,7 @@ function QuizList({scenarios}){
             {   scenarios?.length ? [...Array(scenarios?.[0].length)].map((item, index) => (
               <div className="component component-CerCheckBox" key={index} data-aos="fade-up" data-aos-duration="400" data-aos-delay={"100"}>
                   <div className="w-full col-span-3 relative      rounded-lg   flex flex-col  h-full" key={index}>
-                      <div className="   bg-deep-blue-violet  rounded-lg shadow    h-full">
+                      <div className="   bg-color-1 rounded-lg shadow    h-full">
                           <div className="p-5">
                               <h5 className=" font-medium text-base tracking-tight whitespace-normal text-gray-300  text-center mb-1">{scenarios[1][index]}</h5>
                               <div className="text-gray-400 text-xs truncate text-center">
@@ -335,7 +335,7 @@ function QuizList({scenarios}){
                               
                           </div>
                           <div className=" pt-0 pb-4 flex justify-center">
-                              <Link href={`/user/quiz/${scenarios[0][index]}`}  className=" cursor-pointer     bg-dark-navy-blue  flex justify-center items-center   text-white text-base    h-full rounded-md px-2 py-1       ">
+                              <Link href={`/user/quiz/${scenarios[0][index]}`}  className=" cursor-pointer     bg-color-7  flex justify-center items-center   text-color-6 text-sm font-medium    h-full rounded-md px-3 py-1       ">
                                   <span>{"Start Challenge" } </span> 
                               </Link>
                           </div>
@@ -501,19 +501,20 @@ export default function Page() {
             <div className="p-4 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                     <div className="w-full col-span-1 relative  p-0 border-none rounded-lg "  >
                         {/* <FiltersBtn quizTotalPoints={quizTotalPoints}  teamTotalPoints={teamTotalPoints} /> */}
-                        <div className="intro-y col-span-12 md:col-span-3 flex flex-wrap sm:flex-nowrap items-center pl-5 pr-5 pb-5 pt-5 mb-5 bg-deep-blue-violet ">
+                        <div className="intro-y col-span-12 md:col-span-3 flex flex-wrap sm:flex-nowrap items-center pl-5 pr-5 pb-5 pt-5 mb-5 bg-color-1 ">
                           <div className="text-lg w-full mr-5 text-gray-300">
-                            <b style={{"color": "#2ecc71"}}>
+                            <b  className="text-color-6" >
                                 Team Progress
                             </b>
 
-                            <div className="w-full h-9 mt-2 bg-deep-indigo rounded">
-                                <div style={{"width": `${parseInt((teamTotalPoints/quizTotalPoints)*100)}%`}} className="h-full bg-deep-blue rounded text-center text-white">{parseInt((teamTotalPoints/quizTotalPoints)*100)}%</div>
+                            <div className="w-full h-9 mt-2 bg-color-3 rounded">
+                                {/* <div style={{"width": `${parseInt(0.5*100)}%`}} className="h-full bg-color-2 rounded text-center text-color-4 font-bold">{parseInt((teamTotalPoints/quizTotalPoints)*100)}%</div> */}
+                                <div style={{"width": `${parseInt((teamTotalPoints/quizTotalPoints)*100)}%`}} className="h-full bg-color-2 rounded text-center text-color-4 font-bold">{parseInt((teamTotalPoints/quizTotalPoints)*100)}%</div>
                             </div>
                           </div>
                           <Image  width={"90"}  height={"90"} alt="image" className="rounded-full w-20 ml-3 ml-auto" src="/assets/img/bWwHTdsIEC1mQFPmnXnZ.png" />
                         </div>
-                        <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow ">
+                        <div  className="block  p-6 bg-color-1  rounded-lg shadow ">
                         <SearchInput /> 
                         <SelectField options={options} onChange={handleSelectChange} />
                         <CheckboxGroup text={"Status"} options={options_2} />
