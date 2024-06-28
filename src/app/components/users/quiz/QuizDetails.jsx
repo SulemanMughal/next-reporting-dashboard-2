@@ -27,8 +27,12 @@ import { FaExclamationTriangle } from  "react-icons/fa"
 import Modal from './ReportingModal'
 
 import encrypt from "@/app/lib/encrypt"
+import { MdCloudDownload } from "react-icons/md";
+
 import decrypt from "@/app/lib/decrypt"
 import Link from "next/link";
+import { FiSend } from "react-icons/fi";
+
 
 // import { useRouter } from 'next/router';
 
@@ -167,7 +171,7 @@ function FileDownloadButton({ file }) {
   
     return (
       <button
-        className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded"
+        className="bg-color-2  text-color-1 font-bold py-2 px-4 border-none rounded"
         onClick={downloadFile}
         disabled={downloading}
       >
@@ -329,8 +333,8 @@ function QuizFileInfo({files}){
                                 </div>
                             
                             <div className="ml-auto  2xl:ml-4">
-                                <Link  href={`${file.filepath}`}  className="w-full my-5 block bg-dark-navy-blue  text-white font-medium font-xs   py-1 px-2  text-xs 2xl:py-2 2xl:px-4   border-none rounded " target="_blank" rel="noopener noreferrer">
-                                    Download File
+                                <Link  href={`${file.filepath}`}  className="w-full my-5 flex items-center justify-center bg-color-3  text-color-2 font-medium font-xs   py-1 px-2  text-xs 2xl:py-2 2xl:px-4   border-none rounded " target="_blank" rel="noopener noreferrer">
+                                     {`Download File`} <MdCloudDownload size={20} className="ml-2 " />
                                 </Link>
                             </div>
                 </div>
@@ -577,7 +581,7 @@ const SubmitBtn  = ({isSubmit , submitHandler}) => {
   <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
   </svg>
 
-  </button> : <button className="answer-submit-btn block w-full  text-white mt-2  h-full p-2 rounded" onClick={submitHandler}>Submit</button> }
+  </button> : <button className="answer-submit-btn  w-full  text-white mt-2  h-full p-2 rounded flex items-center justify-center" onClick={submitHandler}>Submit <FiSend size={22} className="ml-2" /> </button> }
   </>
     )
   }

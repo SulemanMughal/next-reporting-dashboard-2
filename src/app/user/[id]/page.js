@@ -190,7 +190,7 @@ export default function Page({ params }){
                     height="400"
                     width="400"
                     className="flex justify-center items-center xl:my-32"
-                    color="#3151bc"
+                    // color="#3151bc"
                 />
             ) : error ? (
                 <p className="text-lg text-white">
@@ -200,7 +200,7 @@ export default function Page({ params }){
                 <>
                     <div className="p-3 mb-5">
                         {/* Profile Info */}
-                    <div className="pb-0 mb-5 bg-deep-blue-violet rounded-lg px-5">
+                    <div className="pb-0 mb-5 bg-color-1 rounded-lg px-5">
                         <div className="flex flex-col lg:flex-row  border-b  border-gray-500  py-5  ">
                                 <div className="flex flex-1  items-center justify-center lg:justify-start">
                                     <div className="w-20 h-20 sm:w-24 sm:h-24 flex-none lg:w-32 lg:h-32 image-fit relative ">
@@ -209,9 +209,9 @@ export default function Page({ params }){
                                     </div>
                                     <div className="ml-5 w-full">
                                         <div className="w-full sm:whitespace-normal font-medium text-2xl text-gray-300">{data?.name}
-                                            <span className="ml-3">
+                                            {/* <span className="ml-3">
                                                 <Image className="h-10 inline tooltip" src={`/assets/img/flags/${data?.country || "PK"}.png`} alt="AD-Q"  height={40}  width={40}/>
-                                            </span>
+                                            </span> */}
                                         </div>
                                         {/* <div className="text-base text-gray-300">Rank: <span style={{"color":"#55E6C1"}}>Initiate</span></div> */}
                                         
@@ -289,7 +289,7 @@ export default function Page({ params }){
                     {/* User Profile Badges PlaceHolder */}
 
                     {/* Progress */}
-                    <div className="intro-y box col-span-12 lg:col-span-6 bg-deep-blue-violet rounded-lg">
+                    <div className="intro-y box col-span-12 lg:col-span-6 bg-color-1 rounded-lg">
                         <div className="flex items-center px-5 py-5 sm:py-0 border-b border-gray-500 ">
                             <h2 className="font-medium text-base mr-auto text-gray-300">
                                 Progress

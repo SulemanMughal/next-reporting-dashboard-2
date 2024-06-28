@@ -60,7 +60,7 @@ function CountryOptions(){
         <input
           type="text"
           placeholder="Search by name"
-          className="placeholder-columbia-blue outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-900    text-white    w-full  pl-2 py-2 mt-2 mr-0 mb-0 ml-0 text-base block bg-deep-blue-violet  rounded-md flex justify-between items-center"
+          className="custom-form-control"
         />
         <button
           type="button"
@@ -76,7 +76,7 @@ function FilterResetBtn(){
     return (
         <>
             <div>
-                <button type="button" className=" bg-deep-blue-violet text-white py-2  pr-4  pl-4 mt-2 h-full border border-1 border-deep-blue-violet rounded-md mb-0 ml-0 " >Reset Filters</button>
+                <button type="button" className="reset-filter-btn" >Reset Filters</button>
             </div>
         </>
 
@@ -360,23 +360,23 @@ function CountryDefendersCounter({country}){
 function TopScoreHeaderRow({totalPoints , teamTotalObtainedPoints ,usersGroupedByCountry}){
     return (
         <div className="mb-10 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
-            <div className="intro-y col-span-1 flex flex-wrap sm:flex-nowrap items-center mt-2 pl-5 pr-5 pb-5 pt-5 bg-deep-blue-violet rounded box ">
+            <div className="intro-y col-span-1 flex flex-wrap sm:flex-nowrap items-center mt-2 pl-5 pr-5 pb-5 pt-5 bg-color-1 rounded box ">
                 <div className="mr-auto col-span-3 text-lg text-gray-300 w-full">
                         {totalPoints-teamTotalObtainedPoints} points left to 
-                        <b  style={{"color":"#55E6C1"}}> Complete </b>
-                    <div className="w-full h-9 mt-2 bg-deep-indigo border-deep-indigo rounded">
-                        <div style={{"width":`${teamTotalObtainedPoints/totalPoints*100}%`}} className="h-full bg-deep-blue rounded text-center text-white">{parseInt(teamTotalObtainedPoints/totalPoints*100)}%</div>
+                        <b  className="text-color-2"> Complete </b>
+                    <div className="w-full h-9 mt-2 bg-color-3 border-deep-indigo rounded">
+                        <div style={{"width":`${teamTotalObtainedPoints/totalPoints*100}%`}} className="h-full bg-color-2 rounded text-center text-color-4 font-bold">{parseInt(teamTotalObtainedPoints/totalPoints*100)}%</div>
                     </div>
                 </div>
 
                 {/* Defender Image */}
                 {/* <Image  width={"90"}  height={"90"} className="rounded-full w-16 ml-3" src="/assets/img/RaM4kXNrsL0Nx38H3zmi.png" alt="asdas" /> */}
             </div>
-            <div className="intro-y col-span-3 flex flex-wrap items-center mt-2 pl-5 pb-5 pt-5 bg-deep-blue-violet rounded box text-gray-300" style={{"zIndex":"20"}}>
+            {/* <div className="intro-y col-span-3 flex flex-wrap items-center mt-2 pl-5 pb-5 pt-5 bg-color-1 rounded box text-gray-300" style={{"zIndex":"20"}}>
                 {usersGroupedByCountry && usersGroupedByCountry.map((country , index) => (
                     <CountryDefendersCounter country={country} key={index} />
                 ))}
-            </div>
+            </div> */}
             
         </div>
     )
@@ -513,17 +513,17 @@ function UserProgressHeader({userData}){
     // console.debug(userData)
     return (
         <>
-        <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-300 mb-8" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+        <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-color-6 mb-8" data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
             <table className="table table-report table-auto -mt-2 ">
                 <thead>
                     <tr className="text-white ">
                         <th className="text-center whitespace-nowrap" style={{"width":"0.5%", "border":"0px", "padding":"0px", "paddingLeft":"20px"}}></th>
                         <th className="whitespace-nowrap" style={{"width":"1%"}}></th>
                         <th className="whitespace-nowrap pl-0 text-start" style={{"paddingLeft":"0px"}}></th>
-                        <th className="whitespace-nowrap w-1/12 text-center"></th>
-                        <th className="whitespace-nowrap w-1/6 text-center"></th>
-                        <th className="text-center whitespace-nowrap w-1/12"></th>
+                        <th className="whitespace-nowrap w-1/5 text-center"></th>
+                        {/* <th className="whitespace-nowrap w-1/6 text-center"></th> */}
                         <th className="text-center whitespace-nowrap w-1/6"></th>
+                        <th className="text-center whitespace-nowrap w-1/8"></th>
                         <th className="text-center whitespace-nowrap"></th>
                     </tr>
                 </thead>
@@ -551,21 +551,22 @@ function UserProgressHeader({userData}){
                     <a href="#!" className="font-medium whitespace-nowrap pl-0 text-base">{userData?.name}</a>
                     {/* <span className="ml-3 px-2 py-1 rounded font-bold bg-yellow-400 uppercase text-theme-3 text-xs text-black">PRO</span> */}
                 </td>
-                <td className="table-report__action text-center place-content-center">
+                {/* <td className="table-report__action text-center place-content-center">
                     <div  className="relative z-50 inline-flex">
                         <div  className=" w-16 h-14 image-fit zoom-in">
                             <Image width={"65"} height={48} className="ml-auto mr-auto" src={`/assets/img/flags/${userData?.country || "PK"}.png`}   alt="asdasd" />
                         </div>
-                        {/* <div className="relative"  style={{"display": "none"}}>
+                        
+                    </div>
+                    <div className="relative"  style={{"display": "none"}}>
                             <div className="absolute top-0 text-center z-50 w-32 p-2 -mt-1 text-sm leading-tight text-white transform -translate-x-3/4 -translate-y-full bg-theme-4 rounded-lg shadow-lg" style={{"--transform-translate-x": "-75%"}}>
                                 United States
                             </div>
                             <svg className="absolute z-50 w-6 h-6 text-theme-4 transform -translate-x-12 -translate-y-3 fill-current stroke-current" width="8" height="8">
                                 <rect x="12" y="-10" width="8" height="8" transform="rotate(45)"></rect>
                             </svg>
-                        </div> */}
-                    </div>
-                </td>
+                        </div>
+                </td> */}
                 {/* rank */}
                 {/* <td className="table-report__action text-center">
                     <p style={{"color":"#EAB543"}} className="text-base">Guardian
@@ -867,19 +868,19 @@ export default function Page(){
 height="400"
 width="400"
 className="flex justify-center items-center xl:my-32"
-color="#3151bc"
+color="#9fef00"
 />
                 </div>
             </>
         ) : (
             <div  className="p-4 mb-15">
                 <div className="flex justify-between items-center mb-5 ">
-                    <h1 className="text-white text-2xl font-bold">
-                        Global Leaderboard
+                    <h1 className="text-color-6 text-2xl font-bold">
+                        {`Global Leaderboard`}
                     </h1>
                     <div className="flex justify-end items-center ">
-                        {/* <FilterResetBtn /> */}
-                        {/* <SearchInput /> */}
+                        <FilterResetBtn />
+                        <SearchInput />
                         {/* <FilterByCountry /> */}
                     </div>
                 </div>

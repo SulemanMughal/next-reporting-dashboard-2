@@ -885,7 +885,7 @@ input[type=radio]:checked:before {
   position: relative;
 }
 .dark .table-report:not(.table-report--bordered) td {
-  background-color: rgba(16,19,69,1);
+  background-color: var(--color-1);
 }
 
 .table-report:not(.table-report--bordered):not(.table-report--tabulator) td {
@@ -931,7 +931,7 @@ input[type=radio]:checked:before {
 
 
 .table-report:not(.table-report--bordered) td {
-  background-color: rgba(16,19,69,1);
+  background-color: var(--color-1);
 }
 
 
@@ -1002,14 +1002,14 @@ input.custom-form-control:focus, input.custom-form-control:active{
 
 
 .answer-submit-btn{
-    background-color: var(--color-7);
-    color: var(--color-6);
+    background-color: var(--color-3);
+    color: var(--color-2);
     font-weight: 700;
     border-radius: 0.375rem;
     /* width: 10rem; */
     margin-right: 0.75rem;
     vertical-align: top;
-    display: inline-block;
+    /* display: inline-block; */
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-left: 1rem;
@@ -1026,6 +1026,12 @@ input.custom-form-control:focus, input.custom-form-control:active{
     transition-duration: 150ms;
     transition-duration: 200ms;
     transition-timing-function: linear;
+}
+
+.answer-submit-btn:hover{
+  background-color: var(--color-5);
+  color: var(--color-4);
+
 }
 
 /* .loader */
@@ -1061,6 +1067,7 @@ input.custom-form-control:focus, input.custom-form-control:active{
   border-radius: 0.375rem;
   color: var(--color-1);
   font-weight: 700;
+  height: 48px;
 }
 
 .back-btn:hover, .reset-filter-btn:hover{

@@ -47,9 +47,9 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
                                 <th key={2}>
                                     Members
                                 </th>
-                                <th key={3}>
+                                {/* <th key={3}>
                                     Quiz
-                                </th>
+                                </th> */}
                                 <th key={4}>
                                     Submissions
                                 </th>
@@ -75,7 +75,7 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
                                         team?.users === null ? "Yet to join" : (team?.users?.length ? team.users.length : "Yet to join" )
                                     }</p>
                                 </td>
-                                <td className="text-center">
+                                {/* <td className="text-center">
                                     <p className="text-base font-medium leading-none text-gray-500 mr-2">
                                         {team?.quiz === null ?  "Not Assigned Yet" : <Link href={`/admin/quiz/${team.quiz.id}`}>
                                             <span className="inline-flex items-center   px-3 py-1 text-lg font-semibold  mr-2 mb-2" >
@@ -83,7 +83,7 @@ function TeamListView({teams , removeTeam , setShowAddMemberModal , setShowAddMe
                                             </span>
                                         </Link> }
                                     </p>
-                                </td>
+                                </td> */}
                                 <td className="text-center">
                                     {team?.answers?.length}
                                 </td>
