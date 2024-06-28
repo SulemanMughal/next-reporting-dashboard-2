@@ -36,12 +36,7 @@ export default function Header(){
           <nav  style={{"borderBottom": "1px solid #1b1e3b"}} >
               <div className="flex flex-wrap justify-between items-center  w-full px-10 py-2">
                 <Link href="/" className="flex items-center">
-                  <Image
-                      src="/assets/img/data-security.png"
-                      width={50}
-                      height={50}
-                      alt="Picture of the author"
-                  />
+                  <Logo />
                   {checkHomePage(pathname) ? null :  (<span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white pl-3 " >Attack & <span className="text-color-2">Defense -  Q</span></span>)}
                 </Link>
                 {checkLoginPath(pathname) ? null :  (

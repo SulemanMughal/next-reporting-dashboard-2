@@ -6,3 +6,5 @@ import {Animation} from "@/app/lib/Animation"
 
 
 import URL_PATTERNS from "@/app/lib/urlpatterns";
+
+import { ChallengeIcon } from "@/app/lib/icons"

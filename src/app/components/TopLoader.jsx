@@ -8,7 +8,7 @@ const TopLoader = () => {
             color="#9fef00"
             initialPosition={0.08}
             crawlSpeed={200}
-            height={7}
+            height={3}
             crawl={true}
             showSpinner={false}
             easing="ease"

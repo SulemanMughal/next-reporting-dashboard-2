@@ -1,58 +1,61 @@
 "use client"
 
-import TotalSubmission from "@/app/components/users/TotalSubmission"
+// import TotalSubmission from "@/app/components/users/TotalSubmission"
 import TotalObtainedPoints from "@/app/components/users/TotalObtainedPoints"
-import RightAnswers from "@/app/components/users/RightAnswers"
+// import RightAnswers from "@/app/components/users/RightAnswers"
 import TotalChallenges from "@/app/components/users/dashboard/TotalChallenges"
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import {  useEffect, useState } from "react";
 import {  useSession } from "next-auth/react";
 import Link from "next/link"
-import { AiFillEye } from "react-icons/ai"
+// import { AiFillEye } from "react-icons/ai"
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { FaAward } from "react-icons/fa6"
-import encrypt from "@/app/lib/encrypt"
+// import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
-import  { FaPuzzlePiece } from "react-icons/fa6"
+// import  { FaPuzzlePiece } from "react-icons/fa6"
 import CountUp from 'react-countup';
 
 // import { LiaCoinsSolid } from "react-icons/lia"
-import   { FaCoins } from "react-icons/fa6"
-import { MdGroups } from "react-icons/md"  
+// import   { FaCoins } from "react-icons/fa6"
+// import { MdGroups } from "react-icons/md"  
 import { FaUser } from "react-icons/fa6"
 
-import { CircularProgressbar , buildStyles  } from 'react-circular-progressbar';
+// import { CircularProgressbar , buildStyles  } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import MultiSeriesPieChart from "./MultiSeriesPieChart"
-import UserProgressChart from "./UserProgressChart"
-import { FaUserLarge } from "react-icons/fa6"
+// import MultiSeriesPieChart from "./MultiSeriesPieChart"
+// import UserProgressChart from "./UserProgressChart"
+// import { FaUserLarge } from "react-icons/fa6"
 import { FaServer } from "react-icons/fa6"
 import Image from "next/image"
-import { FaMedal  } from "react-icons/fa6"
-import { FaExternalLinkAlt } from "react-icons/fa"
+import { UserIcon } from "@/app/lib/icons"
+// import { FaMedal  } from "react-icons/fa6"
+// import { FaExternalLinkAlt } from "react-icons/fa"
 
-import LabTimeChart from "./LabTimeChart"
-import InvestigationChart from "./InvestigationChart"
+// import LabTimeChart from "./LabTimeChart"
+// import InvestigationChart from "./InvestigationChart"
 import ChallengesChart from "./ChallengesChart"
 
 import { TfiTwitterAlt } from "react-icons/tfi"
 
+import Avatar from "@/app/components/createAvatar"
+
 // import styles from "./Dashboard.module.css"
 
 
-function countSubmitAnswers(data){
-    let counter = 0;
+// function countSubmitAnswers(data){
+//     let counter = 0;
 
-    if(data.length){
-        data.forEach((item) => {
-            counter = item.answers.length  + counter
-        })
+//     if(data.length){
+//         data.forEach((item) => {
+//             counter = item.answers.length  + counter
+//         })
         
-    }
-    return counter;
-}
+//     }
+//     return counter;
+// }
 
 
 function calcTotalPoints(data){
@@ -68,21 +71,21 @@ function calcTotalPoints(data){
 }
 
 
-function checkTotalStatus(data){
-    let trueQuestions = 0;
-    let falseQuestions = 0;
-    if(data.length){
-        data.forEach((item) => {
-            if(item.answers?.[0]?.submissionStatus === true){
-                trueQuestions++
-            }
-            else{
-                falseQuestions++
-            }
-        })
-    }
-    return [trueQuestions, falseQuestions]
-}
+// function checkTotalStatus(data){
+//     let trueQuestions = 0;
+//     let falseQuestions = 0;
+//     if(data.length){
+//         data.forEach((item) => {
+//             if(item.answers?.[0]?.submissionStatus === true){
+//                 trueQuestions++
+//             }
+//             else{
+//                 falseQuestions++
+//             }
+//         })
+//     }
+//     return [trueQuestions, falseQuestions]
+// }
 
 function calcScenarioPoints(items){
     let points = 0
@@ -125,39 +128,39 @@ function checkScenarios(data){
 import ExpandableText from "@/app/components/ExpandableText"
 
 
-function QuizList({scenarios}){
-    // console.debug(scenarios)
-    return (
-        <>
-            {   scenarios?.length ? [...Array(scenarios?.[0].length)].map((item, index) => (
-                    <div className="component component-CerCheckBox" key={index}>
-                        <div className="w-full col-span-3 relative  p-3   rounded-lg   flex flex-col " key={index}>
-                            <div className="  my-2 bg-card-custom  rounded-lg shadow   ">
-                                <div className="p-5">
-                                    <div className="flex justify-between items-center mb-4">
-                                        <h5 className=" text-2xl font-bold tracking-tight whitespace-normal text-gray-300 ">{scenarios[1][index]}</h5>
-                                    </div>
-                                    {/* <p className="text-gray-400">{scenarios[4][index]}</p> */}
-                                    <ExpandableText initialText={scenarios[4][index]}  maxLength={150} />
-                                    <div className=" pt-4 pb-2 text-center">
-                                        {/* <span className="px-1 py-1 text-md font-semibold bg-none text-green-600 ">{scenarios[2][index]}</span>
-                                        <span className="px-1 py-1 text-md font-semibold bg-none text-pink-600">{scenarios[3][index]}</span> */}
-                                        <span className="px-1 py-1 text-md font-semibold bg-none text-orange-400 ">{ scenarios[5][index] +  " Points"}</span>
-                                    </div>
-                                </div>
-                                <div className=" pt-0 pb-4 flex justify-center">
-                                    <Link href={`/user/quiz/${scenarios[0][index]}`}  className="transition ease-in-out delay-150 hover:-translate-y-1    hover:bg-blue-300 hover:text-blue-800 cursor-pointer duration-300    btn-flag-submit text-gray-300  flex items-center   sm:text-sm  sm:w-8/12   2xl:w-7/12  h-full rounded-0 px-4 py-2    font-semibold   mb-2 justify-center items-center  ">
-                                        <AiFillEye size={23} className=" mr-2 "  /> <span>{"View Scenario" } </span> 
-                                    </Link>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )) : null
-            }
-        </>
-    )
-}
+// function QuizList({scenarios}){
+//     // console.debug(scenarios)
+//     return (
+//         <>
+//             {   scenarios?.length ? [...Array(scenarios?.[0].length)].map((item, index) => (
+//                     <div className="component component-CerCheckBox" key={index}>
+//                         <div className="w-full col-span-3 relative  p-3   rounded-lg   flex flex-col " key={index}>
+//                             <div className="  my-2 bg-card-custom  rounded-lg shadow   ">
+//                                 <div className="p-5">
+//                                     <div className="flex justify-between items-center mb-4">
+//                                         <h5 className=" text-2xl font-bold tracking-tight whitespace-normal text-gray-300 ">{scenarios[1][index]}</h5>
+//                                     </div>
+//                                     {/* <p className="text-gray-400">{scenarios[4][index]}</p> */}
+//                                     <ExpandableText initialText={scenarios[4][index]}  maxLength={150} />
+//                                     <div className=" pt-4 pb-2 text-center">
+//                                         {/* <span className="px-1 py-1 text-md font-semibold bg-none text-green-600 ">{scenarios[2][index]}</span>
+//                                         <span className="px-1 py-1 text-md font-semibold bg-none text-pink-600">{scenarios[3][index]}</span> */}
+//                                         <span className="px-1 py-1 text-md font-semibold bg-none text-orange-400 ">{ scenarios[5][index] +  " Points"}</span>
+//                                     </div>
+//                                 </div>
+//                                 <div className=" pt-0 pb-4 flex justify-center">
+//                                     <Link href={`/user/quiz/${scenarios[0][index]}`}  className="transition ease-in-out delay-150 hover:-translate-y-1    hover:bg-blue-300 hover:text-blue-800 cursor-pointer duration-300    btn-flag-submit text-gray-300  flex items-center   sm:text-sm  sm:w-8/12   2xl:w-7/12  h-full rounded-0 px-4 py-2    font-semibold   mb-2 justify-center items-center  ">
+//                                         <AiFillEye size={23} className=" mr-2 "  /> <span>{"View Scenario" } </span> 
+//                                     </Link>
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     </div>
+//                 )) : null
+//             }
+//         </>
+//     )
+// }
 
 
 
@@ -211,16 +214,14 @@ function UserObtainedPoints({totalObtainedPointsUser, overall_points}){
         <>
         <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300">
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box "  data-aos="fade-down" data-aos-duration="500" data-aos-delay="700" >
-                <div  className="block  p-6 bg-deep-blue-violet  rounded-lg shadow relative">
+                <div  className="block  p-6 bg-color-1   rounded-lg shadow relative">
                 <div className="flex justify-between items-center ">
                         <div>
-                            {/* <FaCoins size={40}  className="text-blue-500 mb-6" /> */}
-                            {/* <FaUser  size={40}  className="text-blue-500 mb-6"  /> */}
-                            <FaUserLarge  size={35}  className="text-light-blue mb-6"  />
-                            <p className="font-bold  leading-8 text-white  text-3xl mb-2">
+                            <UserIcon  size={35}  className="text-color-2  mb-6"  />
+                            <p className="font-bold  leading-8 text-color-6   text-3xl mb-2">
                                 {totalObtainedPointsUser && <CountUp end={totalObtainedPointsUser}  duration={3} />} / {overall_points && <CountUp end={overall_points}  duration={3} />}  
                             </p>
-                            <h5 className="text-xs 2xl:text-base text-gray-400">Your Points / Total</h5>
+                            <h5 className="text-xs 2xl:text-base  text-color-10">Your Points / Total</h5>
                         </div>
                         <span>
                         </span>
@@ -238,15 +239,15 @@ function TeamPosition({team_position = 0, total_teams = 0}){
         <>
         <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300">
             <div className="w-full col-span-1 relative  m-auto p-0 border-none rounded-lg report-box"  data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" >
-                <div  className="block  p-6 bg-card-custom  rounded-lg shadow relative">
+                <div  className="block  p-6 bg-color-1  rounded-lg shadow relative">
                 <div className="flex justify-between items-center ">
                         <div>
                             {/* <FaCoins size={40}  className="text-blue-500 mb-6" /> */}
-                            <FaAward  size={35}  className="text-light-blue mb-6"  />
-                            <p className="font-bold  leading-8 text-white  text-3xl mb-2">
+                            <FaAward  size={35}  className="text-color-2 mb-6"  />
+                            <p className="font-bold  leading-8 text-color-6  text-3xl mb-2">
                                 {team_position && <CountUp end={team_position}  duration={3} />} / {total_teams && <CountUp end={total_teams}  duration={3} />}  
                             </p>
-                            <h5 className="text-xs 2xl:text-base text-gray-400">Team Position / Total</h5>
+                            <h5 className="text-xs 2xl:text-base text-color-10">Team Position / Total</h5>
                         </div>
                         <span>
                         </span>
@@ -285,32 +286,32 @@ function TeamPosition({team_position = 0, total_teams = 0}){
 //   };
 
 
-function TeamCircularProgressBar({  totalPoints , overall_points }) {
-    let percentage = 0;
-    if(totalPoints !== 0){
-        percentage = parseInt((totalPoints / overall_points) * 100)
-    }
-    else{
-        percentage = 0
-    }
+// function TeamCircularProgressBar({  totalPoints , overall_points }) {
+//     let percentage = 0;
+//     if(totalPoints !== 0){
+//         percentage = parseInt((totalPoints / overall_points) * 100)
+//     }
+//     else{
+//         percentage = 0
+//     }
 
 
-    return (
-        <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300" data-aos="fade-down" data-aos-duration="500" data-aos-delay="800">
-            <div  className=" w-full col-span-1 p-6 bg-card-custom h-full rounded-lg shadow relative">
-                <div className="flex justify-center items-center h-full">
-                    <div style={{ width: 200 }}>
-                        <CircularProgressbar value={percentage} text={`${percentage}%`}   />
+//     return (
+//         <div className="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-105  duration-300" data-aos="fade-down" data-aos-duration="500" data-aos-delay="800">
+//             <div  className=" w-full col-span-1 p-6 bg-card-custom h-full rounded-lg shadow relative">
+//                 <div className="flex justify-center items-center h-full">
+//                     <div style={{ width: 200 }}>
+//                         <CircularProgressbar value={percentage} text={`${percentage}%`}   />
                         
-                    </div>
+//                     </div>
                         
-                    </div>
-                </div>
+//                     </div>
+//                 </div>
             
-        </div>
+//         </div>
         
-    )
-}
+//     )
+// }
 
 
 function checkEqualNumberOfQuestionsAndAnswers(data) {
@@ -570,26 +571,25 @@ function PlatformIntroduction({userId}){
 
 function TeamRow(){
     return (
-        <div className={"intro-y rounded text-gray-300  zoom-in" } style={{backgroundColor : "#3151bc"}} >
+        <div className={"intro-y rounded text-color-6  zoom-in bg-color-7" }  >
                 
                 <div className="px-4 py-4 mb-3 flex items-center  cursor-default rounded ">
                     
-                        <div className="w-10 h-10 flex-none relative rounded-md overflow-hidden">
-                            <Image style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100 h-100 object-cover absolute w-100" src="/assets/img/6qTxel0AUuRfjCLGU22340QeWSUNNnI2td9BcGOs.png"  alt="Your Image"  layout="fill"
-        objectFit="cover"
-        objectPosition="center" />
+                        <div className="w-10 h-10 flex-none relative rounded-md overflow-hidden ">
+                            {/* <Image style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100 h-100 object-cover absolute w-100" src="/assets/img/6qTxel0AUuRfjCLGU22340QeWSUNNnI2td9BcGOs.png"  alt="Your Image"  layout="fill" objectFit="cover" objectPosition="center" /> */}
+                            <Avatar seed={"X"} />
                         </div>
                         <div className="ml-4 mr-auto">
                             <div className="font-medium">
-                                <a className="flex items-center" href="#!">
+                                <a className="flex items-center bg-color-7" href="#!">
                                     Team - 1
                                 </a>
                             </div>
-                            <div className="font-base"><i>User-1</i></div>
+                            <div className="font-base bg-color-7"><i>User-1</i></div>
                             
                         </div>
                    
-                    <div className="py-1 px-2 rounded-full text-xs text-white bg-deep-indigo cursor-default font-medium">150 Points</div>
+                    <div className="py-1 px-2 rounded-full text-xs  bg-color-1 text-color-6 cursor-default font-medium">150 Points</div>
                     {/* <button linkurl="#!" className="view-writeup ml-2">
                         <div className="p-2 rounded-full text-xs text-white bg-deep-indigo cursor-pointer font-medium">
                             <FaExternalLinkAlt />
@@ -606,10 +606,10 @@ function TeamRow(){
 function TopTeamsBlock(){
     return (
         <>
-            <div className="p-5 bg-deep-blue-violet rounded-lg">
+            <div className="p-5 bg-color-1  rounded-lg">
         <div className="intro-y flex items-center h-10">
-            <h2 className="text-lg font-medium truncate mr-5 text-gray-300" >
-                Top Highest Team <i className="text-xs">(rewards assigned daily)</i>
+            <h2 className="text-lg font-medium truncate mr-5 text-color-6" >
+                {`Top Highest Team`}
             </h2>
             
         </div>
@@ -795,15 +795,14 @@ function TopStatisticsData({userId , userName}){
                 <div className=" grid gap-6 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " >
                     {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="600" */}
                     <TotalChallenges  totalChallenges={totalChallenges} totalSolvedChallenges={totalSolvedChallenges}    />
-                    
                     <UserObtainedPoints totalObtainedPointsUser={totalObtainedPointsUser} overall_points={scenarios[6]}  />
                     <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]}  />
                     <TeamPosition  team_position={team_position} total_teams={total_teams} />
                 </div>
                 {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
-                <PlatformIntroduction userId={userId} />
+                {/* <PlatformIntroduction userId={userId} /> */}
                 {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="1000" */}
-                <NewsBlock />
+                {/* <NewsBlock /> */}
                 <div className="grid grid-cols-12 gap-4 rounded-lg mt-4">
                     {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
                     
@@ -814,10 +813,10 @@ function TopStatisticsData({userId , userName}){
                 </div>
             </div>
             <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
-                <Discord />
-                <CareerBox />
+                {/* <Discord /> */}
+                {/* <CareerBox /> */}
                 <TopTeamsBlock />
-                <PublicDemo />
+                {/* <PublicDemo /> */}
                 
             </div>
         </div>

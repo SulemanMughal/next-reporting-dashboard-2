@@ -10,6 +10,8 @@
     "devPrisma": "npx prisma studio"
   },
   "dependencies": {
+    "@dicebear/collection": "^9.0.1",
+    "@dicebear/core": "^9.0.1",
     "@headlessui/react": "^1.7.15",
     "@heroicons/react": "^2.0.18",
     "@prisma/client": "^5.2.0",
@@ -33,7 +35,7 @@
     "inquirer": "^8.2.6",
     "isotope-layout": "^3.0.6",
     "next": "^14.2.4",
-    "next-auth": "^4.22.1",
+    "next-auth": "^4.24.7",
     "nextjs-toploader": "^1.4.2",
     "postcss": "8.4.26",
     "prisma": "^5.0.0",

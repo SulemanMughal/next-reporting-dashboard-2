@@ -18,35 +18,36 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 export const data = {
     labels: [
-        "Incident Response",
+        "Web Exploitation",
+        // "Incident Response",
         "Digital Forensics",
-        "Security Operations",
+        // "Security Operations",
         "Reverse Engineering",
-        "OSINT",
-        "Threat Hunting",
-        "Threat Intelligence"
+        // "OSINT",
+        // "Threat Hunting",
+        // "Threat Intelligence"
     ],
     datasets: [
         {
-            data: Array.from({ length: 7 }, () => Math.floor(Math.random() * 50)),
+            data: Array.from({ length: 3 }, () => Math.floor(Math.random() * 50)),
             backgroundColor: [
-                "#2ecc71",
-                "#3498db",
-                "#e74c3c",
-                "#9b59b6",
-                "#f1c40f",
-                "#cf6a87",
-                "#c7ecee",
+                "#486de8",
+                "#018977",
+                "#e07f9d",
+                // "#9b59b6",
+                // "#f1c40f",
+                // "#cf6a87",
+                // "#c7ecee",
                 null
             ],
             hoverBackgroundColor: [
-                "#2ecc71",
-                "#3498db",
-                "#e74c3c",
-                "#9b59b6",
-                "#f1c40f",
-                "#cf6a87",
-                "#c7ecee",
+                "#486de8",
+                "#018977",
+                "#e07f9d",
+                // "#9b59b6",
+                // "#f1c40f",
+                // "#cf6a87",
+                // "#c7ecee",
                 null
             ],
             borderWidth: 3,
@@ -211,24 +212,24 @@ export default function ChallengesChart({userId}){
 
 <>
 
-<div  className='w-full col-span-4' data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
+<div  className='w-full col-span-3' data-aos="fade-down" data-aos-duration="500" data-aos-delay="900">
     <div className="intro-y flex items-center h-10 mt-5">
         <h2 className="text-lg font-medium truncate mr-5 text-white">
             Challenges
         </h2>
         <div className="sm:ml-auto mt-3 sm:mt-0 relative text-gray-700 text-gray-300">
-            <select className="appearance-none placeholder-gray-300 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-gray-300    w-full p-2 pl-4 pr-8   m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm" model="selectedYear">
+            <select className="appearance-none placeholder-gray-300 outline-0  border border-2 border-color-1 focus:border focus:border-2 focus:border-color-1  text-color-6    w-full p-2 pl-4 pr-8   m-0 mt-2 text-base block bg-color-1  rounded-md shadow-sm" model="selectedYear">
                 <option value="" disabled="">Year</option>
-                                    <option value="2023">2023</option>
+                                    <option value="2024">2024</option>
                             </select>
-                            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-color-6">
                 <svg className="h-5 w-5 mt-2 text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                 </svg>
               </div>
         </div>
     </div>
-    <div  className="intro-y box p-5 mt-10 bg-deep-blue-violet rounded-lg"><div className="chartjs-size-monitor"><div className="chartjs-size-monitor-expand"><div className=""></div></div><div className="chartjs-size-monitor-shrink"><div className=""></div></div></div>
+    <div  className="intro-y box p-5 mt-10 bg-color-1 rounded-lg"><div className="chartjs-size-monitor"><div className="chartjs-size-monitor-expand"><div className=""></div></div><div className="chartjs-size-monitor-shrink"><div className=""></div></div></div>
         <div className="chartjs-size-monitor">
             <div className="chartjs-size-monitor-expand">
                 <div className=""></div>
@@ -239,7 +240,7 @@ export default function ChallengesChart({userId}){
         </div>
         {/* <canvas ignore="" x-ref="chart" className="mt-3 chartjs-render-monitor" height="257" width="277" style="display: block; width: 277px; height: 257px;"></canvas> */}
 
-         <Pie data={data} height={"257"} width={"277"} options={{
+         <Pie data={data} height={"180"} width={"180"} options={{
             plugins: {
 
             
@@ -269,7 +270,7 @@ export default function ChallengesChart({userId}){
                 
                 <div className="flex items-center ">
                     <div className="w-2 h-2 rounded-full mr-3" style={{"backgroundColor": "#2ecc71"}}></div>
-                    <span className="truncate">Incident Response</span> 
+                    <span className="truncate">Web Exploitation</span> 
                     <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden"></div>
                     <span className="font-medium xl:ml-auto">0%</span> 
                 </div>
@@ -285,18 +286,18 @@ export default function ChallengesChart({userId}){
 
                         
                 
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                     <div className="w-2 h-2 rounded-full mr-3" style={{"backgroundColor": "#e74c3c"}}></div>
                     <span className="truncate">Security Operations</span> 
                     <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden"></div>
                     <span className="font-medium xl:ml-auto">0%</span> 
-                </div>
-                <div className="flex items-center">
+                </div> */}
+                {/* <div className="flex items-center">
                     <div className="w-2 h-2 rounded-full mr-3" style={{"backgroundColor": "#f39c12"}}></div>
                     <span className="truncate">CTF-Like</span> 
                     <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden"></div>
                     <span className="font-medium xl:ml-auto">0%</span> 
-                </div>
+                </div> */}
                         
                 
                 <div className="flex items-center">
@@ -308,30 +309,30 @@ export default function ChallengesChart({userId}){
 
                         
                 
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                     <div className="w-2 h-2 rounded-full mr-3" style={{"backgroundColor": "#f1c40f"}}></div>
                     <span className="truncate">OSINT</span> 
                     <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden"></div>
                     <span className="font-medium xl:ml-auto">0%</span> 
-                </div>
+                </div> */}
 
                         
                 
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                     <div className="w-2 h-2 rounded-full mr-3" style={{"backgroundColor": "#cf6a87"}}></div>
                     <span className="truncate">Threat Hunting</span> 
                     <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden"></div>
                     <span className="font-medium xl:ml-auto">0%</span> 
-                </div>
+                </div> */}
 
                         
                 
-                <div className="flex items-center">
+                {/* <div className="flex items-center">
                     <div className="w-2 h-2 rounded-full mr-3" style={{"backgroundColor": "#c7ecee"}}></div>
                     <span className="truncate">Threat Intelligence</span> 
                     <div className="h-px flex-1 border border-r border-dashed border-gray-300 mx-3 xl:hidden"></div>
                     <span className="font-medium xl:ml-auto">0%</span> 
-                </div>
+                </div> */}
 
             
         </div>

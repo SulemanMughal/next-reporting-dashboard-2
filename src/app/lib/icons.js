@@ -86,10 +86,27 @@ export  const cybersecurityIcons = {
 
 
 import { AiOutlineUser } from "react-icons/ai"
+import { FaServer } from "react-icons/fa6"
+import { BsStarHalf } from "react-icons/bs"
+import { FaUserLarge } from "react-icons/fa6"
 
 const OutlineUser = (props) => {
     return <AiOutlineUser {...props} />
 }
 
 
-export { OutlineUser };
+const ChallengeIcon = (props) => {
+    return <FaServer {...props} />
+}
+
+
+const PointsIcon = (props) => {
+    return <BsStarHalf {...props} />
+}
+
+
+const UserIcon = (props) => {
+    return <FaUserLarge {...props} />
+}
+
+export { OutlineUser, ChallengeIcon, UserIcon, PointsIcon };
