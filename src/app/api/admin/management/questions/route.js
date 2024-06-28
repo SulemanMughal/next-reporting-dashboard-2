@@ -6,7 +6,7 @@ import encrypt from "@/app/lib/encrypt";
 
 
 // Get All Questions
-export async function GET(request : Request){
+export async function GET(request){
     try {
         const questions = await prisma.question.findMany({
             select : {
