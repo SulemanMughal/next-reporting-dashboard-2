@@ -434,9 +434,10 @@ function QuizInfoList({questions , scenario}){
         <div className="absolute sm:relative -mt-12 sm:mt-0 w-full flex  text-gray-400 sm:text-sm text-xs ">
             
             <div className="intro-x sm:mr-3 ">
-                <span className="font-medium text-gray-400 text-xs 2xl:text-sm ">{"Team Points"} / {"Total"}</span>
+                {/* <span className="font-medium text-gray-400 text-xs 2xl:text-sm ">{"Team Points"} / {"Total"}</span> */}
+                <span className="font-medium text-gray-400 text-xs 2xl:text-sm ">{"Team Points"}</span>
                  <br />
-                <span className="font-bold text-yellow-500 text-lg">{totalObtainedPoints} / {totalPoints}</span> 
+                <span className="font-bold text-yellow-500 text-lg">{totalObtainedPoints}</span> 
                 <br />
                 
             </div>

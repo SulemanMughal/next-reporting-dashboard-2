@@ -1,0 +1,17 @@
+// user challenges list
+
+<div  className="block  p-6 bg-color-1  rounded-lg shadow ">
+    <SearchInput /> 
+    <SelectField options={options} onChange={handleSelectChange} />
+    <CheckboxGroup text={"Status"} options={options_2} />
+    <DifficultyLevelCheckBox />
+    {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
+    {/* <CheckboxGroup text={"Categories"} options={options_4} /> */}
+    {
+        categories && <CheckboxGroup text={"Categories"} options={categories} />
+    }
+    <ResetFilterBtn />
+</div>
+
+
+

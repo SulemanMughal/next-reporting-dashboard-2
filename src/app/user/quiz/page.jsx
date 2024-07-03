@@ -362,6 +362,18 @@ function calculateTotalObtainedPoints(questions) {
 }
 
 
+const TeamInfraTeam = () => {
+  return (
+    <div  className="block  p-6 bg-color-1  rounded-lg shadow ">
+      <div className="text-lg w-full mr-5 text-gray-300">
+          <b  className="text-color-6" >
+              {"Access Remote Machines"}
+          </b>
+      </div>
+    </div>
+  )
+}
+
 function getUniqueScenarios(scenarios) {
   
   
@@ -440,6 +452,8 @@ export default function Page() {
 
 
 
+
+
     const DataFetch = () => {
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}`)
       .then(res => {
@@ -500,32 +514,7 @@ export default function Page() {
             <CustomToaster />
             <div className="p-4 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                     <div className="w-full col-span-1 relative  p-0 border-none rounded-lg "  >
-                        {/* <FiltersBtn quizTotalPoints={quizTotalPoints}  teamTotalPoints={teamTotalPoints} /> */}
-                        <div className="intro-y col-span-12 md:col-span-3 flex flex-wrap sm:flex-nowrap items-center pl-5 pr-5 pb-5 pt-5 mb-5 bg-color-1 ">
-                          <div className="text-lg w-full mr-5 text-gray-300">
-                            <b  className="text-color-6" >
-                                Team Progress
-                            </b>
-
-                            <div className="w-full h-9 mt-2 bg-color-3 rounded">
-                                {/* <div style={{"width": `${parseInt(0.5*100)}%`}} className="h-full bg-color-2 rounded text-center text-color-4 font-bold">{parseInt((teamTotalPoints/quizTotalPoints)*100)}%</div> */}
-                                <div style={{"width": `${parseInt((teamTotalPoints/quizTotalPoints)*100)}%`}} className="h-full bg-color-2 rounded text-center text-color-4 font-bold">{parseInt((teamTotalPoints/quizTotalPoints)*100)}%</div>
-                            </div>
-                          </div>
-                          <Image  width={"100"}  height={"100"} alt="image" className="rounded-full  ml-3 ml-auto" src="/assets/img/hacker.svg" />
-                        </div>
-                        <div  className="block  p-6 bg-color-1  rounded-lg shadow ">
-                        <SearchInput /> 
-                        <SelectField options={options} onChange={handleSelectChange} />
-                        <CheckboxGroup text={"Status"} options={options_2} />
-                        <DifficultyLevelCheckBox />
-                        {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
-                        {/* <CheckboxGroup text={"Categories"} options={options_4} /> */}
-                        {
-                          categories && <CheckboxGroup text={"Categories"} options={categories} />
-                        }
-                        <ResetFilterBtn />
-                        </div>
+                        <TeamInfraTeam />
                     </div>
                     <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "  >
                         <div className="grid   gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">

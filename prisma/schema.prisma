@@ -45,21 +45,19 @@ model Team {
   quizId String?
   answers Answer[]
   users  User[]
+  infras  TeamInfra[]
   createdAt DateTime  @default(now())
 }
 
 
-// model TeamInfra{
-//   id    String  @id @default(uuid())
-//   team_no String
-//   team_name String
-//   team_ip String
-//   team_port String
-//   team_username String
-//   team_password String
-//   team_os String
-//   createdAt DateTime  @default(now())
-// }
+model TeamInfra{
+  id    String  @id @default(uuid())
+  hostname String
+  ip_address String
+  team Team? @relation(fields: [teamId], references: [id])
+  teamId String?
+  createdAt DateTime  @default(now())
+}
 
 model User {
   id   String  @id @default(uuid())

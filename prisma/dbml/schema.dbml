@@ -26,6 +26,16 @@ Table Team {
   quizId String
   answers Answer [not null]
   users User [not null]
+  infras TeamInfra [not null]
+  createdAt DateTime [default: `now()`, not null]
+}
+
+Table TeamInfra {
+  id String [pk]
+  hostname String [not null]
+  ip_address String [not null]
+  team Team
+  teamId String
   createdAt DateTime [default: `now()`, not null]
 }
 
@@ -114,6 +124,8 @@ Table LogEntry {
 }
 
 Ref: Team.quizId > Quiz.id
+
+Ref: TeamInfra.teamId > Team.id
 
 Ref: User.teamId > Team.id
 

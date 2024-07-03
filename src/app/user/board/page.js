@@ -878,14 +878,14 @@ color="#9fef00"
                     <h1 className="text-color-6 text-2xl font-bold">
                         {`Global Leaderboard`}
                     </h1>
-                    <div className="flex justify-end items-center ">
+                    {/* <div className="flex justify-end items-center ">
                         <FilterResetBtn />
                         <SearchInput />
+                    </div> */}
                         {/* <FilterByCountry /> */}
-                    </div>
                 </div>
                 {/* Top Score Header Row */}
-                {totalPoints && <TopScoreHeaderRow totalPoints={totalPoints} teamTotalObtainedPoints={teamTotalObtainedPoints} usersGroupedByCountry={usersGroupedByCountry} /> }
+                {/* {totalPoints && <TopScoreHeaderRow totalPoints={totalPoints} teamTotalObtainedPoints={teamTotalObtainedPoints} usersGroupedByCountry={usersGroupedByCountry} /> } */}
                 {/* <UserProgress /> */}
                 {/* {  (session && session?.user  && userData.length )  && (<UserProgressHeader userData={userData} />) } */}
                 {userData && (<UserProgressHeader userData={userData} />) }
