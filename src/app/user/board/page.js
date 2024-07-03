@@ -596,11 +596,14 @@ function UserProgressHeader({userData}){
                 </td>
 
                 {/* total obtainedPoints for a user */}
-                <td className="text-center table-report__action text-lg text-yellow-400">{calculateTotalObtainedPoints(userData?.answers)}</td>
+                <td className="text-center table-report__action text-lg text-yellow-400">
+                    {/* {calculateTotalObtainedPoints(userData?.answers)} */}
+                    <div className="text-green-600 text-base whitespace-nowrap">{"+" + ` ${LastSubmitAnswerCategory(userData?.answers)?.obtainedPoints || 0}` + " Points"}</div>
+                </td>
                 <td className="text-center table-report__action text-base">
                     {/* Last Submission CAtegory */}
                     <a href="#!" className="font-medium whitespace-nowrap text-gray-300">{LastSubmitAnswerCategory(userData?.answers)?.question?.scenario?.category || "N/A"}</a>
-                    <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${LastSubmitAnswerCategory(userData?.answers)?.obtainedPoints || 0}` + " Points"}</div>
+                    {/* <div className="text-green-600 text-xs whitespace-nowrap">{"+" + ` ${LastSubmitAnswerCategory(userData?.answers)?.obtainedPoints || 0}` + " Points"}</div> */}
                 </td>
                 <td className="table-report__action w-56">
                     <div className="flex justify-center items-center">
@@ -732,11 +735,13 @@ function TableTr({index , item}){
 
 
 function LeaderBoardTable({data , userData }){
+
+    // console.debug(data , "LeaderBoardTable")
     return (
         <>
             <div className="intro-y col-span-12 overflow-auto lg:overflow-visible text-gray-400" >
                 <table className="table table-report -mt-2">
-                <thead data-aos="zoom-in" data-aos-duration="1000" data-aos-delay={500}>
+                <thead >
                     <tr className="text-white ">
                         <th className="text-center whitespace-nowrap" style={{"width":"0.5%", "border":"0px", "padding":"0px", "paddingLeft":"20px"}}> </th>
                         <th className="whitespace-nowrap" style={{"width":"1%"}}></th>
@@ -782,16 +787,21 @@ export default function Page(){
 
 
     const DataFetch = () => {
+
+        // console.debug("DataFetch")
+
         try {
             axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/board/`)
             .then((res) => {
+                // console.debug("NEXT_PUBLIC_BASE_URL")
                 const {...data_2} = decrypt(res.data.encryptedData)
+                // console.debug(data_2)
                 if(data_2.status === true){
                     // console.debug(data_2?.results)
                     setData(data_2.results)
                     // setError(null);
                     setUsersGroupedByCountry(data_2.usersGroupedByCountry)
-
+                    
                     
                     
                 } else {
@@ -819,7 +829,6 @@ export default function Page(){
 
     const getUserData = ({userID}) => {
         try {
-            // console.debug(userID)
             axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/board/${userID}/`)
             .then((res) => {
                 const {...data_3} = decrypt(res.data.encryptedData)
@@ -889,7 +898,8 @@ color="#9fef00"
                 {/* <UserProgress /> */}
                 {/* {  (session && session?.user  && userData.length )  && (<UserProgressHeader userData={userData} />) } */}
                 {userData && (<UserProgressHeader userData={userData} />) }
-                { data && ( <LeaderBoardTable data={data} userData={userData}  /> ) }
+                {/* <LeaderBoardTable data={data} userData={userData}  /> */}
+                {/* { data && <LeaderBoardTable data={data} userData={userData}  /> } */}
                 
                 
                 

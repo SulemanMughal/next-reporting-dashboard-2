@@ -169,7 +169,7 @@ export async function GET(request: Request){
         
         
 
-
+        // console.debug({status : true ,  top_users , users, total_users, paginationData   })
         // console.debug(users)
         const encryptedData = encrypt({status : true ,  top_users , users, total_users, paginationData   })
         return new Response(JSON.stringify({ encryptedData }))

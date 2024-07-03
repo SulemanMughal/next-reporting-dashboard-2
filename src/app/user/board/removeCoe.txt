@@ -1,0 +1,15 @@
+<td className="">
+                    {/* <div className="flex">
+                        <div className="w-10 h-10 image-fit zoom-in">
+                            <Image style={{"border":"2px solid #c90076"}} alt="asdasd" width={40} height={40} className="rounded-full border-opacity-100" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
+                        </div>
+                    </div> */}
+                    <div className="flex">
+                    <div className="w-10 h-10 image-fit zoom-in">
+                        {/* <Image width={40} height={40} style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100" src="/assets/img/download.png" alt="asdasd" /> */}
+                        <button className="bg-white  text-columbia-blue  text-md p-2 rounded-full border border-4 border-double border-blue-500">
+                                {getInitials(userData?.name)}
+                        </button>
+                    </div>
+                </div>
+                </td>

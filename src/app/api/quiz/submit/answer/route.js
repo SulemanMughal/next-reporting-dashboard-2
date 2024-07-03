@@ -83,21 +83,21 @@ export async function POST(request ){
 
         
 
-        let first_attempt = configurations.find((element) => element.key === 'first_attempt').value;
-        let second_attempt = configurations.find((element) => element.key === 'second_attempt').value;
-        let third_attempt = configurations.find((element) => element.key === 'third_attempt').value;
+        // let first_attempt = configurations.find((element) => element.key === 'first_attempt').value;
+        // let second_attempt = configurations.find((element) => element.key === 'second_attempt').value;
+        // let third_attempt = configurations.find((element) => element.key === 'third_attempt').value;
 
         
         // points = all_answers.length == 0 ? points + parseInt(first_attempt) : all_answers.length == 1 ? points + parseInt(second_attempt) : all_answers.length == 2 ? points + parseInt(third_attempt) : points + 0;
-        if(all_answers.length == 0){
-            points = points + parseInt(first_attempt);
-        } else if (all_answers.length == 1){
-            points = points + parseInt(second_attempt);
-        } else if (all_answers.length == 2){
-            points = points + parseInt(third_attempt);
-        } else{
-            points = points + 0;
-        }
+        // if(all_answers.length == 0){
+        //     points = points + parseInt(first_attempt);
+        // } else if (all_answers.length == 1){
+        //     points = points + parseInt(second_attempt);
+        // } else if (all_answers.length == 2){
+        //     points = points + parseInt(third_attempt);
+        // } else{
+        //     points = points + 0;
+        // }
 
         // console.debug(first_attempt, second_attempt, third_attempt);
 

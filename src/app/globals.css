@@ -9,9 +9,9 @@
 
 :root{
   --color-1 : #0b121f; /* btn-text */
-  --color-2 : #9fef00;
+  --color-2 : rgb(159, 239, 0);
   --color-3 : #141d2b;
-  --color-4 : #000;
+  --color-4 : rgb(0, 0, 0);
   --color-5 : #bbff34;
   --color-6 : #a4b1cd ; /* span text p */
   --color-7 : #202837;
@@ -612,7 +612,14 @@ main#main.contact-us-main .list-inline {
   border-color: rgba(49,81,188,1);;
 }
 
-
+.btn-profile-dropdown{
+  background-color: var(--color-9)  ;
+  border-radius: 0.875rem ;
+}
+/* 
+.btn-profile-dropdown button:hover{
+  background-color: var(--color-1)  ;
+} */
 .btn-flag-submit{
   background-color: #07092c;
 }

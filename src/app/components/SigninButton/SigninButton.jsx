@@ -57,13 +57,13 @@ function ProfileDropDown({username, email}){
       leaveFrom="transform opacity-100 scale-100"
       leaveTo="transform opacity-0 scale-95"
     >
-      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0 btn-flag-submit   text-white  shadow-lg  focus:outline-none">
+      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0 btn-profile-dropdown   text-white  shadow-lg  focus:outline-none">
         <div className="py-0">
           <Menu.Item >
             {({ active }) => (
               <button   className={classNames(
                 active ? 'bg-gray-100 text-gray-900 ' : '',
-                'block px-4 py-5 text-sm  w-full uppercase flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
+                'block px-4 py-5 text-sm  w-full uppercase flex justify-start items-center  '
               )}>{username}</button>
             )}
           </Menu.Item>  
@@ -71,7 +71,7 @@ function ProfileDropDown({username, email}){
             {({ active }) => (
               <button   className={classNames(
                 active ? 'bg-gray-100 text-gray-900 ' : '',
-                'block px-4 py-5 text-sm  w-full uppercase flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
+                'block px-4 py-5 text-sm  w-full uppercase flex justify-start items-center  '
               )}>
                 <div className="flex">
                   <FaUserLarge size={18} className="mr-2" /> <span>{email}</span>
@@ -83,7 +83,7 @@ function ProfileDropDown({username, email}){
             {({ active }) => (
               <button   className={classNames(
                 active ? 'bg-gray-100 text-gray-900 ' : '',
-                'block px-4 py-5 text-sm  w-full uppercase flex justify-start items-center  hover:bg-blue-300 hover:text-blue-800'
+                'block px-4 py-5 text-sm  w-full uppercase flex justify-start items-center  '
               )}>
                 <div className="flex ">
                   <FaUsersCog size={18} className="mr-2" /> <span>{"Account Settings"}</span>
