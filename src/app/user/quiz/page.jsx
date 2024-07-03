@@ -29,9 +29,6 @@ import {getDifficultyColor} from "@/app/lib/helpers"
 
 import { FaUser } from "react-icons/fa";
 import { PiPasswordFill } from "react-icons/pi";
-
-// import { TbPasswordUser } from "react-icons/tb";
-// import { useState } from "react";
 import { BiHide, BiShow } from "react-icons/bi";
 
 

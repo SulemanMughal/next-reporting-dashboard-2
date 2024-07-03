@@ -3,6 +3,8 @@
 
 import { AiOutlineFileZip } from "react-icons/ai"
 import axios from "axios";
+import { PiPasswordFill } from "react-icons/pi";
+import { BiHide, BiShow } from "react-icons/bi";
 import { toast } from "react-hot-toast";
 import {  use, useEffect, useRef, useState } from "react";
 import {  useSession } from "next-auth/react";
@@ -308,6 +310,27 @@ function FileDownloadButton({ file }) {
                 </div> */}
 
 
+
+const PasswordRow = ({password}) => {
+const [showPassword, setShowPassword] = useState(false);
+const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+};
+return (
+    <>
+        <span className="text-white">
+        {showPassword ? password : "********"}
+        </span>
+        <button
+        className="text-white pl-2"
+        onClick={handleTogglePassword}
+        >
+        {showPassword ? <BiHide /> : <BiShow />}
+        </button>
+    </>
+)
+}
+
 // FileInformation
 function QuizFileInfo({files}){
     
@@ -317,18 +340,20 @@ function QuizFileInfo({files}){
         {files && files.map((file, index) => (
             <div  key={file.id}>
                 <div className="w-full border-t border-gray-200  border-dark-5 border-dashed mt-5"></div>
-                <div className="flex items-center mt-5">
+                <div className="flex items-center mt-5 justify-between">
+                           <div className="flex items-center">
                             <div className="file">
-                                <a href="" className="w-12 file__icon file__icon--file">
-                                    <FaFile  className="text-lg 2xl:text-3xl text-white"/>
-                                </a>
-                            </div>
-                            <FileSize  file={file} />
+                                    <a href="" className="w-12 file__icon file__icon--file">
+                                        <FaFile  className="text-lg 2xl:text-3xl text-white"/>
+                                    </a>
+                                </div>
+                                <FileSize  file={file} />
+                           </div>
 
                                 <div className="ml-auto  2xl:ml-4">
                                     <a className="font-medium text-gray-300 text-xs" href="">Password</a> 
                                     <div className="text-gray-400 text-xs">
-                                    {file.password}
+                                        <PasswordRow  password={file.password} />
                                     </div>
                                 </div>
                             
@@ -659,7 +684,7 @@ function extractLastStrategyName(inputString) {
 
   
 // single question component
-function Question({question, index, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves}){
+function Question({question, index, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood}){
     const [sovled, setSolved] = useState(checkAnswerSubmissionStatus(question.answers))
     const [isSubmit, setIsSubmit] = useState(false)
     const answer = useRef("")
@@ -700,9 +725,19 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                             .then(res => {
                                 const {...data_2 } = decrypt(res.data.encryptedData)
                                 if(data_2.status === true){
+                                    // console.debug(data_2)
+                                    // setFirstBlood()
+                                    // console.debug(data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood)
+                                    // let first_blood = data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;
+                                    // (first_blood.trim() !== "" && first_blood.trim() !== null) ? setFirstBlood(first_blood) : setFirstBlood(null)
+                                    // setFirstBlood(first_blood)
+                                    // setFirstBlood(data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood)
                                     setQuestions(data_2?.questions?.team?.quiz?.questions)
                                     setTopUser(findUserWithMostAnswersAndPoints(data_2?.questions))
                                     setRecentSolves(getUsersWithSubmissionTime(data_2?.questions?.team?.quiz?.questions))
+                                    let first_blood = data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;
+                                    first_blood !== null ? first_blood.trim() !== "" ? setFirstBlood(first_blood) : setFirstBlood(null) : setFirstBlood(null)
+                                    // console.debug(first_blood)
                                 }
                                 else{
                                     toast.error(`${data_2.error}`)
@@ -763,14 +798,14 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
 }
 
 
-function QuestionList({questions, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves}){
+function QuestionList({questions, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood}){
     return (
         <>
             <div  className="  p-5 bg-color-1 rounded-lg shadow " data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
                 <h2 className="text-xl font-medium mr-auto text-color-6">{"Challenge Submission"}</h2>
                 {
                     questions&&  questions.map((question, index) => {    
-                        return ( <Question key={index} question={question} setTopUser={setTopUser} team={team}  index={index+1} quiz={quiz} user={user}  setQuestions={setQuestions} params={params} setRecentSolves={setRecentSolves} /> )
+                        return ( <Question key={index} question={question} setTopUser={setTopUser} team={team}  index={index+1} quiz={quiz} user={user}  setQuestions={setQuestions} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} /> )
                     })
                 }
             </div>
@@ -843,79 +878,29 @@ function BestTeamMember({top_user ,team_name}){
         <>
             <div className="w-full border-t  border-dark-5 border-dashed mt-5"></div>
             <div className="flex justify-between  items-center">
-                        <div className="w-1/2 mt-3">
-                            <div className="intro-x flex items-center h-10">
-                                <h2 className="text-base font-bold truncate mr-5 text-red-700 flex  justify-start items-center">
-                                    <FaTint  />
-                                    Top User
-                                </h2>
-                            </div>
-                            { parseInt(top_user.mostPoints.points) !== 0 ? (
-                                <>
-                                    <div className="mt-1">
-                                        <a href="#!">
-                                            <div className="intro-x">
-                                                <div className=" mb-3 flex items-center zoom-in">
-                                                    <div className="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
-                                                        <Image  width={"50"} height={"50"} alt="LonerVamp" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
-                                                    </div>
-                                                    <div className="ml-4  ">
-                                                        <div className="font-medium text-gray-300 uppercase">{top_user.mostPoints.user}</div>
-                                                    </div>
-                                                    <div className="text-green-500 text-lg font-bold  ml-4">{top_user.mostPoints.points + " Pts"}</div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                </>
-                            ) : (
-                                <div className="mt-1">
-                                    <a href="#!">
-                                        <div className="intro-x">
-                                            <div className=" mb-3 flex items-center zoom-in">
-                                                <div className="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
-                                                    <Image  width={"50"} height={"50"} alt="LonerVamp" src="/assets/img/48Gxpjc6W9oVa1mwbSu5TX1VmaFJxxeNp2MiI7dC.png" />
-                                                </div>
-                                                <div className="ml-4  ">
-                                                    <div className="font-medium text-gray-300 uppercase">{"No User"}</div>
-                                                </div>
-                                                {/* <div className="text-green-500 text-lg font-bold  ml-4">{top_user.mostPoints.points + " Pts"}</div> */}
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            )}
-                            
-                        </div>
-
-                        <div className="w-1/2 mt-3 ml-10 ">
-                            <div className="intro-x flex items-center justify-start h-10">
-                                <h2 className="text-base font-medium truncate mr-5 text-amber-400  flex items-center justify-start">
-                                    <FaCloud className="mr-2"/>
-                                    Team
-                                </h2>
-                            </div>
-
-                            
-                            <div className="mt-1 ">
-                                <a href="#!">
-                                    <div className="intro-x">
-                                        <div className=" mb-3 flex items-center zoom-in">
-                                            <div className="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
-                                                {/* <Image  width={"50"} height={"50"} alt="BTLO" src="/assets/img/bWwHTdsIEC1mQFPmnXnZ.png" /> */}
-                                                <Image  width={"100"}  height={"100"} alt="image" className="rounded-full  ml-3 ml-auto" src="/assets/img/hacker.svg" />
-                                            </div>
-                                            <div className="ml-4 ">
-                                                {/* <div className="font-medium text-gray-300">{"Current Team Name"}</div> */}
-                                            </div>
-                                            <div className="text-gray-300 text-lg font-bold">{team_name}</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
+                <div className="w-1/2 mt-3">
+                    <div className="intro-x flex items-center h-10">
+                        <h2 className="text-base font-bold truncate mr-5 text-red-700 flex  justify-start items-center">
+                            <FaTint  />
+                            First Blood
+                        </h2>
                     </div>
+                    <div className="mt-1 ">
+                        <a href="#!">
+                            <div className="intro-x">
+                                <div className=" mb-3 flex items-center zoom-in">
+                                    <div className="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
+                                        <Image  width={"100"}  height={"100"} alt="image" className="rounded-full  ml-3 ml-auto" src="/assets/img/hacker.svg" />
+                                    </div>
+                                    <div className="ml-4 ">
+                                    </div>
+                                    <div className="text-gray-300 text-lg font-bold">{team_name}</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
@@ -977,8 +962,7 @@ function RecentSolves({questions , recentSolves}){
 }
 
 
-function Details({scenario , questions , top_user , team_name , recentSolves}){
-    // console.debug(scenario)
+function Details({scenario , questions , top_user , team_name , recentSolves, setFirstBlood, firstBlood}){
     return (
         <>
             <div  className="block  p-6 bg-color-1 rounded-lg shadow ">
@@ -989,6 +973,11 @@ function Details({scenario , questions , top_user , team_name , recentSolves}){
                 <QuizTags tags={scenario.tags}/>
                 <QuizInfoList questions={questions}  scenario={scenario}/>
                 {scenario?.files?.length ? ( <QuizFileInfo  files={scenario?.files}/> ) : null }
+                {firstBlood && <BestTeamMember top_user={top_user} team_name={firstBlood} />}
+                
+                {/* {scenario?.first_blood.trim() !== "" && scenario?.first_blood.trim() !== null ? ( <BestTeamMember top_user={top_user} team_name={scenario?.first_blood} /> ) : null } */}
+
+
                 {/* <BestTeamMember top_user={top_user} team_name={team_name}  /> */}
                 {/* <RecentSolves  questions={questions} recentSolves={recentSolves}/> */}
             </div>
@@ -1072,6 +1061,7 @@ function QuizLoad({params, userID}){
     const [teamName, setTeamName] = useState(null)
     const [recentSolves, setRecentSolves] = useState([])
     const [showModal, setShowModal] = useState(false)
+    const [firstBlood, setFirstBlood] = useState(null)
 
 
 
@@ -1095,12 +1085,16 @@ function QuizLoad({params, userID}){
                 setQuestions(data?.questions?.team?.quiz?.questions)
                 if(data?.questions?.team?.quiz?.questions.length){
                     setScenario(data?.questions?.team?.quiz?.questions[0]?.scenario)
+                    
                     setTeam(data?.questions?.team?.id)
                     setTeamName(data?.questions?.team?.name)
                     setQuiz(data?.questions?.team?.quiz?.id)
                     setTopUser(findUserWithMostAnswersAndPoints(data?.questions))
                     // console.debug(getUsersWithSubmissionTime(data?.questions?.team?.quiz?.questions))
                     setRecentSolves(getUsersWithSubmissionTime(data?.questions?.team?.quiz?.questions))
+                    let first_blood = data?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;
+                    first_blood !== null ? first_blood.trim() !== "" ? setFirstBlood(first_blood) : setFirstBlood(null) : setFirstBlood(null)
+                    console.debug(first_blood)
                     
                 }
             }
@@ -1119,12 +1113,12 @@ function QuizLoad({params, userID}){
         {questions && (
                 <div className="p-2 grid  grid-cols-6 gap-4 items-start justify-center" >
                     <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="700" data-aos-delay="500">
-                        {scenario && <Details scenario={scenario} questions={questions} top_user={topUser}  team_name={teamName} recentSolves={recentSolves} /> } 
+                        {scenario && <Details scenario={scenario} questions={questions} top_user={topUser}  team_name={teamName} recentSolves={recentSolves} setFirstBlood={setFirstBlood} firstBlood={firstBlood} /> } 
                     </div>
                     <div className="w-full col-span-4 relative   p-0  rounded-0">
                         {/* {scenario &&  <ScenarioDescription scenario={scenario}  /> }  */}
                         {/* {scenario && <ReportIssue   setShowModal={setShowModal} />} */}
-                        <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} setTopUser={setTopUser} params={params} setRecentSolves={setRecentSolves} />
+                        <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} setTopUser={setTopUser} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} />
                     </div>
                 </div>
         )}

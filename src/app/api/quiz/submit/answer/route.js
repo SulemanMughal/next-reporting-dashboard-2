@@ -114,6 +114,8 @@ export async function POST(request ){
     const body = await request.json()
     const {...data } = decrypt(body.encryptedData)
     const { question  , answer , team , quiz , user} = data
+
+    console.debug({ question  , answer , team , quiz , user})
     // console.debug(question?.scenarioId)
 
     // getTotalQuestionsByScenarioId(question?.scenarioId).then((data) => console.debug(data))

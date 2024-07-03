@@ -86,6 +86,8 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                                                     tags : true,
                                                     files : true,
                                                     os_type : true,
+                                                    first_blood_points : true,
+                                                    first_blood : true
                                                     
                                                 }
                                             }
