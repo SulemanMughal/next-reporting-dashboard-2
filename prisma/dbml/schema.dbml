@@ -11,6 +11,14 @@ Table Quiz {
   teams Team [not null]
 }
 
+Table Config {
+  id String [pk]
+  key String [unique, not null]
+  value String [not null]
+  is_active Boolean [not null, default: true]
+  createdAt DateTime [default: `now()`, not null]
+}
+
 Table Team {
   id String [pk]
   name String [unique, not null]

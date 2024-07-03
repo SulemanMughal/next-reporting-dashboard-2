@@ -15,6 +15,22 @@ function arraysHaveElements(array1, array2) {
 }
 
 
+function getConfigurations(){
+    return prisma.config.findMany({})
+
+}
+
+
+function getAllAnswersSubmitted(question_id){
+    return prisma.answer.findMany({
+        where : {
+            questionId : question_id,
+            submissionStatus: true,
+        }
+    })
+}
+
+
 function arraysHaveSameElementsIgnoreCaseAndTrim(array1, array2) {
     const trimLowerCaseArray1 = array1.map(element => element.trim().toLowerCase());
     const trimLowerCaseArray2 = array2.map(element => element.trim().toLowerCase());
@@ -57,9 +73,43 @@ export async function POST(request ){
         let points = 0;
         rightStatus ? (points = correct_answer.points) : (points = 0) ;
 
+        let all_answers = await getAllAnswersSubmitted(question);
+
+        // console.debug(all_answers)
+
+        let configurations = await getConfigurations().then((data) => data);
+
+
+
+        
+
+        let first_attempt = configurations.find((element) => element.key === 'first_attempt').value;
+        let second_attempt = configurations.find((element) => element.key === 'second_attempt').value;
+        let third_attempt = configurations.find((element) => element.key === 'third_attempt').value;
+
+        
+        // points = all_answers.length == 0 ? points + parseInt(first_attempt) : all_answers.length == 1 ? points + parseInt(second_attempt) : all_answers.length == 2 ? points + parseInt(third_attempt) : points + 0;
+        if(all_answers.length == 0){
+            points = points + parseInt(first_attempt);
+        } else if (all_answers.length == 1){
+            points = points + parseInt(second_attempt);
+        } else if (all_answers.length == 2){
+            points = points + parseInt(third_attempt);
+        } else{
+            points = points + 0;
+        }
+
+        // console.debug(first_attempt, second_attempt, third_attempt);
+
+
+        // console.debug(points)
 
         let result ;
+
+        // check if user try to submit answer
         if(checkExisingAnswer.answers.length) {
+
+            // console.debug("Submission")
             result = await prisma.answer.update({
                 where : {
                     questionId : question,

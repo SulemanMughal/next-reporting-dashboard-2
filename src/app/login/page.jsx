@@ -114,8 +114,6 @@ export default function Login() {
       ) : (
         <>
         <section >
-
-        
           <div className={"container mx-auto pt-12 login " }>
             <div className="flex flex-col items-center justify-between pt-0 pr-10 pb-0 pl-10 mt-0 mr-auto mb-0 ml-auto max-w-7xl
                 xl:px-5 lg:flex-row ">
@@ -129,6 +127,7 @@ export default function Login() {
                   </div> */}
                 </div>
                 <div className="w-full mt-20 mr-0 mb-0 ml-0 relative z-10 max-w-2xl lg:mt-0 lg:w-5/12" >
+                  
                   <div className="flex flex-col items-start justify-start pt-10 pr-10 pb-10 pl-10 bg-transparent  rounded-xl relative z-10">
                     <p className="w-full text-xl xl:text-2xl font-bold text-left leading-snug  text-white" data-aos="zoom-out" >{`Sign in`}</p>
                     <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-4">
@@ -154,6 +153,8 @@ export default function Login() {
                       </div>
                     </div>
                   </div>
+
+                  
                 </div>
               </div>
             </div>

@@ -22,6 +22,14 @@ model Quiz{
   teams Team[]
 }
 
+model Config{
+  id    String  @id @default(uuid())
+  key   String @unique
+  value String
+  is_active Boolean @default(true)
+  createdAt DateTime  @default(now())
+}
+
 // model AttackLogs{
 //   id    String  @id @default(uuid())
 //   createdAt          DateTime  @default(now()) 
@@ -39,6 +47,19 @@ model Team {
   users  User[]
   createdAt DateTime  @default(now())
 }
+
+
+// model TeamInfra{
+//   id    String  @id @default(uuid())
+//   team_no String
+//   team_name String
+//   team_ip String
+//   team_port String
+//   team_username String
+//   team_password String
+//   team_os String
+//   createdAt DateTime  @default(now())
+// }
 
 model User {
   id   String  @id @default(uuid())
