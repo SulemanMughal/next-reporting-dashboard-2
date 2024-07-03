@@ -99,6 +99,7 @@ model Scenario{
   files File[]
   os_type String? @default("Linux")
   first_blood String? @default("")
+  first_blood_points Int @default(0)
 }
 
 

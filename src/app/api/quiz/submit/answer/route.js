@@ -41,11 +41,85 @@ function arraysHaveSameElementsIgnoreCaseAndTrim(array1, array2) {
     return JSON.stringify(sortedTrimLowerCaseArray1) === JSON.stringify(sortedTrimLowerCaseArray2);
 }
 
+
+
+function getTotalQuestionsByScenarioId(scenario_id) {
+    return prisma.question.count({
+        where: {
+            scenarioId: scenario_id,
+        },
+    });
+}
+
+
+function getQuestionById(question_id) {
+    return prisma.question.findUnique({
+        where: {
+            id: question_id,
+        },
+    });
+}
+
+async function getTotalAnswersSubmittedByTeam(team_id, scenario_id) {
+    return prisma.answer.count({
+        where: {
+            teamId: team_id,
+            submissionStatus: true,
+            question: {
+                scenarioId: scenario_id
+            }
+        }
+    });
+}
+
+
+// async function updateScenarioById(scenario_id, data) {
+//     return prisma.scenario.update({
+//         where: {
+//             id: scenario_id,
+//         },
+//         data: {
+//             ...data,
+//         },
+//     });
+// }
+
+
+async function updateScenarioById(scenario_id, data) {
+    return prisma.scenario.update({
+        where: {
+            id: scenario_id,
+        },
+        data: {
+            ...data,
+        },
+    });
+}
+
+// // Example usage:
+// const scenarioId = "first_blood";
+// const newData = { /* updated scenario data */ };
+// await updateScenarioById(scenarioId, newData);
+
+
+async function getTeamById(team_id) {
+    return prisma.team.findUnique({
+        where: {
+            id: team_id,
+        },
+    });
+}
+
 export async function POST(request ){
     const body = await request.json()
     const {...data } = decrypt(body.encryptedData)
     const { question  , answer , team , quiz , user} = data
-    // console.debug(question)
+    // console.debug(question?.scenarioId)
+
+    // getTotalQuestionsByScenarioId(question?.scenarioId).then((data) => console.debug(data))
+
+    
+
     try{
         const checkExisingAnswer  = await prisma.question.findUnique({
             where : {
@@ -67,6 +141,8 @@ export async function POST(request ){
             }
         })
 
+        // console.debug(correct_answer)
+
         const arrOriginalAnswer = commaSeparatedStringToArray(correct_answer.original_answer);
         const arrSubmitAnswer = commaSeparatedStringToArray(answer)
         let rightStatus = arraysHaveSameElementsIgnoreCaseAndTrim(arrOriginalAnswer, arrSubmitAnswer)
@@ -80,12 +156,13 @@ export async function POST(request ){
         let configurations = await getConfigurations().then((data) => data);
 
 
+        // console.debug(all_answers.length, configurations)
 
         
 
-        // let first_attempt = configurations.find((element) => element.key === 'first_attempt').value;
-        // let second_attempt = configurations.find((element) => element.key === 'second_attempt').value;
-        // let third_attempt = configurations.find((element) => element.key === 'third_attempt').value;
+        let first_attempt = configurations.find((element) => element.key === 'first_attempt').value || 0;
+        let second_attempt = configurations.find((element) => element.key === 'second_attempt').value || 0;
+        let third_attempt = configurations.find((element) => element.key === 'third_attempt').value || 0;
 
         
         // points = all_answers.length == 0 ? points + parseInt(first_attempt) : all_answers.length == 1 ? points + parseInt(second_attempt) : all_answers.length == 2 ? points + parseInt(third_attempt) : points + 0;
@@ -105,6 +182,28 @@ export async function POST(request ){
         // console.debug(points)
 
         let result ;
+
+        let question_db =   await getQuestionById(question).then((data) => data);
+        
+        // let scenario_id = question_db.scenarioId;
+
+        let total_questions = await getTotalQuestionsByScenarioId(question_db?.scenarioId).then((data) => data);
+
+        // console.debug(total_questions)
+
+        
+
+        let team_db = await getTeamById(team).then((data) => data);
+
+
+        // console.debug(team_db?.name)
+
+        // if(total_questions == total_answers){
+        //     await updateScenarioById(question_db?.scenarioId, {first_blood : 'completed'}).then((data) => console.debug(data))
+        // }
+
+
+        
 
         // check if user try to submit answer
         if(checkExisingAnswer.answers.length) {
@@ -166,6 +265,19 @@ export async function POST(request ){
             })
         }
         
+
+        // total answers submitted by a team
+        let total_answers = await getTotalAnswersSubmittedByTeam(team, question_db?.scenarioId).then((data) => data);
+
+        // console.debug(total_answers)
+
+        if(total_questions == total_answers){
+            await updateScenarioById(question_db?.scenarioId, {
+                first_blood : team_db?.name,
+                first_blood_points : parseInt(first_attempt),
+            }).then((data) => data)
+        }
+
         const encryptedData = encrypt({status : true , result})
         return new Response(JSON.stringify({ encryptedData }))
     }

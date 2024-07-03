@@ -78,6 +78,7 @@ Table Scenario {
   files File [not null]
   os_type String [default: 'Linux']
   first_blood String [default: '']
+  first_blood_points Int [not null, default: 0]
 }
 
 Table File {
