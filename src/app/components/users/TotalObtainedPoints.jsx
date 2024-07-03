@@ -38,9 +38,9 @@ export default function TotalObtainedPoints({totalPoints , overall_points }){
                         <div>
                             <PointsIcon  size={35}  className="text-color-2 mb-6"  />
                             <p className="font-bold  leading-8 text-color-6 text-3xl mb-2">
-                                {totalPoints && <CountUp end={totalPoints}  duration={3} />} / {totalPoints && <CountUp end={overall_points}  duration={3} />}  
+                                {totalPoints && <CountUp end={totalPoints}  duration={3} />}
                             </p>
-                            <h5 className="text-xs 2xl:text-base text-color-10">Team Points / Total</h5>
+                            <h5 className="text-xs 2xl:text-base text-color-10">Team Points </h5>
                         </div>
                         <span>
                         </span>

@@ -349,13 +349,15 @@ function QuizFileInfo({files}){
                                 </div>
                                 <FileSize  file={file} />
                            </div>
-
-                                <div className="ml-auto  2xl:ml-4">
-                                    <a className="font-medium text-gray-300 text-xs" href="">Password</a> 
-                                    <div className="text-gray-400 text-xs">
-                                        <PasswordRow  password={file.password} />
+                                {file.password !== null && file.password.trim() !== "" && (
+                                    <div className="ml-auto  2xl:ml-4">
+                                        <a className="font-medium text-gray-300 text-xs" href="">Password</a> 
+                                        <div className="text-gray-400 text-xs">
+                                            <PasswordRow  password={file.password} />
+                                        </div>
                                     </div>
-                                </div>
+                                )}
+                                
                             
                             <div className="ml-auto  2xl:ml-4">
                                 <Link  href={`${file.filepath}`}  className="w-full my-5 flex items-center justify-center bg-color-3  text-color-2 font-medium font-xs   py-1 px-2  text-xs 2xl:py-2 2xl:px-4   border-none rounded " target="_blank" rel="noopener noreferrer">
@@ -597,7 +599,7 @@ function getSubmitAnswer(answers){
 }
 
 
-const SubmitBtn  = ({isSubmit , submitHandler}) => {
+const SubmitBtn  = ({isSubmit , submitHandler , text="Submit"}) => {
     return (
       <>
       {isSubmit ? 
@@ -607,12 +609,12 @@ const SubmitBtn  = ({isSubmit , submitHandler}) => {
   <path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="#1C64F2"/>
   </svg>
 
-  </button> : <button className="answer-submit-btn  w-full  text-white mt-2  h-full p-2 rounded flex items-center justify-center" onClick={submitHandler}>Submit <FiSend size={22} className="ml-2" /> </button> }
+  </button> : <button className="answer-submit-btn  w-full  text-white mt-2  h-full p-2 rounded flex items-center justify-center" onClick={submitHandler}>{text} <FiSend size={22} className="ml-2" /> </button> }
   </>
     )
   }
 
-function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, submittedAnswer , format}){
+function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, submittedAnswer , format , is_patch}){
     // console.debug(format)
     return (
         <>
@@ -633,15 +635,29 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
 
             ) : (
                 <>
-                    <div className="flex flex-wrap -mx-3 mt-2">
-                        <div className="w-full md:w-5/6 px-3 h-full">
-                            <input className="custom-form-control" id="grid-first-name" type="text" placeholder={format} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
+                {
+                    is_patch ? (
+                        <div className="flex flex-wrap -mx-3 mt-2">
+                            {/* <div className="w-full md:w-5/6 px-3 h-full">
+                                <input className="custom-form-control" id="grid-first-name" type="text" placeholder={format} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
+                                <select id="countries" class="custom-form-control" onChange={(e) => changeHandler(e)} >
+                                    <option value="false" selected>NO</option>
+                                    <option value="true">YES</option>
+                                </select>
+                            </div> */}
+                            <div className="w-full  px-3 h-full">
+                                <SubmitBtn  isSubmit={isSubmit} submitHandler={submitHandler} text={"Check Status"}/>
+                            </div>
                         </div>
-                        <div className="w-full md:w-1/6 px-3 h-full">
-                            <SubmitBtn  isSubmit={isSubmit} submitHandler={submitHandler}/>
-
+                    ) :  <div className="flex flex-wrap -mx-3 mt-2">
+                            <div className="w-full md:w-5/6 px-3 h-full">
+                                <input className="custom-form-control" id="grid-first-name" type="text" placeholder={format} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
+                            </div>
+                            <div className="w-full md:w-1/6 px-3 h-full">
+                                <SubmitBtn  isSubmit={isSubmit} submitHandler={submitHandler}/>
+                            </div>
                         </div>
-                    </div>
+                }
                 </>
 
             )}
@@ -684,7 +700,7 @@ function extractLastStrategyName(inputString) {
 
   
 // single question component
-function Question({question, index, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood}){
+function Question({question, index, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood , is_patch}){
     const [sovled, setSolved] = useState(checkAnswerSubmissionStatus(question.answers))
     const [isSubmit, setIsSubmit] = useState(false)
     const answer = useRef("")
@@ -694,6 +710,11 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
 
     const submitHandler = () => {
         setIsSubmit(true)
+
+        if(is_patch){
+            answer.current = "false"
+        }
+
         if(answer.current !== ""){
 
             
@@ -789,7 +810,7 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                     {`Question ${index} ) ${question.Description}`} <span className="text-xs text-gray-500 ml-2 italic">({question.points} points)</span>
                 </label>
                 {
-                    <AnswerInputWidget submitHandler={submitHandler} changeHandler={changeHandler}  sovled={sovled}  isSubmit={isSubmit} setIsSubmit={setIsSubmit}  submittedAnswer={submitAnswer}  format={extractLastStrategyName(question.Description)} />
+                    <AnswerInputWidget submitHandler={submitHandler} changeHandler={changeHandler}  sovled={sovled}  isSubmit={isSubmit} setIsSubmit={setIsSubmit}  submittedAnswer={submitAnswer}  format={extractLastStrategyName(question.Description)} is_patch={is_patch} />
                 }
                 
             </div>
@@ -798,14 +819,14 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
 }
 
 
-function QuestionList({questions, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood}){
+function QuestionList({questions, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood, is_patch}){
     return (
         <>
             <div  className="  p-5 bg-color-1 rounded-lg shadow " data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
                 <h2 className="text-xl font-medium mr-auto text-color-6">{"Challenge Submission"}</h2>
                 {
                     questions&&  questions.map((question, index) => {    
-                        return ( <Question key={index} question={question} setTopUser={setTopUser} team={team}  index={index+1} quiz={quiz} user={user}  setQuestions={setQuestions} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} /> )
+                        return ( <Question key={index} question={question} setTopUser={setTopUser} team={team}  index={index+1} quiz={quiz} user={user}  setQuestions={setQuestions} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} is_patch={is_patch} /> )
                     })
                 }
             </div>
@@ -1062,6 +1083,7 @@ function QuizLoad({params, userID}){
     const [recentSolves, setRecentSolves] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [firstBlood, setFirstBlood] = useState(null)
+    const [is_patch, setIsPatch] = useState(false)
 
 
 
@@ -1090,11 +1112,10 @@ function QuizLoad({params, userID}){
                     setTeamName(data?.questions?.team?.name)
                     setQuiz(data?.questions?.team?.quiz?.id)
                     setTopUser(findUserWithMostAnswersAndPoints(data?.questions))
-                    // console.debug(getUsersWithSubmissionTime(data?.questions?.team?.quiz?.questions))
                     setRecentSolves(getUsersWithSubmissionTime(data?.questions?.team?.quiz?.questions))
                     let first_blood = data?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;
                     first_blood !== null ? first_blood.trim() !== "" ? setFirstBlood(first_blood) : setFirstBlood(null) : setFirstBlood(null)
-                    console.debug(first_blood)
+                    setIsPatch(data?.questions?.team?.quiz?.questions[0]?.scenario?.is_patch)
                     
                 }
             }
@@ -1118,7 +1139,7 @@ function QuizLoad({params, userID}){
                     <div className="w-full col-span-4 relative   p-0  rounded-0">
                         {/* {scenario &&  <ScenarioDescription scenario={scenario}  /> }  */}
                         {/* {scenario && <ReportIssue   setShowModal={setShowModal} />} */}
-                        <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} setTopUser={setTopUser} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} />
+                        <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} setTopUser={setTopUser} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} is_patch={is_patch} />
                     </div>
                 </div>
         )}

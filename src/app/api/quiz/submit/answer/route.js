@@ -274,10 +274,12 @@ export async function POST(request ){
         // console.debug(total_answers)
 
         if(total_questions == total_answers){
-            await updateScenarioById(question_db?.scenarioId, {
-                first_blood : team_db?.name,
-                first_blood_points : parseInt(first_attempt),
-            }).then((data) => data)
+            if(!first_blood){
+                await updateScenarioById(question_db?.scenarioId, {
+                    first_blood : team_db?.name,
+                    first_blood_points : parseInt(first_attempt),
+                }).then((data) => data)
+            }
         }
 
         const encryptedData = encrypt({status : true , result})

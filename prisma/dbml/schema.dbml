@@ -79,6 +79,7 @@ Table Scenario {
   os_type String [default: 'Linux']
   first_blood String [default: '']
   first_blood_points Int [not null, default: 0]
+  is_patch Boolean [not null, default: false]
 }
 
 Table File {

@@ -79,7 +79,7 @@ function ProfileDropDown({username, email}){
               </button>
             )}
           </Menu.Item>  
-          <Menu.Item >
+          {/* <Menu.Item >
             {({ active }) => (
               <button   className={classNames(
                 active ? 'bg-gray-100 text-gray-900 ' : '',
@@ -90,7 +90,7 @@ function ProfileDropDown({username, email}){
                 </div>
               </button>
             )}
-          </Menu.Item> 
+          </Menu.Item>  */}
           <Menu.Item >
             <LogoutBtn />
           </Menu.Item> 

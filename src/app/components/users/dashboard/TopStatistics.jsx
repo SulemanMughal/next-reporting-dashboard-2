@@ -219,9 +219,9 @@ function UserObtainedPoints({totalObtainedPointsUser, overall_points}){
                         <div>
                             <UserIcon  size={35}  className="text-color-2  mb-6"  />
                             <p className="font-bold  leading-8 text-color-6   text-3xl mb-2">
-                                {totalObtainedPointsUser && <CountUp end={totalObtainedPointsUser}  duration={3} />} / {overall_points && <CountUp end={overall_points}  duration={3} />}  
+                                {totalObtainedPointsUser && <CountUp end={totalObtainedPointsUser}  duration={3} />}  
                             </p>
-                            <h5 className="text-xs 2xl:text-base  text-color-10">Your Points / Total</h5>
+                            <h5 className="text-xs 2xl:text-base  text-color-10">Your Points</h5>
                         </div>
                         <span>
                         </span>
@@ -245,9 +245,9 @@ function TeamPosition({team_position = 0, total_teams = 0}){
                             {/* <FaCoins size={40}  className="text-blue-500 mb-6" /> */}
                             <FaAward  size={35}  className="text-color-2 mb-6"  />
                             <p className="font-bold  leading-8 text-color-6  text-3xl mb-2">
-                                {team_position && <CountUp end={team_position}  duration={3} />} / {total_teams && <CountUp end={total_teams}  duration={3} />}  
+                                {team_position && <CountUp end={team_position}  duration={3} />}
                             </p>
-                            <h5 className="text-xs 2xl:text-base text-color-10">Team Position / Total</h5>
+                            <h5 className="text-xs 2xl:text-base text-color-10">Team Position</h5>
                         </div>
                         <span>
                         </span>
@@ -809,14 +809,14 @@ function TopStatisticsData({userId , userName}){
                     
                     {/* <InvestigationChart /> */}
                     {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
-                    <ChallengesChart userId={userId} />
+                    {/* <ChallengesChart userId={userId} /> */}
                     {/* <LabTimeChart /> */}
                 </div>
             </div>
             <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
                 {/* <Discord /> */}
                 {/* <CareerBox /> */}
-                <TopTeamsBlock />
+                {/* <TopTeamsBlock /> */}
                 {/* <PublicDemo /> */}
                 
             </div>

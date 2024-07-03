@@ -87,6 +87,7 @@ export async function GET(request: Request, {params} : {params : {id : string}})
             const teamRecords:any = await prisma.$queryRaw`SELECT t.id AS team_id, t.name AS team_name, SUM(a.obtainedPoints) AS total_obtained_points FROM Team AS t LEFT JOIN Answer AS a ON t.id = a.teamId GROUP BY t.id, t.name ORDER BY total_obtained_points DESC`
             const team_position = teamRecords.findIndex(record => record.team_id === team_id.teamId);
             const encryptedData = encrypt({status : true, user , total_teams: total_teams , team_position : (team_position+1)})
+            // const encryptedData = {status : true, user , total_teams: total_teams , team_position : (team_position+1)}
             return new Response(JSON.stringify({ encryptedData }))
         }
         
