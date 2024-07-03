@@ -52,8 +52,11 @@ model Team {
 
 model TeamInfra{
   id    String  @id @default(uuid())
-  hostname String
+  hostname String @default("")
   ip_address String
+  username String @default("")
+  password String @default("")
+  machine_type String @default("Linux")
   team Team? @relation(fields: [teamId], references: [id])
   teamId String?
   createdAt DateTime  @default(now())

@@ -13,12 +13,19 @@ import decrypt from "@/app/lib/decrypt"
 
 
 import  { FaPuzzlePiece } from "react-icons/fa6"
+import { IoGlobeOutline } from "react-icons/io5";
+
+import { GrSystem } from "react-icons/gr";
 
 import { BsSearch } from "react-icons/bs"
 
 import {getDifficultyColor} from "@/app/lib/helpers"
 
 
+import { FaUser } from "react-icons/fa";
+import { PiPasswordFill } from "react-icons/pi";
+
+// import { TbPasswordUser } from "react-icons/tb";
 
 
 
@@ -362,7 +369,7 @@ function calculateTotalObtainedPoints(questions) {
 }
 
 
-const TeamInfraTeam = () => {
+const TeamInfraTeam = ({machines}) => {
   return (
     <div  className="block  p-6 bg-color-1  rounded-lg shadow ">
       <div className="text-lg w-full mr-5 text-gray-300">
@@ -370,6 +377,35 @@ const TeamInfraTeam = () => {
               {"Access Remote Machines"}
           </b>
       </div>
+      {machines && machines.map((machine, index) => (
+        <div  key={machine.id}>
+          <div className="w-full border-t border-gray-200  border-dark-5 border-dashed mt-5"></div>
+            <div className="flex items-center mt-5 justify-between">
+              <FaUser className="text-lg  text-white" />
+              <span className="text-lg  text-white">
+                {machine?.username}
+              </span>
+            </div>
+            <div className="flex items-center mt-5 justify-between">
+              <PiPasswordFill className="text-lg  text-white" />
+              <span className="text-lg  text-white">
+                {machine?.password}
+              </span>
+            </div>
+            <div className="flex items-center mt-5 justify-between">
+              <IoGlobeOutline className="text-lg  text-white" />
+              <span className="text-lg  text-white">
+                {machine?.ip_address}
+              </span>
+            </div>
+            <div className="flex items-center mt-5 justify-between">
+              <GrSystem  className="text-lg  text-white bg-white" />
+              <span className="text-lg  text-white">
+                {machine?.machine_type}
+              </span>
+            </div>
+        </div>
+      ))}
     </div>
   )
 }
@@ -391,6 +427,9 @@ function getUniqueScenarios(scenarios) {
 export default function Page() {
     const { data: session } = useSession();
     const [scenarios, setScenarios] = useState([])
+
+    const [machines, setMachines] = useState([])
+
     const [quizTotalPoints, setQuizTotalPoints] = useState(0)
     const [teamTotalPoints, setTeamTotalPoints] = useState(0)
     let data ;
@@ -498,6 +537,53 @@ export default function Page() {
       .catch(err => console.log(err))
     }
 
+    const FetchMachines = () => {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/infra/${session?.user.id}`)
+      .then(res => {
+          const {...data_2 } = decrypt(res.data.encryptedData)
+          
+          if(data_2.status === true){
+              if(data_2?.results) {
+                  // data = data_2?.user?.team?.quiz?.questions;
+                  // console.debug(data_2.results)
+                  setMachines(data_2?.results)
+                  // arrSceanrios = checkScenarios(data)
+                  // setScenarios(arrSceanrios)
+                  // setQuizTotalPoints(arrSceanrios[arrSceanrios.length - 2])
+                  // setTeamTotalPoints(calculateTotalObtainedPoints(data))
+
+                  // console.debug(arrSceanrios)
+                
+                  // let  uniqueScenarioObjects = Array.from(new Set(arrSceanrios[3].map(item => item)))
+                  // .map(stringified => (
+                  //   { 
+                  //     value: `${stringified}`, 
+                  //     label: `${stringified}` 
+                  //   }
+                  // ) );
+                  // uniqueScenarioObjects.push({value: "all", label: "All"})
+                    
+
+
+                  // setCategories(uniqueScenarioObjects)
+
+                  // console.debug(setCategories(getUniqueScenarios(data?.scenarios)))
+                  // console.debug(arrSceanrios)
+                  // console.debug(checkScenarios(data))
+                  // console.debug(data)
+                  // console.debug(arrSceanrios[arrSceanrios.length - 2])
+              } else {
+                setMachines([])
+              }
+          } else {
+            setMachines([])
+          }
+      }
+      )
+      .catch(err => console.log(err))
+    }
+
+
 
 
   // ----------------
@@ -507,6 +593,7 @@ export default function Page() {
         AOS.init();
         if (session){
           DataFetch()
+          FetchMachines()
         }
     }, [session])
     return (
@@ -514,7 +601,7 @@ export default function Page() {
             <CustomToaster />
             <div className="p-4 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
                     <div className="w-full col-span-1 relative  p-0 border-none rounded-lg "  >
-                        <TeamInfraTeam />
+                        {machines && <TeamInfraTeam machines={machines} /> }
                     </div>
                     <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "  >
                         <div className="grid   gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">

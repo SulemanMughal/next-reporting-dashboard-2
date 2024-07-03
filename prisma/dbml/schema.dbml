@@ -32,8 +32,11 @@ Table Team {
 
 Table TeamInfra {
   id String [pk]
-  hostname String [not null]
+  hostname String [not null, default: '']
   ip_address String [not null]
+  username String [not null, default: '']
+  password String [not null, default: '']
+  machine_type String [not null, default: 'Linux']
   team Team
   teamId String
   createdAt DateTime [default: `now()`, not null]
