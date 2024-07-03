@@ -11,6 +11,11 @@ import Image from 'next/image'
 
 import decrypt from "@/app/lib/decrypt"
 
+import { BsWindows } from "react-icons/bs";
+
+
+import { FcLinux } from "react-icons/fc";
+
 
 import  { FaPuzzlePiece } from "react-icons/fa6"
 import { IoGlobeOutline } from "react-icons/io5";
@@ -26,7 +31,8 @@ import { FaUser } from "react-icons/fa";
 import { PiPasswordFill } from "react-icons/pi";
 
 // import { TbPasswordUser } from "react-icons/tb";
-
+// import { useState } from "react";
+import { BiHide, BiShow } from "react-icons/bi";
 
 
 import Link from 'next/link'
@@ -369,44 +375,80 @@ function calculateTotalObtainedPoints(questions) {
 }
 
 
-const TeamInfraTeam = ({machines}) => {
+const PasswordRow = ({password}) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleTogglePassword = () => {
+    setShowPassword(!showPassword);
+  };
   return (
-    <div  className="block  p-6 bg-color-1  rounded-lg shadow ">
-      <div className="text-lg w-full mr-5 text-gray-300">
+    <div className="flex items-center mt-5 justify-between text-sm">
+      <div className="flex items-center justify-start gap-2 text-white">
+        <PiPasswordFill className="text-lg " />  {"Password"}
+      </div>
+      <div >
+        <span className="text-white">
+          {showPassword ? password : "********"}
+        </span>
+        <button
+          className="text-white pl-2"
+          onClick={handleTogglePassword}
+        >
+          {showPassword ? <BiHide /> : <BiShow />}
+        </button>
+      </div>
+    </div>
+  )
+}
+
+const TeamInfraTeam = ({machines}) => {
+  
+  return (
+    <>
+    
+    <div  className="block  px-3 py-6 bg-color-1  rounded-lg shadow ">
+      <div className="text-lg w-full mr-5 text-gray-300 mb-5">
           <b  className="text-color-6" >
               {"Access Remote Machines"}
           </b>
       </div>
       {machines && machines.map((machine, index) => (
-        <div  key={machine.id}>
-          <div className="w-full border-t border-gray-200  border-dark-5 border-dashed mt-5"></div>
-            <div className="flex items-center mt-5 justify-between">
-              <FaUser className="text-lg  text-white" />
-              <span className="text-lg  text-white">
+        <div  key={machine.id} className="rounded-md py-5 px-3 mb-2" style={{
+          backgroundColor: "#141d2b"
+        }}>
+            <div className="flex items-center  justify-between text-sm">
+              <div className="flex items-center justify-start gap-2 text-white">
+                <FaUser className=" text-lg " /> {"Username"}
+              </div>
+              <span className="  text-white">
                 {machine?.username}
               </span>
             </div>
-            <div className="flex items-center mt-5 justify-between">
-              <PiPasswordFill className="text-lg  text-white" />
-              <span className="text-lg  text-white">
-                {machine?.password}
-              </span>
-            </div>
-            <div className="flex items-center mt-5 justify-between">
-              <IoGlobeOutline className="text-lg  text-white" />
-              <span className="text-lg  text-white">
+            <PasswordRow password={machine?.password} />
+            <div className="flex items-center mt-5 justify-between text-sm">
+              <div className="flex items-center justify-start gap-2 text-white">
+                <IoGlobeOutline className="text-lg " />  {"IP Address"}
+              </div>
+              <span className="  text-white">
                 {machine?.ip_address}
               </span>
             </div>
-            <div className="flex items-center mt-5 justify-between">
-              <GrSystem  className="text-lg  text-white bg-white" />
-              <span className="text-lg  text-white">
-                {machine?.machine_type}
+            <div className="flex items-center mt-5 justify-between text-sm">
+              <div className="flex items-center justify-start gap-2 text-white">
+                
+                <GrSystem className="text-lg bg-white" />  {"Machine"}
+              </div>
+              {/* <GrSystem  className="  text-white bg-white" /> */}
+              <span className="  text-white">
+                {/* {machine?.machine_type} */}
+                {
+                  machine?.machine_type?.toLowerCase() === "windows" ? <BsWindows className=" text-blue-500 text-xl" /> : machine?.machine_type?.toLowerCase() === "linux" ? <FcLinux className=" text-yellow-500 text-4xl" /> : <Image src={`/assets/img/wazuh.svg`} width={"35"} height={"35"} />
+                }
               </span>
             </div>
         </div>
       ))}
     </div>
+    </>
   )
 }
 
