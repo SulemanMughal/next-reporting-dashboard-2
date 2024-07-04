@@ -262,6 +262,36 @@ function CreateWave({setShowModal}){
   const [isSubmit, setSubmit] = useState(false)
 
 
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/scenario`)
+      .then((res) => {
+        const {...data } = decrypt(res.data.encryptedData)
+        if(data.status === true){
+
+          setChallenges(data?.scenarios);
+        } else {
+          toast.error("Sorry! There is an error while fethcing challenges.Please try again later")
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching challenges:", error);
+      });
+  }, []);
+
+
+  const handleChallengeSelect = (e) => {
+    const options = e.target.options;
+    const selected = [];
+    for (let i = 0; i < options.length; i++) {
+      if (options[i].selected) {
+        selected.push(options[i].value);
+      }
+    }
+    setSelectedChallenges(selected);
+  };
+
+
   const submitHandler = async () => {
     setSubmit(true)
     if(name.current == ""  || startTime == ""  || endTime == "" || is_active == "" ){
@@ -350,11 +380,26 @@ return (
           />
           </div>
           </div>
+          <div className="mb-4">
+            <label className="block text-gray-700">Challenges</label>
+            <select
+              multiple
+              className="w-full px-3 py-2 border rounded text-black"
+              value={selectedChallenges}
+              onChange={handleChallengeSelect}
+            >
+              {challenges.map((challenge) => (
+                <option key={challenge.id} value={challenge.name}>
+                  {challenge.name}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className="relative" data-aos="zoom-out"  >
             <div className="intro-x flex text-black  text-xs sm:text-sm mt-4">
               <div className="flex items-center mr-auto">
                 <input type="checkbox" className="input border mr-2" id="input-remember-me"  checked={is_active} onChange={(e) => setIsActive(!is_active)} />
-                <label className="cursor-pointer select-none" htmlFor="input-remember-me">Remember me</label>
+                <label className="cursor-pointer select-none" htmlFor="input-remember-me">Is Active</label>
               </div>
               {/* <a href="#!">
                 Forgot your password?
@@ -362,6 +407,8 @@ return (
             </div>
           </div>
           </div>
+
+
           <div className="flex justify-end mt-5">
             <button
               type="button"
