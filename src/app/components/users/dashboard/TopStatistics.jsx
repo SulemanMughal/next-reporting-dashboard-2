@@ -62,9 +62,12 @@ function calcTotalPoints(data){
     let points = 0;
     if(data.length){
         data.forEach((item) => {
-            if(item.answers?.[0]?.obtainedPoints){
-                points = points + item.answers?.[0]?.obtainedPoints   
+            if(item.answers?.[0]?.submissionStatus === true){
+                if(item.answers?.[0]?.obtainedPoints){
+                    points = points + item.answers?.[0]?.obtainedPoints   
+                }
             }
+            
         })
     }
     return points;
@@ -126,6 +129,7 @@ function checkScenarios(data){
 
 
 import ExpandableText from "@/app/components/ExpandableText"
+import { sub } from "date-fns";
 
 
 // function QuizList({scenarios}){
@@ -741,7 +745,7 @@ function TopStatisticsData({userId , userName}){
             .then(res => {
                 const {...data_2 } = decrypt(res.data.encryptedData)
             if(data_2.status === true){
-                // console.debug(data_2.total_teams)
+                // console.debug(data_2)
                 if(data_2.user?.team?.quiz?.questions?.length) {
                     data = data_2?.user?.team?.quiz?.questions
                     // console.debug(data)
@@ -751,7 +755,7 @@ function TopStatisticsData({userId , userName}){
                     setScenarios(checkScenarios(data))
                     // setTotalChallenges(data?.length)
                     // setTotalSubmissions(countSubmitAnswers(data))
-                    setTotalPoints(calcTotalPoints(data))
+                    setTotalPoints(calcTotalPoints(data)) //total team points
                     setTotalObtainedPointsUser(calculateTotalObtainedPoints(data, userId))
                     // console.debug(checkEqualNumberOfQuestionsAndAnswers(data))
                     setTotalSolvedChallenges(checkEqualNumberOfQuestionsAndAnswers(data))
