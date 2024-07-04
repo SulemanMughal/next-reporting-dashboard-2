@@ -49,6 +49,7 @@ model Team {
   createdAt DateTime  @default(now())
 
   team_octet Int @default(0)
+  ImageName String @default("")
 }
 
 

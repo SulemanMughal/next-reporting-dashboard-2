@@ -29,6 +29,7 @@ Table Team {
   infras TeamInfra [not null]
   createdAt DateTime [default: `now()`, not null]
   team_octet Int [not null, default: 0]
+  ImageName String [not null, default: '']
 }
 
 Table TeamInfra {
