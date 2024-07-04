@@ -450,10 +450,19 @@ function getTotalSolvedQuestions(questions){
     return sum
 }
 
-function QuizInfoList({questions , scenario}){
+function QuizInfoList({questions , scenario, team_name, firstBlood, firstBloodPoints}){
+    // console.debug(scenario, team_name)
+
     let totalObtainedPoints = getTotalObtainedPoints(questions)
     let totalPoints = sumPoints(questions)
     let totalSolvedQuestions = getTotalSolvedQuestions(questions)
+
+
+    // logic to handle first blood points to the team
+    if(firstBlood && firstBlood === team_name.trim()){
+        totalObtainedPoints = totalObtainedPoints + parseInt(firstBloodPoints)
+    }
+
     return (
         <>
         <div className="intro-y flex relative  pt-16 sm:pt-6 items-center">
@@ -700,7 +709,7 @@ function extractLastStrategyName(inputString) {
 
   
 // single question component
-function Question({question, index, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood , is_patch}){
+function Question({question, index, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood , is_patch, setFirstBloodPoints}){
     const [sovled, setSolved] = useState(checkAnswerSubmissionStatus(question.answers))
     const [isSubmit, setIsSubmit] = useState(false)
     const answer = useRef("")
@@ -759,6 +768,7 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                                     let first_blood = data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;
                                     first_blood !== null ? first_blood.trim() !== "" ? setFirstBlood(first_blood) : setFirstBlood(null) : setFirstBlood(null)
                                     // console.debug(first_blood)
+                                    setFirstBloodPoints(data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood_points)
                                 }
                                 else{
                                     toast.error(`${data_2.error}`)
@@ -770,10 +780,10 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                         
                     } else{
                         delay(1000).then(() => {
-                            
-                            toast.error(`Wrong Answer` )
                             if(is_patch){
                                 toast.error(`${data?.message}` )
+                            } else {
+                                toast.error(`Wrong Answer` )
                             }
                             setIsSubmit(false)
                             setSolved(data.result.submissionStatus)
@@ -823,14 +833,16 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
 }
 
 
-function QuestionList({questions, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood, is_patch}){
+function QuestionList({questions, team , quiz, user , setQuestions , params , setTopUser , setRecentSolves, setFirstBlood, is_patch, setFirstBloodPoints}){
     return (
         <>
             <div  className="  p-5 bg-color-1 rounded-lg shadow " data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
                 <h2 className="text-xl font-medium mr-auto text-color-6">{"Challenge Submission"}</h2>
                 {
                     questions&&  questions.map((question, index) => {    
-                        return ( <Question key={index} question={question} setTopUser={setTopUser} team={team}  index={index+1} quiz={quiz} user={user}  setQuestions={setQuestions} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} is_patch={is_patch} /> )
+                        return ( <Question key={index} question={question} setTopUser={setTopUser} team={team}  index={index+1} quiz={quiz} user={user}  setQuestions={setQuestions} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} 
+                            setFirstBloodPoints={setFirstBloodPoints}
+                            is_patch={is_patch} /> )
                     })
                 }
             </div>
@@ -896,7 +908,7 @@ function ChallengePerformance({   questions}){
 }
 
 
-function BestTeamMember({top_user ,team_name}){
+function BestTeamMember({top_user ,team_name , firstBloodPoints}){
     // console.debug(team_name)
     
     return (
@@ -931,6 +943,7 @@ function BestTeamMember({top_user ,team_name}){
 }
 
 import { formatDistanceToNow , parseISO  } from 'date-fns'
+import { parse } from "path";
 
 
 
@@ -987,7 +1000,8 @@ function RecentSolves({questions , recentSolves}){
 }
 
 
-function Details({scenario , questions , top_user , team_name , recentSolves, setFirstBlood, firstBlood}){
+function Details({scenario , questions , top_user , team_name , recentSolves, setFirstBlood, firstBlood , firstBloodPoints}){
+    console.debug("Update Team Score On Submissions ", firstBlood, firstBloodPoints)
     return (
         <>
             <div  className="block  p-6 bg-color-1 rounded-lg shadow ">
@@ -996,9 +1010,9 @@ function Details({scenario , questions , top_user , team_name , recentSolves, se
                     {scenario.desc}    
                 </p>
                 <QuizTags tags={scenario.tags}/>
-                <QuizInfoList questions={questions}  scenario={scenario}/>
+                <QuizInfoList questions={questions}  scenario={scenario} team_name={team_name} firstBlood={firstBlood} firstBloodPoints={firstBloodPoints} />
                 {scenario?.files?.length ? ( <QuizFileInfo  files={scenario?.files}/> ) : null }
-                {firstBlood && <BestTeamMember top_user={top_user} team_name={firstBlood} />}
+                {firstBlood && <BestTeamMember top_user={top_user} team_name={firstBlood} firstBloodPoints={firstBloodPoints} />}
                 
                 {/* {scenario?.first_blood.trim() !== "" && scenario?.first_blood.trim() !== null ? ( <BestTeamMember top_user={top_user} team_name={scenario?.first_blood} /> ) : null } */}
 
@@ -1087,11 +1101,8 @@ function QuizLoad({params, userID}){
     const [recentSolves, setRecentSolves] = useState([])
     const [showModal, setShowModal] = useState(false)
     const [firstBlood, setFirstBlood] = useState(null)
+    const [firstBloodPoints, setFirstBloodPoints] = useState(null)
     const [is_patch, setIsPatch] = useState(false)
-
-
-
-
 
     useEffect(() => {
         if(showModal){
@@ -1100,7 +1111,6 @@ function QuizLoad({params, userID}){
             document.documentElement.style.overflow = "auto";
         }
     }, [showModal])
-    
     
     useEffect(() => {
         AOS.init();
@@ -1111,7 +1121,6 @@ function QuizLoad({params, userID}){
                 setQuestions(data?.questions?.team?.quiz?.questions)
                 if(data?.questions?.team?.quiz?.questions.length){
                     setScenario(data?.questions?.team?.quiz?.questions[0]?.scenario)
-                    
                     setTeam(data?.questions?.team?.id)
                     setTeamName(data?.questions?.team?.name)
                     setQuiz(data?.questions?.team?.quiz?.id)
@@ -1120,7 +1129,7 @@ function QuizLoad({params, userID}){
                     let first_blood = data?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;
                     first_blood !== null ? first_blood.trim() !== "" ? setFirstBlood(first_blood) : setFirstBlood(null) : setFirstBlood(null)
                     setIsPatch(data?.questions?.team?.quiz?.questions[0]?.scenario?.is_patch)
-                    
+                    setFirstBloodPoints(data?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood_points || 0)
                 }
             }
             else{
@@ -1138,12 +1147,12 @@ function QuizLoad({params, userID}){
         {questions && (
                 <div className="p-2 grid  grid-cols-6 gap-4 items-start justify-center" >
                     <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="700" data-aos-delay="500">
-                        {scenario && <Details scenario={scenario} questions={questions} top_user={topUser}  team_name={teamName} recentSolves={recentSolves} setFirstBlood={setFirstBlood} firstBlood={firstBlood} /> } 
+                        {scenario && <Details scenario={scenario} questions={questions} top_user={topUser}  team_name={teamName} recentSolves={recentSolves} setFirstBlood={setFirstBlood} firstBlood={firstBlood} firstBloodPoints={firstBloodPoints} /> } 
                     </div>
                     <div className="w-full col-span-4 relative   p-0  rounded-0">
                         {/* {scenario &&  <ScenarioDescription scenario={scenario}  /> }  */}
                         {/* {scenario && <ReportIssue   setShowModal={setShowModal} />} */}
-                        <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} setTopUser={setTopUser} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} is_patch={is_patch} />
+                        <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} setTopUser={setTopUser} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} is_patch={is_patch} setFirstBloodPoints={setFirstBloodPoints} />
                     </div>
                 </div>
         )}

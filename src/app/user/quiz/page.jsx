@@ -6,7 +6,11 @@ import {  useSession } from "next-auth/react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
+import {Animation} from "@/app/lib/Animation"
+
+
 import Image from 'next/image'
+import { AiFillEye } from "react-icons/ai"
 
 
 import decrypt from "@/app/lib/decrypt"
@@ -307,7 +311,6 @@ function checkScenarios(data){
 
 
 
-import { AiFillEye } from "react-icons/ai"
 
 // function getDifficultyColor(difficulty){
 //     if(difficulty === "Easy"){
@@ -328,7 +331,7 @@ function QuizList({scenarios}){
     return (
         <>
             {   scenarios?.length ? [...Array(scenarios?.[0].length)].map((item, index) => (
-              <div className="component component-CerCheckBox" key={index} data-aos="fade-up" data-aos-duration="400" data-aos-delay={"100"}>
+              <div className="component component-CerCheckBox" key={index} data-aos="fade-up" >
                   <div className="w-full col-span-3 relative      rounded-lg   flex flex-col  h-full" key={index}>
                       <div className="   bg-color-1 rounded-lg shadow    h-full">
                           <div className="p-5">
@@ -629,7 +632,8 @@ export default function Page() {
 
 
     useEffect(() => {
-        AOS.init();
+        // AOS.init();
+        Animation();
         if (session){
           DataFetch()
           FetchMachines()
@@ -638,12 +642,12 @@ export default function Page() {
     return (
         <>
             <CustomToaster />
-            <div className="p-4 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" data-aos-duration="1000" data-aos-delay="500">
+            <div className="p-4 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" >
                     <div className="w-full col-span-1 relative  p-0 border-none rounded-lg "  >
                         {machines && <TeamInfraTeam machines={machines} /> }
                     </div>
                     <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "  >
-                        <div className="grid   gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500">
+                        <div className="grid   gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" data-aos="fade-up" >
                             {scenarios &&  <QuizList scenarios={scenarios} /> }
                         </div>
                     </div>
