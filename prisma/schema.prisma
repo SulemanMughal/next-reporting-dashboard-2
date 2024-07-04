@@ -129,7 +129,9 @@ model Scenario{
   is_patch Boolean @default(false)
 
   wave Wave? @relation(fields: [waveId], references: [id])
-  waveId String?
+  waveId String? 
+
+  @@unique([id, waveId]) 
 }
 
 

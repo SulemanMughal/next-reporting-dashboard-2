@@ -93,6 +93,10 @@ Table Scenario {
   is_patch Boolean [not null, default: false]
   wave Wave
   waveId String
+
+  indexes {
+    (id, waveId) [unique]
+  }
 }
 
 Table File {
