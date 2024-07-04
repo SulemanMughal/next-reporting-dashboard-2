@@ -88,6 +88,29 @@ model AttackScript{
   addedAt DateTime  @default(now())
 }
 
+
+model Wave{
+  id    String  @id @default(uuid())
+  name String 
+  addedAt DateTime  @default(now())
+  start_time String @default("")
+  end_time String @default("")
+  is_active Boolean @default(false)
+  scenarios Scenario[]
+  // status String  @default("Publish")            // Draft, Publish
+  // category String @default("Security Operations") 
+  // desc   String @default("")
+  // difficulty String @default("Easy")
+  // tags String @default("")
+  // files File[]
+  // os_type String? @default("Linux")
+  // first_blood String? @default("")
+  // first_blood_points Int @default(0)
+
+  // is_patch Boolean @default(false)
+}
+
+
 model Scenario{
   id    String    @id @default(uuid())
   name String 
@@ -104,6 +127,9 @@ model Scenario{
   first_blood_points Int @default(0)
 
   is_patch Boolean @default(false)
+
+  wave Wave? @relation(fields: [waveId], references: [id])
+  waveId String?
 }
 
 

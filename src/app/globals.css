@@ -9,7 +9,7 @@
 
 :root{
   --color-1 : #0b121f; /* btn-text */
-  --color-2 : rgb(159, 239, 0);
+  --color-2 : #9fef00;
   --color-3 : #141d2b;
   --color-4 : rgb(0, 0, 0);
   --color-5 : #bbff34;
@@ -1033,6 +1033,18 @@ input.custom-form-control:focus, input.custom-form-control:active{
     transition-duration: 150ms;
     transition-duration: 200ms;
     transition-timing-function: linear;
+}
+
+.timer_counter{
+  color: var(--color-2);
+  background-color: var(--color-3);
+  border: 1px solid var(--color-2);
+}
+
+.timer_counter:hover{
+  background-color: var(--color-5) ;
+  color: var(--color-4) ;
+
 }
 
 .answer-submit-btn:hover{

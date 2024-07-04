@@ -66,6 +66,16 @@ Table AttackScript {
   addedAt DateTime [default: `now()`, not null]
 }
 
+Table Wave {
+  id String [pk]
+  name String [not null]
+  addedAt DateTime [default: `now()`, not null]
+  start_time String [not null, default: '']
+  end_time String [not null, default: '']
+  is_active Boolean [not null, default: false]
+  scenarios Scenario [not null]
+}
+
 Table Scenario {
   id String [pk]
   name String [not null]
@@ -81,6 +91,8 @@ Table Scenario {
   first_blood String [default: '']
   first_blood_points Int [not null, default: 0]
   is_patch Boolean [not null, default: false]
+  wave Wave
+  waveId String
 }
 
 Table File {
@@ -135,6 +147,8 @@ Ref: Team.quizId > Quiz.id
 Ref: TeamInfra.teamId > Team.id
 
 Ref: User.teamId > Team.id
+
+Ref: Scenario.waveId > Wave.id
 
 Ref: File.scenarioId > Scenario.id
 
