@@ -813,13 +813,12 @@ function TopStatisticsData({userId , userName}){
                     {/* <LabTimeChart /> */}
                 </div>
             </div>
-            <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
-                {/* <Discord /> */}
-                {/* <CareerBox /> */}
+            {/* <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
+                <Discord />
+                <CareerBox />
                 <TopTeamsBlock />
-                {/* <PublicDemo /> */}
-                
-            </div>
+                <PublicDemo />
+            </div> */}
         </div>
             
         </>
