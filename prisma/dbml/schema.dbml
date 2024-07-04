@@ -28,6 +28,7 @@ Table Team {
   users User [not null]
   infras TeamInfra [not null]
   createdAt DateTime [default: `now()`, not null]
+  team_octet Int [not null, default: 0]
 }
 
 Table TeamInfra {

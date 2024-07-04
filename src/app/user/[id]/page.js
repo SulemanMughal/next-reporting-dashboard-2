@@ -274,11 +274,11 @@ export default function Page({ params }){
                                 
                         </div>
                         <div className="nav-tabs flex flex-col sm:flex-row justify-center lg:justify-start text-gray-300">
-                            <a href="#" className="py-4 sm:mr-8 flex items-center active"> 
-                                <FaUser className="w-4 h-4 mr-2" /> Profile </a>
-                            <a href="#!" className="py-4 sm:mr-8 flex items-center"> <FaCogs className="w-4 h-4 mr-2" /> Account Settings </a>
-                            <a href="#!" className="py-4 sm:mr-8 flex items-center"> <FaQuestion className="w-4 h-4 mr-2" /> Help </a>
-                            <a href="#"  className="py-4 sm:mr-8 flex items-center tooltip" data-trigger="click"> <FaClipboard className="w-4 h-4 mr-2" /> Public Profile URI </a>
+                            {/* <a href="#" className="py-4 sm:mr-8 flex items-center active">  */}
+                                {/* <FaUser className="w-4 h-4 mr-2" /> Profile </a> */}
+                            {/* <a href="#!" className="py-4 sm:mr-8 flex items-center"> <FaCogs className="w-4 h-4 mr-2" /> Account Settings </a> */}
+                            {/* <a href="#!" className="py-4 sm:mr-8 flex items-center"> <FaQuestion className="w-4 h-4 mr-2" /> Help </a> */}
+                            {/* <a href="#"  className="py-4 sm:mr-8 flex items-center tooltip" data-trigger="click"> <FaClipboard className="w-4 h-4 mr-2" /> Public Profile URI </a> */}
                         </div>
                     </div>
 

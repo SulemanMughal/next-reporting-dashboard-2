@@ -3,7 +3,7 @@ import prisma from "@/app/lib/prisma";
 
 import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
-
+const axios = require('axios');
 
 function commaSeparatedStringToArray(str) {
     return str.split(',');
@@ -110,12 +110,48 @@ async function getTeamById(team_id) {
     });
 }
 
+
+async function getScenarioById(scenario_id) {
+    return prisma.scenario.findUnique({
+        where: {
+            id: scenario_id,
+        },
+    });
+}
+
+
+
+async function isVulnerable(team_octet) {
+    const defaultCheck = "www-data";
+    const defaultCmd = "whoami";
+    const endpoint = "vulnerable";
+    const url = `http://10.0.${team_octet}.100/cgi-bin/${endpoint}`;
+    const headers = {
+        'User-Agent': `() { :; }; echo; echo; /bin/bash -c '${defaultCmd}'`
+    };
+
+    try {
+        const response = await axios.get(url, { headers: headers });
+        if (response.status === 200) {
+            if (response.data.toLowerCase().includes(defaultCheck.toLowerCase())) {
+                return { status: "vulnerable" };
+            }
+            return { status: "patched" };
+        }
+        return { status: "modified" };
+    } catch (error) {
+        return { status: "down" };
+    }
+}
+
+
+
 export async function POST(request ){
     const body = await request.json()
     const {...data } = decrypt(body.encryptedData)
     const { question  , answer , team , quiz , user} = data
 
-    console.debug({ question  , answer , team , quiz , user})
+    // console.debug({ question  , answer , team , quiz , user})
     // console.debug(question?.scenarioId)
 
     // getTotalQuestionsByScenarioId(question?.scenarioId).then((data) => console.debug(data))
@@ -162,10 +198,12 @@ export async function POST(request ){
 
         
 
-        let first_attempt = configurations.find((element) => element.key === 'first_attempt').value || 0;
-        let second_attempt = configurations.find((element) => element.key === 'second_attempt').value || 0;
-        let third_attempt = configurations.find((element) => element.key === 'third_attempt').value || 0;
+        let first_attempt = configurations.find((element) => element.key === 'first_attempt') || null;
+        // let first_attempt = configurations.find((element) => element.key === 'first_attempt').value || 0;
+        // let second_attempt = configurations.find((element) => element.key === 'second_attempt').value || 0;
+        // let third_attempt = configurations.find((element) => element.key === 'third_attempt').value || 0;
 
+        // console.debug(first_attempt)
         
         // points = all_answers.length == 0 ? points + parseInt(first_attempt) : all_answers.length == 1 ? points + parseInt(second_attempt) : all_answers.length == 2 ? points + parseInt(third_attempt) : points + 0;
         // if(all_answers.length == 0){
@@ -191,26 +229,60 @@ export async function POST(request ){
 
         let total_questions = await getTotalQuestionsByScenarioId(question_db?.scenarioId).then((data) => data);
 
-        // console.debug(total_questions)
+        
 
         
 
         let team_db = await getTeamById(team).then((data) => data);
 
 
-        // console.debug(team_db?.name)
 
-        // if(total_questions == total_answers){
-        //     await updateScenarioById(question_db?.scenarioId, {first_blood : 'completed'}).then((data) => console.debug(data))
-        // }
+        const is_vulnerable = await isVulnerable(team_db?.team_octet);
+        // console.debug(is_vulnerable)
+        // const negativePoints = configurations.find((element) => element.key === 'negative_points').value || 0;
+        const negativePoints = configurations.find((element) => element.key === 'negative_points') || null;
 
 
+        // get scenario
+        let scenario = await getScenarioById(question_db?.scenarioId).then((data) => data);
+
+        // console.debug(scenario)
+
+        
+
+
+        // console.debug(checkExisingAnswer)
+
+        // console.debug(question_db)
+
+        // console.debug(negativePoints)
+        // if()
+
+        
         
 
         // check if user try to submit answer
         if(checkExisingAnswer.answers.length) {
+            
+            if(negativePoints && negativePoints?.is_active){
+                if(scenario?.is_patch){
+                    points = 0;
+                    if(is_vulnerable.status === "vulnerable"){
+                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(negativePoints?.value);
+                    } else if(is_vulnerable.status === "patched"){
+                        points = checkExisingAnswer.answers[0]?.obtainedPoints + parseInt(correct_answer.points);
+                    } else if(is_vulnerable.status === "modified"){
+                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(negativePoints?.value);
+                    } else if(is_vulnerable.status === "down"){
+                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(negativePoints?.value);
+                    }
+                }
 
-            // console.debug("Submission")
+                console.debug(checkExisingAnswer.answers[0]?.obtainedPoints)
+            }
+            
+
+
             result = await prisma.answer.update({
                 where : {
                     questionId : question,
@@ -241,6 +313,24 @@ export async function POST(request ){
                 }
             })
         } else{
+            if(negativePoints && negativePoints?.is_active){
+                if(scenario?.is_patch){
+                    points = 0;
+                    if(is_vulnerable.status === "vulnerable"){
+                        points = points - parseInt(negativePoints?.value);
+                    } else if(is_vulnerable.status === "patched"){
+                        points = points + parseInt(correct_answer.points);
+                    } else if(is_vulnerable.status === "modified"){
+                        points = points - parseInt(negativePoints?.value);
+                    } else if(is_vulnerable.status === "down"){
+                        points = points - parseInt(negativePoints?.value);
+                    }
+                }
+            }
+            
+
+            
+
              result = await prisma.answer.create({
                 data:{
                     submitAnswer : answer,
@@ -272,15 +362,17 @@ export async function POST(request ){
         let total_answers = await getTotalAnswersSubmittedByTeam(team, question_db?.scenarioId).then((data) => data);
 
         // console.debug(total_answers)
-
-        if(total_questions == total_answers){
-            if(!first_blood){
-                await updateScenarioById(question_db?.scenarioId, {
-                    first_blood : team_db?.name,
-                    first_blood_points : parseInt(first_attempt),
-                }).then((data) => data)
+        if(first_attempt && first_attempt?.is_active){
+            if(total_questions == total_answers){
+                if(!first_blood){
+                    await updateScenarioById(question_db?.scenarioId, {
+                        first_blood : team_db?.name,
+                        first_blood_points : parseInt(first_attempt?.value),
+                    }).then((data) => data)
+                }
             }
         }
+        
 
         const encryptedData = encrypt({status : true , result})
         return new Response(JSON.stringify({ encryptedData }))

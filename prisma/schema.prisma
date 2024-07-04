@@ -47,6 +47,8 @@ model Team {
   users  User[]
   infras  TeamInfra[]
   createdAt DateTime  @default(now())
+
+  team_octet Int @default(0)
 }
 
 

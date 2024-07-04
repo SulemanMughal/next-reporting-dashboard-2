@@ -37,3 +37,12 @@ Update User Password
     
     node ./src/app/lib/user/update_password.js <email> <password>
 
+
+
+=====================
+
+first_attempt
+
+negative_points
+
+=====================
