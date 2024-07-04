@@ -57,7 +57,8 @@
     "react-transition-group": "^4.4.5",
     "sqlite3": "^5.1.6",
     "tailwindcss": "3.3.3",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "ws": "^8.18.0"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

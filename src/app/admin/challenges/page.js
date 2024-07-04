@@ -21,8 +21,11 @@ import { BsSearch } from "react-icons/bs"
 import Link from "next/link";
 import CustomTriangleLoader from "@/app/components/CustomTriangleLoader"
 import { toast } from "react-hot-toast";
+import { MdEdit } from "react-icons/md";
+import { MdDelete } from "react-icons/md";
 
 
+import Image from 'next/image'
 
 
 const SearchInput = () => {
@@ -204,16 +207,82 @@ function getUniqueScenarios(scenarios) {
   return uniqueScenarioObjects
 }
 
+
+function WavesList({waves}){
+  // console.debug(waves)
+  return (
+    <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+      {waves && waves?.length && waves.map((wave, index) => (
+        <>
+        <li className="pb-3 sm:pb-4" key={index}>
+        <div className="flex items-center space-x-4 rtl:space-x-reverse mt-2">
+            <div className="flex-shrink-0">
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-sm font-medium text-gray-900 truncate dark:text-white uppercase mb-1">
+                {wave?.name}
+              </p>
+              <p className="text-sm text-gray-500 truncate dark:text-gray-400">
+                {wave?.start_time} - {wave?.end_time}
+              </p>
+            </div>
+            <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+              {/* $320 */}
+              <div className="flex items-center justify-end flex-col gap-2">
+                <MdEdit size={22} />
+                <MdDelete size={22} />
+              </div>
+            </div>
+        </div>
+      </li>
+        </>
+      ))}
+      
+    </ul>
+  )
+}
+
 export default function Page(){
     // const [showModal, setShowModal] = useState(false)
     const [scenarios, setScenarios] = useState([])  
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
+
+    const [waves, setWaves] = useState(null)
+
     // categories filter
     const [categories, setCategories] = useState(null)
 
 
+    const fetchWavesList = () => {
+      axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/waves/`)
+        .then(res => {
+          // const {...data } = decrypt(res?.data)
+          // console.debug(data)
+          console.debug(res?.data)
+          if(res?.data?.status === true){
+            if(res?.data?.waves?.length) {
+              setWaves(res?.data?.waves)
+              setError(null);
+            } else {
+              setWaves(null)
+              setError(null);
+              toast.error("Sorry! There is an error while fethcing waves.Please try again later")
+            }
+          } else{
+            setWaves(null)
+            setError(`${res?.data?.error}`);
+            toast.error("Sorry! There is an error while fethcing waves.Please try again later")
+          }
+        }).catch((err) => {
+          console.log(err)
+          setError(`toast.error("Sorry! There is an error while fethcing waves.Please try again later")`)
+          toast.error("Sorry! There is an error while fethcing waves.Please try again later")
+        }).finally(() => {
+          setLoading(false);
+        })
+    }
 
   // filters
   const options = [
@@ -296,6 +365,7 @@ export default function Page(){
     useEffect(()=>{
         AOS.init();
         DataFetch();
+        fetchWavesList()
     }, [])
     return (
         <>
@@ -314,10 +384,21 @@ export default function Page(){
                         </div>
                 </div>
                 <div className="p-4 grid gap-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  ">
-                    {/* <div className="w-full col-span-1 relative  p-0 border-none rounded-lg " data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500" > */}
+                    <div className="w-full col-span-1 relative  p-0 border-none rounded-lg " data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500" >
                         {/* <FiltersBtn /> */}
-                        {/* <div  className="block  p-6 bg-card-custom  rounded-lg shadow "> */}
-                            {/* <SearchInput />  */}
+                        <div>
+                        <button className="bg-color-1 text-white py-2  pr-4  pl-4 h-full w-full text-center border border-1 border-color-1 rounded-md mb-3 ml-0 mr-2 flex justify-end items-center "    onClick={() => setShowModal(true)}  >
+                          New Wave
+                        </button>
+                        </div>
+                        {waves && (
+                          <div  className="block  p-6 bg-color-1  rounded-lg shadow ">
+                            <WavesList waves={waves} />
+                          </div>
+                        )}
+                        
+                    </div>
+                    {/* <SearchInput />  */}
                             {/* <SelectField options={options} onChange={handleSelectChange} /> */}
                             {/* <CheckboxGroup text={"Status"} options={options_2} /> */}
                             {/* <DifficultyLevelCheckBox /> */}
@@ -327,8 +408,6 @@ export default function Page(){
                               categories && <CheckboxGroup text={"Categories"} options={categories} />
                             } */}
                             {/* <ResetFilterBtn /> */}
-                        {/* </div> */}
-                    {/* </div> */}
                 
                 
                 {loading ? (
@@ -345,8 +424,8 @@ export default function Page(){
                         </>
                 ) : (
                     <>
-                    <div className="w-full col-span-4 relative  p-0 border-none rounded-lg "   >
-                      <div className=" grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
+                    <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "   >
+                      <div className=" grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
                         {scenarios && <NewScenarioCard scenarios={scenarios}  /> }
                       </div>
                     </div>

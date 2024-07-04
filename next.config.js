@@ -32,7 +32,15 @@ const nextConfig = {
               ]
           }
         ]
-    }
+    },
+    // async rewrites() {
+    //   return [
+    //     {
+    //       source: '/api/socket',
+    //       destination: '/api/ws',
+    //     },
+    //   ];
+    // },
 }
 
 module.exports = nextConfig
