@@ -200,7 +200,7 @@ export default function Page({ params }){
                 <>
                     <div className="p-3 mb-5">
                         {/* Profile Info */}
-                    <div className="pb-0 mb-5 bg-deep-blue-violet rounded-lg px-5">
+                    <div className="pb-0 mb-5 bg-color-1 rounded-lg px-5">
                         <div className="flex flex-col lg:flex-row  border-b  border-gray-500  py-5  ">
                                 <div className="flex flex-1  items-center justify-center lg:justify-start">
                                     <div className="w-20 h-20 sm:w-24 sm:h-24 flex-none lg:w-32 lg:h-32 image-fit relative ">
@@ -290,7 +290,7 @@ export default function Page({ params }){
                     {/* User Profile Badges PlaceHolder */}
 
                     {/* Progress */}
-                    <div className="intro-y box col-span-12 lg:col-span-6 bg-deep-blue-violet rounded-lg">
+                    <div className="intro-y box col-span-12 lg:col-span-6 bg-color-1 rounded-lg">
                         <div className="flex items-center px-5 py-5 sm:py-0 border-b border-gray-500 ">
                             <h2 className="font-medium text-base mr-auto text-gray-300">
                                 Progress

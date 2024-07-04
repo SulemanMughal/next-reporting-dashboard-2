@@ -157,7 +157,7 @@ function NewScenarioCard({scenarios}){
           {   scenarios?.length ? scenarios.map((item, index) => (
               <div className="component component-CerCheckBox" key={index} data-aos="fade-up" data-aos-duration="400" data-aos-delay={"100"}>
                 <div className="w-full col-span-3 relative  h-full    rounded-lg   flex flex-col " key={index}>
-                    <div className="   bg-deep-blue-violet  rounded-lg shadow  h-full ">
+                    <div className="   bg-color-1  rounded-lg shadow  h-full ">
                         <div className="p-5">
                             {/* scenario name */}
                             <h5 className=" font-medium text-base tracking-tight whitespace-normal text-gray-300  text-center mb-1">{convertStringToTitleCase(item.name)}</h5>
@@ -176,7 +176,7 @@ function NewScenarioCard({scenarios}){
                             </div>
                         </div>
                         <div className=" pt-0 pb-4 flex justify-center">
-                            <Link href={`/admin/challenges/${item.id}`}  className=" cursor-pointer     bg-dark-navy-blue  flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md px-2 py-1       ">
+                            <Link href={`/admin/challenges/${item.id}`}  className=" cursor-pointer      bg-color-7   flex justify-center items-center   text-white text-sm  2xl:text-base    h-full rounded-md px-2 py-1       ">
                                 <span>{"Details" } </span> 
                             </Link>
                         </div>
@@ -313,22 +313,22 @@ export default function Page(){
                             {/* <FilterBtn /> */}
                         </div>
                 </div>
-                <div className="p-4 grid gap-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4  ">
-                    <div className="w-full col-span-1 relative  p-0 border-none rounded-lg " data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500" >
+                <div className="p-4 grid gap-4  grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  ">
+                    {/* <div className="w-full col-span-1 relative  p-0 border-none rounded-lg " data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500" > */}
                         {/* <FiltersBtn /> */}
-                        <div  className="block  p-6 bg-card-custom  rounded-lg shadow ">
-                            <SearchInput /> 
-                            <SelectField options={options} onChange={handleSelectChange} />
+                        {/* <div  className="block  p-6 bg-card-custom  rounded-lg shadow "> */}
+                            {/* <SearchInput />  */}
+                            {/* <SelectField options={options} onChange={handleSelectChange} /> */}
                             {/* <CheckboxGroup text={"Status"} options={options_2} /> */}
-                            <DifficultyLevelCheckBox />
+                            {/* <DifficultyLevelCheckBox /> */}
                             {/* <CheckboxGroup text={"Difficulties"} options={options_3} /> */}
                             {/* <CheckboxGroup text={"Categories"} options={options_4} /> */}
-                            {
+                            {/* {
                               categories && <CheckboxGroup text={"Categories"} options={categories} />
-                            }
-                            <ResetFilterBtn />
-                        </div>
-                    </div>
+                            } */}
+                            {/* <ResetFilterBtn /> */}
+                        {/* </div> */}
+                    {/* </div> */}
                 
                 
                 {loading ? (
@@ -345,8 +345,8 @@ export default function Page(){
                         </>
                 ) : (
                     <>
-                    <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "   >
-                      <div className=" grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 ">
+                    <div className="w-full col-span-4 relative  p-0 border-none rounded-lg "   >
+                      <div className=" grid gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 ">
                         {scenarios && <NewScenarioCard scenarios={scenarios}  /> }
                       </div>
                     </div>

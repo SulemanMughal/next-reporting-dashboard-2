@@ -17,12 +17,32 @@ import  {FaRegEdit}  from "react-icons/fa"
 import { MdModeEdit } from "react-icons/md"
 import { IoMdClose } from "react-icons/io"
 import { el } from "date-fns/locale";
-
-
+import { BiHide, BiShow } from "react-icons/bi";
+import { MdCloudDownload } from "react-icons/md";
 
 // delay function
 const delay = ms => new Promise(res => setTimeout(res, ms));
 
+const PasswordRow = ({password}) => {
+    const [showPassword, setShowPassword] = useState(false);
+    const handleTogglePassword = () => {
+        setShowPassword(!showPassword);
+    };
+    return (
+        <>
+            <span className="text-white">
+            {showPassword ? password : "********"}
+            </span>
+            <button
+            className="text-white pl-2"
+            onClick={handleTogglePassword}
+            >
+            {showPassword ? <BiHide /> : <BiShow />}
+            </button>
+        </>
+    )
+    }
+    
 
 function AnswerComponent({question , index}){
     const answer = useRef(null)
@@ -121,7 +141,7 @@ function AnswerComponent({question , index}){
                         <>
                         <div className="flex flex-wrap -mx-3 mt-2 items-end">
                             <div className="px-3 h-full  w-10/12">
-                                <textarea  value={editedText} onChange={handleDescriptionChange} className=" w-full   placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-white     p-3 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm" spellCheck={"false"} rows={"6"}></textarea>
+                                <textarea  value={editedText} onChange={handleDescriptionChange} className=" w-full   placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-white     p-3 px-4  m-0 mt-2 text-base block bg-color-3 rounded-md shadow-sm" spellCheck={"false"} rows={"6"}></textarea>
                             </div>
                             
                             <div className="w-1/6 px-3 h-full">
@@ -142,11 +162,13 @@ function AnswerComponent({question , index}){
                         <>
                         <label className="flex inline-flex items-start">
                             <button>
-                                <FaRegEdit className="mr-2 text-deep-blue"  size={23} onClick={() => setIsEditing(true)} /> 
+                                <FaRegEdit className="mr-2 " style={{
+                                    color : "var(--color-2)"
+                                }}  size={23} onClick={() => setIsEditing(true)} /> 
                             </button>
                             <p >
                                 <span className=" text-sm 2xl:text-base">
-                                    {`Question ${index+1} )`} {` ${editedText}`} <select  className="appearance-none placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-sm text-yellow-400 italic   px-2  m-0   inline-block bg-deep-indigo  rounded-md shadow-sm" defaultValue={points.current}
+                                    {`Question ${index+1} )`} {` ${editedText}`} <select  className="appearance-none placeholder-gray-400 outline-0  border border-2 border-color-1 focus:border focus:border-2 focus:border-blue-900  text-sm text-yellow-400 italic   px-2  m-0   inline-block bg-color-1  rounded-md shadow-sm" defaultValue={points.current}
                                     onChange={(e) => handleSelectChange(e, question.id)}
                                     >
                                     <option  value={selectedOption}   >
@@ -169,11 +191,11 @@ function AnswerComponent({question , index}){
                         </label>
                         <div className="flex flex-wrap -mx-3 mt-2">
                             <div className="  w-5/6 px-3 h-full">
-                                <input className=" placeholder-gray-400 outline-0  border border-2 border-deep-indigo focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-2 px-4  m-0 mt-2 text-base block bg-deep-indigo  rounded-md shadow-sm"  type="text" placeholder={extractLastStrategyName(question.Description)} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"}  defaultValue={question.original_answer}  onChange={(e) => (answer.current = e.target.value)} />
+                                <input className=" placeholder-gray-400 outline-0  border border-2 border-color-1 focus:border focus:border-2 focus:border-blue-900  text-white    w-full p-2 px-4  m-0 mt-2 text-base block bg-color-1  rounded-md shadow-sm"  type="text" placeholder={extractLastStrategyName(question.Description)} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"}  defaultValue={question.original_answer}  onChange={(e) => (answer.current = e.target.value)} />
                             </div>
                             <div className="w-1/6 px-3 h-full">
                                 {isSubmit ? 
-                                    <SVGLoader text={"  "} className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded" /> : <button className="bg-dark-navy-blue block w-full  text-white mt-2  h-full p-2 rounded"  onClick={() => updateQuestionHandler(question.id)} >Update </button> 
+                                    <SVGLoader text={"  "} className="bg-color-1  block w-full  text-white mt-2  h-full p-2 rounded" /> : <button className="bg-color-1 block w-full  text-white mt-2  h-full p-2 rounded"  onClick={() => updateQuestionHandler(question.id)} >Update </button> 
                                 }
                             </div>
                         </div>
@@ -394,13 +416,13 @@ export default function Page({ params }){
                 <>
                     {/* Left Side */}
                     <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="700" data-aos-delay="500">
-                        <div  className="block  p-6 bg-deep-blue-violet rounded-lg shadow ">
+                        <div  className="block  p-6 bg-color-1 rounded-lg shadow ">
                             <div className="relative " 
                                 >
                                 <input
                                     type="text"
                                     placeholder="Challenge Title"
-                                    className="placeholder-columbia-blue outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-900  bg-deep-indigo text-white  focus:text-blue-600 pl-2   w-full  pl-0  py-2 mt-2 pr-20 mr-0 mb-0 ml-0 text-3xl block bg-deep-blue-violet  rounded-md flex justify-between items-center"
+                                    className="placeholder-columbia-blue outline-0  border border-2 border-transparent focus:border focus:border-2 focus:border-blue-900  bg-deep-indigo text-white  focus:text-blue-600 pl-2   w-full  pl-0  py-2 mt-2 pr-20 mr-0 mb-0 ml-0 text-3xl block bg-color-3  rounded-md flex justify-between items-center"
                                     value={challengeName}
                                     onChange={(e) => handleChallengeNameChange(e)}
                                     
@@ -435,7 +457,7 @@ export default function Page({ params }){
                                 <textarea  
                                     value={challengeDesc} 
                                     onChange={(e) => handleChallengeDescChange(e)} 
-                                    className=" w-full   placeholder-gray-400 outline-0  border border-2 border-deep-blue-violet focus:border focus:border-2 focus:border-blue-900  text-white focus:text-blue-600    p-3 px-4 pr-12  m-0 mt-2 text-base block focus:bg-deep-indigo  bg-transparent rounded-md shadow-sm focus:overflow-y-auto" spellCheck={"false"} rows={"10"}></textarea>
+                                    className=" w-full   placeholder-gray-400 outline-0  border border-2 border-color-1 focus:border focus:border-2 focus:border-color-3  text-white focus:text-blue-600    p-3 px-4 pr-12  m-0 mt-2 text-base block focus:bg-deep-indigo  bg-color-3  rounded-md shadow-sm focus:overflow-y-auto" spellCheck={"false"} rows={"10"}></textarea>
                                     <div className="flex flex-wrap">
                                         <button 
                                         onClick={(e) => updateDesc(e)}
@@ -509,8 +531,9 @@ export default function Page({ params }){
                                 {(scenario?.files && scenario?.files?.length ) && scenario?.files.map((file, index) => (
                                     <div  key={file.id}>
                                         <div className="w-full border-t border-gray-200  border-dark-5 border-dashed mt-5"></div>
-                                        <div className="flex items-center mt-5">
-                                                    <div className="file">
+                                        <div className="flex items-center mt-5 justify-between">
+                                            <div className="flex items-center justify-start">
+                                            <div className="file">
                                                         <a href="" className="w-12 file__icon file__icon--file">
                                                             <FaFile  className=" text-lg 2xl:text-3xl text-white"/>
                                                         </a>
@@ -522,19 +545,37 @@ export default function Page({ params }){
                                                             {fileSizes[index]}
                                                         </div>
                                                     </div>
+                                            </div>
+                                                    
+                                                    
 
-                                                    <div className="ml-auto">
+                                                    {/* <div className="ml-auto">
                                                         <a className="font-medium text-gray-300 text-xs" href="">Password</a> 
                                                         <div className="text-gray-400 text-xs">
                                                             {file.password}
                                                         </div>
-                                                    </div>
+                                                    </div> */}
+
+{file.password !== null && file.password.trim() !== "" && (
+                                    <div className="ml-auto  2xl:ml-4">
+                                        <a className="font-medium text-gray-300 text-xs" href="">Password</a> 
+                                        <div className="text-gray-400 text-xs">
+                                            <PasswordRow  password={file.password} />
+                                        </div>
+                                    </div>
+                                )}
                                                     
-                                                    <div className="ml-auto">
+                                                    {/* <div className="ml-auto">
                                                         <Link  href={`${file.filepath}`}  className="w-full my-5 block bg-dark-navy-blue  text-white font-medium font-xs   py-1 px-2  text-xs 2xl:py-2 2xl:px-4   border-none rounded " target="_blank" rel="noopener noreferrer">
                                                             Download File
                                                         </Link>
-                                                    </div>
+                                                    </div> */}
+
+                                                    <div className="ml-auto  2xl:ml-4">
+                                <Link  href={`${file.filepath}`}  className="w-full my-5 flex items-center justify-center bg-color-3  text-color-2 font-medium font-xs   py-1 px-2  text-xs 2xl:py-2 2xl:px-4   border-none rounded " target="_blank" rel="noopener noreferrer">
+                                     {`Download File`} <MdCloudDownload size={20} className="ml-2 " />
+                                </Link>
+                            </div>
                                         </div>
                                     </div>
                                 ))}
@@ -546,7 +587,7 @@ export default function Page({ params }){
                     {/* Right Side */}
                     <div className="w-full col-span-4 relative   p-0  rounded-0">
                         {/* Top Header Challenge details */}
-                        <div className="rounded-md px-5 py-4 mb-2 bg-deep-blue text-white mb-5" data-aos="fade-up" data-aos-duration="700" data-aos-delay="500">
+                        {/* <div className="rounded-md px-5 py-4 mb-2 bg-deep-blue text-white mb-5" data-aos="fade-up" data-aos-duration="700" data-aos-delay="500">
                                 <div className="flex items-center">
                                     <div className="font-medium text-lg">Scenario</div>
                                     <div className="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">{scenario.name}</div>
@@ -555,10 +596,10 @@ export default function Page({ params }){
                                     {scenario.desc} 
 
                                 </div>
-                        </div>
+                        </div> */}
 
                         {/* Questions List */}
-                        <div  className="  p-5 bg-deep-blue-violet rounded-lg shadow " data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
+                        <div  className="  p-5 bg-color-3 rounded-lg shadow " data-aos="fade-left" data-aos-duration="1500" data-aos-delay="500">
                             <h2 className="text-xl font-medium mr-auto text-gray-300">{"Challenge Submission"}</h2>
                             {
                                 (scenario?.questions && scenario?.questions.length) &&  scenario?.questions.map((question, index) =>    

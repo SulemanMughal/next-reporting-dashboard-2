@@ -59,6 +59,11 @@ html, body{
 
 }
 
+.border-color-2{
+  border-color: var(--color-2) !important;
+
+}
+
 .bg-color-2{
   background-color: var(--color-2) !important;
 }

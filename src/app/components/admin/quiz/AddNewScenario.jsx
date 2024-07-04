@@ -150,7 +150,7 @@ function CreateScenario({setShowModal}){
             >
             <div className="relative w-1/3  px-4 space-y-16 ">
                 <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
-                <div className="flex items-start justify-between p-5 border-b border-solid border-slate-200 rounded-t">
+                <div className="flex items-start justify-between p-5  rounded-t">
                     <h3 className="text-2xl font-semibold text-dark">
                         New Challenge
                     </h3>
@@ -220,7 +220,7 @@ export default function AddNewScenario(){
     return (
         <>
             {showModal && <CreateScenario  setShowModal={setShowModal}  /> }
-            <button className="bg-deep-blue-violet text-white py-2  pr-4  pl-4 mt-2 h-full border border-1 border-deep-blue-violet rounded-md mb-0 ml-0 mr-2 flex justify-start items-center "    onClick={() => setShowModal(true)}  >
+            <button className="bg-color-1 text-white py-2  pr-4  pl-4 mt-2 h-full border border-1 border-color-1 rounded-md mb-0 ml-0 mr-2 flex justify-start items-center "    onClick={() => setShowModal(true)}  >
                  <FaPuzzlePiece  size={23} className="mr-2" />   New Challenge
             </button>
         </>

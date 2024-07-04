@@ -1630,15 +1630,15 @@ export default function Page(){
                             {/* <button className="theme-btn-bg-color  text-gray-300 py-2  pr-4  pl-4 mt-2 mr-3 rounded-md mb-0 ml-0 ">
                                 Reset Filters
                             </button> */}
-                                <FilterResetBtn />
-                                <SearchInput />
+                                {/* <FilterResetBtn /> */}
+                                {/* <SearchInput /> */}
                             {/* <FilterByCountry /> */}
                         </div>
                     </div>
                     {/* Top Score Header Row */}
                     {/* <TopScoreHeaderRow  usersGroupedByCountry={usersGroupedByCountry} /> */}
 
-                    { topUsers && ( <TopScoringUsers  users={topUsers} totalUsers={totalUsers} /> ) }
+                    {/* { topUsers && ( <TopScoringUsers  users={topUsers} totalUsers={totalUsers} /> ) } */}
                     { paginationData && ( <LeaderBoardTable data={paginationData?.usersPerPage}  startIndex={paginationData.startIndex}  
                         endIndex={paginationData.endIndex}  /> ) }
                     {/* <UserProgress /> */}
