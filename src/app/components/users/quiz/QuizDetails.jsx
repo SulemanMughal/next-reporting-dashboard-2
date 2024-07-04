@@ -770,7 +770,11 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                         
                     } else{
                         delay(1000).then(() => {
+                            
                             toast.error(`Wrong Answer` )
+                            if(is_patch){
+                                toast.error(`${data?.message}` )
+                            }
                             setIsSubmit(false)
                             setSolved(data.result.submissionStatus)
                         })   

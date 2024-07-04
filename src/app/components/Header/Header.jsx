@@ -49,24 +49,24 @@ export default function Header(){
               <div className="flex flex-wrap justify-between items-center  w-full px-10 py-2">
                 <Link href="/" className="flex items-center">
                   <Logo />
-                  {checkHomePage(pathname) ? null :  (<span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white pl-3 " >Attack & <span className="text-color-2">Defense -  Q</span></span>)}
+                  {checkHomePage(pathname) ? null :  (<span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white pl-3 " >Attack & <span className="text-color-2">Defense</span></span>)}
                 </Link>
-                <div 
+                {/* <div 
                 className="rounded-lg timer_counter"
                 >
                   <p 
                   className="text-2xl font-bold text-center py-3 px-10 flex items-center justify-center gap-4"
                   >
                     <RiTimerLine size={35}  />
-                    <Countdown 
+                        <Countdown 
                       date={Date.now() + 50000} 
-                      // renderer={renderer}
-                      // precision={1}
+                       renderer={renderer}
+                       precision={1}
                       zeroPadTime={2}
                       daysInHours={true}
                       />
                   </p>
-                </div>
+                </div> */}
                 {checkLoginPath(pathname) ? null :  (
                   <>
                       <div className="flex md:order-2">

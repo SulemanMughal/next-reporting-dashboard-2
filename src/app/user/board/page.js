@@ -773,7 +773,7 @@ function LeaderBoardTable({data , userData }){
 
 
 export default function Page(){
-    const [data, setData] = useState([])
+    const [data_1, setData] = useState([])
     const { data: session } = useSession();
 
     const [userData, setUserData] = useState(null)
@@ -899,7 +899,7 @@ color="#9fef00"
                 {/* {  (session && session?.user  && userData.length )  && (<UserProgressHeader userData={userData} />) } */}
                 {userData && (<UserProgressHeader userData={userData} />) }
                 {/* <LeaderBoardTable data={data} userData={userData}  /> */}
-                {/* { data && <LeaderBoardTable data={data} userData={userData}  /> } */}
+                { data_1 && <LeaderBoardTable data={data_1} userData={userData}  /> }
                 
                 
                 

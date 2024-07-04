@@ -243,9 +243,13 @@ export async function POST(request ){
         const negativePoints = configurations.find((element) => element.key === 'negative_points') || null;
 
 
+        
+
         // get scenario
         let scenario = await getScenarioById(question_db?.scenarioId).then((data) => data);
 
+
+        let message = "";
         // console.debug(scenario)
 
         
@@ -268,13 +272,21 @@ export async function POST(request ){
                 if(scenario?.is_patch){
                     points = 0;
                     if(is_vulnerable.status === "vulnerable"){
-                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(negativePoints?.value);
+                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(1);
+                        rightStatus = false;
+                        message = "Service is still vulnerable. 1 point deducted."
                     } else if(is_vulnerable.status === "patched"){
+                        rightStatus = true;
                         points = checkExisingAnswer.answers[0]?.obtainedPoints + parseInt(correct_answer.points);
+                        message = "Good Job"
                     } else if(is_vulnerable.status === "modified"){
-                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(negativePoints?.value);
+                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(5);
+                        rightStatus = false;
+                        message = "Service is interrupted. 5 points deducted."
                     } else if(is_vulnerable.status === "down"){
-                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(negativePoints?.value);
+                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(5);
+                        rightStatus = false;
+                        message = "Service is unreachable. 5 points deducted."
                     }
                 }
 
@@ -317,13 +329,21 @@ export async function POST(request ){
                 if(scenario?.is_patch){
                     points = 0;
                     if(is_vulnerable.status === "vulnerable"){
-                        points = points - parseInt(negativePoints?.value);
+                        points = points - parseInt(1);
+                        rightStatus = false;
+                        message = "Service is still vulnerable. 1 point deducted."
                     } else if(is_vulnerable.status === "patched"){
                         points = points + parseInt(correct_answer.points);
+                        rightStatus = true;
+                        message = "Good Job"
                     } else if(is_vulnerable.status === "modified"){
-                        points = points - parseInt(negativePoints?.value);
+                        points = points - parseInt(5);
+                        rightStatus = false;
+                        message = "Service is interrupted. 5 points deducted."
                     } else if(is_vulnerable.status === "down"){
-                        points = points - parseInt(negativePoints?.value);
+                        points = points - parseInt(5);
+                        rightStatus = false;
+                        message = "Service is unreachable. 5 points deducted."
                     }
                 }
             }
@@ -364,7 +384,7 @@ export async function POST(request ){
         // console.debug(total_answers)
         if(first_attempt && first_attempt?.is_active){
             if(total_questions == total_answers){
-                if(!first_blood){
+                if(!scenario?.first_blood){
                     await updateScenarioById(question_db?.scenarioId, {
                         first_blood : team_db?.name,
                         first_blood_points : parseInt(first_attempt?.value),
@@ -373,8 +393,9 @@ export async function POST(request ){
             }
         }
         
+        console.debug(checkExisingAnswer)
 
-        const encryptedData = encrypt({status : true , result})
+        const encryptedData = encrypt({status : true , message : message , result})
         return new Response(JSON.stringify({ encryptedData }))
     }
     catch (err){
