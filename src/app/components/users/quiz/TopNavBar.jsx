@@ -192,39 +192,39 @@ const AdminNavBar = ({pathname}) => {
                             <VscTerminalBash  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Scripts</p>    
                         </Link>
                     </li> */}
-                    <li >
+                    {/* <li >
                         <Link href={"/admin/teams"} className={classNames( checkAdminTeamsPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <HiUserGroup  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Teams</p>    
                         </Link>
-                    </li>
+                    </li> */}
                     <li >
                         <Link href={"/admin/board"} className={classNames( checkAdminLeaderBoardPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <MdLeaderboard  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Leaderboard</p>    
                         </Link>
                     </li>
-                    <li >
+                    {/* <li >
                         <Link href={"/admin/activity"} className={classNames( checkAdminActivityPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <LuActivity  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Activities</p>    
                         </Link>
-                    </li>
+                    </li> */}
                     {/* Score Board */}
-                    <li >
+                    {/* <li >
                         <Link href={"/admin/scoreboard"} className={classNames( checkAdminScoreBoardPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <GiLightningHelix  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Scoreboard</p>    
                         </Link>
-                    </li>
+                    </li> */}
                     {/* Stats */}
-                    <li >
+                    {/* <li >
                         <Link href={"/admin/stats"} className={classNames( checkAdminStatsPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <ImStatsDots  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Stats</p>    
                         </Link>
-                    </li>
+                    </li> */}
                     {/* Management Panel */}
-                    <li >
+                    {/* <li >
                         <Link href={"/admin/management"} className={classNames( checkAdminManagementPage(pathname) ? 'active' : '', 'flex    items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <MdMiscellaneousServices  size={23}  className="text-white"/> <p className="pl-2   pt-1 pb-0 my-0">Manegement</p>    
                         </Link>
-                    </li>
+                    </li> */}
                     </ul>
                 </div>
             </nav>

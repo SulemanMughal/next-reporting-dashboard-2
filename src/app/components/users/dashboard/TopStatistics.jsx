@@ -816,7 +816,7 @@ function TopStatisticsData({userId , userName}){
             <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
                 {/* <Discord /> */}
                 {/* <CareerBox /> */}
-                {/* <TopTeamsBlock /> */}
+                <TopTeamsBlock />
                 {/* <PublicDemo /> */}
                 
             </div>
