@@ -1,10 +1,11 @@
 "use client"
 
 import SortDropDown from "@/app/components/admin/quiz/SortDropDown"
+import { FaPuzzlePiece } from "react-icons/fa"
 import AddNewScenario from "@/app/components/admin/quiz/AddNewScenario"
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 import CustomToaster from "@/app/components/CustomToaster"
 import { useState } from "react"
 import axios from "axios";
@@ -228,9 +229,9 @@ function WavesList({waves}){
             </div>
             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
               {/* $320 */}
-              <div className="flex items-center justify-end flex-col gap-2">
-                <MdEdit size={22} />
-                <MdDelete size={22} />
+              <div className="flex items-center justify-end flex-row gap-2">
+                <MdEdit size={22} className="text-green-600" />
+                <MdDelete size={22} className="text-red-600" />
               </div>
             </div>
         </div>
@@ -242,6 +243,163 @@ function WavesList({waves}){
   )
 }
 
+function CreateWave({setShowModal}){
+  const name = useRef("");
+  // const start_time = useRef("");
+  // const end_time = useRef("");
+  // const is_active = useRef("");
+  const scenarios_list = useRef("");
+
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [is_active, setIsActive] = useState(false);
+
+
+  const [selectedChallenges, setSelectedChallenges] = useState([]);
+  const [challenges, setChallenges] = useState([]);
+
+
+  const [isSubmit, setSubmit] = useState(false)
+
+
+  const submitHandler = async () => {
+    setSubmit(true)
+    if(name.current == ""  || startTime == ""  || endTime == "" || is_active == "" ){
+        toast.error(`All fields are required`)
+        setSubmit(false)
+    }  else { 
+        try {
+            // const encryptedData = encrypt( )
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/api/waves/`, {
+              name : name.current,
+              start_time : startTime,
+              end_time : endTime,
+              is_active : is_active,
+              scenarios_list : scenarios_list.current,
+            });
+            setShowModal(false)
+            const {...data } = res?.data
+            if(data?.status === false){
+                toast.error(`Sorry, you can't create scenario. Please try again after sometime`)    
+            } else {
+                toast.success('Successfull, Scenario has been created')
+            }
+        } catch (error) {
+            setSubmit(false)
+            console.error(error)
+            toast.error(`Sorry, you can't create scenario. Please try again after sometime`)   
+        }
+    }
+
+}
+
+return (
+  <div className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" data-aos="zoom-out" data-aos-duration="700" 
+  >
+    <div className="relative w-1/3  px-4 space-y-16 ">
+      <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+        <div className="flex items-start justify-between p-5  rounded-t">
+            <h3 className="text-2xl font-semibold text-dark">
+                New Wave
+            </h3>
+            {setShowModal && (<button
+            className="absolute -top-3 -right-3 bg-red-500 hover:bg-red-600 text-2xl w-10 h-10 rounded-full focus:outline-none text-white"
+            onClick={() => setShowModal(false)}
+            >✗</button>) }
+            
+        </div>
+        <div className="relative p-6 flex-auto">
+          <div className="space-y-6" >
+            {/* name */}
+            <div className="relative z-0 w-full mb-6 group">
+              <input type="text" id="text"
+                  name="name"
+                  onChange={(e) => (name.current = e.target.value)}
+                  autoComplete="off"
+                  required
+                  className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none  focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" "   />
+              <label htmlFor="name" className="peer-focus:font-medium absolute text-sm text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-blue-600  peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Name</label>
+          </div>
+          <div>
+          <label for="start-time" class="block mb-2 text-sm font-medium text-gray-900 ">Start time:</label>
+          <div class="relative">
+          <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+          <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+          </svg>
+          </div>
+          <input type="time" id="start-time" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " min="09:00" max="18:00"  required
+          value={startTime}
+          onChange={(e) => setStartTime(e.target.value)}
+          />
+          </div>
+          </div>
+          <div>
+          <label for="end-time" class="block mb-2 text-sm font-medium text-gray-900 ">End time:</label>
+          <div class="relative">
+          <div class="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+          <svg class="w-4 h-4 text-gray-500 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clip-rule="evenodd"/>
+          </svg>
+          </div>
+          <input type="time" id="end-time" class="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " min="09:00" max="18:00" 
+          value={endTime}
+          required
+
+          onChange={(e) => setEndTime(e.target.value)}
+          />
+          </div>
+          </div>
+          <div className="relative" data-aos="zoom-out"  >
+            <div className="intro-x flex text-black  text-xs sm:text-sm mt-4">
+              <div className="flex items-center mr-auto">
+                <input type="checkbox" className="input border mr-2" id="input-remember-me"  checked={is_active} onChange={(e) => setIsActive(!is_active)} />
+                <label className="cursor-pointer select-none" htmlFor="input-remember-me">Remember me</label>
+              </div>
+              {/* <a href="#!">
+                Forgot your password?
+              </a> */}
+            </div>
+          </div>
+          </div>
+          <div className="flex justify-end mt-5">
+            <button
+              type="button"
+              className="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+              onClick={() => setShowModal(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={submitHandler}
+            >
+              Add Wave
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)
+
+}
+
+
+function AddNewWave({showModal, setShowModal}){
+  // const [showModal, setShowModal] = useState(false)
+  return (
+    <>
+      <button className="bg-color-1 text-white py-2  pr-4  pl-4 h-full w-full text-center border border-1 border-color-1 rounded-md mb-3 ml-0 mr-2 py-3"  onClick={() => setShowModal(true)}    >
+        {/* <FaPuzzlePiece  size={23} className="mr-2" />    */}
+        {"New Wave"}
+      </button>
+    </>
+    
+  )
+}
+
 export default function Page(){
     // const [showModal, setShowModal] = useState(false)
     const [scenarios, setScenarios] = useState([])  
@@ -250,6 +408,8 @@ export default function Page(){
 
 
     const [waves, setWaves] = useState(null)
+
+    const [showModal, setShowModal] = useState(false)
 
     // categories filter
     const [categories, setCategories] = useState(null)
@@ -362,6 +522,8 @@ export default function Page(){
         })
     }
 
+
+
     useEffect(()=>{
         AOS.init();
         DataFetch();
@@ -371,6 +533,7 @@ export default function Page(){
         <>
 
             <CustomToaster />
+            {showModal && <CreateWave  setShowModal={setShowModal}  /> }
             <div >
                 <div className="flex items-center justify-between p-4  ">
                     <h1 className="text-white text-2xl font-bold"> 
@@ -387,9 +550,7 @@ export default function Page(){
                     <div className="w-full col-span-1 relative  p-0 border-none rounded-lg " data-aos="fade-down" data-aos-duration="1000" data-aos-delay="500" >
                         {/* <FiltersBtn /> */}
                         <div>
-                        <button className="bg-color-1 text-white py-2  pr-4  pl-4 h-full w-full text-center border border-1 border-color-1 rounded-md mb-3 ml-0 mr-2 flex justify-end items-center "    onClick={() => setShowModal(true)}  >
-                          New Wave
-                        </button>
+                        <AddNewWave showModal={showModal} setShowModal={setShowModal} />
                         </div>
                         {waves && (
                           <div  className="block  p-6 bg-color-1  rounded-lg shadow ">
