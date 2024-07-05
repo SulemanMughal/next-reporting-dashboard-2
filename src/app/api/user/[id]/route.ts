@@ -97,7 +97,16 @@ export async function GET(request: Request, {params} : {params : {id : string}})
             const teamBonusPoints:any = await prisma.$queryRaw`SELECT first_blood_points FROM Scenario WHERE first_blood = ${quiz_id?.name}`
 
             // console.debug(teamBonusPoints)
+            
+            // console.debug(params.id)
 
+            const userPoints:any = await prisma.$queryRaw`SELECT SUM(obtainedPoints) AS total_obtained_points FROM Answer WHERE submissionStatus = true AND userId = ${params.id};`
+
+            // const userPoints:any = await prisma.$queryRaw`SELECT SUM(obtainedPoints) AS total_obtained_points FROM Answer WHERE submissionStatus = true AND userId = '31bd5c32-a0db-4e77-a70d-0922bd21d4f6';`;
+            const total_obtained_points = parseInt(userPoints[0]?.total_obtained_points) || 0;
+
+            // console.debug(total_obtained_points)
+            console.debug(userPoints)
             const totalBonusPoints = teamBonusPoints.reduce((sum: number, record: any) => sum + record.first_blood_points, 0);
 
             // console.debug(totalBonusPoints)
@@ -106,7 +115,7 @@ export async function GET(request: Request, {params} : {params : {id : string}})
             // console.debug(team_position)
 
             // console.debug(teamRecords)
-            const encryptedData = encrypt({status : true, user , total_teams: total_teams , team_position : (team_position+1) , totalBonusPoints:totalBonusPoints})
+            const encryptedData = encrypt({status : true, user , total_teams: total_teams , team_position : (team_position+1) , totalBonusPoints:totalBonusPoints, userObtainedPoints : total_obtained_points})
             // const encryptedData = {status : true, user , total_teams: total_teams , team_position : (team_position+1)}
             return new Response(JSON.stringify({ encryptedData }))
         }

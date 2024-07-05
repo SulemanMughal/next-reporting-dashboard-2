@@ -729,6 +729,8 @@ function TopStatisticsData({userId , userName}){
     const [team_position, setTeamPosition] = useState(0)
     const [userAnswersCategory, setUserAnswersCategory] = useState(null)
 
+    // const [userPoints, setUserPoints] = useState(0)   
+
     // const [bonusPoints, setBonusPoints] = useState(0)   
 // 
     
@@ -749,6 +751,8 @@ function TopStatisticsData({userId , userName}){
             if(data_2.status === true){
                 // console.debug(data_2)
                 if(data_2.user?.team?.quiz?.questions?.length) {
+
+                    console.debug(data_2?.userObtainedPoints)
                     data = data_2?.user?.team?.quiz?.questions
                     // console.debug(data)
                     // setTotalQuestions(data.length)
@@ -758,7 +762,7 @@ function TopStatisticsData({userId , userName}){
                     // setTotalChallenges(data?.length)
                     // setTotalSubmissions(countSubmitAnswers(data))
                     setTotalPoints(calcTotalPoints(data) + parseInt(data_2?.totalBonusPoints)) //total team points
-                    setTotalObtainedPointsUser(calculateTotalObtainedPoints(data, userId))
+                    setTotalObtainedPointsUser(data_2?.userObtainedPoints)
                     // console.debug(checkEqualNumberOfQuestionsAndAnswers(data))
                     setTotalSolvedChallenges(checkEqualNumberOfQuestionsAndAnswers(data))
 
@@ -767,6 +771,10 @@ function TopStatisticsData({userId , userName}){
 
                     // console.debug(getGroupedAnswersWithTotalQuestions(data, userId))
                     setUserAnswersCategory(calculateScenarioStats(data, userId))
+
+                    // setUserPoints(data_2?.userObtainedPoints)
+
+                    
                     // setBonusPoints(data_2?.totalBonusPoints)
 
                     // console.debug(scenarios)
