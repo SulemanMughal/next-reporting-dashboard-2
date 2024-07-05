@@ -142,6 +142,17 @@ export async function GET(request: Request, {params} : {params : {id : string}})
         ORDER BY 
             total_obtained_points DESC;`
 
+        const first_blood_challenges = await prisma.$queryRaw`SELECT 
+        COUNT(*) AS total_first_blood_scenarios
+    FROM 
+        Scenario s
+    WHERE 
+        s.first_blood = ${quiz_id?.name}`;
+
+
+        const total_first_blood_scenarios = parseInt(first_blood_challenges[0]?.total_first_blood_scenarios) || 0;
+
+        // console.debug(first_blood_challenges)
 
 // console.debug(teamStatistics)
 
@@ -168,7 +179,8 @@ export async function GET(request: Request, {params} : {params : {id : string}})
             // console.debug(teamRecords)
             const encryptedData = encrypt({status : true, user , total_teams: total_teams , team_position : (team_position+1) , totalBonusPoints:totalBonusPoints, userObtainedPoints : total_obtained_points, 
                 teamStatisticsJson : teamStatisticsJson, total_successful_scenarios:total_successful_scenarios,
-                team_name : quiz_id?.name || ""
+                team_name : quiz_id?.name || "",
+                total_first_blood_scenarios : total_first_blood_scenarios
             
             })
 

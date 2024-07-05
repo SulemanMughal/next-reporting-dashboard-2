@@ -2,6 +2,7 @@
 
 // import TotalSubmission from "@/app/components/users/TotalSubmission"
 import TotalObtainedPoints from "@/app/components/users/TotalObtainedPoints"
+import { FaTint } from "react-icons/fa"
 // import RightAnswers from "@/app/components/users/RightAnswers"
 import TotalChallenges from "@/app/components/users/dashboard/TotalChallenges"
 import axios from "axios";
@@ -14,6 +15,10 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { FaAward } from "react-icons/fa6"
 import { FaUsers } from "react-icons/fa";
+import { FaCircleUser } from "react-icons/fa6";
+
+// import { FaUser } from "react-icons/fa6";
+
 
 // import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
@@ -582,16 +587,18 @@ function TeamRow({user}){
                 
                 <div className="px-4 py-4 mb-3 flex items-center  cursor-default rounded ">
                     
-                        <div className="w-10 h-10 flex-none relative rounded-md overflow-hidden ">
+                        {/* <div className="w-10 h-10 flex-none relative rounded-md overflow-hidden "> */}
                             {/* <Image style={{"border":"2px solid #b0b6bb"}} className="rounded-full border-opacity-100 h-100 object-cover absolute w-100" src="/assets/img/6qTxel0AUuRfjCLGU22340QeWSUNNnI2td9BcGOs.png"  alt="Your Image"  layout="fill" objectFit="cover" objectPosition="center" /> */}
-                            <Avatar seed={"X"} />
-                        </div>
-                        <div className="ml-4 mr-auto">
+                            {/* <Avatar seed={"X"} /> */}
+                            
+                        {/* </div> */}
+                        <div className=" mr-auto flex items-center justify-start gap-3">
                             {/* <div className="font-medium">
                                 <a className="flex items-center bg-color-7" href="#!">
                                     Team - 1
                                 </a>
                             </div> */}
+                            <FaCircleUser  size={28} className="text-color-6" />
                             <div className="font-base bg-color-7 uppercase">{user?.user_name}</div>
                             
                         </div>
@@ -637,6 +644,21 @@ function TopTeamsBlock({statistics, teamName}){
             
         </div>
     </div>
+        </>
+    )
+}
+
+function FirstBloodBlock({statistics}){
+    return (
+        <>
+            <div className="p-5 mt-2 bg-color-1  rounded-lg">
+                <div className="intro-x flex items-center justify-between  ">
+                    <h2 className="text-xl font-bold truncate mr-5  flex  justify-start items-center text-color-6">
+                        <FaTint  className="mr-2"/> {"First Blood"}
+                    </h2>
+                    <span className="font-bold text-red-700 text-2xl">{statistics}</span>
+                </div>
+            </div>
         </>
     )
 }
@@ -743,6 +765,8 @@ function TopStatisticsData({userId , userName}){
 
     const [statistics, setStatistics] = useState(null)
 
+    const [bloodCounter, setBloodCounter] = useState(0)
+
     // const [userPoints, setUserPoints] = useState(0)   
 
     // const [bonusPoints, setBonusPoints] = useState(0)   
@@ -770,6 +794,7 @@ function TopStatisticsData({userId , userName}){
                     data = data_2?.user?.team?.quiz?.questions
                     // console.debug(data)
                     // setTotalQuestions(data.length)
+                    setBloodCounter(data_2?.total_first_blood_scenarios)
                     setStatistics(data_2?.teamStatisticsJson)
                     setTeamName(data_2?.team_name)
                     setTotalTeams(data_2.total_teams)
@@ -851,7 +876,11 @@ function TopStatisticsData({userId , userName}){
             </div>
             <div className="w-full col-span-2" data-aos="fade-up" >
                 <TopTeamsBlock statistics={statistics} teamName={teamName} />
+                {bloodCounter && bloodCounter > 0 ? <FirstBloodBlock statistics={bloodCounter}  /> : null}
             </div>
+            {/* <div className="w-full col-span-2" data-aos="fade-up" >
+                <TopTeamsBlock statistics={statistics} teamName={teamName} />
+            </div> */}
             {/* <Discord />
                 <CareerBox />
                 
