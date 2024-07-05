@@ -764,12 +764,12 @@ function TopStatisticsData({userId , userName}){
                     setTotalPoints(calcTotalPoints(data) + parseInt(data_2?.totalBonusPoints)) //total team points
                     setTotalObtainedPointsUser(data_2?.userObtainedPoints)
                     // console.debug(checkEqualNumberOfQuestionsAndAnswers(data))
-                    setTotalSolvedChallenges(checkEqualNumberOfQuestionsAndAnswers(data))
+                    // setTotalSolvedChallenges(checkEqualNumberOfQuestionsAndAnswers(data))
 
                     // console.debug(checkScenarios(data)?.[0]?.length)
                     // setTotalChallenges(checkScenarios(data)?.[0]?.length)
 
-                    setTotalChallenges(parseInt(data_2?.total_successful_scenarios))
+                    setTotalSolvedChallenges(parseInt(data_2?.total_successful_scenarios))
 
                     // console.debug(getGroupedAnswersWithTotalQuestions(data, userId))
                     setUserAnswersCategory(calculateScenarioStats(data, userId))
