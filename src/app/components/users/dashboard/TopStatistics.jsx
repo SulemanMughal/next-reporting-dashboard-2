@@ -752,7 +752,7 @@ function TopStatisticsData({userId , userName}){
                 // console.debug(data_2)
                 if(data_2.user?.team?.quiz?.questions?.length) {
 
-                    console.debug(data_2?.userObtainedPoints)
+                    console.debug(data_2?.total_successful_scenarios)
                     data = data_2?.user?.team?.quiz?.questions
                     // console.debug(data)
                     // setTotalQuestions(data.length)
