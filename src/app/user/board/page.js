@@ -791,14 +791,14 @@ export default function Page(){
         // console.debug("DataFetch")
 
         try {
-            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/board/`)
+            axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/board`)
             .then((res) => {
                 // console.debug("NEXT_PUBLIC_BASE_URL")
                 const {...data_2} = decrypt(res.data.encryptedData)
                 // console.debug(data_2)
                 if(data_2.status === true){
-                    // console.debug(data_2?.results)
-                    setData(data_2.results)
+                    // console.debug(data_2?.users)
+                    // setData(data_2?.users)
                     // setError(null);
                     setUsersGroupedByCountry(data_2.usersGroupedByCountry)
                     

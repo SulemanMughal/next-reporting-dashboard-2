@@ -152,11 +152,11 @@ const UserNavBar = ({pathname}) => {
                             <FaServer  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Challenges</p>    
                         </Link>
                     </li>
-                    <li className="" >
+                    {/* <li className="" >
                         <Link href={"/user/board"} className={classNames( checkLeaderBoardPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <MdLeaderboard  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Leaderboard</p>    
                         </Link>
-                    </li>
+                    </li> */}
                     </ul>
                 </div>
             </nav>
@@ -197,11 +197,11 @@ const AdminNavBar = ({pathname}) => {
                             <HiUserGroup  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Teams</p>    
                         </Link>
                     </li> */}
-                    <li >
+                    {/* <li >
                         <Link href={"/admin/board"} className={classNames( checkAdminLeaderBoardPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <MdLeaderboard  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Leaderboard</p>    
                         </Link>
-                    </li>
+                    </li> */}
                     {/* <li >
                         <Link href={"/admin/activity"} className={classNames( checkAdminActivityPage(pathname) ? 'active' : '', 'flex   items-center justify-start   p-4 px-7 rounded-3xl rounded-b-none text-sm' )}>
                             <LuActivity  size={23}/> <p className="pl-2   pt-1 pb-0 my-0">Activities</p>    
