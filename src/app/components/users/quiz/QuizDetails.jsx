@@ -426,7 +426,10 @@ function getTotalObtainedPoints(questions){
     if(questions){
         questions.forEach((question) => {
             if(question.answers && question.answers.length !== 0){
-                sum = sum + question.answers[0].obtainedPoints
+                if(question.answers[0].submissionStatus === true){
+                    sum = sum + question.answers[0].obtainedPoints
+                }
+                
             }
         })
     }
@@ -1009,7 +1012,7 @@ function Details({scenario , questions , top_user , team_name , recentSolves, se
                 <p className=" text-color-10 mt-3  text-base ">
                     {scenario.desc}    
                 </p>
-                <QuizTags tags={scenario.tags}/>
+                {/* <QuizTags tags={scenario.tags}/> */}
                 <QuizInfoList questions={questions}  scenario={scenario} team_name={team_name} firstBlood={firstBlood} firstBloodPoints={firstBloodPoints} />
                 {scenario?.files?.length ? ( <QuizFileInfo  files={scenario?.files}/> ) : null }
                 {firstBlood && <BestTeamMember top_user={top_user} team_name={firstBlood} firstBloodPoints={firstBloodPoints} />}
