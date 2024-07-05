@@ -111,11 +111,13 @@ export async function GET(request: Request, {params} : {params : {id : string}})
 
             // console.debug(totalBonusPoints)
 
+            console.debug("Team ID : ", team_id, team_id?.teamId)
 
-            const ChallengesCompleted = await prisma.$queryRaw`WITH TeamAnswers AS ( SELECT s.id AS scenario_id, q.id AS question_id, a.teamId, a.submissionStatus FROM Scenario s JOIN Question q ON s.id = q.scenarioId LEFT JOIN Answer a ON q.id = a.questionId AND a.teamId = ${team_id} ), AnsweredQuestions AS ( SELECT scenario_id, question_id, COUNT(*) FILTER (WHERE submissionStatus = true) AS successful_answers, COUNT(*) AS total_answers FROM TeamAnswers GROUP BY scenario_id, question_id ), ScenarioCompletion AS ( SELECT scenario_id, COUNT(*) FILTER (WHERE successful_answers = 1) AS successfully_answered_questions, COUNT(*) AS total_questions FROM AnsweredQuestions GROUP BY scenario_id ) SELECT COUNT(*) AS total_successful_scenarios FROM ScenarioCompletion WHERE successfully_answered_questions = total_questions;`
+
+            const ChallengesCompleted = await prisma.$queryRaw`WITH TeamAnswers AS ( SELECT s.id AS scenario_id, q.id AS question_id, a.teamId, a.submissionStatus FROM Scenario s JOIN Question q ON s.id = q.scenarioId LEFT JOIN Answer a ON q.id = a.questionId AND a.teamId = ${team_id?.teamId} ), AnsweredQuestions AS ( SELECT scenario_id, question_id, COUNT(*) FILTER (WHERE submissionStatus = true) AS successful_answers, COUNT(*) AS total_answers FROM TeamAnswers GROUP BY scenario_id, question_id ), ScenarioCompletion AS ( SELECT scenario_id, COUNT(*) FILTER (WHERE successful_answers = 1) AS successfully_answered_questions, COUNT(*) AS total_questions FROM AnsweredQuestions GROUP BY scenario_id ) SELECT COUNT(*) AS total_successful_scenarios FROM ScenarioCompletion WHERE successfully_answered_questions = total_questions;`
             
             
-            // console.debug(ChallengesCompleted)
+            console.debug(ChallengesCompleted)
 
             const total_successful_scenarios = ChallengesCompleted[0]?.total_successful_scenarios || 0;
             console.debug(total_successful_scenarios);
