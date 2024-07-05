@@ -767,7 +767,7 @@ function TopStatisticsData({userId , userName}){
                     setTotalSolvedChallenges(checkEqualNumberOfQuestionsAndAnswers(data))
 
                     // console.debug(checkScenarios(data)?.[0]?.length)
-                    setTotalChallenges(checkScenarios(data)?.[0]?.length)
+                    // setTotalChallenges(checkScenarios(data)?.[0]?.length)
 
                     setTotalChallenges(parseInt(data_2?.total_successful_scenarios))
 
