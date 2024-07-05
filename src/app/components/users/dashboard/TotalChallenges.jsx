@@ -22,7 +22,7 @@ export default function TotalChallenges({totalChallenges, totalSolvedChallenges 
                             <p className="font-bold  leading-8 text-color-6  text-3xl mb-2">
                             {totalSolvedChallenges && <CountUp end={totalSolvedChallenges}  duration={3} /> } 
                             </p>
-                            <h5 className=" text-xs 2xl:text-base text-color-10">Challenges Attempted </h5>
+                            <h5 className=" text-xs 2xl:text-base text-color-10">Challenges Completed </h5>
                         </div>
                         <span>
                         </span>

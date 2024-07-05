@@ -769,6 +769,8 @@ function TopStatisticsData({userId , userName}){
                     // console.debug(checkScenarios(data)?.[0]?.length)
                     setTotalChallenges(checkScenarios(data)?.[0]?.length)
 
+                    setTotalChallenges(parseInt(data_2?.total_successful_scenarios))
+
                     // console.debug(getGroupedAnswersWithTotalQuestions(data, userId))
                     setUserAnswersCategory(calculateScenarioStats(data, userId))
 

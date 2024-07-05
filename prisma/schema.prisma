@@ -172,7 +172,7 @@ model Question{
   
 }
 
-
+// i want to write a sql query where a specific team has submitted answers to all questions of a scneario 
 
 model Answer{
   id    String  @id @default(uuid())
