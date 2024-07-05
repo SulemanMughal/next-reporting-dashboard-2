@@ -822,6 +822,7 @@ function TopStatisticsData({userId , userName}){
                 {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="1000" */}
                 {/* <NewsBlock /> */}
                 <div className="grid grid-cols-12 gap-4 rounded-lg mt-4">
+                    
                     {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
                     
                     {/* <InvestigationChart /> */}
@@ -830,12 +831,13 @@ function TopStatisticsData({userId , userName}){
                     {/* <LabTimeChart /> */}
                 </div>
             </div>
-            {/* <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
-                <Discord />
-                <CareerBox />
+            <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
                 <TopTeamsBlock />
+            </div>
+            <Discord />
+                <CareerBox />
+                
                 <PublicDemo />
-            </div> */}
         </div>
             
         </>

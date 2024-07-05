@@ -239,7 +239,7 @@ export async function POST(request ){
 
         let is_vulnerable = false
         if(scenario?.is_patch){
-            let is_vulnerable = await isVulnerable(team_db?.team_octet);
+            is_vulnerable = await isVulnerable(team_db?.team_octet);
         }
         
         // console.debug(is_vulnerable)
