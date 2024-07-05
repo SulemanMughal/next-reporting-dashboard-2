@@ -126,20 +126,20 @@ export async function GET(request: Request, {params} : {params : {id : string}})
             const team_position = teamRecords.findIndex(record => record.team_id === team_id.teamId);
 
 
-            const teamStatistics:any = await prisma.$queryRaw`SELECT
+            const teamStatistics:any = await prisma.$queryRaw`SELECT 
             u.id AS user_id,
             u.name AS user_name,
             u.email AS user_email,
-            SUM(a.obtainedPoints) AS total_obtained_points
-        FROM
-            User u
-            JOIN Answer a ON u.id = a.userId
-        WHERE
+            COALESCE(SUM(a.obtainedPoints), 0) AS total_obtained_points
+        FROM 
+            "User" u
+        LEFT JOIN 
+            "Answer" a ON u.id = a.userId AND a.submissionStatus = true
+        WHERE 
             u.teamId = ${team_id.teamId}
-            AND a.submissionStatus = true
-        GROUP BY
+        GROUP BY 
             u.id, u.name, u.email
-        ORDER BY
+        ORDER BY 
             total_obtained_points DESC;`
 
 
