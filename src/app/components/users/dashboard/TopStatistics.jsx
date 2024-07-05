@@ -13,6 +13,8 @@ import Link from "next/link"
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { FaAward } from "react-icons/fa6"
+import { FaUsers } from "react-icons/fa";
+
 // import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
 // import  { FaPuzzlePiece } from "react-icons/fa6"
@@ -573,7 +575,8 @@ function PlatformIntroduction({userId}){
 }
 
 
-function TeamRow(){
+function TeamRow({user}){
+    console.debug(user)
     return (
         <div className={"intro-y rounded text-color-6  zoom-in bg-color-7" }  >
                 
@@ -584,16 +587,16 @@ function TeamRow(){
                             <Avatar seed={"X"} />
                         </div>
                         <div className="ml-4 mr-auto">
-                            <div className="font-medium">
+                            {/* <div className="font-medium">
                                 <a className="flex items-center bg-color-7" href="#!">
                                     Team - 1
                                 </a>
-                            </div>
-                            <div className="font-base bg-color-7"><i>User-1</i></div>
+                            </div> */}
+                            <div className="font-base bg-color-7 uppercase">{user?.user_name}</div>
                             
                         </div>
                    
-                    <div className="py-1 px-2 rounded-full text-xs  bg-color-1 text-color-6 cursor-default font-medium">150 Points</div>
+                    <div className="py-1 px-2 rounded-full text-xs  bg-color-1 text-color-6 cursor-default font-medium">{user?.total_obtained_points} Points</div>
                     {/* <button linkurl="#!" className="view-writeup ml-2">
                         <div className="p-2 rounded-full text-xs text-white bg-deep-indigo cursor-pointer font-medium">
                             <FaExternalLinkAlt />
@@ -607,23 +610,30 @@ function TeamRow(){
 
 
 
-function TopTeamsBlock(){
+function TopTeamsBlock({statistics, teamName}){
+
+    // console.debug(statistics)
     return (
         <>
             <div className="p-5 bg-color-1  rounded-lg">
-        <div className="intro-y flex items-center h-10">
-            <h2 className="text-lg font-medium truncate mr-5 text-color-6" >
-                {`Top Highest Team`}
+        <div className="intro-y flex items-center justify-between h-10">
+            <h2 className="text-xl font-medium truncate mr-5 text-color-6" >
+                {teamName}
             </h2>
+            <FaUsers size={45} className="text-color-6" />
             
         </div>
         <div className="mt-5">
-                        
+            {statistics && statistics?.length ? statistics.map((item, index) => (
+                <TeamRow key={index} user={item} />
+            )) : null    
+            }
+            {/* <TeamRow /> */}
+            {/* <TeamRow />
             <TeamRow />
             <TeamRow />
             <TeamRow />
-            <TeamRow />
-            <TeamRow />
+            <TeamRow /> */}
             
         </div>
     </div>
@@ -729,6 +739,10 @@ function TopStatisticsData({userId , userName}){
     const [team_position, setTeamPosition] = useState(0)
     const [userAnswersCategory, setUserAnswersCategory] = useState(null)
 
+    const [teamName, setTeamName] = useState("")
+
+    const [statistics, setStatistics] = useState(null)
+
     // const [userPoints, setUserPoints] = useState(0)   
 
     // const [bonusPoints, setBonusPoints] = useState(0)   
@@ -752,10 +766,12 @@ function TopStatisticsData({userId , userName}){
                 // console.debug(data_2)
                 if(data_2.user?.team?.quiz?.questions?.length) {
 
-                    console.debug(data_2?.total_successful_scenarios)
+                    console.debug(data_2?.total_successful_scenarios, data_2?.teamStatisticsJson)
                     data = data_2?.user?.team?.quiz?.questions
                     // console.debug(data)
                     // setTotalQuestions(data.length)
+                    setStatistics(data_2?.teamStatisticsJson)
+                    setTeamName(data_2?.team_name)
                     setTotalTeams(data_2.total_teams)
                     setTeamPosition(data_2.team_position)
                     setScenarios(checkScenarios(data))
@@ -773,6 +789,8 @@ function TopStatisticsData({userId , userName}){
 
                     // console.debug(getGroupedAnswersWithTotalQuestions(data, userId))
                     setUserAnswersCategory(calculateScenarioStats(data, userId))
+
+                    
 
                     // setUserPoints(data_2?.userObtainedPoints)
 
@@ -831,8 +849,8 @@ function TopStatisticsData({userId , userName}){
                     {/* <LabTimeChart /> */}
                 </div>
             </div>
-            <div className="w-full col-span-2" data-aos="fade-up" data-aos-duration="500" data-aos-delay="600">
-                <TopTeamsBlock />
+            <div className="w-full col-span-2" data-aos="fade-up" >
+                <TopTeamsBlock statistics={statistics} teamName={teamName} />
             </div>
             {/* <Discord />
                 <CareerBox />

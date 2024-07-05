@@ -124,10 +124,56 @@ export async function GET(request: Request, {params} : {params : {id : string}})
             
             
             const team_position = teamRecords.findIndex(record => record.team_id === team_id.teamId);
-            // console.debug(team_position)
+
+
+            const teamStatistics:any = await prisma.$queryRaw`SELECT
+            u.id AS user_id,
+            u.name AS user_name,
+            u.email AS user_email,
+            SUM(a.obtainedPoints) AS total_obtained_points
+        FROM
+            User u
+            JOIN Answer a ON u.id = a.userId
+        WHERE
+            u.teamId = ${team_id.teamId}
+            AND a.submissionStatus = true
+        GROUP BY
+            u.id, u.name, u.email
+        ORDER BY
+            total_obtained_points DESC;`
+
+
+// console.debug(teamStatistics)
+
+// teamStatistics.reduce((sum: number, record: any) => sum + record.first_blood_points, 0)
+                const teamStatisticsJson = teamStatistics?.map(user => ({
+                    ...user,
+                    total_obtained_points: user.total_obtained_points.toString()
+                }));
+
+                console.debug(teamStatisticsJson)
+
+            // const response = teamStatistics?.map(user => ({
+            // ...teamStatistics,
+            // total_obtained_points: user.total_obtained_points.toString()
+            // }));
+            // const teamStatisticsJson = JSON.stringify(teamStatistics);
+            // console.debug("team statistics", teamStatistics)
+
+
+            // const teamStatisticsJson = JSON.parse(teamStatistics:any);
+
+            // console.debug("team statistics", teamStatistics)
 
             // console.debug(teamRecords)
-            const encryptedData = encrypt({status : true, user , total_teams: total_teams , team_position : (team_position+1) , totalBonusPoints:totalBonusPoints, userObtainedPoints : total_obtained_points, total_successful_scenarios:total_successful_scenarios})
+            const encryptedData = encrypt({status : true, user , total_teams: total_teams , team_position : (team_position+1) , totalBonusPoints:totalBonusPoints, userObtainedPoints : total_obtained_points, 
+                teamStatisticsJson : teamStatisticsJson, total_successful_scenarios:total_successful_scenarios,
+                team_name : quiz_id?.name || ""
+            
+            })
+
+
+
             // const encryptedData = {status : true, user , total_teams: total_teams , team_position : (team_position+1)}
             return new Response(JSON.stringify({ encryptedData }))
         }
