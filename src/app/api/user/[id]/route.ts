@@ -119,7 +119,7 @@ export async function GET(request: Request, {params} : {params : {id : string}})
             
             console.debug(ChallengesCompleted)
 
-            const total_successful_scenarios = ChallengesCompleted[0]?.total_successful_scenarios || 0;
+            const total_successful_scenarios = parseInt(ChallengesCompleted[0]?.total_successful_scenarios) || 0;
             console.debug(total_successful_scenarios);
             
             
