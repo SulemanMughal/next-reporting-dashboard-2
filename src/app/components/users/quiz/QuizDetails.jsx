@@ -742,7 +742,7 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                 
                 const {...data } = decrypt(res.data.encryptedData)
 
-
+                console.debug(data)
                 if(data.status === true){
 
                     if(data.result.submissionStatus === true){

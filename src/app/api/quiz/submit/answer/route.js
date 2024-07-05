@@ -235,9 +235,13 @@ export async function POST(request ){
 
         let team_db = await getTeamById(team).then((data) => data);
 
+        let scenario = await getScenarioById(question_db?.scenarioId).then((data) => data);
 
-
-        const is_vulnerable = await isVulnerable(team_db?.team_octet);
+        let is_vulnerable = false
+        if(scenario?.is_patch){
+            let is_vulnerable = await isVulnerable(team_db?.team_octet);
+        }
+        
         // console.debug(is_vulnerable)
         // const negativePoints = configurations.find((element) => element.key === 'negative_points').value || 0;
         const negativePoints = configurations.find((element) => element.key === 'negative_points') || null;
@@ -246,7 +250,7 @@ export async function POST(request ){
         
 
         // get scenario
-        let scenario = await getScenarioById(question_db?.scenarioId).then((data) => data);
+        
 
 
         let message = "";
