@@ -147,6 +147,8 @@ export default function LogLineChart({logs_by_hour}){
           },
         }],
       })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
 

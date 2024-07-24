@@ -151,12 +151,6 @@ export async function POST(request ){
     const {...data } = decrypt(body.encryptedData)
     const { question  , answer , team , quiz , user} = data
 
-    // console.debug({ question  , answer , team , quiz , user})
-    // console.debug(question?.scenarioId)
-
-    // getTotalQuestionsByScenarioId(question?.scenarioId).then((data) => console.debug(data))
-
-    
 
     try{
         const checkExisingAnswer  = await prisma.question.findUnique({
@@ -179,125 +173,48 @@ export async function POST(request ){
             }
         })
 
-        // console.debug(correct_answer)
-
         const arrOriginalAnswer = commaSeparatedStringToArray(correct_answer.original_answer);
         const arrSubmitAnswer = commaSeparatedStringToArray(answer)
         let rightStatus = arraysHaveSameElementsIgnoreCaseAndTrim(arrOriginalAnswer, arrSubmitAnswer)
         let points = 0;
         rightStatus ? (points = correct_answer.points) : (points = 0) ;
-
-        let all_answers = await getAllAnswersSubmitted(question);
-
-        // console.debug(all_answers)
-
         let configurations = await getConfigurations().then((data) => data);
-
-
-        // console.debug(all_answers.length, configurations)
-
-        
-
         let first_attempt = configurations.find((element) => element.key === 'first_attempt') || null;
-        // let first_attempt = configurations.find((element) => element.key === 'first_attempt').value || 0;
-        // let second_attempt = configurations.find((element) => element.key === 'second_attempt').value || 0;
-        // let third_attempt = configurations.find((element) => element.key === 'third_attempt').value || 0;
-
-        // console.debug(first_attempt)
-        
-        // points = all_answers.length == 0 ? points + parseInt(first_attempt) : all_answers.length == 1 ? points + parseInt(second_attempt) : all_answers.length == 2 ? points + parseInt(third_attempt) : points + 0;
-        // if(all_answers.length == 0){
-        //     points = points + parseInt(first_attempt);
-        // } else if (all_answers.length == 1){
-        //     points = points + parseInt(second_attempt);
-        // } else if (all_answers.length == 2){
-        //     points = points + parseInt(third_attempt);
-        // } else{
-        //     points = points + 0;
-        // }
-
-        // console.debug(first_attempt, second_attempt, third_attempt);
-
-
-        // console.debug(points)
-
         let result ;
-
         let question_db =   await getQuestionById(question).then((data) => data);
-        
-        // let scenario_id = question_db.scenarioId;
-
         let total_questions = await getTotalQuestionsByScenarioId(question_db?.scenarioId).then((data) => data);
-
-        
-
-        
-
         let team_db = await getTeamById(team).then((data) => data);
-
         let scenario = await getScenarioById(question_db?.scenarioId).then((data) => data);
-
         let is_vulnerable = false
         if(scenario?.is_patch){
             is_vulnerable = await isVulnerable(team_db?.team_octet);
         }
-        
-        // console.debug(is_vulnerable)
-        // const negativePoints = configurations.find((element) => element.key === 'negative_points').value || 0;
-        const negativePoints = configurations.find((element) => element.key === 'negative_points') || null;
-
-
-        
-
-        // get scenario
-        
-
 
         let message = "";
-        // console.debug(scenario)
-
-        
-
-
-        // console.debug(checkExisingAnswer)
-
-        // console.debug(question_db)
-
-        // console.debug(negativePoints)
-        // if()
-
-        
         
 
         // check if user try to submit answer
         if(checkExisingAnswer.answers.length) {
-            
-            if(negativePoints && negativePoints?.is_active){
-                if(scenario?.is_patch){
-                    points = 0;
-                    if(is_vulnerable.status === "vulnerable"){
-                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(1);
-                        rightStatus = false;
-                        message = "Service is still vulnerable. 1 point deducted."
-                    } else if(is_vulnerable.status === "patched"){
-                        rightStatus = true;
-                        points = checkExisingAnswer.answers[0]?.obtainedPoints + parseInt(correct_answer.points);
-                        message = "Good Job"
-                    } else if(is_vulnerable.status === "modified"){
-                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(5);
-                        rightStatus = false;
-                        message = "Service is interrupted. 5 points deducted."
-                    } else if(is_vulnerable.status === "down"){
-                        points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(5);
-                        rightStatus = false;
-                        message = "Service is unreachable. 5 points deducted."
-                    }
+            if(scenario?.is_patch){
+                points = 0;
+                if(is_vulnerable.status === "vulnerable"){
+                    points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(1);
+                    rightStatus = false;
+                    message = "Service is still vulnerable. 1 point deducted."
+                } else if(is_vulnerable.status === "patched"){
+                    rightStatus = true;
+                    points = checkExisingAnswer.answers[0]?.obtainedPoints + parseInt(correct_answer.points);
+                    message = "Good Job"
+                } else if(is_vulnerable.status === "modified"){
+                    points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(5);
+                    rightStatus = false;
+                    message = "Service is interrupted. 5 points deducted."
+                } else if(is_vulnerable.status === "down"){
+                    points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(5);
+                    rightStatus = false;
+                    message = "Service is unreachable. 5 points deducted."
                 }
-
-                console.debug(checkExisingAnswer.answers[0]?.obtainedPoints)
             }
-            
-
 
             result = await prisma.answer.update({
                 where : {
@@ -329,26 +246,24 @@ export async function POST(request ){
                 }
             })
         } else{
-            if(negativePoints && negativePoints?.is_active){
-                if(scenario?.is_patch){
-                    points = 0;
-                    if(is_vulnerable.status === "vulnerable"){
-                        points = points - parseInt(1);
-                        rightStatus = false;
-                        message = "Service is still vulnerable. 1 point deducted."
-                    } else if(is_vulnerable.status === "patched"){
-                        points = points + parseInt(correct_answer.points);
-                        rightStatus = true;
-                        message = "Good Job"
-                    } else if(is_vulnerable.status === "modified"){
-                        points = points - parseInt(5);
-                        rightStatus = false;
-                        message = "Service is interrupted. 5 points deducted."
-                    } else if(is_vulnerable.status === "down"){
-                        points = points - parseInt(5);
-                        rightStatus = false;
-                        message = "Service is unreachable. 5 points deducted."
-                    }
+            if(scenario?.is_patch){
+                points = 0;
+                if(is_vulnerable.status === "vulnerable"){
+                    points = points - parseInt(1);
+                    rightStatus = false;
+                    message = "Service is still vulnerable. 1 point deducted."
+                } else if(is_vulnerable.status === "patched"){
+                    points = points + parseInt(correct_answer.points);
+                    rightStatus = true;
+                    message = "Good Job"
+                } else if(is_vulnerable.status === "modified"){
+                    points = points - parseInt(5);
+                    rightStatus = false;
+                    message = "Service is interrupted. 5 points deducted."
+                } else if(is_vulnerable.status === "down"){
+                    points = points - parseInt(5);
+                    rightStatus = false;
+                    message = "Service is unreachable. 5 points deducted."
                 }
             }
             
@@ -381,11 +296,8 @@ export async function POST(request ){
             })
         }
         
-
-        // total answers submitted by a team
         let total_answers = await getTotalAnswersSubmittedByTeam(team, question_db?.scenarioId).then((data) => data);
 
-        // console.debug(total_answers)
         if(first_attempt && first_attempt?.is_active){
             if(total_questions == total_answers){
                 if(!scenario?.first_blood){
@@ -396,8 +308,6 @@ export async function POST(request ){
                 }
             }
         }
-        
-        console.debug(checkExisingAnswer)
 
         const encryptedData = encrypt({status : true , message : message , result})
         return new Response(JSON.stringify({ encryptedData }))

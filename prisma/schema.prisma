@@ -20,6 +20,8 @@ model Quiz{
   endAt DateTime  @default(now())
   questions Question[]
   teams Team[]
+
+  // @@map("quizes")
 }
 
 model Config{
@@ -28,6 +30,8 @@ model Config{
   value String
   is_active Boolean @default(true)
   createdAt DateTime  @default(now())
+
+  // @@map("configs")
 }
 
 // model AttackLogs{
@@ -50,6 +54,8 @@ model Team {
 
   team_octet Int @default(0)
   ImageName String @default("")
+
+  // @@map("teams")
 }
 
 
@@ -63,6 +69,8 @@ model TeamInfra{
   team Team? @relation(fields: [teamId], references: [id])
   teamId String?
   createdAt DateTime  @default(now())
+
+//   @@map("team_infras")
 }
 
 model User {
@@ -70,6 +78,7 @@ model User {
   email String  @unique
   name  String?
   role  String?  @default("user")
+
   password  String
   answers Answer[] 
   team Team? @relation(fields: [teamId], references: [id])
@@ -78,6 +87,8 @@ model User {
   joinedDate DateTime  @default(now())
   lastLogin DateTime  @default(now())
   active Boolean @default(true)
+
+  // @@map("users")
   
 }
 
@@ -87,6 +98,8 @@ model AttackScript{
   script_category String
   desc String @default("")
   addedAt DateTime  @default(now())
+
+  // @@map("attack_scripts")
 }
 
 
@@ -109,6 +122,8 @@ model Wave{
   // first_blood_points Int @default(0)
 
   // is_patch Boolean @default(false)
+
+  // @@map("waves")
 }
 
 
@@ -133,6 +148,8 @@ model Scenario{
   waveId String? 
 
   @@unique([id, waveId]) 
+
+  // @@map("scenarios")
 }
 
 
@@ -145,6 +162,8 @@ model File {
   scenario Scenario? @relation(fields: [scenarioId], references: [id])
   scenarioId String?
   createdAt DateTime  @default(now())
+
+  // @@map("files")
 }
 
 
@@ -169,6 +188,8 @@ model Question{
   scenario Scenario? @relation(fields: [scenarioId], references: [id])
   scenarioId String?
   createdAt DateTime  @default(now()) 
+
+  // @@map("questions")
   
 }
 
@@ -187,6 +208,8 @@ model Answer{
   teamId String?
   user User? @relation(fields: [userId], references: [id])
   userId String?
+
+  // @@map("answers")
 }
 
 model LogEntry{
@@ -196,4 +219,7 @@ model LogEntry{
   action_by     String  @default("")
   message String @default("")
   level String @default("info")
+
+  // @@map("log_enteries")
 }
+

@@ -32,6 +32,9 @@ function OverAllTotalUserCounter({total_users}){
     const [userCounter, setUserCounter] = useState(0)
     useEffect(() => (
         setUserCounter(total_users)
+
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ), [])
     return (
         <>
@@ -62,6 +65,8 @@ function TeamCounter({total_teams}){
     const [teamCounter, setTeamCounter] = useState(0)
     useEffect(() => (
         setTeamCounter(total_teams)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ), [])
     return (
         <>
@@ -92,6 +97,8 @@ function OverallTotalChallenges({total_challenges}){
     const [challengesCounter, setChallengesCounter] = useState(0)
     useEffect(() => (
         setChallengesCounter(total_challenges)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ), [])
     return (
         <>

@@ -26,65 +26,69 @@ templates = {
 
 
 function createDbConnection() {
-  if (fs.existsSync(filepath)) {
-    return new sqlite3.Database(filepath);
-  }
-  else{
-    const db = new sqlite3.Database(filepath, (error) => {
-      if (error) {
-        return console.error(error.message);
-      }
-    });
-    console.log("Connection with SQLite has been established");
-    return db;
-  }
+  return true;
+  // if (fs.existsSync(filepath)) {
+  //   return new sqlite3.Database(filepath);
+  // }
+  // else{
+  //   const db = new sqlite3.Database(filepath, (error) => {
+  //     if (error) {
+  //       return console.error(error.message);
+  //     }
+  //   });
+  //   console.log("Connection with SQLite has been established");
+  //   return db;
+  // }
 }
 
 
 const selectRows = () => {
-  return new Promise((resolve, reject) => {
-    const db = createDbConnection()
-    let result = []
-    let index = 0;
+  return [];
+  // return new Promise((resolve, reject) => {
+  //   const db = createDbConnection()
+  //   let result = []
+  //   let index = 0;
 
-    db.each(`SELECT * FROM logs`, (err, row) => {
-      if(err) { reject(err) }
-        index = index + 1
-        console.debug(row , index)
-    }, () => {
-      resolve(result)
-    })
-  })
+  //   db.each(`SELECT * FROM logs`, (err, row) => {
+  //     if(err) { reject(err) }
+  //       index = index + 1
+  //       console.debug(row , index)
+  //   }, () => {
+  //     resolve(result)
+  //   })
+  // })
 }
 
 
 // find specific team logs
 const selectTeam = (team_id) => {
     // console.debug(`SELECT * FROM logs WHERE team='${team_id}'`)
-    return new Promise((resolve, reject) => {
-      const db = createDbConnection()
-      let result = []
-      db.each(`SELECT Count FROM logs WHERE team='${team_id}'`, (err, row) => {
-        if(err) { reject(err) }
-          console.debug(row)
-      }, () => {
-        resolve(result)
-      })
-    })
+    return [];
+    // return new Promise((resolve, reject) => {
+    //   const db = createDbConnection()
+    //   let result = []
+    //   db.each(`SELECT Count FROM logs WHERE team='${team_id}'`, (err, row) => {
+    //     if(err) { reject(err) }
+    //       console.debug(row)
+    //   }, () => {
+    //     resolve(result)
+    //   })
+    // })
 }
 
 
 const execQuery = (query) => {
-  return new Promise((resolve, reject) => {
-    const db = createDbConnection()
-    let result = []
-    db.each(`${query}`, (err, row) => {
-      if(err) { reject(err) }
-        console.debug(row)
-    }, () => {
-      resolve(result)
-    })
-  })
+  return [];
+  // return new Promise((resolve, reject) => {
+  //   const db = createDbConnection()
+  //   let result = []
+  //   db.each(`${query}`, (err, row) => {
+  //     if(err) { reject(err) }
+  //       console.debug(row)
+  //   }, () => {
+  //     resolve(result)
+  //   })
+  // })
 }
 
 // fetch all rows
@@ -99,6 +103,6 @@ const execQuery = (query) => {
 // execQuery(`SELECT COUNT(*) FROM logs GROUP BY DATEDIFF(MINUTE, '2000', datetime) / 10 `)
 // execQuery(`Select * FROM logs `)
 // execQuery(`SELECT   COUNT(*) , protocol, team FROM logs GROUP BY  team, protocol`)
-execQuery(`SELECT  COUNT(DISTINCT src) , COUNT(DISTINCT team)   , protocol FROM logs GROUP BY protocol`)
+// execQuery(`SELECT  COUNT(DISTINCT src) , COUNT(DISTINCT team)   , protocol FROM logs GROUP BY protocol`)
 // execQuery(`SELECT COUNT(*) FROM`)
 // execQuery(`SELECT COUNT(*), strftime ('%H',datetime) FROM logs GROUP BY strftime('%H',datetime)`)

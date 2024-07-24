@@ -1,11 +1,7 @@
-// get scenario details based on user id and scenario id
 
 import prisma from "@/app/lib/prisma";
-
-
-
 import encrypt from "@/app/lib/encrypt"
-import decrypt from "@/app/lib/decrypt"
+
 
 
 

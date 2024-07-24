@@ -9,6 +9,8 @@ export default function QuizCounter({total_quizes}){
     const [quizCounter, setQuizCounter] = useState(0)
     useEffect(() => (
         setQuizCounter(total_quizes)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ), [])
     return (
         <>

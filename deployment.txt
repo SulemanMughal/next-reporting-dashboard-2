@@ -24,6 +24,19 @@ Make Prisma Migrations
     npx prisma migrate dev --name init
 
 
+===============================
+(optional) Create First 20 users
+
+
+node ./src/app/lib/user/first_20_users.js
+
+node ./src/app/lib/user/create_team.js
+
+
+
+===============================
+
+
 ========================================
 Register User
 ========================================

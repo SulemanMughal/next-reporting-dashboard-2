@@ -1,32 +1,32 @@
 "use client"
 
 
-import { AiOutlineFileZip } from "react-icons/ai"
+// import { AiOutlineFileZip } from "react-icons/ai"
 import axios from "axios";
-import { PiPasswordFill } from "react-icons/pi";
+// import { PiPasswordFill } from "react-icons/pi";
 import { BiHide, BiShow } from "react-icons/bi";
 import { toast } from "react-hot-toast";
-import {  use, useEffect, useRef, useState } from "react";
+import {   useEffect, useRef, useState } from "react";
 import {  useSession } from "next-auth/react";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 import { convertStringToArray , capitalizeFirstLetter , getDifficultyColor } from "@/app/lib/helpers"
 
-import { AiFillFile } from "react-icons/ai"
-import { FaKey } from "react-icons/fa"
-import { BsFillDatabaseFill } from "react-icons/bs"
+// import { AiFillFile } from "react-icons/ai"
+// import { FaKey } from "react-icons/fa"
+// import { BsFillDatabaseFill } from "react-icons/bs"
 import { IoCopyOutline } from "react-icons/io5"
 // import ReactTooltip from 'react-tooltip';
 import { Tooltip as ReactTooltip } from "react-tooltip";
 import { FaFile } from "react-icons/fa"
 import { FaTint } from "react-icons/fa"
-import  { FaCloud } from "react-icons/fa"
+// import  { FaCloud } from "react-icons/fa"
 
 import Image from "next/image";
 import { FaExclamationTriangle } from  "react-icons/fa"
 
-import Modal from './ReportingModal'
+// import Modal from './ReportingModal'
 
 import encrypt from "@/app/lib/encrypt"
 import { MdCloudDownload } from "react-icons/md";
@@ -144,98 +144,10 @@ function getUsersWithSubmissionTime(questionsData) {
 
 
 
-function FileDownloadButton({ file }) {
-    const [downloading, setDownloading] = useState(false);
-    // console.debug(file)
-    const downloadFile = async () => {
-      if (!downloading) {
-        setDownloading(true);
-        try {
-          const response = await fetch(`${file.filepath}`);
-          if (response.ok) {
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = file.filename;
-            document.body.appendChild(a);
-            a.click((e) => (e.preventDefault()));
-            a.remove();
-          } else {
-            console.error('Error downloading file:', response.status);
-          }
-        } catch (error) {
-          console.error('Error downloading file:', error);
-        }
-        setDownloading(false);
-      }
-    };
   
-    return (
-      <button
-        className="bg-color-2  text-color-1 font-bold py-2 px-4 border-none rounded"
-        onClick={downloadFile}
-        disabled={downloading}
-      >
-        {downloading ? 'Downloading...' : 'Download File'}
-      </button>
-    );
-  }
-  
-
-  const CopyButton = ({ text }) => {
-
-    
-
-    // const [isShow, setIsShow] = useState(false);
-
-    // const [copied, setCopied] = useState(false);
-
-
-    // useEffect(() => {
-    //     setCopied(false)
-    //     setIsShow(false)
-    // }, [])
-  
-    const handleCopyClick = () => {
-      navigator.clipboard.writeText(text);
-    //   setCopied(true);
-    //   setIsShow(true);
-    //   setTimeout(() => {
-    //     setCopied(false);
-    //     setIsShow(false)
-    //   }, 1500);
-    };
-  
-    return (
-      <>
-        <button
-            onClick={handleCopyClick}
-            className="bg-transparent hover:text-blue-500 text-white  px-6 rounded"
-            data-tooltip-id={"my-tooltip-1"}
-        >
-            
-            <IoCopyOutline  size={23}  />
-        </button>
-
-        <ReactTooltip id="my-tooltip-1"  
-            place="top"
-            content="Copy Password" />
-
-        {/* {copied && (
-           
-        )    } */}
-
-        {/* {isShow && (  )}  */}
-        
-      </>
-    );
-  };
-
 
 
   const FileSize = ({file}) => {
-    // console.debug(file)
     const [fileSize, setFileSize] = useState(0);
     useEffect(() => {
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/files/${file.id}`)
@@ -252,62 +164,19 @@ function FileDownloadButton({ file }) {
             setFileSize(0)
             toast.error(`Sorry! There is an error while fetching file info.Please try again later`)
         })
+        
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
-        <>
-            {/* <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  ">
-                    <div className="flex justify-start items-center w-full col-span-2 relative">
-                        <BsFillDatabaseFill className="text-sky-400" size={23}/><span className="ml-2 text-gray-400"> Size : </span>
-                    </div>
-                    <div className="flex justify-start items-center w-full col-span-4 relative">
-                        <span className="ml-2 text-gray-400"> {fileSize} </span>
-                    </div>
-                </div> */}
-
-
-            <div className="ml-1  2xl:ml-4">
-                <a className="font-medium text-gray-300 text-xs" href="">{file.filename}</a> 
-                <div className="text-gray-400 text-xs">
-                    {fileSize}
-                </div>
+        <div className="ml-1  2xl:ml-4">
+            <a className="font-medium text-gray-300 text-xs" href="">{file.filename}</a> 
+            <div className="text-gray-400 text-xs">
+                {fileSize}
             </div>
-        </>
+        </div>
     )
   }
 
-
-  // <div className="p-4 grid  grid-cols-6 gap-4 place-items-center justify-center  " key={file.id}>
-            //     <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
-            //         <div className="flex  items-center justify-start px-0 place-items-start text-start">
-            //             <div className="px-0">
-            //                 <AiOutlineFileZip className="text-gray-300" size={40} />
-            //             </div>
-            //             <div className="ml-2">
-            //                 <h3 className="mb-0 pb-0 text-sm  text-gray-400">{file.filename}</h3>
-            //                 {/* <p className="mt-0 pb-0  text-sm text-gray-400">20 MB</p> */}
-            //             </div>
-            //         </div>
-            //     </div>
-            //     <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-start justify-center">
-            //         <h3 className="text-gray-400">Password</h3>
-            //         <p className="text-gray-400">{file.password}</p>
-            //     </div>
-            //     <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-center justify-center">
-            //         <Link  href={`${file.filepath}`} className="btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded">
-            //             Download File
-            //         </Link>
-            //         {/* <FileDownloadButton file={file} /> */}
-            //     </div>
-            // </div>
-             {/* size */}
-                {/* <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  ">
-                    <div className="flex justify-start items-center w-full col-span-2 relative">
-                        <BsFillDatabaseFill className="text-sky-400" size={23}/><span className="ml-2 text-gray-400"> Size : </span>
-                    </div>
-                    <div className="flex justify-start items-center w-full col-span-4 relative">
-                        <span className="ml-2 text-gray-400"> {"20 MB"} </span>
-                    </div>
-                </div> */}
 
 
 
@@ -365,33 +234,7 @@ function QuizFileInfo({files}){
                                 </Link>
                             </div>
                 </div>
-                {/* <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start  " >
-                    <div className="flex justify-start items-center w-full col-span-2 relative">
-                        <AiFillFile className="text-blue-400" size={23}/><span className="ml-2 text-gray-400"> File : </span>
-                    </div>
-                    <div className="flex justify-start items-center w-full col-span-4 relative">
-                        <span className="ml-2 text-gray-400"> {file.filename} </span>
-                    </div>
-                </div>
                 
-                <div className="grid gap-1 auto-rows-fr  grid-cols-6  text-lg bg-card-custom text-white rounded-xl place-items-start my-5 ">
-                    <div className="flex justify-start items-center w-full col-span-2 relative">
-                        <FaKey className="text-green-400" size={23}/><span className="ml-2 text-gray-400"> Password : </span>
-                    </div>
-                    <div className="flex justify-start items-center w-full col-span-4 relative">
-                        <span className="ml-2 text-gray-400"> {file.password} </span>
-                        <CopyButton text={file.password} />
-                    </div>
-                </div>
-                    <FileSize file={file}  />
-                    <div className="w-full col-span-2 relative  m-auto p-0  rounded-0 text-center justify-center">
-                     <Link  href={`${file.filepath}`}  className="w-full my-5 block btn-flag-submit hover:bg-blue-900 hover:text-white text-gray-400 font-bold py-2 px-4 border-none rounded" target="_blank" rel="noopener noreferrer">
-                         
-                        
-                         Download Challenge
-                       
-                     </Link>
-                 </div> */}
             </div>
         ))}
         
@@ -414,9 +257,6 @@ function sumPoints(questions){
     return sum
 }
 
-// function capitalizeFirstLetter(string) {
-//     return string.charAt(0).toUpperCase() + string.slice(1);
-// }
 
 
 
@@ -557,32 +397,7 @@ function QuizTags({tags}){
 }
 
 
-function ScenarioDescription({scenario}){
-    return (
-        <>
-            { false &&  (<div  className="block  p-6 theme-bg-color-2 rounded-lg shadow mb-5" data-aos="fade-down" data-aos-duration="1500" data-aos-delay="500">
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-color-6">{scenario.name}</h5>
-                <p className="font-normal text-white mb-2 text-md">
-                    {scenario.desc}    
-                </p>
-            </div>)}
 
-            <div className="rounded-md px-5 py-4 mb-2 bg-deep-blue text-white mb-5">
-                    <div className="flex items-center">
-                        <div className="font-medium text-lg ">Scenario</div>
-                        <div className="text-xs bg-white px-1 rounded-md text-gray-800 ml-auto">{scenario.name}</div>
-                    </div>
-                    <div className="mt-3 text-base">
-                        {scenario.desc} 
-
-                    </div>
-                </div>
-        </>
-    )
-}
-
-
-// axios post request
 
 
 function checkAnswerSubmissionStatus(answers){
@@ -627,16 +442,13 @@ const SubmitBtn  = ({isSubmit , submitHandler , text="Submit"}) => {
   }
 
 function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, submittedAnswer , format , is_patch}){
-    // console.debug(format)
+
     return (
         <>
             {sovled ? (
                 <>
                     <div className="flex flex-wrap -mx-3 mt-2">
                         <div className="w-full  px-3 h-full ">
-                            {/* <p className=" block w-full btn-flag-submit text-gray-400   rounded py-3 px-4 mb-3 focus:outline-none focus:border-none focus:inset-0  focus:ring-0 focus:shadow-none shadow-none">
-                                {submittedAnswer}
-                            </p> */}
                             <p className="text-xl text-green-500 font-bold italic">
                                 Solved
                             </p>
@@ -650,13 +462,6 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
                 {
                     is_patch ? (
                         <div className="flex flex-wrap -mx-3 mt-2">
-                            {/* <div className="w-full md:w-5/6 px-3 h-full">
-                                <input className="custom-form-control" id="grid-first-name" type="text" placeholder={format} style={{"boxShadow": "inset 0 0px 0 #ddd"}}  autoComplete={"off"} onChange={(e) => changeHandler(e)} />
-                                <select id="countries" class="custom-form-control" onChange={(e) => changeHandler(e)} >
-                                    <option value="false" selected>NO</option>
-                                    <option value="true">YES</option>
-                                </select>
-                            </div> */}
                             <div className="w-full  px-3 h-full">
                                 <SubmitBtn  isSubmit={isSubmit} submitHandler={submitHandler} text={"Check Status"}/>
                             </div>
@@ -758,7 +563,7 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                             .then(res => {
                                 const {...data_2 } = decrypt(res.data.encryptedData)
                                 if(data_2.status === true){
-                                    // console.debug(data_2)
+                                    console.debug(data_2)
                                     // setFirstBlood()
                                     // console.debug(data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood)
                                     // let first_blood = data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;

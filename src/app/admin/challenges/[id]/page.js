@@ -73,6 +73,7 @@ function AnswerComponent({question , index}){
         setEditedText(question.Description)
         setSelectedOption(parseInt(question.points))
         points.current = parseInt(question.points).toString()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const updateQuestionHandler = (questionID) => {

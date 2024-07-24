@@ -71,7 +71,7 @@ useEffect(() => {
       responsive : true
   })
 
-    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
     return (
       <div className="w-full col-span-3 relative  h-full 2xl:h-[60vh]    p-8 pb-20 border-none rounded-lg bg-deep-blue-violet text-white overflow-hidden">

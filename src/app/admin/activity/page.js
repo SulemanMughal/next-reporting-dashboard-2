@@ -520,6 +520,8 @@ export default function Page(){
     useEffect(() => {
         AOS.init();
         DataFetch()
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, recordsPerPrage])  
 
 

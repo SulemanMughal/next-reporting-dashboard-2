@@ -43,11 +43,11 @@ import { UserIcon } from "@/app/lib/icons"
 
 // import LabTimeChart from "./LabTimeChart"
 // import InvestigationChart from "./InvestigationChart"
-import ChallengesChart from "./ChallengesChart"
+// import ChallengesChart from "./ChallengesChart"
 
 import { TfiTwitterAlt } from "react-icons/tfi"
 
-import Avatar from "@/app/components/createAvatar"
+// import Avatar from "@/app/components/createAvatar"
 
 // import styles from "./Dashboard.module.css"
 
@@ -788,51 +788,22 @@ function TopStatisticsData({userId , userName}){
                 const {...data_2 } = decrypt(res.data.encryptedData)
             if(data_2.status === true){
                 // console.debug(data_2)
+                setTeamName(data_2?.team_name)
+                setBloodCounter(data_2?.total_first_blood_scenarios)
+                setStatistics(data_2?.teamStatisticsJson)
+                setTotalTeams(data_2.total_teams)
+                setTeamPosition(data_2.team_position)
+                setTotalSolvedChallenges(parseInt(data_2?.total_successful_scenarios))
+                setTotalObtainedPointsUser(data_2?.userObtainedPoints)
                 if(data_2.user?.team?.quiz?.questions?.length) {
-
-                    console.debug(data_2?.total_successful_scenarios, data_2?.teamStatisticsJson)
                     data = data_2?.user?.team?.quiz?.questions
-                    // console.debug(data)
-                    // setTotalQuestions(data.length)
-                    setBloodCounter(data_2?.total_first_blood_scenarios)
-                    setStatistics(data_2?.teamStatisticsJson)
-                    setTeamName(data_2?.team_name)
-                    setTotalTeams(data_2.total_teams)
-                    setTeamPosition(data_2.team_position)
                     setScenarios(checkScenarios(data))
-                    // setTotalChallenges(data?.length)
-                    // setTotalSubmissions(countSubmitAnswers(data))
-                    setTotalPoints(calcTotalPoints(data) + parseInt(data_2?.totalBonusPoints)) //total team points
-                    setTotalObtainedPointsUser(data_2?.userObtainedPoints)
-                    // console.debug(checkEqualNumberOfQuestionsAndAnswers(data))
-                    // setTotalSolvedChallenges(checkEqualNumberOfQuestionsAndAnswers(data))
-
-                    // console.debug(checkScenarios(data)?.[0]?.length)
-                    // setTotalChallenges(checkScenarios(data)?.[0]?.length)
-
-                    setTotalSolvedChallenges(parseInt(data_2?.total_successful_scenarios))
-
-                    // console.debug(getGroupedAnswersWithTotalQuestions(data, userId))
+                    setTotalPoints(calcTotalPoints(data) + parseInt(data_2?.totalBonusPoints))
                     setUserAnswersCategory(calculateScenarioStats(data, userId))
-
-                    
-
-                    // setUserPoints(data_2?.userObtainedPoints)
-
-                    
-                    // setBonusPoints(data_2?.totalBonusPoints)
-
-                    // console.debug(scenarios)
-
-                    // setTotalTrueQuestions(checkTotalStatus(data)[0])
-                    // setTotalFalseQuestions(checkTotalStatus(data)[1])
-                } else{
-                    // setTotalChallenges(0)
                 }
             }
             else{
                 toast.error(`${data_2.error}`)
-                // setTotalChallenges(0)
             }
         })
         .catch(error => {
@@ -846,24 +817,16 @@ function TopStatisticsData({userId , userName}){
         
     }, [])
 
-    // const percentage = 66;
-
-
     return (
         <>
         <div className="p-4 grid gap-3 auto-rows-fr grid-cols-9">
             <div className="w-full col-span-7">
                 <div className=" grid gap-6 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 " >
-                    {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="600" */}
                     <TotalChallenges  totalChallenges={totalChallenges} totalSolvedChallenges={totalSolvedChallenges}    />
                     <UserObtainedPoints totalObtainedPointsUser={totalObtainedPointsUser} overall_points={scenarios[6]}  />
                     <TotalObtainedPoints  totalPoints={totalPoints} overall_points={scenarios[6]}  />
                     <TeamPosition  team_position={team_position} total_teams={total_teams} />
                 </div>
-                {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
-                {/* <PlatformIntroduction userId={userId} /> */}
-                {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="1000" */}
-                {/* <NewsBlock /> */}
                 <div className="grid grid-cols-12 gap-4 rounded-lg mt-4">
                     
                     {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
@@ -878,13 +841,6 @@ function TopStatisticsData({userId , userName}){
                 <TopTeamsBlock statistics={statistics} teamName={teamName} />
                 {bloodCounter && bloodCounter > 0 ? <FirstBloodBlock statistics={bloodCounter}  /> : null}
             </div>
-            {/* <div className="w-full col-span-2" data-aos="fade-up" >
-                <TopTeamsBlock statistics={statistics} teamName={teamName} />
-            </div> */}
-            {/* <Discord />
-                <CareerBox />
-                
-                <PublicDemo /> */}
         </div>
             
         </>

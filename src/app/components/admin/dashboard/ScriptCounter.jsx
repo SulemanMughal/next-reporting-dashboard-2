@@ -7,6 +7,8 @@ export default function ScriptCounter({total_scripts}){
     const [scriptCounter, setScriptCounter] = useState(0)
     useEffect(() => (
         setScriptCounter(total_scripts)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ), [])
     return (
         <>
