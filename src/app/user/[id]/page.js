@@ -180,7 +180,8 @@ export default function Page({ params }){
     useEffect(() => {
         AOS.init();
         DataFetch()
-        
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

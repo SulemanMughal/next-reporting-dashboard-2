@@ -121,6 +121,8 @@ export default function ScenarioDetailModal({setShowScenario , setQuestion , qui
             difficulty.current = data_2?.difficulty
             setTags(data_2?.tags?.split(","))
         }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data_2])
     const submitHandler = async () => {
         setSubmit(true)

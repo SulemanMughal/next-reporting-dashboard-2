@@ -8,6 +8,7 @@ export default function TeamCounter({total_teams}){
     const [teamCounter, setTeamCounter] = useState(0)
     useEffect(() => (
         setTeamCounter(total_teams)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     ), [])
     return (
         <>

@@ -42,6 +42,9 @@ export default function LogsCounter({total_logs}){
 
     useEffect(() => {
         DataFetch()
+
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     
     

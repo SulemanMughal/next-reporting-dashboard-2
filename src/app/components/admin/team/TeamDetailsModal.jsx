@@ -41,6 +41,8 @@ export default function TeamDetailsModal({setShowTeamDetailsModal , team_id}){
         .catch(err => {
             toast.error(`Sorry! There is an error while fetching team details. Please try again after some time`)
         });
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <>        

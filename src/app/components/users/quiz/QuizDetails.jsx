@@ -948,6 +948,8 @@ function QuizLoad({params, userID}){
         .catch(error => {
             console.debug(error)
         })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     return (
         <>

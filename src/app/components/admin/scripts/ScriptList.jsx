@@ -37,6 +37,8 @@ export default function ScriptList({data}) {
   useEffect(() => {
     AOS.init();
     setScripts(data.scripts);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <>

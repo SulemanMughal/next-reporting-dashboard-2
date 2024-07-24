@@ -61,6 +61,8 @@ export default function Login() {
         push("/user/dashboard")
       }
     }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session])
 
   const submitHandler = async () => {

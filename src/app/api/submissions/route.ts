@@ -1,11 +1,8 @@
 
 import prisma from "@/app/lib/prisma";
 import encrypt from "@/app/lib/encrypt"
+export const dynamic = "force-dynamic";
 
-
-
-
-// Get All Submissions
 export async function GET(request: Request){
     try {
         // console.debug("Get All Submissions")

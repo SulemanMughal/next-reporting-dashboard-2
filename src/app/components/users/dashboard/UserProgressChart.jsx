@@ -102,6 +102,8 @@ export default function UserProgressChart({userName, userAnswersCategory}) {
             maintainAspectRatio  : false,
             responsive : true
         })
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     return (
         <>

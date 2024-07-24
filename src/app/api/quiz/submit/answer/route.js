@@ -270,7 +270,7 @@ export async function POST(request ){
 
             
 
-             result = await prisma.answer.create({
+            result = await prisma.answer.create({
                 data:{
                     submitAnswer : answer,
                     submissionStatus  : rightStatus,

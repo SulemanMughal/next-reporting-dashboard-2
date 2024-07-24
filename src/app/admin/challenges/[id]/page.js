@@ -296,6 +296,7 @@ export default function Page({ params }){
         AOS.init();
         DateFetch()
         
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleChallengeNameChange = (e) => {

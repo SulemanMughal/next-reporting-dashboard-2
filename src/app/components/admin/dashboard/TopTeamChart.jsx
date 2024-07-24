@@ -99,6 +99,7 @@ export default function TopTeamChart({top_teams}) {
       ],
     })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
     return (
       <div className="w-full col-span-2 relative  h-[80vh]   p-8 pb-20 border-none rounded-lg bg-card-custom overflow-hidden text-white">

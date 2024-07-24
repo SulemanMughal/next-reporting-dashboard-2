@@ -2,6 +2,9 @@ import prisma from "@/app/lib/prisma";
 import encrypt from "@/app/lib/encrypt"
 
 
+export const dynamic = "force-dynamic";
+
+
 const NORMAL_LEVEL = "Normal";
 const MEDIUM_LEVEL = "medium";
 const HIGH_LEVEL = "High";
@@ -10,9 +13,6 @@ const HIGH_LEVEL = "High";
 export async function GET(request: Request){
     try {
         const activitiesList = await prisma.logEntry.findMany({})
-
-        // ==================================================================================================================
-        // Pagination Block
         const url = new URL(request.url)
         const total_number_records_per_page = parseInt(url.searchParams.get("recordsPerPrage") || "50");
         const totalResults = activitiesList.length;
@@ -32,11 +32,7 @@ export async function GET(request: Request){
             totalPages,
             total_number_records_per_page,
             activitiesPerPage,
-
         }
-        // console.debug(paginationData)
-        // ==================================================================================================================
-
 
         const normalLevelLogs = activitiesList.filter((item) => item.level === NORMAL_LEVEL).length
         const mediumLevelLogs = activitiesList.filter((item) => item.level === MEDIUM_LEVEL).length

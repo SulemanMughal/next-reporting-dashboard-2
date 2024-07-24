@@ -865,6 +865,8 @@ export default function Page(){
         if(session){
             getUserData({userID: session?.user?.id})
         }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading])
     
     return (

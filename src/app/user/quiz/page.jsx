@@ -441,7 +441,7 @@ const TeamInfraTeam = ({machines}) => {
               <span className="  text-white">
                 {/* {machine?.machine_type} */}
                 {
-                  machine?.machine_type?.toLowerCase() === "windows" ? <BsWindows className=" text-blue-500 text-xl" /> : machine?.machine_type?.toLowerCase() === "linux" ? <FcLinux className=" text-yellow-500 text-4xl" /> : <Image src={`/assets/img/wazuh.svg`} width={"35"} height={"35"} />
+                  machine?.machine_type?.toLowerCase() === "windows" ? <BsWindows className=" text-blue-500 text-xl" /> : machine?.machine_type?.toLowerCase() === "linux" ? <FcLinux className=" text-yellow-500 text-4xl" /> : <Image src={`/assets/img/wazuh.svg`} width={"35"} height={"35"} alt="asdasd" />
                 }
               </span>
             </div>
@@ -638,6 +638,8 @@ export default function Page() {
           DataFetch()
           FetchMachines()
         }
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [session])
     return (
         <>

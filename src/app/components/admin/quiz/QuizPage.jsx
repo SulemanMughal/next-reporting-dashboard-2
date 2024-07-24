@@ -62,6 +62,8 @@ function FilteredDataWithButtons({data , quizId , setData}) {
     useEffect(() => {
         setFilteredData(initialData);
         setStatusFilter("all");
+
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data])
   const handleFilterChange = (newStatus) => {
     setStatusFilter(newStatus);
@@ -366,6 +368,8 @@ export default function QuizPage({quizId}){
     }
     useEffect(() => {   
       DateFetch()
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (
