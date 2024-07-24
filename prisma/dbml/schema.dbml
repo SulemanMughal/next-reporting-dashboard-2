@@ -130,6 +130,7 @@ Table Answer {
   obtainedPoints Int [not null, default: 0]
   submissionStatus Boolean [not null, default: false]
   submittedAt DateTime [default: `now()`, not null]
+  checkStatus Boolean [not null, default: true]
   question Question
   questionId String
   team Team

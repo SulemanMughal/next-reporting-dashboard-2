@@ -36,46 +36,6 @@ import Link from "next/link";
 import { FiSend } from "react-icons/fi";
 
 
-// import { useRouter } from 'next/router';
-
-
-// import Link from "next/link"
-
-
-
-
-// function findUserWithMostAnswers(questionsData) {
-//     const userAnswerCounts = {};
-  
-//     questionsData.team.quiz.questions.forEach(question => {
-//       question.answers.forEach(answer => {
-//         const userName = answer.user.name;
-//         if (userAnswerCounts[userName]) {
-//           userAnswerCounts[userName]++;
-//         } else {
-//           userAnswerCounts[userName] = 1;
-//         }
-//       });
-//     });
-  
-//     let mostAnswersUser = null;
-//     let mostAnswersCount = 0;
-  
-//     for (const user in userAnswerCounts) {
-//       if (userAnswerCounts[user] > mostAnswersCount) {
-//         mostAnswersUser = user;
-//         mostAnswersCount = userAnswerCounts[user];
-//       }
-//     }
-  
-//     return {
-//       user: mostAnswersUser,
-//       count: mostAnswersCount
-//     };
-//   }
-
-
-
 function findUserWithMostAnswersAndPoints(questionsData) {
     const userAnswerCounts = {};
     const userTotalPoints = {};
@@ -553,7 +513,7 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                 
                 const {...data } = decrypt(res.data.encryptedData)
 
-                console.debug(data)
+                // console.debug(data)
                 if(data.status === true){
 
                     if(data.result.submissionStatus === true){
@@ -574,19 +534,11 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                             .then(res => {
                                 const {...data_2 } = decrypt(res.data.encryptedData)
                                 if(data_2.status === true){
-                                    console.debug(data_2)
-                                    // setFirstBlood()
-                                    // console.debug(data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood)
-                                    // let first_blood = data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;
-                                    // (first_blood.trim() !== "" && first_blood.trim() !== null) ? setFirstBlood(first_blood) : setFirstBlood(null)
-                                    // setFirstBlood(first_blood)
-                                    // setFirstBlood(data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood)
                                     setQuestions(data_2?.questions?.team?.quiz?.questions)
                                     setTopUser(findUserWithMostAnswersAndPoints(data_2?.questions))
                                     setRecentSolves(getUsersWithSubmissionTime(data_2?.questions?.team?.quiz?.questions))
                                     let first_blood = data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;
                                     first_blood !== null ? first_blood.trim() !== "" ? setFirstBlood(first_blood) : setFirstBlood(null) : setFirstBlood(null)
-                                    // console.debug(first_blood)
                                     setIsCheckStatus(data_2?.questions?.team?.quiz?.questions[0]?.answers[0]?.checkStatus)
                                     setFirstBloodPoints(data_2?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood_points)
                                 }
@@ -821,7 +773,7 @@ function RecentSolves({questions , recentSolves}){
 
 
 function Details({scenario , questions , top_user , team_name , recentSolves, setFirstBlood, firstBlood , firstBloodPoints}){
-    console.debug("Update Team Score On Submissions ", firstBlood, firstBloodPoints)
+    // console.debug("Update Team Score On Submissions ", firstBlood, firstBloodPoints)
     return (
         <>
             <div  className="block  p-6 bg-color-1 rounded-lg shadow ">
@@ -952,7 +904,8 @@ function QuizLoad({params, userID}){
                     let first_blood = data?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood;
                     first_blood !== null ? first_blood.trim() !== "" ? setFirstBlood(first_blood) : setFirstBlood(null) : setFirstBlood(null)
                     setIsPatch(data?.questions?.team?.quiz?.questions[0]?.scenario?.is_patch)
-                    setIsCheckStatus(data?.questions?.team?.quiz?.questions[0]?.answers[0]?.checkStatus)
+                    let check_status = data?.questions?.team?.quiz?.questions[0]?.answers[0]?.checkStatus;
+                    check_status === null || check_status === undefined ? setIsCheckStatus(true) : setIsCheckStatus(check_status)
                     setFirstBloodPoints(data?.questions?.team?.quiz?.questions[0]?.scenario?.first_blood_points || 0)
                 }
             }

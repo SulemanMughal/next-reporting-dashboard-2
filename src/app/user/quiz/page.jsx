@@ -312,26 +312,11 @@ function checkScenarios(data){
 
 
 
-// function getDifficultyColor(difficulty){
-//     if(difficulty === "Easy"){
-//         return "px-1 py-1 text-md font-semibold bg-none text-green-400"
-//     } else if(difficulty === "Medium"){
-//         return " px-1 py-1 text-md font-semibold bg-none text-orange-400"
-//     } else if(difficulty === "Hard"){
-//         return " px-1 py-1 text-md font-semibold bg-none text-red-400"
-//     } else {
-//         return " px-1 py-1 text-md font-semibold bg-none text-gray-400"
-//     }
-// }
-
-
 function QuizList({scenarios}){
-  // console.debug(scenarios)
-
     return (
         <>
             {   scenarios?.length ? [...Array(scenarios?.[0].length)].map((item, index) => (
-              <div className="component component-CerCheckBox" key={index} data-aos="fade-up" >
+              <div className="component component-CerCheckBox" key={index}  >
                   <div className="w-full col-span-3 relative      rounded-lg   flex flex-col  h-full" key={index}>
                       <div className="   bg-color-1 rounded-lg shadow    h-full">
                           <div className="p-5">
@@ -530,16 +515,10 @@ export default function Page() {
     ];
     
 
-
-
-
-
-
     const DataFetch = () => {
       axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${session?.user.id}`)
       .then(res => {
           const {...data_2 } = decrypt(res.data.encryptedData)
-          // console.log(data)
           if(data_2.status === true){
               if(data_2.user?.team?.quiz?.questions?.length) {
                   data = data_2?.user?.team?.quiz?.questions;
@@ -547,9 +526,6 @@ export default function Page() {
                   setScenarios(arrSceanrios)
                   setQuizTotalPoints(arrSceanrios[arrSceanrios.length - 2])
                   setTeamTotalPoints(calculateTotalObtainedPoints(data))
-
-                  // console.debug(arrSceanrios)
-                
                   let  uniqueScenarioObjects = Array.from(new Set(arrSceanrios[3].map(item => item)))
                   .map(stringified => (
                     { 
@@ -558,16 +534,7 @@ export default function Page() {
                     }
                   ) );
                   uniqueScenarioObjects.push({value: "all", label: "All"})
-                    
-
-
                   setCategories(uniqueScenarioObjects)
-
-                  // console.debug(setCategories(getUniqueScenarios(data?.scenarios)))
-                  // console.debug(arrSceanrios)
-                  // console.debug(checkScenarios(data))
-                  // console.debug(data)
-                  // console.debug(arrSceanrios[arrSceanrios.length - 2])
               } else {
                   setScenarios([])
               }
@@ -586,34 +553,7 @@ export default function Page() {
           
           if(data_2.status === true){
               if(data_2?.results) {
-                  // data = data_2?.user?.team?.quiz?.questions;
-                  // console.debug(data_2.results)
                   setMachines(data_2?.results)
-                  // arrSceanrios = checkScenarios(data)
-                  // setScenarios(arrSceanrios)
-                  // setQuizTotalPoints(arrSceanrios[arrSceanrios.length - 2])
-                  // setTeamTotalPoints(calculateTotalObtainedPoints(data))
-
-                  // console.debug(arrSceanrios)
-                
-                  // let  uniqueScenarioObjects = Array.from(new Set(arrSceanrios[3].map(item => item)))
-                  // .map(stringified => (
-                  //   { 
-                  //     value: `${stringified}`, 
-                  //     label: `${stringified}` 
-                  //   }
-                  // ) );
-                  // uniqueScenarioObjects.push({value: "all", label: "All"})
-                    
-
-
-                  // setCategories(uniqueScenarioObjects)
-
-                  // console.debug(setCategories(getUniqueScenarios(data?.scenarios)))
-                  // console.debug(arrSceanrios)
-                  // console.debug(checkScenarios(data))
-                  // console.debug(data)
-                  // console.debug(arrSceanrios[arrSceanrios.length - 2])
               } else {
                 setMachines([])
               }
@@ -633,7 +573,7 @@ export default function Page() {
 
     useEffect(() => {
         // AOS.init();
-        Animation();
+        // Animation();
         if (session){
           DataFetch()
           FetchMachines()
@@ -644,12 +584,12 @@ export default function Page() {
     return (
         <>
             <CustomToaster />
-            <div className="p-4 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "   data-aos="zoom-in" >
+            <div className="p-4 grid  auto-rows-fr gap-3 grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 "    >
                     <div className="w-full col-span-1 relative  p-0 border-none rounded-lg "  >
                         {machines && <TeamInfraTeam machines={machines} /> }
                     </div>
                     <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "  >
-                        <div className="grid   gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3" data-aos="fade-up" >
+                        <div className="grid   gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3"  >
                             {scenarios &&  <QuizList scenarios={scenarios} /> }
                         </div>
                     </div>

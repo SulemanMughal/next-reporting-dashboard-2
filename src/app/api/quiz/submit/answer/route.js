@@ -276,7 +276,6 @@ export async function POST(request ){
         }
 
         // console.debug(result?.checkStatus)
-        
         let total_answers = await getTotalAnswersSubmittedByTeam(team, question_db?.scenarioId).then((data) => data);
 
         if(first_attempt && first_attempt?.is_active){
