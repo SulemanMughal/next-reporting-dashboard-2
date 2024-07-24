@@ -103,7 +103,7 @@ async function isVulnerable(team_octet) {
     };
 
     try {
-        const response = await axios.get(url, { headers: headers });
+        const response = await axios.get(url, { headers: headers , timeout: 1000});
         if (response.status === 200) {
             if (response.data.toLowerCase().includes(defaultCheck.toLowerCase())) {
                 return { status: "vulnerable" };
@@ -163,6 +163,7 @@ export async function POST(request ){
         }
 
         let message = "";
+        let checkStatus = true;
         
 
         // check if user try to submit answer
@@ -171,19 +172,20 @@ export async function POST(request ){
                 points = 0;
                 if(is_vulnerable.status === "vulnerable"){
                     points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(1);
-                    rightStatus = false;
+                    rightStatus = true;
                     message = "Service is still vulnerable. 1 point deducted."
                 } else if(is_vulnerable.status === "patched"){
                     rightStatus = true;
                     points = checkExisingAnswer.answers[0]?.obtainedPoints + parseInt(correct_answer.points);
                     message = "Good Job"
+                    checkStatus  = false;
                 } else if(is_vulnerable.status === "modified"){
                     points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(5);
-                    rightStatus = false;
+                    rightStatus = true;
                     message = "Service is interrupted. 5 points deducted."
                 } else if(is_vulnerable.status === "down"){
                     points = checkExisingAnswer.answers[0]?.obtainedPoints - parseInt(5);
-                    rightStatus = false;
+                    rightStatus = true;
                     message = "Service is unreachable. 5 points deducted."
                 }
             }
@@ -198,6 +200,7 @@ export async function POST(request ){
                     submitAnswer : answer,
                     submissionStatus  : rightStatus,
                     obtainedPoints : points,
+                    checkStatus  : checkStatus ,
                     question : {
                         connect : {
                             id : (question)
@@ -215,6 +218,7 @@ export async function POST(request ){
                     }
                 }, select : {
                     submissionStatus : true,
+                    checkStatus : true
                 }
             })
         } else{
@@ -222,19 +226,20 @@ export async function POST(request ){
                 points = 0;
                 if(is_vulnerable.status === "vulnerable"){
                     points = points - parseInt(1);
-                    rightStatus = false;
+                    rightStatus = true;
                     message = "Service is still vulnerable. 1 point deducted."
                 } else if(is_vulnerable.status === "patched"){
                     points = points + parseInt(correct_answer.points);
                     rightStatus = true;
                     message = "Good Job"
+                    checkStatus  = false;
                 } else if(is_vulnerable.status === "modified"){
                     points = points - parseInt(5);
-                    rightStatus = false;
+                    rightStatus = true;
                     message = "Service is interrupted. 5 points deducted."
                 } else if(is_vulnerable.status === "down"){
                     points = points - parseInt(5);
-                    rightStatus = false;
+                    rightStatus = true;
                     message = "Service is unreachable. 5 points deducted."
                 }
             }
@@ -247,6 +252,7 @@ export async function POST(request ){
                     submitAnswer : answer,
                     submissionStatus  : rightStatus,
                     obtainedPoints : points,
+                    checkStatus  : checkStatus ,
                     question : {
                         connect : {
                             id : (question)
@@ -264,19 +270,30 @@ export async function POST(request ){
                     }
                 }, select : {
                     submissionStatus : true,
+                    checkStatus : true
                 }
             })
         }
+
+        // console.debug(result?.checkStatus)
         
         let total_answers = await getTotalAnswersSubmittedByTeam(team, question_db?.scenarioId).then((data) => data);
 
         if(first_attempt && first_attempt?.is_active){
             if(total_questions == total_answers){
-                if(!scenario?.first_blood){
-                    await updateScenarioById(question_db?.scenarioId, {
-                        first_blood : team_db?.name,
-                        first_blood_points : parseInt(first_attempt?.value),
-                    }).then((data) => data).catch((err) => console.error(err));
+                if(!scenario?.first_blood ){
+                    if(scenario?.is_patch && !result?.checkStatus){
+                        await updateScenarioById(question_db?.scenarioId, {
+                            first_blood : team_db?.name,
+                            first_blood_points : parseInt(first_attempt?.value),
+                        }).then((data) => data)
+                    } 
+                    else if(!scenario?.is_patch) {
+                        await updateScenarioById(question_db?.scenarioId, {
+                            first_blood : team_db?.name,
+                            first_blood_points : parseInt(first_attempt?.value),
+                        }).then((data) => data)
+                    }
                 }
             }
         }

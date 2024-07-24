@@ -45,7 +45,7 @@ function ProfileDropDown({username, email}){
       <>
 <Menu as="div" className="relative inline-block text-left  mx-1 rounded-0">
     <div>
-      <Menu.Button className="bg-white  text-dark  text-md p-2 rounded-full border-4 border-double border-blue-500">{getInitials(username)}</Menu.Button>
+      <Menu.Button className="bg-transparent  text-dark  text-md p-2 rounded-full border border-4 border-double border-color-2"><FaUserLarge size={16} className={"text-color-2"} /></Menu.Button>
     </div>
 
     <Transition
@@ -106,10 +106,11 @@ function ProfileDropDown({username, email}){
 
 const SigninButton = () => {
   const { data: session } = useSession();
+  
   if (session && session.user) {
     return (
       <div className="flex gap-4 ml-auto items-center justify-center ">
-        <ProfileDropDown  username={session.user.name} email={session.user.email}/>           
+        <ProfileDropDown  username={session.user.name} email={session.user.email} />           
       </div>
     );
   }

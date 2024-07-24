@@ -60,6 +60,7 @@ export async function GET(request: Request, {params} : {params : {id : string, s
                                                     submitAnswer : true,
                                                     obtainedPoints : true,
                                                     submittedAt : true,
+                                                    checkStatus : true,
                                                     user : {
                                                         select : { 
                                                             name : true,

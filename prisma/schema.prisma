@@ -193,7 +193,6 @@ model Question{
   
 }
 
-// i want to write a sql query where a specific team has submitted answers to all questions of a scneario 
 
 model Answer{
   id    String  @id @default(uuid())
@@ -201,7 +200,7 @@ model Answer{
   obtainedPoints Int @default(0)
   submissionStatus Boolean @default(false)
   submittedAt DateTime  @default(now())
-  // checkStatus Boolean @default(false)
+  checkStatus Boolean @default(true)
   question Question? @relation(fields: [questionId], references: [id])
   questionId String?
   team Team? @relation(fields: [teamId], references: [id])
