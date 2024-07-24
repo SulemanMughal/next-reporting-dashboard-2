@@ -3,6 +3,7 @@ import prisma from "@/app/lib/prisma";
 
 import encrypt from "@/app/lib/encrypt"
 import decrypt from "@/app/lib/decrypt"
+
 const axios = require('axios');
 
 function commaSeparatedStringToArray(str) {
@@ -10,9 +11,6 @@ function commaSeparatedStringToArray(str) {
 }
 
 
-function arraysHaveElements(array1, array2) {
-    return array1.length > 0 && array2.length > 0;
-}
 
 
 function getConfigurations(){
@@ -20,15 +18,6 @@ function getConfigurations(){
 
 }
 
-
-function getAllAnswersSubmitted(question_id){
-    return prisma.answer.findMany({
-        where : {
-            questionId : question_id,
-            submissionStatus: true,
-        }
-    })
-}
 
 
 function arraysHaveSameElementsIgnoreCaseAndTrim(array1, array2) {
@@ -73,17 +62,6 @@ async function getTotalAnswersSubmittedByTeam(team_id, scenario_id) {
 }
 
 
-// async function updateScenarioById(scenario_id, data) {
-//     return prisma.scenario.update({
-//         where: {
-//             id: scenario_id,
-//         },
-//         data: {
-//             ...data,
-//         },
-//     });
-// }
-
 
 async function updateScenarioById(scenario_id, data) {
     return prisma.scenario.update({
@@ -95,12 +73,6 @@ async function updateScenarioById(scenario_id, data) {
         },
     });
 }
-
-// // Example usage:
-// const scenarioId = "first_blood";
-// const newData = { /* updated scenario data */ };
-// await updateScenarioById(scenarioId, newData);
-
 
 async function getTeamById(team_id) {
     return prisma.team.findUnique({
@@ -304,7 +276,7 @@ export async function POST(request ){
                     await updateScenarioById(question_db?.scenarioId, {
                         first_blood : team_db?.name,
                         first_blood_points : parseInt(first_attempt?.value),
-                    }).then((data) => data)
+                    }).then((data) => data).catch((err) => console.error(err));
                 }
             }
         }

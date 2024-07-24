@@ -45,7 +45,7 @@ function ProfileDropDown({username, email}){
       <>
 <Menu as="div" className="relative inline-block text-left  mx-1 rounded-0">
     <div>
-      <Menu.Button className="bg-white  text-dark  text-md p-2 rounded-full border border-4 border-double border-blue-500">{getInitials(username)}</Menu.Button>
+      <Menu.Button className="bg-white  text-dark  text-md p-2 rounded-full border-4 border-double border-blue-500">{getInitials(username)}</Menu.Button>
     </div>
 
     <Transition

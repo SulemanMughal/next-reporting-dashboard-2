@@ -20,8 +20,6 @@ function checkHomePage(pathname){
   return pathname === "/" ? true : false
 }
 
-// import Script from 'next/script'
-
 
 const renderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
@@ -76,11 +74,6 @@ export default function Header(){
                 )}
               </div>
           </nav>  
-          {/* JavaScript Script */}
-          {/* <Script id="show-banner">
-            {`document.getElementsByTagName('body')[0].classList.remove('theme-color')
-              document.getElementsByTagName('body')[0].classList.add('bg-deep-indigo')`}
-          </Script> */}
       </>
       
     ) : 
