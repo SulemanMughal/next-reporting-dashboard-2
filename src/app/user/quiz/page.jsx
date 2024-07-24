@@ -437,28 +437,13 @@ const TeamInfraTeam = ({machines}) => {
   )
 }
 
-function getUniqueScenarios(scenarios) {
-  
-  
-  let  uniqueScenarioObjects = Array.from(new Set(scenarios.map(item => item.category)))
-  .map(stringified => (
-    { 
-      value: `${stringified}`, 
-      label: `${stringified}` 
-    }
-  ) );
-  uniqueScenarioObjects.push({value: "all", label: "All"})
-  return uniqueScenarioObjects
-}
+
 
 export default function Page() {
     const { data: session } = useSession();
     const [scenarios, setScenarios] = useState([])
-
     const [machines, setMachines] = useState([])
 
-    const [quizTotalPoints, setQuizTotalPoints] = useState(0)
-    const [teamTotalPoints, setTeamTotalPoints] = useState(0)
     let data ;
     let arrSceanrios = [];
 
@@ -572,8 +557,6 @@ export default function Page() {
 
 
     useEffect(() => {
-        // AOS.init();
-        // Animation();
         if (session){
           DataFetch()
           FetchMachines()

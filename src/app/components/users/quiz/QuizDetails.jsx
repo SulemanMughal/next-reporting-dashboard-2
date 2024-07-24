@@ -36,6 +36,22 @@ import Link from "next/link";
 import { FiSend } from "react-icons/fi";
 
 
+
+// function to delay a time 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function extractLastStrategyName(inputString) {
+    const matches = inputString.match(/Format: ([^\)]*)/g);
+    if (matches && matches.length > 0) {
+        const lastMatch = matches[matches.length - 1];
+        return lastMatch.replace("Format: ", "");
+    } else {
+        return "* * * * * * "; // No match found
+    }
+}
+
 function findUserWithMostAnswersAndPoints(questionsData) {
     const userAnswerCounts = {};
     const userTotalPoints = {};
@@ -198,25 +214,9 @@ function QuizFileInfo({files}){
             </div>
         ))}
         
-
-       
-        
-            
-            
         </>
     )
 }
-
-
-// total points for a scenario 
-function sumPoints(questions){
-    let sum = 0
-    questions.forEach((question) => {
-        sum = sum + question.points
-    })
-    return sum
-}
-
 
 
 
@@ -238,27 +238,31 @@ function getTotalObtainedPoints(questions){
 
 
 // get total solved questions
-function getTotalSolvedQuestions(questions){
+// condition if scenario is a patch
+function getTotalSolvedQuestions(questions , is_patch){
     let sum = 0
     if(questions){
         questions.forEach((question) => {
             if(question.answers && question.answers.length !== 0){
                 if(question.answers[0].submissionStatus === true){
-                    sum = sum + 1
+                    if(is_patch){
+                        if(question.answers[0].checkStatus === false){
+                            sum = sum + 1
+                        }
+                    } else {
+                        sum = sum + 1
+                    }
                 }
             }
-            
         })
     }
     return sum
 }
 
-function QuizInfoList({questions , scenario, team_name, firstBlood, firstBloodPoints}){
-    // console.debug(scenario, team_name)
+function QuizInfoList({questions , scenario, team_name, firstBlood, firstBloodPoints , is_patch}){
 
     let totalObtainedPoints = getTotalObtainedPoints(questions)
-    let totalPoints = sumPoints(questions)
-    let totalSolvedQuestions = getTotalSolvedQuestions(questions)
+    let totalSolvedQuestions = getTotalSolvedQuestions(questions , is_patch)
 
 
     // logic to handle first blood points to the team
@@ -273,7 +277,6 @@ function QuizInfoList({questions , scenario, team_name, firstBlood, firstBloodPo
         <div className="absolute sm:relative -mt-12 sm:mt-0 w-full flex  text-gray-400 sm:text-sm text-xs ">
             
             <div className="intro-x sm:mr-3 ">
-                {/* <span className="font-medium text-gray-400 text-xs 2xl:text-sm ">{"Team Points"} / {"Total"}</span> */}
                 <span className="font-medium text-gray-400 text-xs 2xl:text-sm ">{"Team Points"}</span>
                  <br />
                 <span className="font-bold text-yellow-500 text-lg">{totalObtainedPoints}</span> 
@@ -293,69 +296,23 @@ function QuizInfoList({questions , scenario, team_name, firstBlood, firstBloodPo
                     {capitalizeFirstLetter(scenario.difficulty)}
                 </span> 
             </div>
-            
-            {/* <div className="intro-x sm:mr-3 ml-auto">OS<br />
-                <span className="text-xs 2xl:text-sm text-emerald-500 py-1 ">
-                    {scenario.os_type}
-                </span> 
-            </div> */}
         </div>
 
         </div>
             { null &&  (<div className="p-4 grid  grid-cols-8 gap-4 place-items-center justify-center  ">
-                {/* <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
-                    <h3 className="text-gray-400">Points</h3>
-                    <p className="text-orange-400 text-xl">{totalObtainedPoints}/{totalPoints}</p>
-                </div> */}
                 <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <h3 className="text-gray-400">Difficulty</h3>
                     <p className={ "px-0  "   +   getDifficultyColor(capitalizeFirstLetter(scenario.difficulty)) }>{capitalizeFirstLetter(scenario.difficulty)}</p>
                 </div>
-                {/* <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
-                    <h3 className="text-gray-400">Solves</h3>
-                    <p className="text-green-600 text-xl">{totalSolvedQuestions}/{questions?.length}</p>
-                </div> */}
                 <div className="w-full col-span-2 relative  m-auto p-0  rounded-0">
                     <h3 className="text-gray-400">OS</h3>
                     <p className="text-rose-600  font-bold py-1 text-xl">{"Windows/Linux"}</p>
                 </div>
             </div>)}
-            {/* <hr className="my-1 h-1  opacity-100  border border-1 border-t-0 border-l-0 border-r-0 border-dashed bg-none" /> */}
         </>
         
     )
 }
-
-
-// function convertStringToArray(string){
-//     return string.split(",").map(item => item.trim())
-// }
-
-// convert to uppercase first letter of each word   
-function convertStringToTitleCase(string){
-    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-}
-
-function QuizTags({tags}){
-    try {
-        return (
-            <>
-                <div className="mt-5">
-                {
-                    convertStringToArray(tags)?.map((tag, index) => {
-                        return (
-                            <span className="px-3 py-1 rounded-full bg-color-7 text-color-10 mr-2 font-sm " key={index}>{convertStringToTitleCase(tag)}</span>
-                        )
-                    })
-                }
-                </div>
-            </>
-        )
-    } catch (error) {
-        return ""
-    }
-}
-
 
 
 
@@ -402,7 +359,6 @@ const SubmitBtn  = ({isSubmit , submitHandler , text="Submit"}) => {
   }
 
 function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, submittedAnswer , format , is_patch , isCheckStatus}){
-    // console.debug(isCheckStatus)
     return (
         <>
         {
@@ -450,32 +406,6 @@ function AnswerInputWidget({changeHandler, submitHandler, sovled , isSubmit, sub
 
 
 
-
-// function to delay a time 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-
-
-// function extractStrategyName(inputString) {
-//     const match = inputString.match(/Format: (.*)/);
-//     if (match && match[1]) {
-//         return match[1];
-//     } else {
-//         return null; // No match found
-//     }
-// }
-
-function extractLastStrategyName(inputString) {
-    const matches = inputString.match(/Format: ([^\)]*)/g);
-    if (matches && matches.length > 0) {
-        const lastMatch = matches[matches.length - 1];
-        return lastMatch.replace("Format: ", "");
-    } else {
-        return "* * * * * * "; // No match found
-    }
-}
 
 
   
@@ -529,7 +459,6 @@ function Question({question, index, team , quiz, user , setQuestions , params , 
                             }
                             setIsSubmit(false)
                             setSolved(data.result.submissionStatus)
-                            // after successful answer submission update the question
                             axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${user}/scenario/${params.slug}`)
                             .then(res => {
                                 const {...data_2 } = decrypt(res.data.encryptedData)
@@ -623,66 +552,9 @@ function QuestionList({questions, team , quiz, user , setQuestions , params , se
 }
 
 
-const ProgressBarWithLabel = ({ percentage, label }) => {
-    // const gradientStyle = `linear-gradient(90deg, rgba(255, 0, 0, 1) 0%, rgba(255, 0, 0, 1) ${percentage}%, rgba(0, 255, 0, 1) ${percentage}%, rgba(0, 255, 0, 1) 100%)`;
-    return (
-      <div className="w-full">
-        <div className="relative w-full h-4 bg-gray-700 rounded-full">
-          <div
-            className="absolute h-full transition-all duration-300 ease-in-out rounded-full bg-gradient-to-r from-indigo-500 from-10% via-sky-500 via-30% to-emerald-500 to-90%"
-            style={{ width: `${percentage}%` }}
-          />
-          <div className="absolute inset-0 flex items-center justify-center text-white text-sm font-bold">
-            {label}
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-
-
-//   function to calculate percentage check no null or zero values
-function calculatePercentage(totalObtainedPoints, totalPoints){
-    if(totalObtainedPoints !== 0 && totalPoints !== 0){
-        return (totalObtainedPoints/totalPoints)*100
-    } else{
-        return 0
-    }
-}
-
-
-function ChallengePerformance({   questions}){
-    let totalObtainedPoints = getTotalObtainedPoints(questions)
-    let totalPoints = sumPoints(questions)
-    let totalSolvedQuestions = getTotalSolvedQuestions(questions)
-    
-    return (
-        <>
-           <div  className="block  p-6 my-3 bg-card-custom rounded-lg shadow ">
-                <div className="flex justify-between mb-2">
-                    {/* obtained points/totalpoints */}
-                    <p className="text-gray-400">{totalObtainedPoints} / {totalPoints} Pts</p>
-                    {/* solved questions/total questions */}
-                    <p className="text-gray-400">{totalSolvedQuestions} / {questions?.length} Questions</p>
-                </div>
-                {/* <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4  bg-gray-700">
-                    <div className="bg-blue-600 h-2.5 rounded-full  bg-blue-500" style={{width: "45%"}}></div>
-                </div> */}
-                {/* <div className="w-full bg-gray-200 rounded-full  bg-gray-700">
-                    <div className="bg-blue-600 text-xs font-medium text-blue-100 text-center p-0.5 leading-none rounded-full" style={{width: "0"}}> 45%</div>
-                </div> */}
-                <ProgressBarWithLabel percentage={calculatePercentage(totalSolvedQuestions,questions?.length)} label={`${calculatePercentage(totalSolvedQuestions,questions?.length)}%`} />
-           </div>
-        </>
-    )
-
-}
 
 
 function BestTeamMember({top_user ,team_name , firstBloodPoints}){
-    // console.debug(team_name)
-    
     return (
         <>
             <div className="w-full border-t  border-dark-5 border-dashed mt-5"></div>
@@ -714,66 +586,11 @@ function BestTeamMember({top_user ,team_name , firstBloodPoints}){
     )
 }
 
-import { formatDistanceToNow , parseISO  } from 'date-fns'
-import { parse } from "path";
 
 
 
-function RecentSolves({questions , recentSolves}){
-    // console.debug(getUsersWithSubmissionTime(questions))
-    // console.debug(formatDistanceToNow(questions[0].time, { addSuffix: true }))
-    // console.debug(parseISO(questions[0].time) , questions[0])
-    // const [recentSolves, setRecentSolves] = useState([])
-    // useEffect(() => {
-    //     // let testing = getUsersWithSubmissionTime(questions)
-    //     // console.debug(testing[0].time, parseISO(testing[0].time) , formatDistanceToNow(parseISO(testing[0].time), { addSuffix: true }))
-    //     setRecentSolves(getUsersWithSubmissionTime(questions))
-    // }, [])
-    return (
-        <>
-            <div className="w-full border-t border-dark-5 border-dashed mt-5"></div>
-            <div className="col-span-12 md:col-span-6 xl:col-span-4 xxl:col-span-12 mt-3 text-gray-300">
-                        <div className="intro-x flex items-center h-10">
-                            <h2 className="text-base font-medium truncate mr-5 ">
-                                Recent Solves
-                            </h2>
-                        </div>
-                        {recentSolves.length !== 0 ? (
-                            <>
-                                <div className="report-timeline mt-2 relative">
-                                {recentSolves.map((solve, index) => (
-                                    <>
-                                        <a href="#!" key={index}>
-                                            <div className="intro-x relative flex items-center mb-3">
-                                                <div className="report-timeline__image">
-                                                    <div className="w-10 h-10 flex-none image-fit rounded-full overflow-hidden">
-                                                        <Image  width={"50"}  height={"50"} alt="Ramiz Rzayev" src="/assets/img/download.png" />
-                                                    </div>
-                                                </div>
-                                                <div className="box px-5 py-3 ml-4 flex-1 zoom-in">
-                                                    <div className="flex items-center">
-                                                        <div className="font-medium uppercase">{solve.user}</div>
-                                                        <div className="text-sm text-gray-500 ml-auto">{formatDistanceToNow(parseISO(solve.time))}</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </>
-                                ))}
 
-                                    
-                        </div>
-                            </>
-                        ) : (null)}
-                        
-                    </div>
-        </>
-    )
-}
-
-
-function Details({scenario , questions , top_user , team_name , recentSolves, setFirstBlood, firstBlood , firstBloodPoints}){
-    // console.debug("Update Team Score On Submissions ", firstBlood, firstBloodPoints)
+function Details({scenario , questions , top_user , team_name , recentSolves, setFirstBlood, firstBlood , firstBloodPoints , is_patch}){
     return (
         <>
             <div  className="block  p-6 bg-color-1 rounded-lg shadow ">
@@ -781,81 +598,10 @@ function Details({scenario , questions , top_user , team_name , recentSolves, se
                 <p className=" text-color-10 mt-3  text-base ">
                     {scenario.desc}    
                 </p>
-                {/* <QuizTags tags={scenario.tags}/> */}
-                <QuizInfoList questions={questions}  scenario={scenario} team_name={team_name} firstBlood={firstBlood} firstBloodPoints={firstBloodPoints} />
+                <QuizInfoList questions={questions}  scenario={scenario} team_name={team_name} firstBlood={firstBlood} firstBloodPoints={firstBloodPoints} is_patch={is_patch} />
                 {scenario?.files?.length ? ( <QuizFileInfo  files={scenario?.files}/> ) : null }
                 {firstBlood && <BestTeamMember top_user={top_user} team_name={firstBlood} firstBloodPoints={firstBloodPoints} />}
-                
-                {/* {scenario?.first_blood.trim() !== "" && scenario?.first_blood.trim() !== null ? ( <BestTeamMember top_user={top_user} team_name={scenario?.first_blood} /> ) : null } */}
-
-
-                {/* <BestTeamMember top_user={top_user} team_name={team_name}  /> */}
-                {/* <RecentSolves  questions={questions} recentSolves={recentSolves}/> */}
             </div>
-            {/* <ChallengePerformance  questions={questions}   /> */}
-        </>
-    )
-}
-
-
-function ReportIssue({setShowModal}){
-    return (
-        <>
-            <div  className="rounded-md px-3 py-2 mb-2 bg-amber-700 text-white mb-5 cursor-pointer" onClick={() => setShowModal(true)}>
-                <div className="flex items-center">
-                    <div className="font-medium text-base mr-5 flex justify-start items-center">
-                        <FaExclamationTriangle  className="mr-2"/>
-                        Found an issue with this challenge? Click here to report it!
-                    </div>
-                </div>
-            </div>
-        </>
-    )
-}
-
-
-function ReportIssueModal({setShowModal , showModal}){
-
-    
-
-    return (
-        <>
-        <div className="absolute inset-0 bg-gray-500 opacity-75 " style={{zIndex : "40"}}></div>
-                <div
-          className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" data-aos="zoom-out" data-aos-duration="700" 
-        >
-          <div className="relative w-1/4 px-4 space-y-16 ">
-            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-dark-imperial-blue outline-none focus:outline-none">
-              
-              <div className="modal-header">
-                    <h2 className="font-medium text-base mr-auto text-gray-300">Reporting Content</h2>   
-                </div>
-                <div className="flex flex-col p-4 space-y-4">
-                
-                <p className="text-sm text-gray-300 font-sans">
-                Please provide as much information as possible about the issue with this content.
-                </p>
-
-                
-                <div>
-                    <label for="team-description-input" className="text-sm text-gray-300 font-sans">Description</label>
-                    <textarea id="team-description-input" className="input w-full block mt-1 bg-deep-indigo rounded-lg" ></textarea>
-                                    </div>
-
-                
-            </div>
-            <div className="flex justify-end items-center p-4"> 
-                <button  type="button" data-dismiss="modal" className="button w-20  text-gray-300 mr-1 rounded-lg cursor-pointer py-2 px-3" style={{"border" : "1px solid  #3f4865"}} onClick={() => setShowModal(false)}>Cancel</button> 
-                               
-                    <button onClick={() => setShowModal(false)} type="button"  className="w-20  bg-dark-navy-blue   border-dark-navy-blue text-gray-300 mr-1 rounded-lg cursor-pointer py-2 px-3">
-                        Submit
-                    </button>
-                            </div>
-            </div>
-          </div>
-        </div>
-        
-        
         </>
     )
 }
@@ -893,7 +639,6 @@ function QuizLoad({params, userID}){
             const {...data } = decrypt(res.data.encryptedData)
             if(data?.status === true){
                 setQuestions(data?.questions?.team?.quiz?.questions)
-                // console.debug(data?.questions?.team?.quiz?.questions)
                 if(data?.questions?.team?.quiz?.questions.length){
                     setScenario(data?.questions?.team?.quiz?.questions[0]?.scenario)
                     setTeam(data?.questions?.team?.id)
@@ -922,15 +667,12 @@ function QuizLoad({params, userID}){
     }, [])
     return (
         <>
-        {/* {showModal && <ReportIssueModal setShowModal={setShowModal} showModal={showModal} />} */}
         {questions && (
                 <div className="p-2 grid  grid-cols-6 gap-4 items-start justify-center" >
                     <div className="w-full col-span-2 relative   p-0  rounded-0 " data-aos="fade-right" data-aos-duration="700" data-aos-delay="500">
-                        {scenario && <Details scenario={scenario} questions={questions} top_user={topUser}  team_name={teamName} recentSolves={recentSolves} setFirstBlood={setFirstBlood} firstBlood={firstBlood} firstBloodPoints={firstBloodPoints} /> } 
+                        {scenario && <Details scenario={scenario} questions={questions} top_user={topUser}  team_name={teamName} recentSolves={recentSolves} setFirstBlood={setFirstBlood} firstBlood={firstBlood} firstBloodPoints={firstBloodPoints} is_patch={is_patch} /> } 
                     </div>
                     <div className="w-full col-span-4 relative   p-0  rounded-0">
-                        {/* {scenario &&  <ScenarioDescription scenario={scenario}  /> }  */}
-                        {/* {scenario && <ReportIssue   setShowModal={setShowModal} />} */}
                         <QuestionList questions={questions} team={team} quiz={quiz} user={userID} setQuestions={setQuestions} setTopUser={setTopUser} params={params} setRecentSolves={setRecentSolves} setFirstBlood={setFirstBlood} is_patch={is_patch} setFirstBloodPoints={setFirstBloodPoints} isCheckStatus={isCheckStatus} setIsCheckStatus={setIsCheckStatus} />
                     </div>
                 </div>
