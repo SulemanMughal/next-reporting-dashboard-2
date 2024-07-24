@@ -346,17 +346,42 @@ function QuizList({scenarios}){
     )
 }
 
-function calculateTotalObtainedPoints(questions) {
-  console.debug(questions)
-  let totalObtainedPoints = 0;
 
-  questions.forEach(item => {
-      item.answers.forEach(answer => {
-          totalObtainedPoints += answer.obtainedPoints;
-      });
-  });
 
-  return totalObtainedPoints;
+function ScenarioCard({scenario}){
+  return (
+    <div className="component component-CerCheckBox"   >
+      <div className="w-full col-span-3 relative      rounded-lg   flex flex-col  h-full" >
+          <div className="   bg-color-1 rounded-lg shadow    h-full">
+              <div className="p-5">
+                  <h5 className=" font-medium text-base tracking-tight whitespace-normal text-gray-300  text-center mb-1">
+                    {scenario?.scenario_name}</h5>
+                  <div className="text-gray-400 text-xs truncate text-center">
+                      {scenario?.scenario_desc}
+                  </div>
+                  <div className="flex flex-wrap justify-center items-center pt-4 pb-2">
+                    <span className={getDifficultyColor(scenario?.difficulty)}>{ scenario?.difficulty }</span>
+                    <span className="px-1 py-1 text-sm  2xl:text-base font-bold bg-none text-blue-400 ">{ scenario?.category }</span>
+                    <span className="px-1 py-1 text-sm  2xl:text-base font-bold bg-none text-yellow-400 ">{ scenario?.total_original_points +  " Points"}</span>
+                  </div>
+              </div>
+              <div className=" pt-0 pb-4 flex justify-center">
+                  {
+                    scenario?.status === "unsolved" ? (
+                      <Link href={`/user/quiz/${scenario?.scenario_id}`}  className=" cursor-pointer     bg-color-7  flex justify-center items-center   text-color-6 text-lg font-medium    h-full rounded-md px-3 py-1       ">
+                        <span>{"Details" } </span> 
+                      </Link>
+                    ) : (
+                      <Link href={"#!"}  className=" bg-color-6  flex justify-center items-center   text-color-4 text-lg font-medium    h-full rounded-md px-3 py-1       ">
+                        <span>{"Solved"} </span>
+                      </Link>
+                    )
+                  }
+              </div>
+          </div>
+      </div>
+  </div>
+  )
 }
 
 
@@ -443,6 +468,7 @@ export default function Page() {
     const { data: session } = useSession();
     const [scenarios, setScenarios] = useState([])
     const [machines, setMachines] = useState([])
+    const [scenariosArray, setScenariosArray] = useState([])
 
     let data ;
     let arrSceanrios = [];
@@ -505,12 +531,12 @@ export default function Page() {
       .then(res => {
           const {...data_2 } = decrypt(res.data.encryptedData)
           if(data_2.status === true){
+            setScenariosArray(data_2?.jsonResults)
               if(data_2.user?.team?.quiz?.questions?.length) {
                   data = data_2?.user?.team?.quiz?.questions;
                   arrSceanrios = checkScenarios(data)
+                  
                   setScenarios(arrSceanrios)
-                  setQuizTotalPoints(arrSceanrios[arrSceanrios.length - 2])
-                  setTeamTotalPoints(calculateTotalObtainedPoints(data))
                   let  uniqueScenarioObjects = Array.from(new Set(arrSceanrios[3].map(item => item)))
                   .map(stringified => (
                     { 
@@ -573,7 +599,10 @@ export default function Page() {
                     </div>
                     <div className="w-full col-span-3 relative  p-0 border-none rounded-lg "  >
                         <div className="grid   gap-4 auto-rows-fr grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3"  >
-                            {scenarios &&  <QuizList scenarios={scenarios} /> }
+                            {/* {scenarios &&  <QuizList scenarios={scenarios} /> } */}
+                            {scenariosArray && scenariosArray?.map((scenario, index) => (
+                              <ScenarioCard  scenario={scenario}  key={index} />
+                            ))}
                         </div>
                     </div>
                 </div>
