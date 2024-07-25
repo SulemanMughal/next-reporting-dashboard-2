@@ -57,7 +57,7 @@ function ProfileDropDown({username, email}){
       leaveFrom="transform opacity-100 scale-100"
       leaveTo="transform opacity-0 scale-95"
     >
-      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-0 btn-profile-dropdown   text-white  shadow-lg  focus:outline-none">
+      <Menu.Items className="absolute right-0 z-10 mt-2 w-72 origin-top-right rounded-0 btn-profile-dropdown   text-white  shadow-lg  focus:outline-none">
         <div className="py-0">
           <Menu.Item >
             {({ active }) => (
