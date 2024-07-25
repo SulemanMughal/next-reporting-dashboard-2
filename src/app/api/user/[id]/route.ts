@@ -92,10 +92,28 @@ export async function GET(request: Request, {params} : {params : {id : string}})
 
             const totalBonusPoints = teamBonusPoints.reduce((sum: number, record: any) => sum + record.first_blood_points, 0);
 
-            const ChallengesCompleted = await prisma.$queryRaw`WITH TeamAnswers AS ( SELECT s.id AS scenario_id, q.id AS question_id, a.teamId, a.submissionStatus FROM Scenario s JOIN Question q ON s.id = q.scenarioId LEFT JOIN Answer a ON q.id = a.questionId AND a.teamId = ${team_id?.teamId} ), AnsweredQuestions AS ( SELECT scenario_id, question_id, COUNT(*) FILTER (WHERE submissionStatus = true) AS successful_answers, COUNT(*) AS total_answers FROM TeamAnswers GROUP BY scenario_id, question_id ), ScenarioCompletion AS ( SELECT scenario_id, COUNT(*) FILTER (WHERE successful_answers = 1) AS successfully_answered_questions, COUNT(*) AS total_questions FROM AnsweredQuestions GROUP BY scenario_id ) SELECT COUNT(*) AS total_successful_scenarios FROM ScenarioCompletion WHERE successfully_answered_questions = total_questions;`
+            // const ChallengesCompleted = await prisma.$queryRaw`WITH TeamAnswers AS ( SELECT s.id AS scenario_id, q.id AS question_id, a.teamId, a.submissionStatus FROM Scenario s JOIN Question q ON s.id = q.scenarioId LEFT JOIN Answer a ON q.id = a.questionId AND a.teamId = ${team_id?.teamId} ), AnsweredQuestions AS ( SELECT scenario_id, question_id, COUNT(*) FILTER (WHERE submissionStatus = true) AS successful_answers, COUNT(*) AS total_answers FROM TeamAnswers GROUP BY scenario_id, question_id ), ScenarioCompletion AS ( SELECT scenario_id, COUNT(*) FILTER (WHERE successful_answers = 1) AS successfully_answered_questions, COUNT(*) AS total_questions FROM AnsweredQuestions GROUP BY scenario_id ) SELECT COUNT(*) AS total_successful_scenarios FROM ScenarioCompletion WHERE successfully_answered_questions = total_questions;`
+
+            const ChallengesCompleted : any = await prisma.$queryRaw`SELECT
+            COUNT(*) AS solved_challenges_count
+        FROM
+            Scenario s
+        JOIN
+            Question q ON s.id = q.scenarioId
+        LEFT JOIN
+            Answer a ON q.id = a.questionId AND a.teamId = '0554d7c4-c7a1-414b-a9c9-ef3ad56b11a1' 
+            AND a.submissionStatus = true 
+            AND (s.is_patch = false OR (s.is_patch = true AND a.checkStatus = false))
+        GROUP BY
+            s.id
+        HAVING
+            COUNT(q.id) = COUNT(a.id);`
+
+            // console.debug(ChallengesCompleted?.length)
             
             
-            const total_successful_scenarios = parseInt(ChallengesCompleted[0]?.total_successful_scenarios) || 0;
+            // const total_successful_scenarios = parseInt(ChallengesCompleted[0]?.total_successful_scenarios) || 0;
+            const total_successful_scenarios = parseInt(ChallengesCompleted?.length) || 0;
             
             
             const team_position = teamRecords.findIndex(record => record.team_id === team_id.teamId);
