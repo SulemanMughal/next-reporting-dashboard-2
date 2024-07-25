@@ -14,9 +14,9 @@ const AuthBtns = () => {
     return (
         <>
             <div className="my-3 py-3 flex  justify-start items-center" >
-                <Link href={URL_PATTERNS?.REGISTER} className={ styles.hero_register_btn + " flex justify-start items-center  w-2/5 h-full  cursor:pointer  uppercase "}  >
+                {/* <Link href={URL_PATTERNS?.REGISTER} className={ styles.hero_register_btn + " flex justify-start items-center  w-2/5 h-full  cursor:pointer  uppercase "}  >
                     <OutlineUser  size={24} /> <span className='inline-block ml-2'>{`Register for FREE`}</span>
-                </Link>
+                </Link> */}
                 <Link href={URL_PATTERNS?.LOGIN} className={  styles.hero_login_btn  + "  mx-3 h-full justify-start flex items-center   cursor:pointer  uppercase"}>
                     <span> {`Log in`} </span>
                 </Link>

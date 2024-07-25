@@ -27,7 +27,7 @@ const LogoutBtn = () => {
 const LoginBtn = () => {
   return (
     <button className={styles.signInButton } onClick={() => signIn()}>
-      Login/Register
+      Login
     </button>
   )
 }
