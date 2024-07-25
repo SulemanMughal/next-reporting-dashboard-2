@@ -769,7 +769,10 @@ const CompletedChallengesTable = ({scenariosArray}) => {
         </thead>
         <tbody>
             {scenariosArray && scenariosArray.map((scenario, index) => (
-                <tr className="border-b bg-gray-800 border-gray-700" key={index}>
+
+                scenario?.status === "solved" ? 
+                (
+                    <tr className="border-b bg-gray-800 border-gray-700" key={index}>
                     <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap ">
                         {scenario?.scenario_name}
                     </th>
@@ -783,6 +786,7 @@ const CompletedChallengesTable = ({scenariosArray}) => {
                         {scenario?.difficulty}
                     </td>
                 </tr>
+                ) : null
             ))}
             
         </tbody>
