@@ -794,6 +794,32 @@ const CompletedChallengesTable = ({scenariosArray}) => {
 }
 
 
+const FirstBloodChallengesTable = ({scenariosArray}) => {
+    return (
+        <div className="relative overflow-x-auto rounded-lg my-3 overflow-y-auto" >
+    <table className="w-full text-sm text-left rtl:text-right  text-gray-400">
+        <thead className="text-xs  uppercase  bg-gray-700 text-gray-400">
+            <tr>
+                <th scope="col" className="px-6 py-3">
+                    Challenge Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {scenariosArray && scenariosArray.map((scenario, index) => (
+                <tr className="border-b bg-gray-800 border-gray-700" key={index}>
+                    <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap ">
+                        {scenario?.scenario_name}
+                    </th>
+                </tr>
+            ))}
+            
+        </tbody>
+    </table>
+</div>
+    )
+}
+
 
 function TopStatisticsData({userId , userName}){
 
@@ -820,6 +846,8 @@ function TopStatisticsData({userId , userName}){
 
     const [scenariosArray, setScenariosArray] = useState([])
 
+    const [firstBloodChallengesNames, setFirstBloodChallengesNames] = useState([])
+
     // const [userPoints, setUserPoints] = useState(0)   
 
     // const [bonusPoints, setBonusPoints] = useState(0)   
@@ -840,8 +868,9 @@ function TopStatisticsData({userId , userName}){
             .then(res => {
                 const {...data_2 } = decrypt(res.data.encryptedData)
             if(data_2?.status === true){
-                // console.debug(data_2)
+                console.debug(data_2)
                 setScenariosArray(data_2?.jsonResults)
+                setFirstBloodChallengesNames(data_2?.firstBloodChallengesNames)
                 setTeamName(data_2?.team_name)
                 setBloodCounter(data_2?.total_first_blood_scenarios)
                 setStatistics(data_2?.teamStatisticsJson)
@@ -899,6 +928,8 @@ function TopStatisticsData({userId , userName}){
             <div className="w-full col-span-2" data-aos="fade-up" >
                 <TopTeamsBlock statistics={statistics} teamName={teamName} />
                 {bloodCounter && bloodCounter > 0 ? <FirstBloodBlock statistics={bloodCounter}  /> : null}
+                {/* {firstBloodChallengesNames?.length} */}
+                {firstBloodChallengesNames && <FirstBloodChallengesTable scenariosArray={firstBloodChallengesNames} />}
             </div>
         </div>
             

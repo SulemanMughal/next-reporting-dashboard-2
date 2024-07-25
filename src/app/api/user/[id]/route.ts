@@ -212,11 +212,27 @@ export async function GET(request: Request, {params} : {params : {id : string}})
             }
 
 
+            let firstBloodChallengesNames:any = [];
+            try{
+                firstBloodChallengesNames = await prisma.$queryRaw`SELECT 
+                s.name as scenario_name
+            FROM 
+                Scenario s
+            WHERE 
+                s.first_blood = ${quiz_id?.name};`
+            } catch(error){
+                firstBloodChallengesNames=[]
+                console.debug(error)
+            }
+
+            // console.debug(firstBloodChallengesNames)
+
             const encryptedData = encrypt({status : true, user , total_teams: total_teams , team_position : (team_position+1) , totalBonusPoints:totalBonusPoints, userObtainedPoints : total_obtained_points, 
                 teamStatisticsJson : teamStatisticsJson, total_successful_scenarios:total_successful_scenarios,
                 team_name : quiz_id?.name || "",
                 total_first_blood_scenarios : total_first_blood_scenarios,
-                jsonResults : jsonResults
+                jsonResults : jsonResults,
+                firstBloodChallengesNames : firstBloodChallengesNames
             
             })
 
