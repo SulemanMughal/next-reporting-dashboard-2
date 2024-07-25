@@ -26,9 +26,9 @@ const SubmitBtn = ({ isSubmit, submitHandler }) => {
             
           </>
         }
-        <p className="text-white py-3">
+        {/* <p className="text-white py-3">
           or  <Link href={URL_PATTERNS?.REGISTER} className="hover:cursor-pointer pl-1 text-white"> {`Sign Up Here`} </Link>
-        </p>
+        </p> */}
       </div>
     </>
   )
