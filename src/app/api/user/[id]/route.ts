@@ -101,7 +101,7 @@ export async function GET(request: Request, {params} : {params : {id : string}})
         JOIN
             Question q ON s.id = q.scenarioId
         LEFT JOIN
-            Answer a ON q.id = a.questionId AND a.teamId = '0554d7c4-c7a1-414b-a9c9-ef3ad56b11a1' 
+            Answer a ON q.id = a.questionId AND a.teamId = ${team_id.teamId} 
             AND a.submissionStatus = true 
             AND (s.is_patch = false OR (s.is_patch = true AND a.checkStatus = false))
         GROUP BY
