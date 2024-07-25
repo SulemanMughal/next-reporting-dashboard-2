@@ -520,7 +520,7 @@ function PlatformIntroduction({userId}){
                                 </div>
                                 <div className="my-5">
                                     <p className="text-white text-md ">
-                                        {"Familiarize yourself with our platform's rules and guidelines, which have been carefully designed to ensure fair play, prevent the sharing of answers and writeups, and create a level playing field for all participants. Attack & Defense - Q is not just a platform - it's a dynamic arena where seasoned defenders can further their expertise through realistic experiences, leveraging external training and self-study to fortify their abilities in investigating and mitigating cyber attacks and intrusions."}
+                                        {"Familiarize yourself with our platform's rules and guidelines, which have been carefully designed to ensure fair play, prevent the sharing of answers and writeups, and create a level playing field for all participants. Blueteams CTF is not just a platform - it's a dynamic arena where seasoned defenders can further their expertise through realistic experiences, leveraging external training and self-study to fortify their abilities in investigating and mitigating cyber attacks and intrusions."}
                                     </p>
                                 </div>
                                 <div className="my-5">

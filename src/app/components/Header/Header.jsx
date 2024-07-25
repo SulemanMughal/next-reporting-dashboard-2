@@ -47,7 +47,7 @@ export default function Header(){
               <div className="flex flex-wrap justify-between items-center  w-full px-10 py-2">
                 <Link href="/" className="flex items-center">
                   <Logo />
-                  {checkHomePage(pathname) ? null :  (<span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white pl-3 " >Attack & <span className="text-color-2">Defense</span></span>)}
+                  {/* {checkHomePage(pathname) ? null :  (<span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white pl-3 " >Attack & <span className="text-color-2">Defense</span></span>)} */}
                 </Link>
                 {/* <div 
                 className="rounded-lg timer_counter"
@@ -83,7 +83,7 @@ export default function Header(){
               <div className="flex flex-wrap justify-between items-center  w-full px-4 py-2">
                 <Link href={"/"} className="flex items-center">
                   <Logo />
-                  {checkHomePage(pathname) ? null :  (<span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white pl-3 " >Attack & <span className="text-color-2">Defense -  Q</span></span>)}
+                  {/* {checkHomePage(pathname) ? null :  (<span className="self-center text-3xl font-semibold whitespace-nowrap  font-bolder text-white pl-3 " >Attack & <span className="text-color-2">Defense -  Q</span></span>)} */}
                 </Link>
                 {checkLoginPath(pathname) ? null :  (
                   <>

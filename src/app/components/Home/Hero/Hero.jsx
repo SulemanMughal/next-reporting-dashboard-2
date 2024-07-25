@@ -46,9 +46,9 @@ export default function Hero(){
                 <div className={  "  container mx-auto   " }>
                     <div className="flex items-center justify-around" >
                         <div className="lg:w-1/2 pr-4 pl-4 flex flex-col justify-center pt-4 lg:pt-0  " data-aos="zoom-out" >
-                            <h1 className="font-bold text-5xl mb-3  uppercase text-white" >{`Attack &  `}</h1>
+                            <h1 className="font-bold text-5xl mb-3  uppercase text-white" >{`Blueteams `}</h1>
                             <h1 className="font-bold text-5xl mb-3  uppercase text-color-2">
-                                {`Defense - Q`}
+                                {`CTF`}
                             </h1>
                             <p className="text-1xl  text-color-6">{`A gamified platform for defenders to practice their skills in security investigations and challenges covering; Incident Response, Digital Forensics, Security Operations, Reverse Engineering, and Threat Hunting. `}</p>
                             <AuthBtns />
