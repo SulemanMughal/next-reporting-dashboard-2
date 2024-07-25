@@ -742,6 +742,46 @@ function NewsBlock(){
 }
 
 
+const CompletedChallengesTable = () => {
+    return (
+        <>
+            
+
+<div className="relative overflow-x-auto">
+    <table className="w-full text-sm text-left rtl:text-right  text-gray-400">
+        <thead className="text-xs  uppercase  bg-gray-700 text-gray-400">
+            <tr>
+                <th scope="col" className="px-6 py-3">
+                    Challenge Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Obtained Points
+                </th>
+                <th scope="col" className="px-6 py-3">
+                    Category
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr className="border-b bg-gray-800 border-gray-700">
+                <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap ">
+                    {"Apple MacBook Pro 17"}
+                </th>
+                <td className="px-6 py-4">
+                    Silver
+                </td>
+                <td className="px-6 py-4">
+                    Laptop
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+        </>
+    )
+}
+
 
 
 function TopStatisticsData({userId , userName}){
@@ -829,6 +869,10 @@ function TopStatisticsData({userId , userName}){
                     <TeamPosition  team_position={team_position} total_teams={total_teams} />
                 </div>
                 <div className="grid grid-cols-12 gap-4 rounded-lg mt-4">
+                    <div className=" w-full col-span-6 relative  m-auto p-0 border-none rounded-lg ">
+                        {/* <CompletedChallengesTable /> */}
+                    </div>
+                    
                     
                     {/* data-aos="fade-down" data-aos-duration="500" data-aos-delay="900" */}
                     
