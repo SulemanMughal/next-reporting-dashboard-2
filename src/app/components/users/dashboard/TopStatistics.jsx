@@ -581,7 +581,7 @@ function PlatformIntroduction({userId}){
 
 
 function TeamRow({user}){
-    console.debug(user)
+    // console.debug(user)
     return (
         <div className={"intro-y rounded text-color-6  zoom-in bg-color-7" }  >
                 
@@ -742,12 +742,14 @@ function NewsBlock(){
 }
 
 
-const CompletedChallengesTable = () => {
+const CompletedChallengesTable = ({scenariosArray}) => {
+
+    
     return (
         <>
             
 
-<div className="relative overflow-x-auto">
+<div className="relative overflow-x-auto rounded-lg my-3 overflow-y-auto" >
     <table className="w-full text-sm text-left rtl:text-right  text-gray-400">
         <thead className="text-xs  uppercase  bg-gray-700 text-gray-400">
             <tr>
@@ -760,20 +762,29 @@ const CompletedChallengesTable = () => {
                 <th scope="col" className="px-6 py-3">
                     Category
                 </th>
+                <th scope="col" className="px-6 py-3">
+                    Difficulty Level
+                </th>
             </tr>
         </thead>
         <tbody>
-            <tr className="border-b bg-gray-800 border-gray-700">
-                <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap ">
-                    {"Apple MacBook Pro 17"}
-                </th>
-                <td className="px-6 py-4">
-                    Silver
-                </td>
-                <td className="px-6 py-4">
-                    Laptop
-                </td>
-            </tr>
+            {scenariosArray && scenariosArray.map((scenario, index) => (
+                <tr className="border-b bg-gray-800 border-gray-700" key={index}>
+                    <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap ">
+                        {scenario?.scenario_name}
+                    </th>
+                    <td className="px-6 py-4">
+                        {scenario?.total_obtained_points}
+                    </td>
+                    <td className="px-6 py-4">
+                        {scenario?.category}
+                    </td>
+                    <td className="px-6 py-4">
+                        {scenario?.difficulty}
+                    </td>
+                </tr>
+            ))}
+            
         </tbody>
     </table>
 </div>
@@ -807,6 +818,8 @@ function TopStatisticsData({userId , userName}){
 
     const [bloodCounter, setBloodCounter] = useState(0)
 
+    const [scenariosArray, setScenariosArray] = useState([])
+
     // const [userPoints, setUserPoints] = useState(0)   
 
     // const [bonusPoints, setBonusPoints] = useState(0)   
@@ -826,8 +839,9 @@ function TopStatisticsData({userId , userName}){
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/api/user/${userId}`)
             .then(res => {
                 const {...data_2 } = decrypt(res.data.encryptedData)
-            if(data_2.status === true){
+            if(data_2?.status === true){
                 // console.debug(data_2)
+                setScenariosArray(data_2?.jsonResults)
                 setTeamName(data_2?.team_name)
                 setBloodCounter(data_2?.total_first_blood_scenarios)
                 setStatistics(data_2?.teamStatisticsJson)
@@ -869,8 +883,8 @@ function TopStatisticsData({userId , userName}){
                     <TeamPosition  team_position={team_position} total_teams={total_teams} />
                 </div>
                 <div className="grid grid-cols-12 gap-4 rounded-lg mt-4">
-                    <div className=" w-full col-span-6 relative  m-auto p-0 border-none rounded-lg ">
-                        {/* <CompletedChallengesTable /> */}
+                    <div className=" w-full col-span-12 relative  m-auto p-0 border-none rounded-lg ">
+                        {scenariosArray &&  <CompletedChallengesTable scenariosArray={scenariosArray}  /> }   
                     </div>
                     
                     
